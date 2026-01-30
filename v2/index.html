@@ -13,6 +13,7 @@
             --success: #10b981;
             --danger: #ef4444;
             --gray: #64748b;
+            --purple: #8b5cf6;
         }
 
         body {
@@ -56,7 +57,6 @@
         }
 
         .card-skill:hover { border-color: var(--primary); transform: translateY(-5px); }
-
         .card-skill h3 { margin-top: 0; color: var(--primary); font-size: 1.1rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; }
 
         .visi-misi-box {
@@ -73,11 +73,11 @@
         }
 
         .btn-daftar { background: var(--primary); color: white; }
+        .btn-login { background: var(--purple); color: white; display: none; } /* Muncul setelah daftar */
         .btn-cv { background: var(--success); color: white; }
         .btn-masuk { border: 2px solid var(--primary); color: var(--primary); background: transparent; }
 
         .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
-        .btn:disabled { background: var(--gray); cursor: not-allowed; }
 
         /* MODAL */
         .modal {
@@ -94,7 +94,7 @@
 
         .form-group { margin-bottom: 20px; text-align: left; }
         .form-group label { display: block; font-weight: bold; margin-bottom: 8px; }
-        .form-group input, .form-group textarea {
+        .form-group input {
             width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 10px; box-sizing: border-box;
         }
 
@@ -107,7 +107,7 @@
 
 <header>
     <h1>M. GIBRAN</h1>
-    <p>Desain Grafis | Video Editor | Humas</p>
+    <p>Desain Grafis | Content Creator | Video Editor | Humas</p>
 </header>
 
 <div class="container">
@@ -115,9 +115,11 @@
         
         <h2 class="section-title">Tentang Saya</h2>
         <div class="content-text">
-            Perkenalkan, nama saya Gibran. Saya merupakan mahasiswa Hubungan Masyarakat (Humas) di LP3I Kramat Raya. Saya memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring, dengan masa kerja selama satu bulan. Saya adalah pribadi yang disiplin, cepat beradaptasi, serta mau belajar hal baru. Dalam keseharian, saya senang melakukan aktivitas positif, salah satunya bermain futsal yang menjadi hobi saya sejak lama.
+            Perkenalkan, nama saya Gibran. Saya merupakan mahasiswa Hubungan Masyarakat (Humas) di LP3I Kramat Raya. Saya memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring, dengan masa kerja selama satu bulan. 
+            
+            Saya adalah pribadi yang disiplin, cepat beradaptasi, serta mau belajar hal baru. Dalam keseharian, saya senang melakukan aktivitas positif, salah satunya bermain futsal yang menjadi hobi saya sejak lama.
 
-            Dengan latar belakang Humas dan pengalaman di lapangan, saya siap berkontribusi dalam pekerjaan atau proyek yang membutuhkan komunikasi, kedisiplinan, dan kemampuan analisis dasar.
+            Dengan latar belakang Humas dan pengalaman di lapangan, saya siap berkontribusi dalam pekerjaan atau proyek yang membutuhkan komunikasi, kedisplinan, dan kemampuan analisis dasar.
         </div>
 
         <h2 class="section-title">Keahlian & Kompetensi</h2>
@@ -144,19 +146,19 @@
             </div>
             <div class="card-skill">
                 <h3>⚽ Futsal</h3>
-                <p>Kontrol bola baik, cepat dalam keputusan, dan mampu bekerja sama dalam tim (Bertahan/Penyerang).</p>
+                <p>Kontrol bola baik, cepat dalam keputusan, dan mampu bekerja sama dalam tim.</p>
             </div>
         </div>
 
         <h2 class="section-title">Pengalaman Kerja</h2>
         <div class="card-skill" style="margin-top: 15px;">
             <h3>🏢 BGI (Operasional)</h3>
-            <p>Bertanggung jawab dalam tugas operasional, membantu proses pekerjaan sehari-hari, mendukung kegiatan tim, dan menjalankan instruksi standar perusahaan. Pengalaman ini membuat saya lebih matang secara profesional dan memahami manajemen waktu.</p>
+            <p>Pernah bekerja di BGI dan bertanggung jawab dalam beberapa tugas operasional. Pengalaman ini membuat saya lebih matang dalam bekerja secara profesional dan memahami manajemen waktu.</p>
         </div>
 
         <div class="visi-misi-box">
             <h3 style="color:var(--accent)">👁️ Visi</h3>
-            <p>Menjadi individu yang mampu berkontribusi secara maksimal, bekerja dengan penuh tanggung jawab, serta dapat berkolaborasi dengan baik dalam tim untuk mencapai tujuan perusahaan.</p>
+            <p>Menjadi individu yang mampu berkontribusi secara maksimal, bekerja dengan penuh tanggung jawab, serta dapat berkolaborasi dengan baik dalam tim.</p>
             <h3 style="color:var(--accent); margin-top:20px;">🚀 Misi</h3>
             <ul style="padding-left: 20px;">
                 <li>Membangun hubungan kerja yang positif dan profesional.</li>
@@ -167,7 +169,8 @@
         </div>
 
         <div class="btn-container">
-            <button class="btn btn-daftar" onclick="openDaftar()">📝 Daftar Sekarang</button>
+            <button id="btnDaftarSekarang" class="btn btn-daftar" onclick="openDaftar()">📝 Daftar Sekarang</button>
+            <button id="btnLoginSekarang" class="btn btn-login" onclick="openLogin()">🔑 Login Akun</button>
             <button class="btn btn-cv" onclick="openCV()">📁 Masukkan CV</button>
             <button class="btn btn-masuk">Masuk Dashboard</button>
         </div>
@@ -177,22 +180,24 @@
 <div id="modalDaftar" class="modal">
     <div class="modal-content">
         <span class="close-modal" onclick="closeDaftar()">&times;</span>
-        <h3 style="color: var(--primary);">Pendaftaran Akun</h3>
-        <p>Data akan masuk ke Sheet "daftar sekarang"</p>
-        <form id="formGibran">
-            <div class="form-group">
-                <label>Nama Lengkap</label>
-                <input type="text" name="nama" required placeholder="Masukkan Nama Anda">
-            </div>
-            <div class="form-group">
-                <label>Nomor Handphone</label>
-                <input type="number" name="hp" required placeholder="08xxxxxxxx">
-            </div>
-            <div class="form-group">
-                <label>Opini Tentang Website</label>
-                <textarea name="opini" rows="3" required placeholder="Apa pendapatmu?"></textarea>
-            </div>
-            <button type="submit" id="btnSubmit" class="btn btn-daftar" style="width: 100%; justify-content: center;">Kirim Sekarang</button>
+        <h3 style="color: var(--primary);">Form Pendaftaran</h3>
+        <form id="formDaftar">
+            <div class="form-group"><label>Nama Lengkap</label><input type="text" name="nama" required></div>
+            <div class="form-group"><label>Nomor Handphone</label><input type="number" name="hp" required></div>
+            <div class="form-group"><label>Opini Tentang Web</label><input type="text" name="opini" required></div>
+            <button type="submit" id="submitDaftar" class="btn btn-daftar" style="width: 100%; justify-content: center;">Kirim Pendaftaran</button>
+        </form>
+    </div>
+</div>
+
+<div id="modalLogin" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeLogin()">&times;</span>
+        <h3 style="color: var(--purple);">Login Akun</h3>
+        <form id="formLogin">
+            <div class="form-group"><label>Nama Lengkap</label><input type="text" name="nama" required></div>
+            <div class="form-group"><label>Nomor Telepon</label><input type="number" name="hp" required></div>
+            <button type="submit" id="submitLogin" class="btn btn-login" style="width: 100%; justify-content: center; display: flex;">Masuk</button>
         </form>
     </div>
 </div>
@@ -212,32 +217,45 @@
 </div>
 
 <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxesFF0-PC4hAtgsX5AI6j5thzTVvahyP5qzA50GqIvDjZqaiGCoy9oOv2TVv1pdIdByw/exec';
-    const form = document.getElementById('formGibran');
-    const btnSubmit = document.getElementById('btnSubmit');
-
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxqbpqaLr31aPnLmALq3VZQ8t5z7VkWTT0LwxO0AE-1hj6s03X7BVPrQecyH5x8jSvgew/exec';
+    
     function openDaftar() { document.getElementById("modalDaftar").style.display = "flex"; }
     function closeDaftar() { document.getElementById("modalDaftar").style.display = "none"; }
+    function openLogin() { document.getElementById("modalLogin").style.display = "flex"; }
+    function closeLogin() { document.getElementById("modalLogin").style.display = "none"; }
     function openCV() { document.getElementById("modalCV").style.display = "flex"; }
     function closeCV() { document.getElementById("modalCV").style.display = "none"; }
 
-    form.addEventListener('submit', e => {
+    // FETCH DAFTAR
+    document.getElementById('formDaftar').addEventListener('submit', e => {
         e.preventDefault();
-        btnSubmit.disabled = true;
-        btnSubmit.innerText = "Mengirim...";
+        const btn = document.getElementById('submitDaftar');
+        btn.disabled = true; btn.innerText = "Mengirim...";
         
-        fetch(scriptURL, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
+        fetch(scriptURL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
         .then(() => {
-            alert('MANTAP BRAN! Data sudah dikirim. Cek Google Sheets lo!');
-            btnSubmit.disabled = false;
-            btnSubmit.innerText = "Kirim Sekarang";
-            form.reset();
+            alert('Pendaftaran Berhasil! Tombol Login sekarang aktif.');
+            btn.disabled = false; btn.innerText = "Kirim Pendaftaran";
             closeDaftar();
-        })
-        .catch((error) => {
-            console.error('Error!', error.message);
-            alert('Waduh, ada masalah koneksi.');
-            btnSubmit.disabled = false;
+            document.getElementById('btnDaftarSekarang').style.display = "none";
+            document.getElementById('btnLoginSekarang').style.display = "inline-flex";
+        });
+    });
+
+    // FETCH LOGIN
+    document.getElementById('formLogin').addEventListener('submit', e => {
+        e.preventDefault();
+        const btn = document.getElementById('submitLogin');
+        btn.disabled = true; btn.innerText = "Logging in...";
+
+        let formData = new FormData(e.target);
+        formData.append('sheetTarget', 'login.html'); // Mengarahkan ke tab login.html
+
+        fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
+        .then(() => {
+            alert('Login Berhasil Dicatat di sheet login.html!');
+            btn.disabled = false; btn.innerText = "Masuk";
+            closeLogin();
         });
     });
 
@@ -254,7 +272,7 @@
         document.getElementById("fileIn").value = "";
     }
 
-    window.onclick = function(e) { if(e.target.className == 'modal') { closeDaftar(); closeCV(); } }
+    window.onclick = function(e) { if(e.target.className == 'modal') { closeDaftar(); closeLogin(); closeCV(); } }
 </script>
 
 </body>
