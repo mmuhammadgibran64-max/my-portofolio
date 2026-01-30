@@ -1,197 +1,154 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard • Portofolio Gibran</title>
-    <link rel="stylesheet" href="./assets/styles.css" />
-  </head>
-  <body>
-    <header class="topbar">
-      <div class="container topbar__inner">
-        <div class="brand">
-          <div class="brand__logo">G</div>
-          <div class="brand__text">
-            <div class="brand__name">Dashboard</div>
-            <div class="brand__tag">Portofolio App</div>
-          </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Dashboard | Gibran Cloud</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/dist/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #0f172a; color: white; display: flex; min-height: 100vh; }
+
+        /* Sidebar */
+        .sidebar { width: 260px; background: #1e293b; padding: 20px; border-right: 1px solid #334155; }
+        .sidebar h2 { color: #38bdf8; margin-bottom: 30px; font-size: 1.5rem; }
+        .nav-item { padding: 12px; color: #94a3b8; cursor: pointer; display: block; text-decoration: none; border-radius: 8px; margin-bottom: 5px; }
+        .nav-item:hover, .active { background: #334155; color: white; }
+
+        /* Main Content */
+        .main { flex: 1; padding: 30px; overflow-y: auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        
+        /* Jam Digital */
+        .clock-card { background: linear-gradient(135deg, #38bdf8, #818cf8); padding: 20px; border-radius: 15px; text-align: center; color: #0f172a; margin-bottom: 20px; }
+        #clock { font-size: 2.5rem; font-weight: 800; }
+
+        /* Area Upload */
+        .upload-section { background: #1e293b; padding: 25px; border-radius: 15px; border: 2px dashed #38bdf8; text-align: center; margin-bottom: 30px; }
+        input[type="file"] { display: none; }
+        .btn-upload { background: #38bdf8; color: #0f172a; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; display: inline-block; }
+
+        /* Grid Penyimpanan */
+        .storage-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+        .file-card { background: #1e293b; padding: 15px; border-radius: 12px; text-align: center; border: 1px solid #334155; transition: 0.3s; }
+        .file-card:hover { transform: translateY(-5px); border-color: #38bdf8; }
+        .file-preview { width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; background: #0f172a; display: flex; align-items: center; justify-content: center; }
+        
+        .btn-group { display: flex; gap: 5px; justify-content: center; margin-top: 10px; }
+        .btn-action { padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer; font-size: 0.8rem; font-weight: 600; }
+        .btn-dl { background: #22c55e; color: white; }
+        .btn-del { background: #ef4444; color: white; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>GIBRAN-BOX</h2>
+        <a href="index.html" class="nav-item">🏠 Home</a>
+        <div class="nav-item active">📁 My Storage</div>
+        <a href="login.html" class="nav-item" style="color: #ef4444; margin-top: 20px;">🚪 Keluar</a>
+    </div>
+
+    <div class="main">
+        <div class="header">
+            <h1>Dashboard Storage</h1>
+            <p id="date-text"></p>
         </div>
-        <nav class="nav">
-          <a class="nav__link" href="./index.html">Landing</a>
-          <button id="logoutBtn" class="btn btn--ghost" type="button">Keluar</button>
-        </nav>
-      </div>
-    </header>
 
-    <main class="dashboard">
-      <div class="container">
-        <div class="dash-head">
-          <div>
-            <div class="pill">Akun</div>
-            <h1 class="dash-title" id="welcomeTitle">Selamat datang</h1>
-            <div class="dash-sub" id="welcomeSub">-</div>
-          </div>
-          <div class="clock">
-            <div class="clock__label">Jam Bergerak</div>
-            <div class="clock__time" id="clockTime">--:--:--</div>
-            <div class="clock__date" id="clockDate">-</div>
-          </div>
+        <div class="clock-card">
+            <div id="clock">00:00:00</div>
+            <p>Waktu Real-time</p>
         </div>
 
-        <section class="section-card">
-          <div class="section-card__head">
-            <div>
-              <div class="section-card__title">Absen Muka (Kamera)</div>
-              <div class="section-card__muted">Ambil foto saat masuk. Disimpan sebagai riwayat absensi.</div>
-            </div>
-            <div class="row">
-              <button id="startCamBtn" class="btn btn--ghost" type="button">Aktifkan Kamera</button>
-              <button id="captureBtn" class="btn btn--primary" type="button" disabled>Ambil Foto</button>
-            </div>
-          </div>
-          <div class="section-card__body">
-            <div class="grid grid--2">
-              <div class="camera">
-                <video id="video" class="camera__video" autoplay playsinline muted></video>
-                <canvas id="canvas" class="camera__canvas" width="640" height="480"></canvas>
-                <div class="tiny">
-                  Jika browser minta izin kamera, klik <b>Allow</b>.
-                </div>
-              </div>
-              <div>
-                <div class="mini-title">Riwayat Absen</div>
-                <div id="attendanceList" class="listbox"></div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <div class="upload-section">
+            <h3>📤 Ruangan Upload Khusus</h3>
+            <p style="color: #94a3b8; margin-bottom: 15px;">Pilih foto, video, atau dokumen untuk disimpan.</p>
+            <label class="btn-upload">
+                <i class="fas fa-plus"></i> Pilih File
+                <input type="file" id="fileInput" onchange="handleUpload(event)">
+            </label>
+        </div>
 
-        <section class="section-card">
-          <div class="section-card__head">
-            <div>
-              <div class="section-card__title">Ruangan Upload Berkas Portofolio</div>
-              <div class="section-card__muted">Upload file/foto/video. Disimpan sebagai daftar portofolio.</div>
+        <h3>🗄️ File Tersimpan</h3>
+        <hr style="border: 1px solid #334155; margin: 15px 0;">
+        <div class="storage-grid" id="storageGrid">
             </div>
-          </div>
-          <div class="section-card__body">
-            <form id="uploadForm" class="form form--inline">
-              <label class="field">
-                <span class="field__label">Judul</span>
-                <input class="input" name="title" type="text" placeholder="Contoh: Poster Event" required />
-              </label>
-              <label class="field">
-                <span class="field__label">Kategori</span>
-                <select class="input" name="category" required>
-                  <option value="" selected disabled>Pilih...</option>
-                  <option>Desain Grafis</option>
-                  <option>Content Creator</option>
-                  <option>Video Editing</option>
-                  <option>Animasi</option>
-                  <option>Fotografi</option>
-                  <option>Dokumen</option>
-                  <option>Lainnya</option>
-                </select>
-              </label>
-              <label class="field">
-                <span class="field__label">File</span>
-                <input class="input" name="file" type="file" required />
-                <span class="field__hint">File tidak diupload ke internet (offline). Hanya dipakai untuk preview.</span>
-              </label>
-              <div class="row">
-                <button class="btn btn--primary" type="submit">Simpan ke Portofolio</button>
-              </div>
-              <div id="uploadMsg" class="msg" aria-live="polite"></div>
-            </form>
+    </div>
 
-            <div class="divider"></div>
-            <div class="mini-title">Berkas Portofolio</div>
-            <div id="portfolioGrid" class="portfolio-grid"></div>
-          </div>
-        </section>
-
-        <section class="section-card">
-          <div class="section-card__head">
-            <div>
-              <div class="section-card__title">Meet Room</div>
-              <div class="section-card__muted">Klik untuk membuka Google Meet.</div>
-            </div>
-          </div>
-          <div class="section-card__body">
-            <div class="meet-grid">
-              <a class="meet" target="_blank" rel="noreferrer" href="https://meet.google.com/fxn-kcww-wep"
-                >Meet 1<br /><span>fxn-kcww-wep</span></a
-              >
-              <a class="meet" target="_blank" rel="noreferrer" href="https://meet.google.com/qao-rbwb-bnq"
-                >Meet 2<br /><span>qao-rbwb-bnq</span></a
-              >
-              <a class="meet" target="_blank" rel="noreferrer" href="https://meet.google.com/toi-gquc-yav"
-                >Meet 3<br /><span>toi-gquc-yav</span></a
-              >
-              <a class="meet" target="_blank" rel="noreferrer" href="https://meet.google.com/ujb-anhk-czm"
-                >Meet 4<br /><span>ujb-anhk-czm</span></a
-              >
-            </div>
-          </div>
-        </section>
-
-        <section class="section-card">
-          <div class="section-card__head">
-            <div>
-              <div class="section-card__title">Ruangan Ngobrol</div>
-              <div class="section-card__muted">Chat sederhana (tersimpan di browser).</div>
-            </div>
-          </div>
-          <div class="section-card__body">
-            <div id="chatBox" class="chatbox"></div>
-            <form id="chatForm" class="form form--inline">
-              <label class="field">
-                <span class="field__label">Pesan</span>
-                <input class="input" name="message" type="text" placeholder="Tulis pesan..." required />
-              </label>
-              <div class="row">
-                <button class="btn btn--primary" type="submit">Kirim</button>
-                <button id="clearChatBtn" class="btn btn--danger" type="button">Hapus Chat</button>
-              </div>
-            </form>
-          </div>
-        </section>
-
-        <section class="section-card">
-          <div class="section-card__head">
-            <div>
-              <div class="section-card__title">Pesan Makan & Lainnya</div>
-              <div class="section-card__muted">Form order sederhana + riwayat.</div>
-            </div>
-          </div>
-          <div class="section-card__body">
-            <form id="orderForm" class="form form--inline">
-              <label class="field">
-                <span class="field__label">Pesanan</span>
-                <input class="input" name="item" type="text" placeholder="Contoh: Nasi goreng" required />
-              </label>
-              <label class="field">
-                <span class="field__label">Catatan</span>
-                <input class="input" name="note" type="text" placeholder="Contoh: pedas sedang" />
-              </label>
-              <div class="row">
-                <button class="btn btn--primary" type="submit">Simpan Pesanan</button>
-                <button id="clearOrdersBtn" class="btn btn--danger" type="button">Hapus Riwayat</button>
-              </div>
-            </form>
-            <div class="divider"></div>
-            <div class="mini-title">Riwayat Pesanan</div>
-            <div id="ordersList" class="listbox"></div>
-          </div>
-        </section>
-      </div>
-    </main>
-
-    <script src="./assets/app.js"></script>
     <script>
-      window.App.ensureStorage();
-      window.App.requireAuthOrRedirect();
-      window.App.wireDashboardPage();
-    </script>
-  </body>
-</html>
+        // 1. Fungsi Jam
+        function startClock() {
+            setInterval(() => {
+                const now = new Date();
+                document.getElementById('clock').innerText = now.toLocaleTimeString('id-ID');
+                document.getElementById('date-text').innerText = now.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            }, 1000);
+        }
 
+        // 2. Fungsi Upload & Simpan
+        let myFiles = JSON.parse(localStorage.getItem('gibran_files')) || [];
+
+        function handleUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const fileData = {
+                    id: Date.now(),
+                    name: file.name,
+                    type: file.type,
+                    src: e.target.result
+                };
+                myFiles.push(fileData);
+                saveAndRender();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function saveAndRender() {
+            localStorage.setItem('gibran_files', JSON.stringify(myFiles));
+            renderFiles();
+        }
+
+        function renderFiles() {
+            const grid = document.getElementById('storageGrid');
+            grid.innerHTML = '';
+
+            myFiles.forEach(file => {
+                const isImage = file.type.startsWith('image/');
+                const isVideo = file.type.startsWith('video/');
+                
+                let preview = `<i class="fas fa-file-alt fa-3x" style="color: #94a3b8"></i>`;
+                if(isImage) preview = `<img src="${file.src}" class="file-preview">`;
+                if(isVideo) preview = `<video src="${file.src}" class="file-preview"></video>`;
+
+                grid.innerHTML += `
+                    <div class="file-card">
+                        <div class="file-preview">${preview}</div>
+                        <p style="font-size: 0.7rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${file.name}</p>
+                        <div class="btn-group">
+                            <a href="${file.src}" download="${file.name}" class="btn-action btn-dl"><i class="fas fa-download"></i></a>
+                            <button onclick="deleteFile(${file.id})" class="btn-action btn-del"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function deleteFile(id) {
+            if(confirm('Hapus file ini?')) {
+                myFiles = myFiles.filter(f => f.id !== id);
+                saveAndRender();
+            }
+        }
+
+        window.onload = () => {
+            startClock();
+            renderFiles();
+        };
+    </script>
+</body>
+</html>
