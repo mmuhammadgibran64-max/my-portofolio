@@ -6,215 +6,132 @@
     <title>Portofolio | Muhammad Gibran</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/dist/css/all.min.css">
     <style>
-        /* CSS FULL DESIGN */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            background-color: #0f172a;
-            color: #f8fafc;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Background Animasi Halus */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 100%);
-            z-index: -1;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; line-height: 1.6; }
 
         /* Navbar */
         nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 8%;
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 8%; background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px); position: fixed; width: 100%; top: 0; z-index: 1000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #38bdf8;
-            letter-spacing: 1px;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-
-        nav ul li {
-            margin-left: 30px;
-        }
-
-        nav ul li a {
-            color: #f8fafc;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        nav ul li a:hover {
-            color: #38bdf8;
-        }
+        .logo { font-size: 1.5rem; font-weight: 700; color: #38bdf8; }
 
         /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
-        }
+        .hero { padding: 150px 8% 80px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .hero h1 { font-size: 3.5rem; background: linear-gradient(to right, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
+        .hero p { font-size: 1.1rem; color: #94a3b8; max-width: 800px; margin-top: 20px; }
 
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 15px;
-            background: linear-gradient(to right, #38bdf8, #818cf8, #c084fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
-        }
+        /* Section Styling */
+        section { padding: 60px 8%; }
+        h2 { font-size: 2rem; color: #38bdf8; margin-bottom: 30px; text-align: center; border-bottom: 2px solid #38bdf8; display: inline-block; }
+        .container { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
 
-        .hero p {
-            font-size: 1.2rem;
-            color: #94a3b8;
-            max-width: 700px;
-            margin-bottom: 30px;
-        }
+        /* Card Styling */
+        .card { background: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1); width: 300px; transition: 0.3s; }
+        .card:hover { transform: translateY(-10px); border-color: #38bdf8; }
+        .card h3 { color: #f8fafc; margin-bottom: 10px; }
+        .card p { font-size: 0.9rem; color: #94a3b8; }
 
-        .btn-group {
-            display: flex;
-            gap: 15px;
-        }
+        /* Form Daftar Akun */
+        .register-box { background: rgba(30, 41, 59, 0.7); padding: 40px; border-radius: 20px; max-width: 500px; margin: 40px auto; text-align: center; border: 1px solid #38bdf8; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; background: #1e293b; color: white; }
+        .btn { padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-block; cursor: pointer; border: none; transition: 0.4s; }
+        .btn-reg { background: #38bdf8; color: #0f172a; width: 100%; margin-top: 15px; }
 
-        .btn {
-            padding: 12px 35px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: 0.4s;
-            font-size: 0.9rem;
-        }
-
-        .btn-primary {
-            background: #38bdf8;
-            color: #0f172a;
-        }
-
-        .btn-primary:hover {
-            background: #7dd3fc;
-            box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
-            transform: translateY(-3px);
-        }
-
-        .btn-secondary {
-            border: 2px solid #38bdf8;
-            color: #38bdf8;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(56, 189, 248, 0.1);
-            transform: translateY(-3px);
-        }
-
-        /* Stats/Skills Section */
-        .skills-container {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 50px;
-            flex-wrap: wrap;
-        }
-
-        .skill-item {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 15px 25px;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: 0.3s;
-        }
-
-        .skill-item:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: #38bdf8;
-        }
-
-        /* Footer */
-        footer {
-            padding: 40px;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: #64748b;
-            font-size: 0.8rem;
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            nav ul { display: none; }
-            .btn-group { flex-direction: column; }
-        }
+        footer { text-align: center; padding: 40px; border-top: 1px solid rgba(255, 255, 255, 0.1); color: #64748b; }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">GIBRAN.DEV</div>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="login.html">Login</a></li>
-        </ul>
+        <div class="logo">GIBRAN.PRTF</div>
+        <div style="color: #94a3b8;">LP3I Kramat Raya</div>
     </nav>
 
-    <section class="hero" id="home">
-        <h1>Muhammad Gibran</h1>
+    <section class="hero">
+        <h1>Halo, Saya Gibran</h1>
         <p>
-            "Saya adalah seorang Developer Muda yang berfokus pada pengembangan solusi digital kreatif. 
-            Memulai perjalanan dari membangun platform E-Commerce hingga sistem informasi yang interaktif. 
-            Saya percaya bahwa teknologi bukan hanya soal baris kode, tapi soal bagaimana memberikan kemudahan bagi penggunanya."
+            Perkenalkan, nama saya Gibran. Saya merupakan mahasiswa <strong>Hubungan Masyarakat (Humas) di LP3I Kramat Raya</strong>. 
+            Saya memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring selama satu bulan. 
+            Saat ini saya sedang fokus mengembangkan diri, keterampilan, serta portofolio pribadi.
         </p>
-        
-        <div class="btn-group">
-            <a href="https://mmuhammadgibran64-max.github.io/Tokoonline/" class="btn btn-primary" target="_blank">Lihat Toko Saya</a>
-            <a href="dashboard.html" class="btn btn-secondary">Masuk Dashboard</a>
-        </div>
+        <p>
+            Saya pribadi yang disiplin, cepat beradaptasi, dan senang belajar hal baru. Hobi saya adalah bermain futsal dan bermain gitar.
+        </p>
+    </section>
 
-        <div class="skills-container">
-            <div class="skill-item"><i class="fab fa-html5" style="color: #e34c26;"></i> HTML5</div>
-            <div class="skill-item"><i class="fab fa-css3-alt" style="color: #264de4;"></i> CSS3</div>
-            <div class="skill-item"><i class="fab fa-js" style="color: #f7df1e;"></i> JavaScript</div>
-            <div class="skill-item"><i class="fab fa-github"></i> GitHub Expert</div>
+    <section style="text-align: center;">
+        <h2>Keahlian Utama</h2>
+        <div class="container">
+            <div class="card">
+                <h3>🎨 Desain Grafis</h3>
+                <p>Membuat visual poster, banner, logo, dan konten media sosial profesional.</p>
+            </div>
+            <div class="card">
+                <h3>🎬 Video Editing</h3>
+                <p>Adobe Premiere Pro: Cutting, color grading, audio mixing, & final export.</p>
+            </div>
+            <div class="card">
+                <h3>📸 Content Creator</h3>
+                <p>Ide konsep dan produksi konten digital untuk IG, TikTok, dan YouTube.</p>
+            </div>
+            <div class="card">
+                <h3>✨ Animasi Dasar</h3>
+                <p>Membuat motion graphic ringan, intro video, dan animasi konten sederhana.</p>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: rgba(255,255,255,0.02);">
+        <div class="container" style="align-items: flex-start;">
+            <div style="flex: 1; min-width: 300px;">
+                <h2 style="text-align: left;">Pengalaman Kerja</h2>
+                <p><strong>BGI (Operasional)</strong><br>Bertanggung jawab dalam tugas operasional, mendukung tim, dan memastikan instruksi sesuai standar perusahaan. Mengasah manajemen waktu dan integritas kerja.</p>
+                <br>
+                <p><strong>Monitoring (Gatot Subroto)</strong><br>Melakukan pengawasan dan monitoring rutin selama masa kerja satu bulan.</p>
+            </div>
+            <div style="flex: 1; min-width: 300px;">
+                <h2 style="text-align: left;">Visi & Misi</h2>
+                <p><strong>Visi:</strong> Menjadi individu maksimal yang berkontribusi penuh tanggung jawab bagi kemajuan perusahaan.</p>
+                <p><strong>Misi:</strong> Menjaga integritas, membangun hubungan profesional, dan terus meng-upgrade skill kerja.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="daftar">
+        <div class="register-box">
+            <h2>Daftar Akun Portofolio</h2>
+            <p style="color: #94a3b8; margin-bottom: 20px;">Silakan buat akun untuk mengakses Dashboard Storage</p>
+            <input type="text" id="regNama" placeholder="Nama Lengkap">
+            <input type="tel" id="regPhone" placeholder="Nomor Handphone Aktif">
+            <button class="btn btn-reg" onclick="simpanDanMasuk()">DAFTAR & MASUK DASHBOARD</button>
         </div>
     </section>
 
     <footer>
-        &copy; 2024 Muhammad Gibran - Built with ❤️ and Code.
+        &copy; 2024 Muhammad Gibran | Mahasiswa Humas LP3I
     </footer>
 
+    <script>
+        function simpanDanMasuk() {
+            const nama = document.getElementById('regNama').value;
+            const phone = document.getElementById('regPhone').value;
+
+            if(nama && phone) {
+                // Simpan data biar bisa dipanggil di dashboard
+                localStorage.setItem('user_nama', nama);
+                localStorage.setItem('user_phone', phone);
+                
+                alert("Pendaftaran Berhasil! Selamat datang " + nama);
+                window.location.href = "dashboard.html";
+            } else {
+                alert("Tolong isi Nama dan Nomor HP dulu ya, Bran!");
+            }
+        }
+    </script>
 </body>
 </html>
