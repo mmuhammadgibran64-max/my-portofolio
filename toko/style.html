@@ -1,0 +1,30 @@
+<style>
+  :root { --primary: #ff6600; --dark: #333; --bg: #f4f7f6; }
+  body { background: var(--bg); font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 100px; }
+  
+  .header-app { background: var(--primary); color: white; padding: 25px; border-radius: 0 0 20px 20px; }
+  
+  /* Desain List Menu */
+  .menu-item { 
+    background: white; border-radius: 15px; padding: 15px; 
+    margin-bottom: 10px; display: flex; justify-content: space-between; 
+    align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+  .harga-produk { color: var(--primary); font-weight: bold; }
+  
+  /* Tombol Tambah */
+  .btn-tambah { 
+    background: white; color: var(--primary); border: 1px solid var(--primary);
+    border-radius: 10px; padding: 5px 15px; font-weight: bold; transition: 0.3s;
+  }
+  .btn-tambah:hover { background: var(--primary); color: white; }
+
+  /* Keranjang Melayang */
+  .cart-box {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    width: 90%; max-width: 400px; background: #333; color: white;
+    padding: 15px; border-radius: 15px; display: none; 
+    justify-content: space-between; align-items: center; z-index: 999;
+  }
+  .btn-bayar { background: #ffcc00; color: #333; border: none; font-weight: bold; padding: 8px 15px; border-radius: 10px; }
+</style>

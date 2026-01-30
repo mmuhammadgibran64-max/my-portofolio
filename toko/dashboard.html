@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gibran Store - Menu</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        .navbar-gibran { background: #ff6600; padding: 15px; }
+        .nav-link-custom { color: white; text-decoration: none; font-weight: bold; margin-left: 15px; }
+        .card-produk { border: none; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        #btn-proses-bayar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 400px; border-radius: 50px; font-weight: bold; display: none; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar-gibran shadow-sm mb-4">
+        <div class="container d-flex justify-content-between align-items-center">
+            <span class="text-white fw-bold fs-5">🛒 GIBRAN STORE</span>
+            <div>
+                <a href="dashboard.html" class="nav-link-custom">Menu</a>
+                <a href="pengaturan.html" class="nav-link-custom text-warning">⚙️ Pengaturan</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container pb-5">
+        <div class="text-center mb-4">
+            <h4>Halo, <span id="nama-pelanggan" class="text-primary fw-bold">...</span></h4>
+            <p class="text-muted small">Mau jajan apa hari ini?</p>
+        </div>
+
+        <div class="row" id="produk-list">
+            </div>
+    </div>
+
+    <button id="btn-proses-bayar" class="btn btn-primary btn-lg" onclick="window.location.href='pembayaran.html'">
+        Proses ke Pembayaran ➔
+    </button>
+
+    <script>
+        // Ambil Nama User
+        document.getElementById('nama-pelanggan').innerText = localStorage.getItem('namaUser') || "Pelanggan";
+
+        // Daftar Menu
+        const menu = [
+            {n: "Peye Kacang (Kecil)", h: 5000}, {n: "Peye Kacang (Besar)", h: 10000},
+            {n: "Slondok", h: 20000}, {n: "Opak", h: 20000}, {n: "Kacang", h: 2000},
+            {n: "Kripik Pedes", h: 15000}, {n: "Kue Sus Kering", h: 15000},
+            {n: "Reginang (isi 3)", h: 5000}, {n: "Aqua Galon", h: 22000}
+        ];
+
+        const box = document.getElementById('produk-list');
+        menu.forEach(p => {
+            box.innerHTML += `
+                <div class="col-6 col-md-4">
+                    <div class="card card-produk p-3 text-center">
+                        <h6 class="fw-bold">${p.n}</h6>
+                        <p class="text-orange fw-bold">Rp${p.h.toLocaleString()}</p>
+                        <button class="btn btn-warning btn-sm fw-bold w-100" onclick="tambah('${p.n}', ${p.h})">Tambah</button>
+                    </div>
+                </div>`;
+        });
+
+        let keranjang = [];
+        function tambah(n, h) {
+            keranjang.push({nama: n, harga: h});
+            localStorage.setItem('keranjang', JSON.stringify(keranjang));
+            let total = keranjang.reduce((a, b) => a + b.harga, 0);
+            localStorage.setItem('totalBayar', total);
+            
+            const btn = document.getElementById('btn-proses-bayar');
+            btn.style.display = 'block';
+            btn.innerText = "🛒 Bayar: Rp" + total.toLocaleString() + " ➔";
+        }
+    </script>
+</body>
+</html>

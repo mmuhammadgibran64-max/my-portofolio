@@ -1,0 +1,15 @@
+{
+  "name": "Gibran Store",
+  "short_name": "Gibran",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ff6600",
+  "theme_color": "#ff6600",
+  "icons": [
+    {
+      "src": "https://img.icons8.com/fluency/512/water-cooler.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
