@@ -1,86 +1,177 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Masuk • Portofolio Gibran</title>
-    <link rel="stylesheet" href="./assets/styles.css" />
-  </head>
-  <body>
-    <header class="topbar">
-      <div class="container topbar__inner">
-        <div class="brand">
-          <div class="brand__logo">G</div>
-          <div class="brand__text">
-            <div class="brand__name">Gibran</div>
-            <div class="brand__tag">Masuk</div>
-          </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Verifikasi | Gibran Dev</title>
+    <style>
+        /* CSS KHUSUS LOGIN */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at top right, #1e293b, #0f172a);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 25px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        .login-container h2 {
+            font-weight: 600;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .login-container p {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #38bdf8;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+        }
+
+        /* FRAME KAMERA */
+        #camera-wrapper {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            background: #000;
+            border-radius: 15px;
+            margin: 20px 0;
+            overflow: hidden;
+            border: 2px solid #38bdf8;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .camera-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 150px;
+            border: 2px dashed rgba(56, 189, 248, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            border: none;
+            border-radius: 12px;
+            color: #0f172a;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(56, 189, 248, 0.3);
+            filter: brightness(1.1);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Smart Login</h2>
+        <p>Gunakan Verifikasi Wajah untuk Masuk</p>
+
+        <div class="input-group">
+            <input type="text" id="username" placeholder="Nama Lengkap">
         </div>
-        <nav class="nav">
-          <a class="nav__link" href="./index.html">Landing</a>
-          <a class="btn btn--ghost" href="./register.html">Daftar</a>
-        </nav>
-      </div>
-    </header>
-
-    <main class="auth">
-      <div class="container">
-        <div class="auth__grid">
-          <div class="card">
-            <div class="card__header">
-              <div>
-                <div class="card__title">Masuk Dashboard</div>
-                <div class="card__muted">Gunakan nomor HP yang sudah didaftarkan.</div>
-              </div>
-            </div>
-            <div class="card__body">
-              <form id="loginForm" class="form">
-                <label class="field">
-                  <span class="field__label">Nomor Handphone</span>
-                  <input
-                    class="input"
-                    name="phone"
-                    type="tel"
-                    placeholder="08xxxxxxxxxx"
-                    autocomplete="tel"
-                    required
-                  />
-                </label>
-                <div class="row">
-                  <button class="btn btn--primary" type="submit">Masuk</button>
-                  <a class="btn btn--ghost" href="./register.html">Buat akun</a>
-                </div>
-                <div id="msg" class="msg" aria-live="polite"></div>
-              </form>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card__header">
-              <div class="card__title">Tips</div>
-              <div class="card__muted">Jika belum terdaftar, daftar dulu.</div>
-            </div>
-            <div class="card__body">
-              <ul class="list">
-                <li>Setelah masuk, kamu diminta “absen muka” (capture kamera).</li>
-                <li>Ada jam bergerak, upload berkas portofolio, meet room, chat, dan pesan makan.</li>
-              </ul>
-              <div class="divider"></div>
-              <button id="resetBtn" class="btn btn--danger" type="button">
-                Reset Data (Hapus akun & data di browser)
-              </button>
-              <div class="tiny">Gunakan jika ingin mulai dari nol.</div>
-            </div>
-          </div>
+        <div class="input-group">
+            <input type="tel" id="whatsapp" placeholder="Nomor WhatsApp">
         </div>
-      </div>
-    </main>
 
-    <script src="./assets/app.js"></script>
+        <div id="camera-wrapper">
+            <video id="webcam" autoplay playsinline></video>
+            <div class="camera-overlay"></div>
+        </div>
+
+        <button class="btn-submit" onclick="startLogin()">Verifikasi & Masuk</button>
+    </div>
+
     <script>
-      window.App.ensureStorage();
-      window.App.wireLoginPage();
-    </script>
-  </body>
-</html>
+        // Script Aktifin Kamera
+        const video = document.getElementById('webcam');
 
+        async function initCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                video.srcObject = stream;
+            } catch (err) {
+                console.error("Kamera diblokir atau tidak ada:", err);
+            }
+        }
+
+        function startLogin() {
+            const user = document.getElementById('username').value;
+            if(!user) {
+                alert("Masukkan nama dulu ya!");
+                return;
+            }
+            alert("Verifikasi Wajah Berhasil! Selamat datang, " + user);
+            window.location.href = "dashboard.html";
+        }
+
+        // Jalankan kamera otomatis
+        window.onload = initCamera;
+    </script>
+
+</body>
+</html>
