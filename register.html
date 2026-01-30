@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daftar Akun • Portofolio Gibran</title>
+    <link rel="stylesheet" href="./assets/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar__inner">
+        <div class="brand">
+          <div class="brand__logo">G</div>
+          <div class="brand__text">
+            <div class="brand__name">Gibran</div>
+            <div class="brand__tag">Daftar Akun</div>
+          </div>
+        </div>
+        <nav class="nav">
+          <a class="nav__link" href="./index.html">Landing</a>
+          <a class="btn btn--ghost" href="./login.html">Masuk</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="auth">
+      <div class="container">
+        <div class="auth__grid">
+          <div class="card">
+            <div class="card__header">
+              <div>
+                <div class="card__title">Buat Akun</div>
+                <div class="card__muted">Isi nama lengkap & nomor HP aktif.</div>
+              </div>
+            </div>
+            <div class="card__body">
+              <form id="registerForm" class="form">
+                <label class="field">
+                  <span class="field__label">Nama Lengkap</span>
+                  <input
+                    class="input"
+                    name="fullName"
+                    type="text"
+                    placeholder="Contoh: Gibran ..."
+                    autocomplete="name"
+                    required
+                    minlength="3"
+                  />
+                </label>
+
+                <label class="field">
+                  <span class="field__label">Nomor Handphone (Aktif)</span>
+                  <input
+                    class="input"
+                    name="phone"
+                    type="tel"
+                    placeholder="Contoh: 08xxxxxxxxxx"
+                    autocomplete="tel"
+                    required
+                    minlength="8"
+                  />
+                  <span class="field__hint">Nomor HP menjadi “username” untuk masuk.</span>
+                </label>
+
+                <label class="field">
+                  <span class="field__label">Pekerjaan / Skill Utama</span>
+                  <select class="input" name="mainSkill" required>
+                    <option value="" selected disabled>Pilih...</option>
+                    <option>Desain Grafis</option>
+                    <option>Content Creator</option>
+                    <option>Video Editing (Adobe Premiere Pro)</option>
+                    <option>Animasi Dasar</option>
+                    <option>Fotografi</option>
+                  </select>
+                </label>
+
+                <div class="row">
+                  <button class="btn btn--primary" type="submit">Daftar</button>
+                  <a class="btn btn--ghost" href="./login.html">Sudah punya akun?</a>
+                </div>
+                <div id="msg" class="msg" aria-live="polite"></div>
+              </form>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card__header">
+              <div class="card__title">Info</div>
+              <div class="card__muted">Data disimpan di browser.</div>
+            </div>
+            <div class="card__body">
+              <ul class="list">
+                <li>Tanpa backend—cocok untuk demo portofolio.</li>
+                <li>Kamu bisa upload file/foto/video di dashboard (tersimpan sebagai daftar riwayat).</li>
+                <li>Absen muka menggunakan kamera (ambil foto saat masuk).</li>
+              </ul>
+              <div class="divider"></div>
+              <div class="tiny">
+                Jika kamu mau versi online + database asli (akun banyak, file benar-benar tersimpan), nanti bisa dibuat versi
+                server (Node/PHP) + storage.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="./assets/app.js"></script>
+    <script>
+      window.App.ensureStorage();
+      window.App.wireRegisterPage();
+    </script>
+  </body>
+</html>
+

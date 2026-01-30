@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Masuk • Portofolio Gibran</title>
+    <link rel="stylesheet" href="./assets/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar__inner">
+        <div class="brand">
+          <div class="brand__logo">G</div>
+          <div class="brand__text">
+            <div class="brand__name">Gibran</div>
+            <div class="brand__tag">Masuk</div>
+          </div>
+        </div>
+        <nav class="nav">
+          <a class="nav__link" href="./index.html">Landing</a>
+          <a class="btn btn--ghost" href="./register.html">Daftar</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="auth">
+      <div class="container">
+        <div class="auth__grid">
+          <div class="card">
+            <div class="card__header">
+              <div>
+                <div class="card__title">Masuk Dashboard</div>
+                <div class="card__muted">Gunakan nomor HP yang sudah didaftarkan.</div>
+              </div>
+            </div>
+            <div class="card__body">
+              <form id="loginForm" class="form">
+                <label class="field">
+                  <span class="field__label">Nomor Handphone</span>
+                  <input
+                    class="input"
+                    name="phone"
+                    type="tel"
+                    placeholder="08xxxxxxxxxx"
+                    autocomplete="tel"
+                    required
+                  />
+                </label>
+                <div class="row">
+                  <button class="btn btn--primary" type="submit">Masuk</button>
+                  <a class="btn btn--ghost" href="./register.html">Buat akun</a>
+                </div>
+                <div id="msg" class="msg" aria-live="polite"></div>
+              </form>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card__header">
+              <div class="card__title">Tips</div>
+              <div class="card__muted">Jika belum terdaftar, daftar dulu.</div>
+            </div>
+            <div class="card__body">
+              <ul class="list">
+                <li>Setelah masuk, kamu diminta “absen muka” (capture kamera).</li>
+                <li>Ada jam bergerak, upload berkas portofolio, meet room, chat, dan pesan makan.</li>
+              </ul>
+              <div class="divider"></div>
+              <button id="resetBtn" class="btn btn--danger" type="button">
+                Reset Data (Hapus akun & data di browser)
+              </button>
+              <div class="tiny">Gunakan jika ingin mulai dari nol.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="./assets/app.js"></script>
+    <script>
+      window.App.ensureStorage();
+      window.App.wireLoginPage();
+    </script>
+  </body>
+</html>
+
