@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard • Portofolio Gibran</title>
+    <link rel="stylesheet" href="./assets/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar__inner">
+        <div class="brand">
+          <div class="brand__logo">G</div>
+          <div class="brand__text">
+            <div class="brand__name">Dashboard</div>
+            <div class="brand__tag">Portofolio App</div>
+          </div>
+        </div>
+        <nav class="nav">
+          <a class="nav__link" href="./index.html">Landing</a>
+          <button id="logoutBtn" class="btn btn--ghost" type="button">Keluar</button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="dashboard">
+      <div class="container">
+        <div class="dash-head">
+          <div>
+            <div class="pill">Akun</div>
+            <h1 class="dash-title" id="welcomeTitle">Selamat datang</h1>
+            <div class="dash-sub" id="welcomeSub">-</div>
+          </div>
+          <div class="clock">
+            <div class="clock__label">Jam Bergerak</div>
+            <div class="clock__time" id="clockTime">--:--:--</div>
+            <div class="clock__date" id="clockDate">-</div>
+          </div>
+        </div>
+
+        <section class="section-card">
+          <div class="section-card__head">
+            <div>
+              <div class="section-card__title">Absen Muka (Kamera)</div>
+              <div class="section-card__muted">Ambil foto saat masuk. Disimpan sebagai riwayat absensi.</div>
+            </div>
+            <div class="row">
+              <button id="startCamBtn" class="btn btn--ghost" type="button">Aktifkan Kamera</button>
+              <button id="captureBtn" class="btn btn--primary" type="button" disabled>Ambil Foto</button>
+            </div>
+          </div>
+          <div class="section-card__body">
+            <div class="grid grid--2">
+              <div class="camera">
+                <video id="video" class="camera__video" autoplay playsinline muted></video>
+                <canvas id="canvas" class="camera__canvas" width="640" height="480"></canvas>
+                <div class="tiny">
+                  Jika browser minta izin kamera, klik <b>Allow</b>.
+                </div>
+              </div>
+              <div>
+                <div class="mini-title">Riwayat Absen</div>
+                <div id="attendanceList" class="listbox"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-card">
+          <div class="section-card__head">
+            <div>
+              <div class="section-card__title">Ruangan Upload Berkas Portofolio</div>
+              <div class="section-card__muted">Upload file/foto/video. Disimpan sebagai daftar portofolio.</div>
+            </div>
+          </div>
+          <div class="section-card__body">
+            <form id="uploadForm" class="form form--inline">
+              <label class="field">
+                <span class="field__label">Judul</span>
+                <input class="input" name="title" type="text" placeholder="Contoh: Poster Event" required />
+              </label>
+              <label class="field">
+                <span class="field__label">Kategori</span>
+                <select class="input" name="category" required>
+                  <option value="" selected disabled>Pilih...</option>
+                  <option>Desain Grafis</option>
+                  <option>Content Creator</option>
+                  <option>Video Editing</option>
+                  <option>Animasi</option>
+                  <option>Fotografi</option>
+                  <option>Dokumen</option>
+                  <option>Lainnya</option>
+                </select>
+              </label>
+              <label class="field">
+                <span class="field__label">File</span>
+                <input class="input" name="file" type="file" required />
+                <span class="field__hint">File tidak diupload ke internet (offline). Hanya dipakai untuk preview.</span>
+              </label>
+              <div class="row">
+                <button class="btn btn--primary" type="submit">Simpan ke Portofolio</button>
+              </div>
+              <div id="uploadMsg" class="msg" aria-live="polite"></div>
+            </form>
+
+            <div class="divider"></div>
+            <div class="mini-title">Berkas Portofolio</div>
+            <div id="portfolioGrid" class="portfolio-grid"></div>
+          </div>
+        </section>
+
+        <section class="section-card">
+          <div class="section-card__head">
+            <div>
+              <div class="section-card__title">Meet Room</div>
+              <div class="section-card__muted">Klik untuk membuka Google Meet.</div>
+            </div>
+          </div>
+          <div class="section-card__body">
+            <div class="meet-grid">
+              <a class="meet" target="_blank" rel="noreferrer" href="https://meet.google.com/fxn-kcww-wep"
+                >Meet 1<br /><span>fxn-kcww-wep</span></a
+              >
+              <a class="meet" target="_blank" rel="noreferrer" href="https://meet.google.com/qao-rbwb-bnq"
+                >Meet 2<br /><span>qao-rbwb-bnq</span></a
+              >
+              <a class="meet" target="_blank" rel="noreferrer" href="https://meet.google.com/toi-gquc-yav"
+                >Meet 3<br /><span>toi-gquc-yav</span></a
+              >
+              <a class="meet" target="_blank" rel="noreferrer" href="https://meet.google.com/ujb-anhk-czm"
+                >Meet 4<br /><span>ujb-anhk-czm</span></a
+              >
+            </div>
+          </div>
+        </section>
+
+        <section class="section-card">
+          <div class="section-card__head">
+            <div>
+              <div class="section-card__title">Ruangan Ngobrol</div>
+              <div class="section-card__muted">Chat sederhana (tersimpan di browser).</div>
+            </div>
+          </div>
+          <div class="section-card__body">
+            <div id="chatBox" class="chatbox"></div>
+            <form id="chatForm" class="form form--inline">
+              <label class="field">
+                <span class="field__label">Pesan</span>
+                <input class="input" name="message" type="text" placeholder="Tulis pesan..." required />
+              </label>
+              <div class="row">
+                <button class="btn btn--primary" type="submit">Kirim</button>
+                <button id="clearChatBtn" class="btn btn--danger" type="button">Hapus Chat</button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <section class="section-card">
+          <div class="section-card__head">
+            <div>
+              <div class="section-card__title">Pesan Makan & Lainnya</div>
+              <div class="section-card__muted">Form order sederhana + riwayat.</div>
+            </div>
+          </div>
+          <div class="section-card__body">
+            <form id="orderForm" class="form form--inline">
+              <label class="field">
+                <span class="field__label">Pesanan</span>
+                <input class="input" name="item" type="text" placeholder="Contoh: Nasi goreng" required />
+              </label>
+              <label class="field">
+                <span class="field__label">Catatan</span>
+                <input class="input" name="note" type="text" placeholder="Contoh: pedas sedang" />
+              </label>
+              <div class="row">
+                <button class="btn btn--primary" type="submit">Simpan Pesanan</button>
+                <button id="clearOrdersBtn" class="btn btn--danger" type="button">Hapus Riwayat</button>
+              </div>
+            </form>
+            <div class="divider"></div>
+            <div class="mini-title">Riwayat Pesanan</div>
+            <div id="ordersList" class="listbox"></div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="./assets/app.js"></script>
+    <script>
+      window.App.ensureStorage();
+      window.App.requireAuthOrRedirect();
+      window.App.wireDashboardPage();
+    </script>
+  </body>
+</html>
+
