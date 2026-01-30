@@ -11,10 +11,17 @@
         body { background-color: #0f172a; color: white; display: flex; min-height: 100vh; }
 
         /* Sidebar */
-        .sidebar { width: 280px; background: #1e293b; padding: 20px; border-right: 1px solid #334155; display: flex; flex-direction: column; position: fixed; height: 100vh; }
+        .sidebar { width: 280px; background: #1e293b; padding: 20px; border-right: 1px solid #334155; display: flex; flex-direction: column; position: fixed; height: 100vh; overflow-y: auto; }
         .sidebar h2 { color: #38bdf8; margin-bottom: 25px; font-size: 1.2rem; text-align: center; }
         .nav-item { padding: 12px; color: #94a3b8; cursor: pointer; display: flex; align-items: center; gap: 10px; text-decoration: none; border-radius: 8px; margin-bottom: 8px; transition: 0.3s; border: none; background: none; width: 100%; text-align: left; font-size: 1rem; }
         .nav-item:hover, .active { background: rgba(56, 189, 248, 0.1); color: #38bdf8; }
+
+        /* Google Meet Section */
+        .meet-section { margin-top: 20px; padding-top: 20px; border-top: 1px solid #334155; }
+        .meet-title { font-size: 0.75rem; color: #64748b; text-transform: uppercase; margin-bottom: 10px; font-weight: 700; }
+        .btn-meet { display: block; background: #202124; color: #fff; padding: 10px; border-radius: 8px; text-decoration: none; margin-bottom: 8px; font-size: 0.8rem; border: 1px solid #3c4043; transition: 0.3s; }
+        .btn-meet:hover { background: #3c4043; border-color: #38bdf8; }
+        .btn-meet i { color: #34a853; margin-right: 8px; }
 
         /* Main Content */
         .main { flex: 1; margin-left: 280px; padding: 30px; }
@@ -26,17 +33,12 @@
         .profile-img { width: 110px; height: 110px; background: #334155; border: 4px solid #0f172a; border-radius: 50%; position: absolute; bottom: -45px; left: 30px; overflow: hidden; }
         .profile-img img { width: 100%; height: 100%; object-fit: cover; }
         
-        .user-info { margin-left: 30px; }
-        .card { background: #1e293b; padding: 20px; border-radius: 15px; border: 1px solid #334155; margin-bottom: 20px; }
-
-        /* Storage System */
+        /* Storage Style */
         .upload-box { background: rgba(56, 189, 248, 0.05); border: 2px dashed #38bdf8; padding: 25px; border-radius: 15px; text-align: center; margin-bottom: 20px; }
         .storage-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
         .file-card { background: #1e293b; padding: 10px; border-radius: 12px; border: 1px solid #334155; text-align: center; }
         .file-preview { width: 100%; height: 90px; border-radius: 8px; margin-bottom: 8px; object-fit: cover; }
         .btn-action { padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer; margin: 2px; color: white; text-decoration: none; display: inline-block; }
-        
-        .btn-upload { background: #38bdf8; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; color: #0f172a; }
     </style>
 </head>
 <body>
@@ -47,46 +49,51 @@
         <button class="nav-item" onclick="openTab('stiven-tab', this)"><i class="fas fa-users-cog"></i> Stiven Teleios</button>
         <hr style="border: 0; border-top: 1px solid #334155; margin: 15px 0;">
         <a href="index.html" class="nav-item" style="color: #ef4444;"><i class="fas fa-sign-out-alt"></i> Keluar</a>
+
+        <div class="meet-section">
+            <p class="meet-title">Ruang Rapat (G-Meet)</p>
+            <a href="https://meet.google.com/isj-iiyj-ezp" target="_blank" class="btn-meet"><i class="fab fa-google"></i> Meeting 1</a>
+            <a href="https://meet.google.com/wtw-tzdy-hjt" target="_blank" class="btn-meet"><i class="fab fa-google"></i> Meeting 2</a>
+            <a href="https://meet.google.com/fzj-dkxj-uus" target="_blank" class="btn-meet"><i class="fab fa-google"></i> Meeting 3</a>
+            <a href="https://meet.google.com/peo-ussn-ave" target="_blank" class="btn-meet"><i class="fab fa-google"></i> Meeting 4</a>
+        </div>
     </div>
 
     <div class="main">
         <div id="gibran-tab" class="tab-content active">
             <div class="banner">
-                <div class="profile-img"><img src="https://github.com/mmuhammadgibran64-max.png"></div>
+                <div class="profile-img">
+                    <img src="https://github.com/mmuhammadgibran64-max.png" alt="Profil Gibran">
+                </div>
             </div>
-            <div class="user-info">
-                <h1>Dashboard Gibran</h1>
-                <p style="color: #38bdf8; margin-bottom: 20px;">Personal Storage & Monitoring</p>
-            </div>
+            <h1>Dashboard Gibran</h1>
+            <p style="color: #38bdf8; margin-bottom: 20px;">Personal Storage</p>
             
             <div class="upload-box">
-                <h3>Upload File Gibran</h3>
                 <input type="file" id="inputGibran" style="display: none;" onchange="handleUpload(event, 'gibran')">
-                <button class="btn-upload" onclick="document.getElementById('inputGibran').click()">Pilih File</button>
+                <button onclick="document.getElementById('inputGibran').click()" style="background:#38bdf8; border:none; padding:10px; border-radius:8px; cursor:pointer; font-weight:bold;">Upload File Gibran</button>
             </div>
             <div class="storage-grid" id="gridGibran"></div>
         </div>
 
         <div id="stiven-tab" class="tab-content">
             <div class="banner" style="background: linear-gradient(to right, #10b981, #3b82f6);">
-                <div class="profile-img" style="background: #064e3b;"><i class="fas fa-user-secret fa-3x" style="margin: 20px;"></i></div>
+                <div class="profile-img" style="background: #064e3b; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-user-shield fa-2x"></i>
+                </div>
             </div>
-            <div class="user-info">
-                <h1>Ruangan Stiven Teleios</h1>
-                <p style="color: #10b981; margin-bottom: 20px;">Special Access Storage</p>
-            </div>
+            <h1>Ruangan Stiven Teleios</h1>
+            <p style="color: #10b981; margin-bottom: 20px;">Stiven Storage</p>
 
             <div class="upload-box" style="border-color: #10b981;">
-                <h3>Upload Khusus Stiven</h3>
                 <input type="file" id="inputStiven" style="display: none;" onchange="handleUpload(event, 'stiven')">
-                <button class="btn-upload" style="background: #10b981;" onclick="document.getElementById('inputStiven').click()">Upload File Stiven</button>
+                <button onclick="document.getElementById('inputStiven').click()" style="background:#10b981; border:none; padding:10px; border-radius:8px; cursor:pointer; font-weight:bold; color:white;">Upload File Stiven</button>
             </div>
             <div class="storage-grid" id="gridStiven"></div>
         </div>
     </div>
 
     <script>
-        // Fungsi Pindah Tab
         function openTab(tabId, btn) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
@@ -94,7 +101,6 @@
             btn.classList.add('active');
         }
 
-        // Database Terpisah
         let dbGibran = JSON.parse(localStorage.getItem('db_gibran')) || [];
         let dbStiven = JSON.parse(localStorage.getItem('db_stiven')) || [];
 
@@ -138,7 +144,7 @@
         }
 
         function deleteFile(id, owner) {
-            if(!confirm('Hapus file ini?')) return;
+            if(!confirm('Hapus file?')) return;
             if(owner === 'gibran') dbGibran = dbGibran.filter(f => f.id !== id);
             else dbStiven = dbStiven.filter(f => f.id !== id);
             saveAndRender();
