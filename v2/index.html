@@ -162,7 +162,7 @@
                 <li>Membangun hubungan kerja yang positif dan profesional.</li>
                 <li>Mengembangkan pengetahuan dan keterampilan agar kompeten.</li>
                 <li>Berperan aktif dalam meningkatkan efisiensi kerja tim.</li>
-                <li>Menjaga integritas, disiplin, dan komitmen.</li>
+                <li>Menjaga integritas, disiplin, dan komitmen dalam setiap proses pekerjaan.</li>
             </ul>
         </div>
 
@@ -178,18 +178,19 @@
     <div class="modal-content">
         <span class="close-modal" onclick="closeDaftar()">&times;</span>
         <h3 style="color: var(--primary);">Pendaftaran Akun</h3>
+        <p>Data akan masuk ke Sheet "daftar sekarang"</p>
         <form id="formGibran">
             <div class="form-group">
                 <label>Nama Lengkap</label>
-                <input type="text" name="nama" required>
+                <input type="text" name="nama" required placeholder="Masukkan Nama Anda">
             </div>
             <div class="form-group">
                 <label>Nomor Handphone</label>
-                <input type="number" name="hp" required>
+                <input type="number" name="hp" required placeholder="08xxxxxxxx">
             </div>
             <div class="form-group">
                 <label>Opini Tentang Website</label>
-                <textarea name="opini" rows="3" required></textarea>
+                <textarea name="opini" rows="3" required placeholder="Apa pendapatmu?"></textarea>
             </div>
             <button type="submit" id="btnSubmit" class="btn btn-daftar" style="width: 100%; justify-content: center;">Kirim Sekarang</button>
         </form>
@@ -211,7 +212,7 @@
 </div>
 
 <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxXgxjGmbabax_pH1Y5sbnn9LX9mGgIQ8y2KQyZdqkjz35sOrqsyYLhfMmzRL4pQvwF0A/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxesFF0-PC4hAtgsX5AI6j5thzTVvahyP5qzA50GqIvDjZqaiGCoy9oOv2TVv1pdIdByw/exec';
     const form = document.getElementById('formGibran');
     const btnSubmit = document.getElementById('btnSubmit');
 
@@ -227,14 +228,15 @@
         
         fetch(scriptURL, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
         .then(() => {
-            alert('DATA BERHASIL MASUK KE SHEET!');
+            alert('MANTAP BRAN! Data sudah dikirim. Cek Google Sheets lo!');
             btnSubmit.disabled = false;
             btnSubmit.innerText = "Kirim Sekarang";
             form.reset();
             closeDaftar();
         })
-        .catch(() => {
-            alert('Terjadi kesalahan koneksi.');
+        .catch((error) => {
+            console.error('Error!', error.message);
+            alert('Waduh, ada masalah koneksi.');
             btnSubmit.disabled = false;
         });
     });
