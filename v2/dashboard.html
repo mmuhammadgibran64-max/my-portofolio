@@ -1,197 +1,236 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard • Portofolio Gibran</title>
-    <link rel="stylesheet" href="./assets/styles.css" />
-  </head>
-  <body>
-    <header class="topbar">
-      <div class="container topbar__inner">
-        <div class="brand">
-          <div class="brand__logo">G</div>
-          <div class="brand__text">
-            <div class="brand__name">Dashboard</div>
-            <div class="brand__tag">Portofolio App</div>
-          </div>
-        </div>
-        <nav class="nav">
-          <a class="nav__link" href="./index.html">Landing</a>
-          <button id="logoutBtn" class="btn btn--ghost" type="button">Keluar</button>
-        </nav>
-      </div>
-    </header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REAL DASHBOARD | GIBRAN & STIVEN</title>
+    <style>
+        :root {
+            --dark: #020617;
+            --primary: #3b82f6;
+            --accent: #ffb700;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --card-bg: #1e293b;
+        }
 
-    <main class="dashboard">
-      <div class="container">
-        <div class="dash-head">
-          <div>
-            <div class="pill">Akun</div>
-            <h1 class="dash-title" id="welcomeTitle">Selamat datang</h1>
-            <div class="dash-sub" id="welcomeSub">-</div>
-          </div>
-          <div class="clock">
-            <div class="clock__label">Jam Bergerak</div>
-            <div class="clock__time" id="clockTime">--:--:--</div>
-            <div class="clock__date" id="clockDate">-</div>
-          </div>
-        </div>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0; background: var(--dark); color: #f1f5f9;
+        }
 
-        <section class="section-card">
-          <div class="section-card__head">
-            <div>
-              <div class="section-card__title">Absen Muka (Kamera)</div>
-              <div class="section-card__muted">Ambil foto saat masuk. Disimpan sebagai riwayat absensi.</div>
+        header {
+            background: #0f172a; padding: 15px 30px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 3px solid var(--primary);
+            position: sticky; top: 0; z-index: 1000;
+        }
+
+        .jam-digital {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.8rem; font-weight: bold; color: var(--accent);
+            text-shadow: 0 0 10px var(--accent);
+        }
+
+        .container { padding: 25px; max-width: 1400px; margin: auto; }
+
+        .grid-layout {
+            display: grid; grid-template-columns: 1fr 350px; gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg); border-radius: 12px; padding: 20px;
+            border: 1px solid #334155; margin-bottom: 20px;
+        }
+
+        /* REAL CCTV STYLE */
+        .cctv-container {
+            background: #000; border: 2px solid #475569; border-radius: 8px;
+            position: relative; overflow: hidden; line-height: 0;
+        }
+        video {
+            width: 100%; height: auto; transform: scaleX(-1); /* Mirror effect */
+            background: #000;
+        }
+        .cctv-overlay {
+            position: absolute; top: 10px; left: 10px; color: #ff0000;
+            font-size: 0.8rem; font-weight: bold; pointer-events: none;
+            display: flex; align-items: center; gap: 5px;
+        }
+        .blink { animation: blinker 1s linear infinite; }
+        @keyframes blinker { 50% { opacity: 0; } }
+
+        /* ROOMS */
+        .room-header { 
+            padding: 10px 15px; border-radius: 8px 8px 0 0; 
+            font-weight: bold; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;
+        }
+        .bg-gibran { background: var(--primary); }
+        .bg-stiven { background: #8b5cf6; }
+
+        /* FILE MANAGER */
+        .file-list { background: #0f172a; border-radius: 8px; padding: 10px; min-height: 50px; }
+        .file-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 8px; border-bottom: 1px solid #334155;
+        }
+        .file-row:last-child { border: none; }
+
+        .btn {
+            padding: 8px 12px; border: none; border-radius: 6px; cursor: pointer;
+            font-size: 0.8rem; font-weight: bold; transition: 0.2s;
+        }
+        .btn-upload { background: var(--success); color: white; width: 100%; margin-top: 10px; }
+        .btn-del { background: var(--danger); color: white; }
+        .btn-dl { background: var(--primary); color: white; text-decoration: none; display: inline-block; }
+
+        table { width: 100%; border-collapse: collapse; }
+        th, td { text-align: left; padding: 10px; border-bottom: 1px solid #334155; font-size: 0.9rem; }
+        th { color: var(--accent); }
+
+        .status-dot { height: 8px; width: 8px; background: var(--success); border-radius: 50%; display: inline-block; margin-right: 5px; }
+
+        @media (max-width: 1000px) { .grid-layout { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<header>
+    <div>
+        <h2 style="margin:0">SECURE <span style="color:var(--primary)">DASHBOARD</span></h2>
+        <small>Operator: Gibran & Stiven</small>
+    </div>
+    <div class="jam-digital" id="jamReal">00:00:00</div>
+</header>
+
+<div class="container">
+    <div class="grid-layout">
+        
+        <div class="main-content">
+            
+            <div class="card">
+                <h3 style="margin-top:0"><span class="status-dot"></span> Monitoring Akses User</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Aktivitas</th>
+                            <th>Waktu</th>
+                            <th>IP Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logTable">
+                        <tr><td>Gibran</td><td>Admin Login</td><td>Baru saja</td><td style="color:var(--success)">Encrypted</td></tr>
+                        <tr><td>Stiven</td><td>Admin Login</td><td>Baru saja</td><td style="color:var(--success)">Encrypted</td></tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="row">
-              <button id="startCamBtn" class="btn btn--ghost" type="button">Aktifkan Kamera</button>
-              <button id="captureBtn" class="btn btn--primary" type="button" disabled>Ambil Foto</button>
-            </div>
-          </div>
-          <div class="section-card__body">
-            <div class="grid grid--2">
-              <div class="camera">
-                <video id="video" class="camera__video" autoplay playsinline muted></video>
-                <canvas id="canvas" class="camera__canvas" width="640" height="480"></canvas>
-                <div class="tiny">
-                  Jika browser minta izin kamera, klik <b>Allow</b>.
+
+            <div class="card" style="padding:0; overflow:hidden;">
+                <div class="room-header bg-gibran">📂 Ruangan Khusus Gibran</div>
+                <div style="padding:20px">
+                    <input type="file" id="inputGibran">
+                    <button class="btn btn-upload" onclick="handleUpload('inputGibran', 'listGibran')">Simpan ke Storage</button>
+                    <div class="file-list" id="listGibran" style="margin-top:15px">
+                        <small style="color:gray">Belum ada file.</small>
+                    </div>
                 </div>
-              </div>
-              <div>
-                <div class="mini-title">Riwayat Absen</div>
-                <div id="attendanceList" class="listbox"></div>
-              </div>
             </div>
-          </div>
-        </section>
 
-        <section class="section-card">
-          <div class="section-card__head">
-            <div>
-              <div class="section-card__title">Ruangan Upload Berkas Portofolio</div>
-              <div class="section-card__muted">Upload file/foto/video. Disimpan sebagai daftar portofolio.</div>
+            <div class="card" style="padding:0; overflow:hidden;">
+                <div class="room-header bg-stiven">📂 Ruangan Khusus Stiven</div>
+                <div style="padding:20px">
+                    <input type="file" id="inputStiven">
+                    <button class="btn btn-upload" style="background:#8b5cf6" onclick="handleUpload('inputStiven', 'listStiven')">Simpan ke Storage</button>
+                    <div class="file-list" id="listStiven" style="margin-top:15px">
+                        <small style="color:gray">Belum ada file.</small>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="section-card__body">
-            <form id="uploadForm" class="form form--inline">
-              <label class="field">
-                <span class="field__label">Judul</span>
-                <input class="input" name="title" type="text" placeholder="Contoh: Poster Event" required />
-              </label>
-              <label class="field">
-                <span class="field__label">Kategori</span>
-                <select class="input" name="category" required>
-                  <option value="" selected disabled>Pilih...</option>
-                  <option>Desain Grafis</option>
-                  <option>Content Creator</option>
-                  <option>Video Editing</option>
-                  <option>Animasi</option>
-                  <option>Fotografi</option>
-                  <option>Dokumen</option>
-                  <option>Lainnya</option>
-                </select>
-              </label>
-              <label class="field">
-                <span class="field__label">File</span>
-                <input class="input" name="file" type="file" required />
-                <span class="field__hint">File tidak diupload ke internet (offline). Hanya dipakai untuk preview.</span>
-              </label>
-              <div class="row">
-                <button class="btn btn--primary" type="submit">Simpan ke Portofolio</button>
-              </div>
-              <div id="uploadMsg" class="msg" aria-live="polite"></div>
-            </form>
 
-            <div class="divider"></div>
-            <div class="mini-title">Berkas Portofolio</div>
-            <div id="portfolioGrid" class="portfolio-grid"></div>
-          </div>
-        </section>
+        </div>
 
-        <section class="section-card">
-          <div class="section-card__head">
-            <div>
-              <div class="section-card__title">Meet Room</div>
-              <div class="section-card__muted">Klik untuk membuka Google Meet.</div>
+        <div class="sidebar">
+            
+            <div class="card">
+                <h3 style="margin-top:0">📸 Live Cam Monitor</h3>
+                <div class="cctv-container">
+                    <div class="cctv-overlay">
+                        <span class="blink">●</span> REC LIVE - CAM 01
+                    </div>
+                    <video id="webcam" autoplay playsinline muted></video>
+                </div>
+                <p style="font-size:0.8rem; margin-top:10px; color:#94a3b8">
+                    Status: <span style="color:var(--success)">Aktif</span><br>
+                    Lokasi: Terminal Admin
+                </p>
+                <button class="btn" style="width:100%; background:#475569; color:white;" onclick="startCamera()">Aktifkan Kamera</button>
             </div>
-          </div>
-          <div class="section-card__body">
-            <div class="meet-grid">
-              <a class="meet" target="_blank" rel="noreferrer" href="https://meet.google.com/fxn-kcww-wep"
-                >Meet 1<br /><span>fxn-kcww-wep</span></a
-              >
-              <a class="meet" target="_blank" rel="noreferrer" href="https://meet.google.com/qao-rbwb-bnq"
-                >Meet 2<br /><span>qao-rbwb-bnq</span></a
-              >
-              <a class="meet" target="_blank" rel="noreferrer" href="https://meet.google.com/toi-gquc-yav"
-                >Meet 3<br /><span>toi-gquc-yav</span></a
-              >
-              <a class="meet" target="_blank" rel="noreferrer" href="https://meet.google.com/ujb-anhk-czm"
-                >Meet 4<br /><span>ujb-anhk-czm</span></a
-              >
-            </div>
-          </div>
-        </section>
 
-        <section class="section-card">
-          <div class="section-card__head">
-            <div>
-              <div class="section-card__title">Ruangan Ngobrol</div>
-              <div class="section-card__muted">Chat sederhana (tersimpan di browser).</div>
+            <div class="card">
+                <h3>⚙️ System Info</h3>
+                <p><small>CPU Usage: 12%</small></p>
+                <div style="background:#0f172a; height:10px; border-radius:5px; overflow:hidden">
+                    <div style="background:var(--primary); width:12%; height:100%"></div>
+                </div>
+                <p><small>Memory: 450MB / 2GB</small></p>
+                <div style="background:#0f172a; height:10px; border-radius:5px; overflow:hidden">
+                    <div style="background:var(--success); width:25%; height:100%"></div>
+                </div>
             </div>
-          </div>
-          <div class="section-card__body">
-            <div id="chatBox" class="chatbox"></div>
-            <form id="chatForm" class="form form--inline">
-              <label class="field">
-                <span class="field__label">Pesan</span>
-                <input class="input" name="message" type="text" placeholder="Tulis pesan..." required />
-              </label>
-              <div class="row">
-                <button class="btn btn--primary" type="submit">Kirim</button>
-                <button id="clearChatBtn" class="btn btn--danger" type="button">Hapus Chat</button>
-              </div>
-            </form>
-          </div>
-        </section>
 
-        <section class="section-card">
-          <div class="section-card__head">
-            <div>
-              <div class="section-card__title">Pesan Makan & Lainnya</div>
-              <div class="section-card__muted">Form order sederhana + riwayat.</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 1. JAM BERGERAK REAL-TIME
+    function updateClock() {
+        const now = new Date();
+        document.getElementById('jamReal').innerText = now.toLocaleTimeString('id-ID');
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // 2. REAL CCTV CAMERA (Akses Webcam)
+    async function startCamera() {
+        const video = document.getElementById('webcam');
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = stream;
+        } catch (err) {
+            alert("Gagal akses kamera: " + err);
+        }
+    }
+    // Autostart kamera pas buka dashboard
+    window.onload = startCamera;
+
+    // 3. FUNGSI UPLOAD, DOWNLOAD, HAPUS (Fungsional)
+    function handleUpload(inputId, listId) {
+        const input = document.getElementById(inputId);
+        const list = document.getElementById(listId);
+        
+        if (input.files.length === 0) return alert("Pilih file dulu!");
+
+        const file = input.files[0];
+        const fileURL = URL.createObjectURL(file); // Buat link download sementara
+
+        // Hapus teks "Belum ada file" kalau ada
+        if (list.querySelector('small')) list.innerHTML = '';
+
+        const row = document.createElement('div');
+        row.className = 'file-row';
+        row.innerHTML = `
+            <span>📄 ${file.name}</span>
+            <div style="display:flex; gap:5px">
+                <a href="${fileURL}" download="${file.name}" class="btn btn-dl">Download</a>
+                <button class="btn btn-del" onclick="this.parentElement.parentElement.remove()">Hapus</button>
             </div>
-          </div>
-          <div class="section-card__body">
-            <form id="orderForm" class="form form--inline">
-              <label class="field">
-                <span class="field__label">Pesanan</span>
-                <input class="input" name="item" type="text" placeholder="Contoh: Nasi goreng" required />
-              </label>
-              <label class="field">
-                <span class="field__label">Catatan</span>
-                <input class="input" name="note" type="text" placeholder="Contoh: pedas sedang" />
-              </label>
-              <div class="row">
-                <button class="btn btn--primary" type="submit">Simpan Pesanan</button>
-                <button id="clearOrdersBtn" class="btn btn--danger" type="button">Hapus Riwayat</button>
-              </div>
-            </form>
-            <div class="divider"></div>
-            <div class="mini-title">Riwayat Pesanan</div>
-            <div id="ordersList" class="listbox"></div>
-          </div>
-        </section>
-      </div>
-    </main>
+        `;
+        list.appendChild(row);
+        input.value = ""; // Reset input
+    }
+</script>
 
-    <script src="./assets/app.js"></script>
-    <script>
-      window.App.ensureStorage();
-      window.App.requireAuthOrRedirect();
-      window.App.wireDashboardPage();
-    </script>
-  </body>
+</body>
 </html>
-
