@@ -3,63 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gibran | Professional Portofolio</title>
+    <title>Maintenance Mode | Gibran</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/dist/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+        body { 
+            background: #0f172a; 
+            color: white; 
+            font-family: sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+            text-align: center;
+        }
+        .container { 
+            padding: 20px; 
+        }
+        .icon { 
+            font-size: 80px; 
+            color: #f59e0b; 
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        p { color: #94a3b8; font-size: 1.1rem; max-width: 500px; margin: auto; }
         
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background: #0b0f1a; color: white; line-height: 1.6; overflow-x: hidden; }
+        /* Tombol Rahasia buat Lo masuk ke Dashboard */
+        .admin-link {
+            margin-top: 30px;
+            display: inline-block;
+            text-decoration: none;
+            color: #334155;
+            font-size: 0.8rem;
+            transition: 0.3s;
+        }
+        .admin-link:hover { color: #38bdf8; }
 
-        /* Background Glow Effect */
-        .glow { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.05), transparent 50%); z-index: -1; }
-
-        header { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; }
-        
-        .profile-main { width: 150px; height: 150px; border-radius: 50%; border: 3px solid #38bdf8; padding: 5px; margin-bottom: 20px; transition: 0.5s; }
-        .profile-main:hover { transform: scale(1.1) rotate(5deg); border-color: #818cf8; }
-        .profile-main img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-
-        h1 { font-size: 3.5rem; font-weight: 800; background: linear-gradient(to right, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
-        p.subtitle { font-size: 1.2rem; color: #94a3b8; max-width: 600px; margin-bottom: 30px; }
-
-        .btn-group { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
-        .btn { padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
-        
-        .btn-primary { background: #38bdf8; color: #0f172a; }
-        .btn-primary:hover { background: #7dd3fc; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(56, 189, 248, 0.3); }
-        
-        .btn-secondary { border: 1px solid #334155; color: white; background: rgba(255,255,255,0.05); }
-        .btn-secondary:hover { background: rgba(255,255,255,0.1); border-color: #38bdf8; }
-
-        .status-badge { background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; margin-bottom: 15px; border: 1px solid rgba(16, 185, 129, 0.2); }
-
-        /* Footer info */
-        footer { position: absolute; bottom: 30px; width: 100%; text-align: center; color: #475569; font-size: 0.9rem; }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
     </style>
 </head>
 <body>
-    <div class="glow"></div>
-
-    <header>
-        <div class="status-badge"><i class="fas fa-circle" style="font-size: 8px; vertical-align: middle;"></i> Available for Projects</div>
+    <div class="container">
+        <i class="fas fa-tools icon"></i>
+        <h1>SABAR YA!</h1>
+        <p>Website Gibran lagi di-update biar makin keren. Kita bakal balik lagi dalam waktu dekat dengan tampilan baru.</p>
         
-        <div class="profile-main">
-            <img src="https://github.com/mmuhammadgibran64-max.png" alt="Gibran">
-        </div>
-
-        <h1>M. Muhammad Gibran</h1>
-        <p class="subtitle">Humas LP3I | Web Developer | Business Owner. Fokus dalam membangun ekosistem digital yang efisien dan profesional.</p>
-
-        <div class="btn-group">
-            <a href="dashboard.html" class="btn btn-primary"><i class="fas fa-th-large"></i> Buka Dashboard</a>
-            <a href="toko/index.html" class="btn btn-secondary"><i class="fas fa-shopping-cart"></i> Lihat Toko</a>
-            <a href="v2/index.html" class="btn btn-secondary"><i class="fas fa-code-branch"></i> Cek Versi V2</a>
-        </div>
-    </header>
-
-    <footer>
-        &copy; 2026 Gibran Max. Built with passion.
-    </footer>
+        <a href="dashboard.html" class="admin-link">Internal Access Only</a>
+    </div>
 </body>
 </html>
