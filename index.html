@@ -10,7 +10,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body { background-color: #0f172a; color: #f8fafc; line-height: 1.6; }
 
-        /* NAVBAR - Tombol Toko & Login di Kanan */
+        /* NAVBAR */
         nav { 
             display: flex; justify-content: space-between; align-items: center; 
             padding: 15px 8%; background: rgba(15, 23, 42, 0.9); 
@@ -18,53 +18,53 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
         }
         .logo { font-size: 1.5rem; font-weight: 700; color: #38bdf8; }
-        
         .nav-buttons { display: flex; gap: 15px; }
         
-        /* Tombol Toko Online (Kuning) */
+        /* Tombol Toko Online (KUNING) */
         .btn-nav-toko { 
-            background: #f59e0b; color: #0f172a; padding: 8px 20px; 
+            background: #f59e0b; color: #0f172a; padding: 10px 20px; 
             border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.9rem;
             transition: 0.3s; display: flex; align-items: center; gap: 8px;
         }
-        /* Tombol Login (Biru) */
+        /* Tombol Login (BIRU) */
         .btn-nav-login { 
-            background: #38bdf8; color: #0f172a; padding: 8px 20px; 
+            background: #38bdf8; color: #0f172a; padding: 10px 20px; 
             border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.9rem;
             transition: 0.3s; display: flex; align-items: center; gap: 8px;
         }
-        .btn-nav-toko:hover, .btn-nav-login:hover { opacity: 0.8; transform: translateY(-2px); }
+        .btn-nav-toko:hover, .btn-nav-login:hover { opacity: 0.9; transform: translateY(-2px); }
 
-        /* Section Deskripsi Gibran */
+        /* HERO SECTION */
         .hero { padding: 150px 8% 50px; text-align: center; }
-        .hero h1 { font-size: 3rem; margin-bottom: 20px; background: linear-gradient(to right, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .content-text { max-width: 900px; margin: 0 auto; text-align: justify; color: #94a3b8; }
-        .section-title { color: #38bdf8; margin-top: 30px; margin-bottom: 10px; font-weight: 600; text-align: left; border-left: 4px solid #38bdf8; padding-left: 15px; }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 20px; background: linear-gradient(to right, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
+        .content-text { max-width: 900px; margin: 0 auto; text-align: justify; color: #94a3b8; font-size: 1.1rem; }
+        .section-title { color: #38bdf8; margin-top: 40px; margin-bottom: 15px; font-weight: 600; text-align: left; border-left: 4px solid #38bdf8; padding-left: 15px; font-size: 1.4rem; }
 
-        /* Skill Cards */
-        .skill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; text-align: left; }
-        .skill-card { background: #1e293b; padding: 20px; border-radius: 12px; border: 1px solid #334155; }
-        .skill-card h3 { color: #38bdf8; font-size: 1rem; margin-bottom: 10px; }
+        /* GRID SKILL */
+        .skill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px; text-align: left; }
+        .skill-card { background: #1e293b; padding: 25px; border-radius: 15px; border: 1px solid #334155; transition: 0.3s; }
+        .skill-card:hover { border-color: #38bdf8; transform: scale(1.02); }
+        .skill-card h3 { color: #38bdf8; margin-bottom: 10px; }
 
-        /* Form Daftar/Login */
-        .register-section { padding: 50px 8%; text-align: center; background: rgba(255,255,255,0.02); }
-        .reg-card { background: #1e293b; padding: 30px; border-radius: 20px; max-width: 450px; margin: 0 auto; border: 1px solid #334155; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; background: #0f172a; color: white; outline: none; border: 1px solid #334155; }
+        /* FORM LOGIN */
+        .register-section { padding: 80px 8%; text-align: center; background: rgba(15, 23, 42, 0.5); }
+        .reg-card { background: #1e293b; padding: 40px; border-radius: 25px; max-width: 500px; margin: 0 auto; border: 1px solid #334155; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        input { width: 100%; padding: 15px; margin: 12px 0; border-radius: 10px; border: 1px solid #334155; background: #0f172a; color: white; outline: none; }
         input:focus { border-color: #38bdf8; }
-        
-        footer { padding: 40px; text-align: center; color: #64748b; font-size: 0.8rem; }
+
+        footer { padding: 50px; text-align: center; color: #64748b; font-size: 0.9rem; border-top: 1px solid #334155; }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">GIBRAN.DEV</div>
+        <div class="logo">GIBRAN.PRTF</div>
         <div class="nav-buttons">
             <a href="https://mmuhammadgibran64-max.github.io/Tokoonline/" target="_blank" class="btn-nav-toko">
                 <i class="fas fa-shopping-cart"></i> Toko Online
             </a>
             <a href="#daftar" class="btn-nav-login">
-                <i class="fas fa-sign-in-alt"></i> Login
+                <i class="fas fa-user"></i> Login Dashboard
             </a>
         </div>
     </nav>
@@ -72,42 +72,43 @@
     <section class="hero">
         <h1>Muhammad Gibran</h1>
         <div class="content-text">
-            <p>Perkenalkan, nama saya <b>Gibran</b>. Saya merupakan mahasiswa <b>Hubungan Masyarakat (Humas) di LP3I Kramat Raya</b>. Saya memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring selama satu bulan. Saat ini saya fokus mengembangkan diri dan portofolio pribadi.</p>
-            <p>Saya pribadi yang disiplin, cepat beradaptasi, serta mau belajar hal baru. Saya senang bermain futsal dan bermain gitar sebagai hobi utama saya.</p>
+            <p>Perkenalkan, nama saya <b>Gibran</b>. Saya merupakan mahasiswa <b>Hubungan Masyarakat (Humas) di LP3I Kramat Raya</b>. Saya memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring selama satu bulan. Saat ini saya sedang fokus mengembangkan diri, keterampilan, serta portofolio pribadi.</p>
+            <br>
+            <p>Saya adalah pribadi yang disiplin, cepat beradaptasi, serta mau belajar hal baru. Dalam keseharian, saya senang bermain futsal dan bermain gitar sebagai hobi yang mengasah kreativitas dan kerja sama tim.</p>
             
             <div class="section-title">Keahlian Utama</div>
             <div class="skill-grid">
                 <div class="skill-card">
                     <h3>🎨 Desain Grafis</h3>
-                    <p>Membuat visual poster, banner, logo, dan konten media sosial profesional.</p>
+                    <p>Membuat desain visual seperti poster, banner, logo, dan konten media sosial yang menarik.</p>
                 </div>
                 <div class="skill-card">
                     <h3>🎬 Video Editing</h3>
-                    <p>Editing video teknik cutting, color grading, dan audio mixing (Adobe Premiere Pro).</p>
+                    <p>Mahir Adobe Premiere Pro: cutting, color grading, audio mixing, dan final export berkualitas.</p>
                 </div>
                 <div class="skill-card">
                     <h3>📱 Content Creator</h3>
-                    <p>Membuat ide dan produksi konten untuk IG, TikTok, YouTube, dll.</p>
+                    <p>Mampu membuat ide, konsep, dan produksi konten untuk IG, TikTok, dan YouTube.</p>
                 </div>
                 <div class="skill-card">
                     <h3>🎸 Pemain Gitar</h3>
-                    <p>Memahami chord dasar hingga intermediate untuk pengiring lagu akustik.</p>
+                    <p>Mampu memainkan berbagai genre musik dan mengiringi lagu akustik dengan baik.</p>
                 </div>
             </div>
 
             <div class="section-title">Visi & Misi</div>
-            <p><b>Visi:</b> Menjadi individu yang mampu berkontribusi maksimal, bekerja penuh tanggung jawab, dan berkolaborasi baik dalam tim.</p>
-            <p><b>Misi:</b> Membangun hubungan kerja positif dan mengembangkan skill agar memberikan hasil kompeten.</p>
+            <p><b>Visi:</b> Menjadi individu yang berkontribusi maksimal, bekerja penuh tanggung jawab, dan berkolaborasi baik dalam tim.</p>
+            <p><b>Misi:</b> Membangun hubungan kerja positif, menjaga integritas, dan memberikan hasil kerja yang kompeten.</p>
         </div>
     </section>
 
     <section id="daftar" class="register-section">
         <div class="reg-card">
-            <h2 style="margin-bottom: 20px; color: #38bdf8;">Akses Dashboard</h2>
+            <h2 style="margin-bottom: 10px; color: #38bdf8;">Akses Portofolio App</h2>
             <div id="loginArea">
-                <p style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 15px;">Daftar dulu untuk masuk ke Ruang Penyimpanan</p>
+                <p style="color: #94a3b8; margin-bottom: 20px;">Masukkan data untuk membuka dashboard khusus</p>
                 <input type="text" id="regNama" placeholder="Nama Lengkap">
-                <input type="tel" id="regPhone" placeholder="Nomor WhatsApp Aktif">
+                <input type="tel" id="regPhone" placeholder="Nomor Handphone Aktif">
                 <button class="btn-nav-login" style="width: 100%; border: none; cursor: pointer; justify-content: center; margin-top: 10px;" onclick="masuk()">DAFTAR & MASUK</button>
             </div>
         </div>
@@ -118,14 +119,14 @@
     </footer>
 
     <script>
-        // Script Auto-Login
+        // Cek jika sudah pernah login (Auto Login)
         window.onload = function() {
             const user = localStorage.getItem('user_nama');
             if(user) {
                 document.getElementById('loginArea').innerHTML = `
-                    <p style="margin-bottom: 20px;">Halo <b>${user}</b>, kamu sudah terdaftar.</p>
+                    <p style="margin-bottom: 20px;">Selamat datang kembali, <b>${user}</b>!</p>
                     <button class="btn-nav-login" style="width:100%; border:none; justify-content:center;" onclick="window.location.href='dashboard.html'">BUKA DASHBOARD</button>
-                    <p onclick="localStorage.clear(); location.reload();" style="font-size:0.7rem; color:#ef4444; margin-top:15px; cursor:pointer;">Hapus Akun & Daftar Ulang</p>
+                    <p onclick="localStorage.clear(); location.reload();" style="font-size:0.75rem; color:#ef4444; margin-top:20px; cursor:pointer;">Hapus Data & Daftar Ulang</p>
                 `;
             }
         }
@@ -137,7 +138,7 @@
                 localStorage.setItem('user_nama', nama);
                 window.location.href = 'dashboard.html';
             } else {
-                alert("Lengkapi Nama dan No HP dulu, Bran!");
+                alert("Lengkapi data dulu ya, Bran!");
             }
         }
     </script>
