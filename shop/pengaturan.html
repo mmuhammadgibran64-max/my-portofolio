@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengaturan - Gibran Store</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body { background: #f8f9fa; }
+        .card-custom { border-radius: 15px; border: none; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .btn-update { background: #ff6600; color: white; font-weight: bold; border-radius: 10px; }
+        .version { font-size: 12px; color: #888; text-align: center; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="container mt-4 pb-5">
+    <div class="card card-custom p-4">
+        <h4 class="fw-bold mb-4 text-center">⚙️ Pengaturan Toko</h4>
+        
+        <div class="mb-4">
+            <label class="fw-bold">Nama & Logo Toko</label>
+            <input type="text" id="namaToko" class="form-control" placeholder="Gibran Store">
+            <small class="text-muted">Identitas visual brand Anda</small>
+        </div>
+
+        <div class="mb-4">
+            <label class="fw-bold">Deskripsi Toko</label>
+            <textarea id="deskripsiToko" class="form-control" rows="2" placeholder="Jual jajanan enak..."></textarea>
+            <small class="text-muted">Penjelasan singkat mengenai apa yang Anda jual.</small>
+        </div>
+
+        <hr>
+
+        <div class="row mb-4">
+            <div class="col-6">
+                <label class="fw-bold">Jam Buka</label>
+                <input type="time" id="jamBuka" class="form-control">
+            </div>
+            <div class="col-6">
+                <label class="fw-bold">Jam Tutup</label>
+                <input type="time" id="jamTutup" class="form-control">
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label class="fw-bold">Jadwal Update</label>
+            <input type="date" id="jadwalUpdate" class="form-control">
+        </div>
+
+        <div class="mb-4">
+            <label class="fw-bold">Pencahayaan</label>
+            <select id="pencahayaan" class="form-select">
+                <option value="Terang">Terang (Default)</option>
+                <option value="Redup">Redup</option>
+                <option value="Gelap">Gelap (Mode Malam)</option>
+            </select>
+        </div>
+
+        <button class="btn btn-update w-100 p-3" onclick="updatePengaturan()">
+            PENGATURAN UPDATE
+        </button>
+
+        <div class="version">aplikasi v.1.2.8</div>
+    </div>
+
+    <div class="text-center mt-3">
+        <a href="dashboard.html" class="text-decoration-none text-muted">← Kembali ke Dashboard</a>
+    </div>
+</div>
+
+<script>
+    // Load data saat halaman dibuka
+    window.onload = function() {
+        document.getElementById('namaToko').value = localStorage.getItem('namaToko') || "";
+        document.getElementById('deskripsiToko').value = localStorage.getItem('deskripsiToko') || "";
+        document.getElementById('jamBuka').value = localStorage.getItem('jamBuka') || "08:00";
+        document.getElementById('jamTutup').value = localStorage.getItem('jamTutup') || "21:00";
+    };
+
+    function updatePengaturan() {
+        // Ambil nilai
+        const nama = document.getElementById('namaToko').value;
+        const desk = document.getElementById('deskripsiToko').value;
+        const buka = document.getElementById('jamBuka').value;
+        const tutup = document.getElementById('jamTutup').value;
+
+        // Simpan ke memori browser
+        localStorage.setItem('namaToko', nama);
+        localStorage.setItem('deskripsiToko', desk);
+        localStorage.setItem('jamBuka', buka);
+        localStorage.setItem('jamTutup', tutup);
+
+        alert("Jadwal Update & Pengaturan Berhasil Disimpan!");
+    }
+</script>
+
+</body>
+</html>

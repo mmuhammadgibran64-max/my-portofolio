@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat Pesanan - Gibran Store</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body { background: #f8f9fa; }
+        .card-riwayat { border: none; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 15px; border-left: 6px solid #ff6600; }
+        .loading { font-style: italic; color: #ff6600; animation: blink 1s infinite; }
+        @keyframes blink { 50% { opacity: 0.3; } }
+    </style>
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<div class="container mt-4 pb-5">
+    <h4 class="fw-bold text-center mb-4">📜 Riwayat Pesanan</h4>
+    
+    <div id="status-loading" class="text-center py-5">
+        <div class="spinner-border text-warning" role="status"></div>
+        <p class="loading mt-2">sedang mencari data pembelian...</p>
+    </div>
+
+    <div id="data-riwayat"></div>
+</div>
+
+<script>
+    // Panggil Navigasi
+    fetch('navigasi.html').then(res => res.text()).then(html => document.getElementById('nav-placeholder').innerHTML = html);
+
+    const namaUser = localStorage.getItem('namaUser');
+    const url = 'https://script.google.com/macros/s/AKfycbwoJ-ixP7230GhqgOTJWVAUz2dtpI3HFIuj4JTXqWf4rN1QUdi-TNorhGrMZJwd9gb8ug/exec';
+
+    // Ambil data
+    fetch(url + '?nama=' + encodeURIComponent(namaUser))
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById('status-loading').style.display = 'none';
+        const container = document.getElementById('data-riwayat');
+
+        if (data.length === 0) {
+            container.innerHTML = `<div class="alert alert-light text-center">Belum ada riwayat untuk <b>${namaUser}</b>.</div>`;
+            return;
+        }
+
+        data.forEach(item => {
+            container.innerHTML += `
+                <div class="card card-riwayat p-3 bg-white">
+                    <div class="d-flex justify-content-between small text-muted mb-2">
+                        <span>📅 ${item.hari}, ${item.tanggal}</span>
+                    </div>
+                    <div class="small">
+                        <p class="mb-1"><strong>Nama:</strong> ${item.nama}</p>
+                        <p class="mb-1"><strong>HP:</strong> ${item.hp}</p>
+                        <p class="mb-1"><strong>Alamat:</strong> ${item.alamat || 'Tidak ada alamat'}</p>
+                        <p class="mb-1"><strong>Pesanan:</strong> ${item.pesanan}</p>
+                        <hr class="my-2">
+                        <h6 class="fw-bold text-success text-end mb-0">Total: Rp${parseInt(item.total).toLocaleString()}</h6>
+                    </div>
+                </div>`;
+        });
+    })
+    .catch(() => {
+        document.getElementById('status-loading').innerHTML = "Gagal memuat data.";
+    });
+</script>
+</body>
+</html>
