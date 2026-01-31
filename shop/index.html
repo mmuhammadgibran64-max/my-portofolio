@@ -19,11 +19,10 @@
         }
         label { display: block; text-align: left; font-size: 0.8rem; color: #94a3b8; margin-top: 10px; margin-left: 5px; }
         
-        /* PERBAIKAN INPUT TANGGAL & TEXT */
         input, textarea { 
             width: 100%; padding: 12px; margin: 5px 0 15px 0; border-radius: 10px; 
             border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box;
-            font-size: 1rem; color-scheme: dark; /* Bikin kalender jadi putih/terang */
+            font-size: 1rem; color-scheme: dark;
         }
         
         textarea { height: 80px; resize: none; }
@@ -79,7 +78,7 @@
             
             <input type="hidden" name="sheetTarget" value="register.html">
 
-            <button type="submit" id="btn-submit-toko" class="btn-shop btn-reg">DAFTAR SEBAGAI MEMBER</button>
+            <button type="submit" id="btn-submit-toko" class="btn-shop btn-reg">DAFTAR SEKARANG</button>
         </form>
 
         <button id="btn-login-toko" class="btn-shop btn-log" onclick="bukaKatalog()">MASUK KE KATALOG</button>
@@ -107,15 +106,16 @@
 
     <div id="katalog-display" class="product-grid">
         <div class="product-card">
-            <img src="https://via.placeholder.com/240x180?text=Produk+Contoh" alt="Contoh">
-            <h4>Sample Product</h4>
-            <p class="price">Rp 100.000</p>
+            <img src="https://via.placeholder.com/240x180?text=Gibran+Store" alt="Contoh">
+            <h4>Selamat Datang!</h4>
+            <p class="price">Silahkan Belanja</p>
             <button class="btn-shop btn-reg" style="padding:10px;">Beli via WhatsApp</button>
         </div>
     </div>
 </div>
 
 <script>
+    // PASTIKAN LINK INI SESUAI DENGAN YANG DI MEMO
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxqbpqaLr31aPnLmALq3VZQ8t5z7VkWTT0LwxO0AE-1hj6s03X7BVPrQecyH5x8jSvgew/exec';
 
     const fToko = document.getElementById('form-toko-gibran');
@@ -123,18 +123,26 @@
     fToko.onsubmit = e => {
         e.preventDefault();
         const b = document.getElementById('btn-submit-toko');
-        b.innerText = "Sedang Mendaftarkan...";
+        b.innerText = "Mengirim Data...";
         b.disabled = true;
 
-        fetch(SCRIPT_URL, { method: 'POST', body: new FormData(fToko), mode: 'no-cors' })
+        // Gunakan Mode no-cors agar pengiriman data lebih cepat tanpa menunggu respon balik yang lama
+        fetch(SCRIPT_URL, { 
+            method: 'POST', 
+            body: new FormData(fToko), 
+            mode: 'no-cors' 
+        })
         .then(() => {
-            alert('Pendaftaran Member Berhasil!');
-            fToko.style.display = 'none';
-            document.getElementById('btn-login-toko').style.display = 'block';
+            // Kita kasih delay 1 detik biar Google Script punya waktu buat proses sebelum pindah halaman
+            setTimeout(() => {
+                alert('Pendaftaran Berhasil! Silahkan Masuk.');
+                fToko.style.display = 'none';
+                document.getElementById('btn-login-toko').style.display = 'block';
+            }, 1000);
         })
         .catch(err => {
-            alert('Error: ' + err);
-            b.innerText = "DAFTAR SEBAGAI MEMBER";
+            alert('Cek Koneksi Anda!');
+            b.innerText = "DAFTAR SEKARANG";
             b.disabled = false;
         });
     };
