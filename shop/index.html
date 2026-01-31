@@ -24,8 +24,7 @@
             color-scheme: dark; font-size: 1rem;
         }
         
-        /* Gaya untuk opsi yang dikunci */
-        option:disabled { color: #475569; background: #1e293b; }
+        option:disabled { color: #475569; }
 
         .btn-shop { width: 100%; padding: 14px; margin-top: 10px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; }
         .btn-reg { background: var(--gold); color: #000; }
@@ -44,7 +43,6 @@
 <div id="reg-screen" class="gate-container">
     <div class="gate-card">
         <h2 style="color:var(--gold)">GIBRAN STORE</h2>
-        <p>Registrasi Member Baru</p>
         <form id="form-register-toko">
             <input type="date" name="tanggal" onclick="this.showPicker()" required>
             <input type="text" name="nama" placeholder="Nama Lengkap" required>
@@ -62,8 +60,8 @@
         <h2 style="color:var(--primary)">LOGIN USER</h2>
         <form id="form-login-toko">
             <input type="text" name="nama" id="login-nama" placeholder="Nama Lengkap" required>
-            <input type="number" name="whatsapp" placeholder="Nomor WhatsApp" required>
-            <input type="text" name="no_rumah" placeholder="Nomor Rumah" required>
+            <input type="number" name="whatsapp" id="login-wa" placeholder="Nomor WhatsApp" required>
+            <input type="text" name="no_rumah" id="login-rumah" placeholder="Nomor Rumah" required>
             <input type="hidden" name="sheetTarget" value="User">
             <button type="submit" id="btn-submit-login" class="btn-shop btn-log">MASUK KE KATALOG</button>
         </form>
@@ -97,27 +95,28 @@
 
 <div id="pembayaran-screen" class="gate-container">
     <div class="pay-card">
-        <h2 style="color:var(--gold)">DETAIL PEMBAYARAN</h2>
+        <h2 style="color:var(--gold)">CHECKOUT PESANAN</h2>
         <div style="text-align:left; margin:20px 0; background:#0f172a; padding:15px; border-radius:10px;">
-            <p><strong>Produk:</strong> <span id="display-produk"></span></p>
-            <p><strong>Total Harga:</strong> <span id="display-harga"></span></p>
+            <p><strong>Item:</strong> <span id="display-produk"></span></p>
+            <p><strong>Total:</strong> <span id="display-harga"></span></p>
         </div>
         
         <form id="form-order-toko">
             <input type="hidden" name="sheetTarget" value="Order">
-            <input type="hidden" name="nama_pembeli" id="order-nama-hidden">
-            <input type="hidden" name="produk_dipesan" id="order-produk-hidden">
-            <input type="hidden" name="harga_total" id="order-harga-hidden">
+            <input type="hidden" name="Nama" id="ord-nama">
+            <input type="hidden" name="No HP" id="ord-hp">
+            <input type="hidden" name="Total" id="ord-total">
+            <input type="hidden" name="Alamat" id="ord-alamat">
+            <input type="hidden" name="Tanggal" id="ord-tanggal">
             
             <label>Pilih Metode Pembayaran:</label>
-            <select name="metode_pembayaran" id="metode-pilihan" required>
-                <option value="">-- Pilih Pembayaran --</option>
+            <select name="metode" required>
                 <option value="Cash">Cash (Bayar di Tempat) ✅</option>
-                <option value="QRIS" disabled>QRIS (Maintenance 🛠️)</option>
-                <option value="Transfer" disabled>Transfer Bank (Maintenance 🛠️)</option>
+                <option value="QRIS" disabled>QRIS (Locked 🔒)</option>
+                <option value="Transfer" disabled>Transfer Bank (Locked 🔒)</option>
             </select>
 
-            <button type="submit" id="btn-proses-order" class="btn-shop" style="background:var(--success); color:white;">SELESAIKAN PESANAN</button>
+            <button type="submit" id="btn-proses-order" class="btn-shop" style="background:var(--success); color:white;">KONFIRMASI PESANAN</button>
             <button type="button" onclick="batalOrder()" style="background:none; color:#94a3b8; border:none; margin-top:10px; cursor:pointer;">Batal</button>
         </form>
     </div>
@@ -125,46 +124,57 @@
 
 <script>
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxqbpqaLr31aPnLmALq3VZQ8t5z7VkWTT0LwxO0AE-1hj6s03X7BVPrQecyH5x8jSvgew/exec';
-    let userAktif = "";
+    
+    // Data User Sementara
+    let userData = { nama: "", wa: "", alamat: "" };
 
     function showLogin() { document.getElementById('reg-screen').style.display='none'; document.getElementById('login-screen').style.display='flex'; }
 
+    // 1. REGISTER
     document.getElementById('form-register-toko').onsubmit = e => {
         e.preventDefault();
         fetch(SCRIPT_URL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
-        .then(() => { alert('Daftar Member Berhasil!'); document.getElementById('form-register-toko').style.display='none'; document.getElementById('goto-login-btn').style.display='block'; });
+        .then(() => { alert('Daftar Berhasil!'); document.getElementById('form-register-toko').style.display='none'; document.getElementById('goto-login-btn').style.display='block'; });
     };
 
+    // 2. LOGIN (Simpan data untuk Order)
     document.getElementById('form-login-toko').onsubmit = e => {
         e.preventDefault();
-        userAktif = document.getElementById('login-nama').value;
+        userData.nama = document.getElementById('login-nama').value;
+        userData.wa = document.getElementById('login-wa').value;
+        userData.alamat = document.getElementById('login-rumah').value; // Menggunakan No Rumah sebagai Alamat Order cepat
+
         fetch(SCRIPT_URL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
         .then(() => { document.getElementById('login-screen').style.display='none'; document.getElementById('shop-content').style.display='block'; });
     };
 
-    function openPayment(nama, harga) {
+    // 3. MENU KE PEMBAYARAN
+    function openPayment(namaProduk, harga) {
         document.getElementById('shop-content').style.display='none';
         document.getElementById('pembayaran-screen').style.display='flex';
-        document.getElementById('display-produk').innerText = nama;
+        
+        document.getElementById('display-produk').innerText = namaProduk;
         document.getElementById('display-harga').innerText = harga;
-        document.getElementById('order-nama-hidden').value = userAktif;
-        document.getElementById('order-produk-hidden').value = nama;
-        document.getElementById('order-harga-hidden').value = harga;
+
+        // Set Data ke Input Hidden untuk Sheet Order
+        document.getElementById('ord-nama').value = userData.nama;
+        document.getElementById('ord-hp').value = userData.wa;
+        document.getElementById('ord-total').value = harga + " (" + namaProduk + ")";
+        document.getElementById('ord-alamat').value = userData.alamat;
+        document.getElementById('ord-tanggal').value = new Date().toLocaleString('id-ID');
     }
 
-    function batalOrder() {
-        document.getElementById('pembayaran-screen').style.display='none';
-        document.getElementById('shop-content').style.display='block';
-    }
+    function batalOrder() { document.getElementById('pembayaran-screen').style.display='none'; document.getElementById('shop-content').style.display='block'; }
 
+    // 4. KIRIM KE SHEET ORDER
     document.getElementById('form-order-toko').onsubmit = e => {
         e.preventDefault();
         const b = document.getElementById('btn-proses-order');
-        b.innerText = "Mengirim Pesanan..."; b.disabled = true;
+        b.innerText = "Mengirim..."; b.disabled = true;
 
         fetch(SCRIPT_URL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
         .then(() => {
-            alert('Pesanan BERHASIL! Silahkan bayar secara Cash ke Gibran.');
+            alert('Pesanan Sukses! Data sudah masuk ke sheet Order.');
             location.reload();
         });
     };
