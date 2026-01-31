@@ -10,7 +10,6 @@
         }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #020617; color: white; }
         
-        /* AUTH SCREEN */
         .gate-container { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
         .gate-card { 
             background: var(--slate); padding: 40px; border-radius: 20px; 
@@ -48,12 +47,13 @@
             gap: 25px; margin-top: 30px; 
         }
         .product-card { 
-            background: white; color: #334155; padding: 15px; border-radius: 15px; 
+            background: #ffffff; color: #334155; padding: 20px; border-radius: 15px; 
             text-align: center; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
         }
-        .product-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; }
-        .product-card h4 { margin: 15px 0 5px 0; font-size: 1.1rem; }
+        .product-card h4 { margin: 10px 0 5px 0; font-size: 1.1rem; color: var(--dark); }
         .product-card .price { color: var(--primary); font-weight: bold; font-size: 1.2rem; margin-bottom: 15px; }
+        .btn-beli { background: var(--gold); color: #000; padding: 10px; width: 100%; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -66,20 +66,15 @@
         <form id="form-register-toko">
             <label>Tanggal Daftar</label>
             <input type="date" name="tanggal" onclick="this.showPicker()" required>
-            
             <label>Nama Lengkap</label>
             <input type="text" name="nama" placeholder="Nama Lengkap" required>
-            
             <label>Nomor WhatsApp</label>
             <input type="number" name="whatsapp" placeholder="08xxxxxxxxxx" required>
-            
             <label>Alamat Lengkap</label>
             <textarea name="alamat" placeholder="Alamat Sesuai KTP" required></textarea>
-            
             <input type="hidden" name="sheetTarget" value="register.html">
-            <button type="submit" id="btn-submit-reg" class="btn-shop btn-reg">DAFTAR SEKARANG</button>
+            <button type="submit" id="btn-submit-reg" class="btn-shop btn-reg">DAFTAR SEBARANG</button>
         </form>
-
         <button id="goto-login-btn" class="btn-shop btn-log" style="display:none;" onclick="showLoginScreen()">MENU LOGIN</button>
     </div>
 </div>
@@ -92,13 +87,10 @@
         <form id="form-login-toko">
             <label>Nama Lengkap</label>
             <input type="text" name="nama" id="login-nama" placeholder="Nama Sesuai Daftar" required>
-            
             <label>Nomor WhatsApp</label>
             <input type="number" name="whatsapp" placeholder="08xxxxxxxxxx" required>
-            
             <label>Nomor Rumah</label>
             <input type="text" name="no_rumah" placeholder="Contoh: Blok A No. 12" required>
-            
             <input type="hidden" name="sheetTarget" value="User">
             <button type="submit" id="btn-submit-login" class="btn-shop btn-log">MASUK KE KATALOG</button>
         </form>
@@ -108,28 +100,66 @@
 <div id="shop-content" style="display:none; padding:30px;">
     <div class="nav-shop">
         <div>
-            <h2 style="margin:0; color:var(--gold);">KATALOG PRODUK</h2>
-            <p style="margin:0; font-size: 0.8rem; color:#94a3b8;">Selamat Datang di Toko Gibran</p>
+            <h2 style="color:var(--gold); margin:0;">KATALOG PRODUK</h2>
+            <p style="margin:0; font-size: 0.8rem; color:#94a3b8;">Daftar Menu Makanan & Minuman</p>
         </div>
         <button onclick="location.reload()" style="background:#ef4444; color:white; border:none; padding:10px 20px; border-radius:10px; cursor:pointer;">LOGOUT</button>
     </div>
 
     <div id="panel-admin-produk" class="admin-entry" style="display:none;">
-        <h3 style="margin-top:0; color:var(--primary);">🛡️ Admin Gibran Dashboard</h3>
-        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
-            <input type="text" id="inp-nama" placeholder="Nama Barang">
-            <input type="text" id="inp-harga" placeholder="Harga">
-            <input type="text" id="inp-link" placeholder="Link Gambar">
+        <h3 style="margin:0 0 15px 0; color:var(--primary);">🛡️ Tambah Menu Baru</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <input type="text" id="inp-nama" placeholder="Nama Produk">
+            <input type="text" id="inp-harga" placeholder="Harga (Contoh: Rp5.000)">
         </div>
-        <button onclick="tambahBarang()" class="btn-shop btn-reg" style="width:250px; margin-top:15px;">POST PRODUK</button>
+        <button onclick="tambahBarang()" class="btn-shop btn-reg" style="width:200px;">TAMBAHKAN</button>
     </div>
 
     <div id="katalog-display" class="product-grid">
         <div class="product-card">
-            <img src="https://via.placeholder.com/240x180?text=Gibran+Store" alt="Contoh">
-            <h4>Produk Terbaru</h4>
-            <p class="price">Cek Harga via Admin</p>
-            <button class="btn-shop btn-reg" style="padding:10px;">Beli via WhatsApp</button>
+            <h4>Peye Kacang (Kecil)</h4>
+            <p class="price">Rp5.000</p>
+            <button onclick="beli('Peye Kacang Kecil')" class="btn-beli">Tambahkan ke keranjang</button>
+        </div>
+        <div class="product-card">
+            <h4>Peye Kacang (Besar)</h4>
+            <p class="price">Rp10.000</p>
+            <button onclick="beli('Peye Kacang Besar')" class="btn-beli">Tambahkan ke keranjang</button>
+        </div>
+        <div class="product-card">
+            <h4>Slondok</h4>
+            <p class="price">Rp20.000</p>
+            <button onclick="beli('Slondok')" class="btn-beli">Tambahkan ke keranjang</button>
+        </div>
+        <div class="product-card">
+            <h4>Opak</h4>
+            <p class="price">Rp20.000</p>
+            <button onclick="beli('Opak')" class="btn-beli">Tambahkan ke keranjang</button>
+        </div>
+        <div class="product-card">
+            <h4>Kacang</h4>
+            <p class="price">Rp2.000</p>
+            <button onclick="beli('Kacang')" class="btn-beli">Tambahkan ke keranjang</button>
+        </div>
+        <div class="product-card">
+            <h4>Kripik Pedes</h4>
+            <p class="price">Rp15.000</p>
+            <button onclick="beli('Kripik Pedes')" class="btn-beli">Tambahkan ke keranjang</button>
+        </div>
+        <div class="product-card">
+            <h4>Kue Sus Kering</h4>
+            <p class="price">Rp15.000</p>
+            <button onclick="beli('Kue Sus Kering')" class="btn-beli">Tambahkan ke keranjang</button>
+        </div>
+        <div class="product-card">
+            <h4>Reginang (isi 3)</h4>
+            <p class="price">Rp5.000</p>
+            <button onclick="beli('Reginang')" class="btn-beli">Tambahkan ke keranjang</button>
+        </div>
+        <div class="product-card">
+            <h4>Aqua Galon</h4>
+            <p class="price">Rp22.000</p>
+            <button onclick="beli('Aqua Galon')" class="btn-beli">Tambahkan ke keranjang</button>
         </div>
     </div>
 </div>
@@ -137,16 +167,14 @@
 <script>
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxqbpqaLr31aPnLmALq3VZQ8t5z7VkWTT0LwxO0AE-1hj6s03X7BVPrQecyH5x8jSvgew/exec';
 
-    // 1. HANDLER REGISTER
+    // 1. REGISTER
     document.getElementById('form-register-toko').onsubmit = e => {
         e.preventDefault();
         const b = document.getElementById('btn-submit-reg');
-        b.innerText = "Menyimpan ke register.html...";
-        b.disabled = true;
-
+        b.innerText = "Processing..."; b.disabled = true;
         fetch(SCRIPT_URL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
         .then(() => {
-            alert('Data Terdaftar! Silahkan klik Button Login.');
+            alert('Berhasil Daftar! Silahkan Login.');
             document.getElementById('form-register-toko').style.display = 'none';
             document.getElementById('goto-login-btn').style.display = 'block';
         });
@@ -157,39 +185,37 @@
         document.getElementById('login-screen').style.display = 'flex';
     }
 
-    // 2. HANDLER LOGIN (Masuk ke Sheet: User)
+    // 2. LOGIN
     document.getElementById('form-login-toko').onsubmit = e => {
         e.preventDefault();
         const b = document.getElementById('btn-submit-login');
         const userNama = document.getElementById('login-nama').value;
-        b.innerText = "Memverifikasi...";
-        b.disabled = true;
-
+        b.innerText = "Verifying..."; b.disabled = true;
         fetch(SCRIPT_URL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
         .then(() => {
-            alert('Login Berhasil! Data masuk ke Sheet User.');
-            
-            // Cek Admin
             if(userNama.toLowerCase() === 'gibran' || userNama.toLowerCase() === 'admin') {
                 document.getElementById('panel-admin-produk').style.display = 'block';
             }
-
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('shop-content').style.display = 'block';
         });
     };
 
-    // 3. FITUR ADMIN
+    // 3. BELI VIA WA
+    function beli(produk) {
+        const pesan = `Halo Gibran, saya mau pesan: ${produk}`;
+        window.open(`https://wa.me/628XXXXXXXXXX?text=${encodeURIComponent(pesan)}`);
+    }
+
+    // 4. ADMIN ADD
     function tambahBarang() {
         const n = document.getElementById('inp-nama').value;
         const h = document.getElementById('inp-harga').value;
-        const l = document.getElementById('inp-link').value;
-        if(n && h && l) {
+        if(n && h) {
             const html = `<div class="product-card">
-                <img src="${l}" alt="${n}">
                 <h4>${n}</h4>
-                <p class="price">Rp ${h}</p>
-                <button onclick="window.open('https://wa.me/628XXXXXXXXXX')" class="btn-shop btn-reg" style="padding:10px;">Beli via WhatsApp</button>
+                <p class="price">${h}</p>
+                <button onclick="beli('${n}')" class="btn-beli">Tambahkan ke keranjang</button>
             </div>`;
             document.getElementById('katalog-display').insertAdjacentHTML('afterbegin', html);
         }
