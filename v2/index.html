@@ -3,53 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio Digital | M. GIBRAN</title>
+    <title>PRIVATE UPDATE V2 | M. GIBRAN</title>
     <style>
         :root {
             --primary: #2563eb; --dark: #0f172a; --light: #f8fafc;
             --accent: #ffcc00; --success: #10b981; --danger: #ef4444; --purple: #8b5cf6;
+            --orange: #f97316;
         }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: var(--light); color: var(--dark); line-height: 1.6; }
         
-        /* HEADER */
         header { background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%); color: white; padding: 4rem 1rem; text-align: center; }
         .container { max-width: 900px; margin: 0 auto; padding: 0 20px 50px 20px; }
         .main-card { background: white; border-radius: 20px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: -50px; }
 
-        /* TYPOGRAPHY & SECTIONS */
         .section-title { color: var(--primary); border-left: 6px solid var(--accent); padding-left: 15px; margin-top: 35px; font-size: 1.4rem; text-transform: uppercase; font-weight: bold; }
         .content-text { text-align: justify; color: #334155; font-size: 1.05rem; background: #f8fafc; padding: 25px; border-radius: 12px; border: 1px solid #e2e8f0; white-space: pre-line; }
         
-        /* SKILLS GRID */
         .grid-keahlian { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px; }
-        .card-skill { background: #ffffff; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; transition: 0.3s; }
-        .card-skill:hover { border-color: var(--primary); transform: translateY(-5px); }
+        .card-skill { background: #ffffff; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; }
         .card-skill h3 { margin-top: 0; color: var(--primary); font-size: 1.1rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; }
-
-        .visi-misi-box { background: var(--dark); color: white; padding: 30px; border-radius: 15px; margin-top: 25px; }
 
         /* BUTTONS */
         .btn-container { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 45px; }
-        .btn { padding: 14px 28px; border-radius: 10px; text-decoration: none; font-weight: bold; cursor: pointer; border: none; display: inline-flex; align-items: center; transition: 0.3s; font-size: 1rem; }
+        .btn { padding: 14px 28px; border-radius: 10px; font-weight: bold; cursor: pointer; border: none; display: inline-flex; align-items: center; transition: 0.3s; font-size: 1rem; text-decoration: none; }
+        
         .btn-daftar { background: var(--primary); color: white; }
-        .btn-login { background: var(--purple); color: white; }
-        .btn-upload { background: var(--success); color: white; width: 100%; margin-top: 10px; }
-
-        /* MODAL */
+        .btn-toko { background: var(--orange); color: white; } /* TOMBOL BARU */
+        .btn-login { background: var(--purple); color: white; display: none; }
+        
+        /* MODAL & DASHBOARD */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); align-items: center; justify-content: center; }
         .modal-content { background: white; padding: 35px; border-radius: 20px; width: 90%; max-width: 500px; color: black; position: relative; }
         input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #cbd5e1; border-radius: 10px; box-sizing: border-box; }
-        .close-btn { position: absolute; right: 20px; top: 15px; font-size: 28px; cursor: pointer; color: #64748b; }
-
-        /* DASHBOARD FULLSCREEN */
-        #dashboard-view { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #020617; color: white; z-index: 3000; overflow-y: auto; padding: 30px; box-sizing: border-box; }
-        .jam-digital { font-size: 2.5rem; color: var(--accent); font-weight: bold; text-shadow: 0 0 10px var(--accent); }
-        .cctv-monitor { background: #000; border: 3px solid #334155; border-radius: 15px; overflow: hidden; height: 350px; position: relative; margin-top: 20px; }
-        video { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
-        .rec-label { position: absolute; top: 20px; left: 20px; color: red; font-weight: bold; animation: blink 1s infinite; }
-        .room-box { background: #1e293b; padding: 25px; border-radius: 15px; margin-top: 25px; border-left: 6px solid var(--primary); }
         
-        @keyframes blink { 50% { opacity: 0; } }
+        #dashboard-view { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #020617; color: white; z-index: 3000; overflow-y: auto; padding: 30px; box-sizing: border-box; }
+        .cctv-monitor { background: #000; border: 3px solid #334155; border-radius: 15px; overflow: hidden; height: 400px; position: relative; }
+        video { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
+        .room-box { background: #1e293b; padding: 20px; border-radius: 15px; margin-top: 20px; border-left: 6px solid var(--primary); }
+
         @media (max-width: 768px) { .grid-keahlian { grid-template-columns: 1fr; } }
     </style>
 </head>
@@ -63,197 +54,94 @@
 
     <div class="container">
         <div class="main-card">
-            
             <h2 class="section-title">Tentang Saya</h2>
             <div class="content-text">
-                Perkenalkan, nama saya Gibran. Saya merupakan mahasiswa Hubungan Masyarakat (Humas) di LP3I Kramat Raya. Saya memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring, dengan masa kerja selama satu bulan. 
+                Perkenalkan, nama saya Gibran. Saya merupakan mahasiswa Hubungan Masyarakat (Humas) di LP3I Kramat Raya. Saya memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring. 
                 
-                Saya adalah pribadi yang disiplin, cepat beradaptasi, serta mau belajar hal baru. Dalam keseharian, saya senang melakukan aktivitas positif, salah satunya bermain futsal yang menjadi hobi saya sejak lama.
-
-                Dengan latar belakang Humas dan pengalaman di lapangan, saya siap berkontribusi dalam pekerjaan atau proyek yang membutuhkan komunikasi, kedisplinan, dan kemampuan analisis dasar.
+                Saya adalah pribadi yang disiplin, cepat beradaptasi, serta mau belajar hal baru. Dalam keseharian, saya senang bermain futsal.
             </div>
 
             <h2 class="section-title">Keahlian & Kompetensi</h2>
             <div class="grid-keahlian">
-                <div class="card-skill">
-                    <h3>🎨 Desain Grafis</h3>
-                    <p>Membuat desain visual seperti poster, banner, logo, dan konten media sosial yang menarik dan profesional.</p>
-                </div>
-                <div class="card-skill">
-                    <h3>📱 Content Creator</h3>
-                    <p>Mampu membuat ide, konsep, dan produksi konten untuk platform digital (IG, TikTok, YouTube, dll.).</p>
-                </div>
-                <div class="card-skill">
-                    <h3>🎬 Video Editing</h3>
-                    <p>Mengedit video (Adobe Premiere Pro) dengan teknik cutting, color grading, audio mixing, dan final export.</p>
-                </div>
-                <div class="card-skill">
-                    <h3>✨ Animasi Dasar</h3>
-                    <p>Mampu membuat animasi sederhana untuk kebutuhan konten, intro video, dan motion graphic ringan.</p>
-                </div>
-                <div class="card-skill">
-                    <h3>🎸 Bermain Gitar</h3>
-                    <p>Memahami chord dasar hingga intermediate serta dapat mengiringi lagu acoustic dengan baik.</p>
-                </div>
-                <div class="card-skill">
-                    <h3>⚽ Futsal</h3>
-                    <p>Kontrol bola baik, cepat dalam keputusan, dan mampu bekerja sama dalam tim (Bertahan/Penyerang).</p>
-                </div>
-            </div>
-
-            <h2 class="section-title">Pengalaman Kerja</h2>
-            <div class="card-skill" style="margin-top: 15px;">
-                <h3>🏢 BGI (Operasional)</h3>
-                <p>Bertanggung jawab dalam tugas operasional, membantu proses pekerjaan sehari-hari, mendukung kegiatan tim, dan menjalankan instruksi standar perusahaan. Pengalaman ini membuat saya lebih matang secara profesional dan memahami manajemen waktu.</p>
-            </div>
-
-            <div class="visi-misi-box">
-                <h3 style="color:var(--accent)">👁️ Visi</h3>
-                <p>Menjadi individu yang mampu berkontribusi secara maksimal, bekerja dengan penuh tanggung jawab, serta dapat berkolaborasi dengan baik dalam tim untuk mencapai tujuan perusahaan.</p>
-                <h3 style="color:var(--accent); margin-top:20px;">🚀 Misi</h3>
-                <ul style="padding-left: 20px;">
-                    <li>Membangun hubungan kerja yang positif dan profesional.</li>
-                    <li>Mengembangkan pengetahuan dan keterampilan agar kompeten.</li>
-                    <li>Berperan aktif dalam meningkatkan efisiensi kerja tim.</li>
-                    <li>Menjaga integritas, disiplin, dan komitmen dalam pekerjaan.</li>
-                </ul>
+                <div class="card-skill"><h3>🎨 Desain Grafis</h3><p>Poster, banner, logo, dan konten media sosial profesional.</p></div>
+                <div class="card-skill"><h3>🎬 Video Editing</h3><p>Adobe Premiere Pro: cutting, color grading, & mixing.</p></div>
+                <div class="card-skill"><h3>🎸 Bermain Gitar</h3><p>Memahami chord dasar hingga intermediate.</p></div>
+                <div class="card-skill"><h3>⚽ Futsal</h3><p>Kerja sama tim dan disiplin tinggi.</p></div>
             </div>
 
             <div class="btn-container">
-                <button class="btn btn-daftar" onclick="openModal('modal-daftar')">📝 Daftar Sekarang</button>
+                <button class="btn btn-daftar" id="btn-show-daftar" onclick="document.getElementById('modal-d').style.display='flex'">📝 Daftar Sekarang</button>
+                
+                <a href="#" class="btn btn-toko" onclick="alert('Toko Online Sedang Disiapkan!')">🛒 Toko Online</a>
+                
+                <button class="btn btn-login" id="btn-show-login" onclick="document.getElementById('modal-l').style.display='flex'">🔑 Login Akun</button>
             </div>
         </div>
     </div>
 </div>
 
-<div id="modal-daftar" class="modal">
+<div id="modal-d" class="modal">
     <div class="modal-content">
-        <span class="close-btn" onclick="closeModal('modal-daftar')">&times;</span>
         <h2 style="color:var(--primary)">Form Pendaftaran</h2>
-        <form id="form-daftar-final">
+        <form id="form-daftar">
             <input type="text" name="nama" placeholder="Nama Lengkap" required>
             <input type="number" name="hp" placeholder="Nomor Handphone" required>
             <input type="text" name="opini" placeholder="Opini Anda" required>
-            <button type="submit" class="btn btn-daftar" style="width: 100%; justify-content: center;">Kirim & Buka Login</button>
+            <button type="submit" class="btn btn-daftar" style="width: 100%; justify-content: center;">Kirim</button>
         </form>
     </div>
 </div>
 
-<div id="modal-login" class="modal">
+<div id="modal-l" class="modal">
     <div class="modal-content">
         <h2 style="color:var(--purple)">🔑 Login Akun</h2>
-        <p>Silakan masukkan kembali Nama dan Nomor Telepon Anda.</p>
-        <form id="form-login-final">
-            <input type="text" name="nama" placeholder="Nama Lengkap" required>
-            <input type="number" name="hp" placeholder="Nomor Telepon" required>
-            <button type="submit" class="btn btn-login" style="width: 100%; justify-content: center;">Masuk Ke Dashboard</button>
+        <form id="form-login">
+            <input type="text" name="nama" placeholder="Nama" required>
+            <input type="number" name="hp" placeholder="Nomor HP" required>
+            <button type="submit" class="btn btn-login" style="width: 100%; justify-content: center; display: flex;">Masuk</button>
         </form>
     </div>
 </div>
 
 <div id="dashboard-view">
-    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); padding-bottom: 15px;">
-        <div>
-            <h1 style="margin:0; color:var(--primary)">ADMIN CONTROL CENTER</h1>
-            <p>Admin: Gibran & Stiven | System: <span style="color:var(--success)">SECURE</span></p>
-        </div>
-        <div class="jam-digital" id="jam-digital">00:00:00</div>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h1>ADMIN DASHBOARD</h1>
+        <div id="clock" style="font-size: 2rem; color: var(--accent); font-weight: bold;">00:00:00</div>
     </div>
-
-    <div style="display: grid; grid-template-columns: 1fr 350px; gap: 30px; margin-top: 30px;">
-        <div class="left-side">
-            <div class="cctv-monitor">
-                <div class="rec-label">● LIVE REC</div>
-                <video id="video-feed" autoplay playsinline muted></video>
-            </div>
-
-            <div class="room-box">
-                <h3 style="color:var(--primary)">📂 Ruangan Khusus Gibran</h3>
-                <input type="file" id="file-gibran">
-                <button class="btn btn-upload" onclick="handleUpload('file-gibran', 'list-gibran')">Simpan File</button>
-                <div id="list-gibran" style="margin-top:15px;"></div>
-            </div>
-
-            <div class="room-box" style="border-left-color: var(--purple);">
-                <h3 style="color:var(--purple)">📂 Ruangan Khusus Stiven</h3>
-                <input type="file" id="file-stiven">
-                <button class="btn btn-upload" style="background:var(--purple)" onclick="handleUpload('file-stiven', 'list-stiven')">Simpan File</button>
-                <div id="list-stiven" style="margin-top:15px;"></div>
-            </div>
-        </div>
-
-        <div class="right-side">
-            <div class="card-skill" style="background:#1e293b; color:white; border:none;">
-                <h3>🛡️ System Status</h3>
-                <p>CCTV Cam: <span style="color:var(--success)">Active</span></p>
-                <p>Database: <span style="color:var(--success)">Linked</span></p>
-                <hr style="border-color:#334155">
-                <button class="btn btn-danger" onclick="location.reload()" style="background:var(--danger); color:white; width:100%; justify-content:center;">LOGOUT</button>
-            </div>
-        </div>
-    </div>
+    <div class="cctv-monitor"><video id="v-stream" autoplay playsinline muted></video></div>
+    <div class="room-box"><h3>📂 Ruang Gibran</h3><input type="file" id="fG"><button onclick="up('fG','lG')" class="btn btn-upload">Simpan</button><div id="lG"></div></div>
+    <div class="room-box" style="border-left-color:var(--purple)"><h3>📂 Ruang Stiven</h3><input type="file" id="fS"><button onclick="up('fS','lS')" class="btn btn-upload" style="background:var(--purple)">Simpan</button><div id="lS"></div></div>
+    <button onclick="location.reload()" class="btn btn-danger" style="margin-top:20px; width:100%; justify-content:center; background:var(--danger); color:white;">LOGOUT</button>
 </div>
 
 <script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxqbpqaLr31aPnLmALq3VZQ8t5z7VkWTT0LwxO0AE-1hj6s03X7BVPrQecyH5x8jSvgew/exec';
+    const S_URL = 'https://script.google.com/macros/s/AKfycbxqbpqaLr31aPnLmALq3VZQ8t5z7VkWTT0LwxO0AE-1hj6s03X7BVPrQecyH5x8jSvgew/exec';
     
-    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-
-    // DAFTAR
-    document.getElementById('form-daftar-final').onsubmit = e => {
+    document.getElementById('form-daftar').onsubmit = e => {
         e.preventDefault();
-        fetch(SCRIPT_URL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' }).then(() => {
-            alert('Data Pendaftaran Berhasil Terkirim!');
-            closeModal('modal-daftar');
-            openModal('modal-login');
+        fetch(S_URL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' }).then(() => {
+            alert('Berhasil Daftar!');
+            document.getElementById('modal-d').style.display='none';
+            document.getElementById('btn-show-daftar').style.display='none';
+            document.getElementById('btn-show-login').style.display='inline-flex';
         });
     };
 
-    // LOGIN
-    document.getElementById('form-login-final').onsubmit = e => {
+    document.getElementById('form-login').onsubmit = e => {
         e.preventDefault();
         let fd = new FormData(e.target); fd.append('sheetTarget', 'login.html');
-        fetch(SCRIPT_URL, { method: 'POST', body: fd, mode: 'no-cors' }).then(() => {
-            alert('Login Berhasil! Membuka Dashboard Admin...');
-            closeModal('modal-login');
-            startDashboard();
+        fetch(S_URL, { method: 'POST', body: fd, mode: 'no-cors' }).then(() => {
+            document.getElementById('main-content').style.display='none';
+            document.getElementById('dashboard-view').style.display='block';
+            navigator.mediaDevices.getUserMedia({ video: true }).then(s => { document.getElementById('web-cam-stream').srcObject = s; });
         });
     };
 
-    function startDashboard() {
-        document.getElementById('main-content').style.display = 'none';
-        document.getElementById('dashboard-view').style.display = 'block';
-        initCamera();
-    }
+    setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000);
 
-    function updateJam() {
-        document.getElementById('jam-digital').innerText = new Date().toLocaleTimeString('id-ID');
-    }
-    setInterval(updateJam, 1000);
-
-    async function initCamera() {
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-            document.getElementById('video-feed').srcObject = stream;
-        } catch (e) { console.log("Akses kamera ditolak."); }
-    }
-
-    function handleUpload(inputId, listId) {
-        const inp = document.getElementById(inputId);
-        const list = document.getElementById(listId);
-        if(inp.files[0]) {
-            const f = inp.files[0];
-            const url = URL.createObjectURL(f);
-            list.innerHTML += `<div style="display:flex; justify-content:space-between; background:rgba(255,255,255,0.1); padding:10px; border-radius:8px; margin-bottom:10px;">
-                <span>📄 ${f.name}</span>
-                <div>
-                    <a href="${url}" download="${f.name}" style="color:var(--success); text-decoration:none; margin-right:15px; font-weight:bold;">Download</a>
-                    <button onclick="this.parentElement.parentElement.remove()" style="background:none; border:none; color:var(--danger); cursor:pointer; font-weight:bold;">Hapus</button>
-                </div>
-            </div>`;
-            inp.value = "";
-        }
+    function up(i,l){ 
+        let f = document.getElementById(i).files[0];
+        if(f){ document.getElementById(l).innerHTML += `<div style="color:white; margin-top:5px;">📄 ${f.name}</div>`; }
     }
 </script>
 </body>
