@@ -86,7 +86,7 @@
                 <div class="product-card">
                     <h4>${m.n}</h4>
                     <p style="color:var(--primary); font-weight:bold">${m.p}</p>
-                    <button onclick="openPayment('${m.n}', '${m.p}')" class="btn-beli">Tambahkan ke keranjang</button>
+                    <button onclick="openPayment('${m.n}', '${m.p}')" class="btn-beli">Tambah ke keranjang</button>
                 </div>
             `).join(''));
         </script>
@@ -123,40 +123,34 @@
 </div>
 
 <script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxqbpqaLr31aPnLmALq3VZQ8t5z7VkWTT0LwxO0AE-1hj6s03X7BVPrQecyH5x8jSvgew/exec';
+    // LINK BARU PUNYA GIBRAN
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyLotCU6urUxd0frKUKiUtOBoe_9WNxRYZK3mjY5Wd_c6hQOST7Q_ooAKG9e89QW2AqHA/exec';
     
-    // Data User Sementara
     let userData = { nama: "", wa: "", alamat: "" };
 
     function showLogin() { document.getElementById('reg-screen').style.display='none'; document.getElementById('login-screen').style.display='flex'; }
 
-    // 1. REGISTER
     document.getElementById('form-register-toko').onsubmit = e => {
         e.preventDefault();
         fetch(SCRIPT_URL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
         .then(() => { alert('Daftar Berhasil!'); document.getElementById('form-register-toko').style.display='none'; document.getElementById('goto-login-btn').style.display='block'; });
     };
 
-    // 2. LOGIN (Simpan data untuk Order)
     document.getElementById('form-login-toko').onsubmit = e => {
         e.preventDefault();
         userData.nama = document.getElementById('login-nama').value;
         userData.wa = document.getElementById('login-wa').value;
-        userData.alamat = document.getElementById('login-rumah').value; // Menggunakan No Rumah sebagai Alamat Order cepat
-
+        userData.alamat = document.getElementById('login-rumah').value;
         fetch(SCRIPT_URL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
         .then(() => { document.getElementById('login-screen').style.display='none'; document.getElementById('shop-content').style.display='block'; });
     };
 
-    // 3. MENU KE PEMBAYARAN
     function openPayment(namaProduk, harga) {
         document.getElementById('shop-content').style.display='none';
         document.getElementById('pembayaran-screen').style.display='flex';
-        
         document.getElementById('display-produk').innerText = namaProduk;
         document.getElementById('display-harga').innerText = harga;
 
-        // Set Data ke Input Hidden untuk Sheet Order
         document.getElementById('ord-nama').value = userData.nama;
         document.getElementById('ord-hp').value = userData.wa;
         document.getElementById('ord-total').value = harga + " (" + namaProduk + ")";
@@ -166,7 +160,6 @@
 
     function batalOrder() { document.getElementById('pembayaran-screen').style.display='none'; document.getElementById('shop-content').style.display='block'; }
 
-    // 4. KIRIM KE SHEET ORDER
     document.getElementById('form-order-toko').onsubmit = e => {
         e.preventDefault();
         const b = document.getElementById('btn-proses-order');
@@ -174,7 +167,7 @@
 
         fetch(SCRIPT_URL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
         .then(() => {
-            alert('Pesanan Sukses! Data sudah masuk ke sheet Order.');
+            alert('Pesanan Sukses! Cek Sheet Order.');
             location.reload();
         });
     };
