@@ -3,29 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GIBRAN STORE | Integrated System</title>
+    <title>GIBRAN STORE | Final System</title>
     <style>
-        :root {
-            --primary: #2563eb; --dark: #020617; --gold: #fbbf24; --slate: #1e293b; --success: #10b981;
-        }
+        :root { --primary: #2563eb; --gold: #fbbf24; --slate: #1e293b; --success: #10b981; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #020617; color: white; }
         .gate-container { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
-        .gate-card { 
-            background: var(--slate); padding: 40px; border-radius: 20px; 
-            width: 100%; max-width: 450px; text-align: center;
-            border: 1px solid #334155; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-        }
-        input, textarea, select { 
-            width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px; 
-            border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box;
-            color-scheme: dark; font-size: 1rem;
-        }
-        .btn-shop { width: 100%; padding: 14px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .gate-card { background: var(--slate); padding: 40px; border-radius: 20px; width: 100%; max-width: 450px; text-align: center; border: 1px solid #334155; }
+        input, textarea, select { width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px; border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box; font-size: 1rem; }
+        .btn-shop { width: 100%; padding: 14px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.3s; }
         .btn-reg { background: var(--gold); color: #000; }
         .btn-log { background: var(--primary); color: white; }
         #shop-content, #pembayaran-screen { display: none; padding: 30px; }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
-        .product-card { background: white; color: #334155; padding: 15px; border-radius: 15px; text-align: center; }
+        .product-card { background: white; color: #334155; padding: 15px; border-radius: 15px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .btn-beli { background: var(--gold); color: #000; padding: 10px; width: 100%; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
@@ -34,11 +24,11 @@
 <div id="reg-screen" class="gate-container">
     <div class="gate-card">
         <h2 style="color:var(--gold)">GIBRAN STORE</h2>
-        <p>Registrasi Member</p>
+        <p>Registrasi Member Baru</p>
         <form id="form-register-toko">
             <input type="date" name="tanggal" onclick="this.showPicker()" required>
             <input type="text" name="nama" placeholder="Nama Lengkap" required>
-            <input type="number" name="whatsapp" placeholder="WhatsApp" required>
+            <input type="number" name="whatsapp" placeholder="WhatsApp (08...)" required>
             <textarea name="alamat" placeholder="Alamat Lengkap" required></textarea>
             <input type="hidden" name="sheetTarget" value="register.html">
             <button type="submit" id="btn-submit-reg" class="btn-shop btn-reg">DAFTAR SEKARANG</button>
@@ -61,9 +51,9 @@
 </div>
 
 <div id="shop-content">
-    <div style="display:flex; justify-content:space-between; align-items:center;">
-        <h2 style="color:var(--gold)">KATALOG PRODUK</h2>
-        <button onclick="location.reload()" style="background:red; color:white; border:none; padding:8px 15px; border-radius:8px; cursor:pointer;">LOGOUT</button>
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #334155; padding-bottom:15px;">
+        <h2 style="color:var(--gold); margin:0;">KATALOG GIBRAN</h2>
+        <button onclick="location.reload()" style="background:#ef4444; color:white; border:none; padding:8px 15px; border-radius:8px; cursor:pointer;">LOGOUT</button>
     </div>
     <div id="katalog-display" class="product-grid">
         <script>
@@ -77,8 +67,8 @@
             document.write(menus.map(m => `
                 <div class="product-card">
                     <h4>${m.n}</h4>
-                    <p style="color:var(--primary); font-weight:bold">${m.p}</p>
-                    <button onclick="bukaPembayaran('${m.n}', '${m.p}')" class="btn-beli">Tambahkan ke keranjang</button>
+                    <p style="color:var(--primary); font-weight:bold; font-size:1.2rem;">${m.p}</p>
+                    <button onclick="bukaPembayaran('${m.n}', '${m.p}')" class="btn-beli">Tambah ke Keranjang</button>
                 </div>
             `).join(''));
         </script>
@@ -87,10 +77,10 @@
 
 <div id="pembayaran-screen" class="gate-container">
     <div class="gate-card" style="border: 2px solid var(--gold);">
-        <h2 style="color:var(--gold)">DETAIL PESANAN</h2>
-        <div style="text-align:left; margin:15px 0; background:#0f172a; padding:15px; border-radius:10px;">
-            <p><strong>Produk:</strong> <span id="p-item"></span></p>
-            <p><strong>Total:</strong> <span id="p-harga"></span></p>
+        <h2 style="color:var(--gold)">KONFIRMASI PESANAN</h2>
+        <div style="text-align:left; margin:15px 0; background:#0f172a; padding:15px; border-radius:10px; border:1px solid #334155;">
+            <p style="margin:5px 0;"><strong>Produk:</strong> <span id="p-item"></span></p>
+            <p style="margin:5px 0;"><strong>Total:</strong> <span id="p-harga"></span></p>
         </div>
         <form id="form-order-toko">
             <input type="hidden" name="sheetTarget" value="Order">
@@ -100,74 +90,71 @@
             <input type="hidden" name="Alamat" id="ord-alamat">
             <input type="hidden" name="Tanggal" id="ord-tanggal">
             
+            <label style="display:block; text-align:left; font-size:0.8rem; color:#94a3b8;">Pilih Metode:</label>
             <select name="metode" required>
                 <option value="Cash">Cash (Bayar di Tempat) ✅</option>
                 <option value="QRIS" disabled>QRIS (Locked 🔒)</option>
                 <option value="Transfer" disabled>Transfer Bank (Locked 🔒)</option>
             </select>
-            <button type="submit" id="btn-proses-order" class="btn-shop" style="background:var(--success); color:white;">SELESAIKAN PEMBAYARAN</button>
-            <button type="button" onclick="batal()" style="background:none; color:gray; border:none; margin-top:10px; cursor:pointer;">Kembali</button>
+            <button type="submit" id="btn-proses-order" class="btn-shop" style="background:var(--success); color:white;">SELESAIKAN PESANAN</button>
+            <button type="button" onclick="batal()" style="background:none; color:gray; border:none; margin-top:10px; cursor:pointer;">Kembali ke Katalog</button>
         </form>
     </div>
 </div>
 
 <script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzzXavcJca8CRjKxTai1iWPv7YBF16YTlFqi5N7579ku3Eyyt8m-6Zc7437B_w89bfY-A/exec';
-    let dataMember = { nama: "", wa: "", alamat: "" };
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwS6CvxXW8lmHPZvPR0-S1XzV3pyODxKOvcDpW1--PgvdqwHLcJz9s3gMDJe9rgvuXnng/exec';
+    let currentData = { nama: "", wa: "", alamat: "" };
 
     function showLogin() { document.getElementById('reg-screen').style.display='none'; document.getElementById('login-screen').style.display='flex'; }
     function batal() { document.getElementById('pembayaran-screen').style.display='none'; document.getElementById('shop-content').style.display='block'; }
 
-    // REGISTER
-    document.getElementById('form-register-toko').onsubmit = e => {
+    // AJAX Handler Universal
+    async function sendData(formData) {
+        return fetch(SCRIPT_URL, { method: 'POST', body: formData, mode: 'no-cors' });
+    }
+
+    document.getElementById('form-register-toko').onsubmit = async e => {
         e.preventDefault();
-        const b = document.getElementById('btn-submit-reg'); b.innerText = "Proses...";
-        fetch(SCRIPT_URL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
-        .then(() => { 
-            alert('Data Masuk ke register.html!'); 
-            document.getElementById('form-register-toko').style.display='none'; 
-            document.getElementById('goto-login-btn').style.display='block'; 
-        });
+        document.getElementById('btn-submit-reg').innerText = "Menyimpan...";
+        await sendData(new FormData(e.target));
+        alert('Registrasi Berhasil!');
+        document.getElementById('form-register-toko').style.display='none';
+        document.getElementById('goto-login-btn').style.display='block';
     };
 
-    // LOGIN
-    document.getElementById('form-login-toko').onsubmit = e => {
+    document.getElementById('form-login-toko').onsubmit = async e => {
         e.preventDefault();
-        dataMember.nama = document.getElementById('login-nama').value;
-        dataMember.wa = document.getElementById('login-wa').value;
-        dataMember.alamat = document.getElementById('login-rumah').value;
-        const b = document.getElementById('btn-submit-login'); b.innerText = "Masuk...";
-        fetch(SCRIPT_URL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
-        .then(() => { 
-            alert('Data Masuk ke User!');
-            document.getElementById('login-screen').style.display='none'; 
-            document.getElementById('shop-content').style.display='block'; 
-        });
+        currentData.nama = document.getElementById('login-nama').value;
+        currentData.wa = document.getElementById('login-wa').value;
+        currentData.alamat = document.getElementById('login-rumah').value;
+        document.getElementById('btn-submit-login').innerText = "Verifikasi...";
+        await sendData(new FormData(e.target));
+        document.getElementById('login-screen').style.display='none';
+        document.getElementById('shop-content').style.display='block';
     };
 
-    // BUKA PEMBAYARAN
     function bukaPembayaran(n, p) {
         document.getElementById('shop-content').style.display='none';
         document.getElementById('pembayaran-screen').style.display='flex';
         document.getElementById('p-item').innerText = n;
         document.getElementById('p-harga').innerText = p;
-        // Siapkan data untuk sheet Order
-        document.getElementById('ord-nama').value = dataMember.nama;
-        document.getElementById('ord-hp').value = dataMember.wa;
-        document.getElementById('ord-total').value = p + " (" + n + ")";
-        document.getElementById('ord-alamat').value = dataMember.alamat;
+
+        // Pasang data ke Hidden Input
+        document.getElementById('ord-nama').value = currentData.nama;
+        document.getElementById('ord-hp').value = "'" + currentData.wa; // Tambah petik agar tidak kepotong di Sheets
+        document.getElementById('ord-total').value = p + " [" + n + "]";
+        document.getElementById('ord-alamat').value = currentData.alamat;
         document.getElementById('ord-tanggal').value = new Date().toLocaleString('id-ID');
     }
 
-    // ORDER AKHIR
-    document.getElementById('form-order-toko').onsubmit = e => {
+    document.getElementById('form-order-toko').onsubmit = async e => {
         e.preventDefault();
-        const b = document.getElementById('btn-proses-order'); b.innerText = "Mengirim..."; b.disabled = true;
-        fetch(SCRIPT_URL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' })
-        .then(() => {
-            alert('Pesanan Masuk ke Order! Gibran akan segera proses.');
-            location.reload();
-        });
+        const b = document.getElementById('btn-proses-order');
+        b.innerText = "Mengirim Pesanan..."; b.disabled = true;
+        await sendData(new FormData(e.target));
+        alert('Pesanan Sukses! Silakan tunggu konfirmasi Gibran.');
+        location.reload();
     };
 </script>
 </body>
