@@ -18,10 +18,14 @@
             border: 1px solid #334155; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
         }
         label { display: block; text-align: left; font-size: 0.8rem; color: #94a3b8; margin-top: 10px; margin-left: 5px; }
+        
+        /* PERBAIKAN INPUT TANGGAL & TEXT */
         input, textarea { 
             width: 100%; padding: 12px; margin: 5px 0 15px 0; border-radius: 10px; 
             border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box;
+            font-size: 1rem; color-scheme: dark; /* Bikin kalender jadi putih/terang */
         }
+        
         textarea { height: 80px; resize: none; }
         .btn-shop { 
             width: 100%; padding: 14px; margin-top: 10px; border-radius: 10px; 
@@ -62,7 +66,7 @@
         
         <form id="form-toko-gibran">
             <label>Tanggal Daftar</label>
-            <input type="date" name="tanggal" required>
+            <input type="date" name="tanggal" id="inp-tanggal" onclick="this.showPicker()" required>
             
             <label>Nama Lengkap</label>
             <input type="text" name="nama" id="user-nama" placeholder="Masukkan Nama Lengkap" required>
@@ -75,7 +79,7 @@
             
             <input type="hidden" name="sheetTarget" value="register.html">
 
-            <button type="submit" id="btn-submit-toko" class="btn-shop btn-reg">DAFTAR SEKARANG</button>
+            <button type="submit" id="btn-submit-toko" class="btn-shop btn-reg">DAFTAR SEBAGAI MEMBER</button>
         </form>
 
         <button id="btn-login-toko" class="btn-shop btn-log" onclick="bukaKatalog()">MASUK KE KATALOG</button>
@@ -112,12 +116,10 @@
 </div>
 
 <script>
-    // MENGGUNAKAN LINK SCRIPT DARI MEMO LO
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxqbpqaLr31aPnLmALq3VZQ8t5z7VkWTT0LwxO0AE-1hj6s03X7BVPrQecyH5x8jSvgew/exec';
 
     const fToko = document.getElementById('form-toko-gibran');
     
-    // PROSES DAFTAR KE GOOGLE SHEETS (TAB: register.html)
     fToko.onsubmit = e => {
         e.preventDefault();
         const b = document.getElementById('btn-submit-toko');
@@ -126,31 +128,26 @@
 
         fetch(SCRIPT_URL, { method: 'POST', body: new FormData(fToko), mode: 'no-cors' })
         .then(() => {
-            alert('Pendaftaran Member Berhasil! Data tersimpan di register.html');
+            alert('Pendaftaran Member Berhasil!');
             fToko.style.display = 'none';
             document.getElementById('btn-login-toko').style.display = 'block';
         })
         .catch(err => {
             alert('Error: ' + err);
-            b.innerText = "DAFTAR SEKARANG";
+            b.innerText = "DAFTAR SEBAGAI MEMBER";
             b.disabled = false;
         });
     };
 
-    // PROSES MASUK KE TOKO
     function bukaKatalog() {
         const adminName = document.getElementById('user-nama').value.toLowerCase();
-        
-        // JIKA NAMA YANG MASUK ADALAH GIBRAN / ADMIN
         if(adminName === 'gibran' || adminName === 'admin') {
             document.getElementById('panel-admin-produk').style.display = 'block';
         }
-
         document.getElementById('gate-screen').style.display = 'none';
         document.getElementById('shop-content').style.display = 'block';
     }
 
-    // FUNGSI ADMIN TAMBAH BARANG
     function tambahBarang() {
         const n = document.getElementById('inp-nama').value;
         const h = document.getElementById('inp-harga').value;
@@ -166,13 +163,9 @@
                 </div>
             `;
             document.getElementById('katalog-display').insertAdjacentHTML('afterbegin', itemHTML);
-            
             document.getElementById('inp-nama').value = '';
             document.getElementById('inp-harga').value = '';
             document.getElementById('inp-link').value = '';
-            alert('Produk Berhasil Ditambahkan ke Katalog!');
-        } else {
-            alert('Harap isi semua data produk!');
         }
     }
 </script>
