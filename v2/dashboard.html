@@ -3,23 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DASHBOARD GIBRAN FINAL</title>
+    <title>DASHBOARD GIBRAN - FIX</title>
     <style>
-        body { font-family: sans-serif; background: #020617; color: white; padding: 15px; text-align: center; }
-        .box { background: #1e293b; padding: 15px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #334155; }
-        video { width: 100%; border-radius: 10px; background: #000; transform: scaleX(-1); }
-        .btn { width: 100%; padding: 15px; margin-top: 10px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
+        body { font-family: 'Poppins', sans-serif; background: #020617; color: white; padding: 15px; text-align: center; margin: 0; }
+        .box { background: #1e293b; padding: 15px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #334155; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        video { width: 100%; border-radius: 10px; background: #000; transform: scaleX(-1); border: 2px solid #00f3ff; }
+        .btn { width: 100%; padding: 15px; margin-top: 10px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 1rem; }
         .btn-absen { background: #00f3ff; color: #000; }
         .btn-upload { background: #fbbf24; color: #000; }
+        .btn-back { background: #475569; color: white; margin-top: 20px; border: 2px solid #64748b; }
+        .btn-back:hover { background: #64748b; }
+        
         .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .item { background: #0f172a; padding: 5px; border-radius: 10px; border: 1px solid #00f3ff; }
-        .item img { width: 100%; border-radius: 5px; display: block; }
-        .btn-action { border: none; padding: 8px; width: 100%; margin-top: 5px; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 11px; }
+        .item { background: #0f172a; padding: 8px; border-radius: 12px; border: 1px solid #334155; }
+        .item img { width: 100%; border-radius: 8px; display: block; }
+        .btn-action { border: none; padding: 8px; width: 100%; margin-top: 8px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 11px; color: white; }
+        
+        h2#jam { font-size: 2.5rem; color: #00f3ff; text-shadow: 0 0 10px #00f3ff; margin: 10px 0; }
     </style>
 </head>
 <body>
 
     <h2 id="jam">00:00:00</h2>
+    <p style="color: #94a3b8;">Command Center - M. Gibran</p>
     
     <div class="box">
         <video id="kamera" autoplay playsinline></video>
@@ -30,95 +36,91 @@
     <div class="box">
         <input type="file" id="inputFoto" accept="image/*" multiple style="display:none;">
         <button class="btn btn-upload" onclick="document.getElementById('inputFoto').click()">UPLOAD FOTO BARU</button>
-        <button class="btn" style="background:#ef4444; color:white;" onclick="bersihkanSemua()">KOSONGKAN MEMORI (HAPUS SEMUA)</button>
+        
+        <button class="btn btn-back" onclick="window.location.href='index.html'">KEMBALI KE WEBSITE UTAMA</button>
     </div>
 
+    <h3 style="color: #fbbf24;">STORAGE GALERI</h3>
     <div id="galeri" class="gallery"></div>
 
-<script>
-    const video = document.getElementById('kamera');
-    const kanvas = document.getElementById('kanvas');
-    const galeri = document.getElementById('galeri');
+    <script>
+        const video = document.getElementById('kamera');
+        const kanvas = document.getElementById('kanvas');
+        const galeri = document.getElementById('galeri');
 
-    setInterval(() => { document.getElementById('jam').innerText = new Date().toLocaleTimeString(); }, 1000);
+        // Update Jam
+        setInterval(() => { document.getElementById('jam').innerText = new Date().toLocaleTimeString(); }, 1000);
 
-    // Aktifin Kamera
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } })
-    .then(s => video.srcObject = s).catch(e => alert("Error: Izinkan Akses Kamera!"));
+        // Akses Kamera
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } })
+        .then(s => video.srcObject = s).catch(e => alert("Error: Izinkan Akses Kamera!"));
 
-    // Tampilkan data yang tersimpan
-    function tampilkanData() {
-        const data = JSON.parse(localStorage.getItem('GIBRAN_FINAL_DATA') || '[]');
-        galeri.innerHTML = '';
-        data.forEach((p, i) => {
-            const div = document.createElement('div');
-            div.className = 'item';
-            div.innerHTML = `<img src="${p}">
-                <button class="btn-action" style="background:#10b981; color:white;" onclick="download('${p}')">SAVE</button>
-                <button class="btn-action" style="background:#444; color:white;" onclick="hapus(${i})">HAPUS</button>`;
-            galeri.appendChild(div);
-        });
-    }
-    tampilkanData();
-
-    // Fungsi Ambil Foto Absen
-    function ambilFoto() {
-        kanvas.width = 320; // Ukuran kecil biar hemat tempat
-        kanvas.height = 240;
-        const ctx = kanvas.getContext('2d');
-        ctx.translate(kanvas.width, 0);
-        ctx.scale(-1, 1); // Mirror biar kayak selfie beneran
-        ctx.drawImage(video, 0, 0, 320, 240);
-        
-        const hasil = kanvas.toDataURL('image/jpeg', 0.5); // Kompresi 50%
-        simpan(hasil);
-    }
-
-    // Fungsi Upload
-    document.getElementById('inputFoto').onchange = function(e) {
-        for (let file of e.target.files) {
-            const reader = new FileReader();
-            reader.onload = (ev) => {
-                const img = new Image();
-                img.onload = () => {
-                    kanvas.width = 320; kanvas.height = 240;
-                    kanvas.getContext('2d').drawImage(img, 0, 0, 320, 240);
-                    simpan(kanvas.toDataURL('image/jpeg', 0.5));
-                };
-                img.src = ev.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-
-    function simpan(base64) {
-        try {
+        // Load Data
+        function tampilkanData() {
             const data = JSON.parse(localStorage.getItem('GIBRAN_FINAL_DATA') || '[]');
-            data.push(base64);
-            localStorage.setItem('GIBRAN_FINAL_DATA', JSON.stringify(data));
-            tampilkanData();
-        } catch (e) {
-            alert("Memori Browser Penuh! Klik tombol merah untuk mengosongkan.");
+            galeri.innerHTML = '';
+            data.reverse().forEach((p, i) => {
+                const div = document.createElement('div');
+                div.className = 'item';
+                div.innerHTML = `<img src="${p}">
+                    <button class="btn-action" style="background:#10b981;" onclick="download('${p}')">SAVE KE HP</button>
+                    <button class="btn-action" style="background:#ef4444;" onclick="hapus(${data.length - 1 - i})">HAPUS</button>`;
+                galeri.appendChild(div);
+            });
         }
-    }
-
-    function hapus(i) {
-        let d = JSON.parse(localStorage.getItem('GIBRAN_FINAL_DATA') || '[]');
-        d.splice(i, 1);
-        localStorage.setItem('GIBRAN_FINAL_DATA', JSON.stringify(d));
         tampilkanData();
-    }
 
-    function bersihkanSemua() {
-        if(confirm("Hapus semua foto dan kosongkan memori?")) {
-            localStorage.removeItem('GIBRAN_FINAL_DATA');
+        // Ambil Foto
+        function ambilFoto() {
+            kanvas.width = 320; kanvas.height = 240;
+            const ctx = kanvas.getContext('2d');
+            ctx.translate(kanvas.width, 0); ctx.scale(-1, 1);
+            ctx.drawImage(video, 0, 0, 320, 240);
+            simpan(kanvas.toDataURL('image/jpeg', 0.5));
+        }
+
+        // Upload
+        document.getElementById('inputFoto').onchange = function(e) {
+            for (let file of e.target.files) {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        kanvas.width = 320; kanvas.height = 240;
+                        kanvas.getContext('2d').drawImage(img, 0, 0, 320, 240);
+                        simpan(kanvas.toDataURL('image/jpeg', 0.5));
+                    };
+                    img.src = ev.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+
+        // Simpan & Auto-Handle Memori
+        function simpan(base64) {
+            let data = JSON.parse(localStorage.getItem('GIBRAN_FINAL_DATA') || '[]');
+            try {
+                data.push(base64);
+                localStorage.setItem('GIBRAN_FINAL_DATA', JSON.stringify(data));
+            } catch (e) {
+                // Jika penuh, hapus 1 foto terlama
+                data.shift();
+                data.push(base64);
+                localStorage.setItem('GIBRAN_FINAL_DATA', JSON.stringify(data));
+            }
             tampilkanData();
         }
-    }
 
-    function download(u) {
-        const a = document.createElement('a'); a.href = u; a.download = 'Gibran_Absen.jpg'; a.click();
-    }
-</script>
+        function hapus(i) {
+            let d = JSON.parse(localStorage.getItem('GIBRAN_FINAL_DATA') || '[]');
+            d.splice(i, 1);
+            localStorage.setItem('GIBRAN_FINAL_DATA', JSON.stringify(d));
+            tampilkanData();
+        }
+
+        function download(u) {
+            const a = document.createElement('a'); a.href = u; a.download = 'Gibran_Absen.jpg'; a.click();
+        }
+    </script>
 </body>
 </html>
