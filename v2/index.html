@@ -124,4 +124,112 @@
     });
 </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gibran Portofolio V2 - Humas LP3I</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        :root { --gold: #fbbf24; --blue: #2563eb; --dark: #0f172a; --card: #1e293b; }
+        body { font-family: 'Inter', sans-serif; background: var(--dark); color: white; margin: 0; padding-bottom: 50px; }
+        .header { text-align: center; padding: 60px 20px; background: linear-gradient(to bottom, #1e293b, #0f172a); }
+        .container { max-width: 600px; margin: -40px auto 0; padding: 0 20px; }
+        .card { background: var(--card); padding: 25px; border-radius: 15px; border: 1px solid #334155; margin-bottom: 20px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); }
+        h2, h3 { color: var(--gold); margin-top: 0; }
+        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #334155; background: #020617; color: white; box-sizing: border-box; }
+        .btn { width: 100%; padding: 14px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .btn-daftar { background: var(--blue); color: white; }
+        .btn-login { background: var(--gold); color: black; }
+        .google-box { display: flex; justify-content: center; margin: 15px 0; background: white; padding: 10px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>M. GIBRAN</h1>
+    <p>Public Relations | Monitoring | Musician</p>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h3>TENTANG SAYA</h3>
+        <p>Mahasiswa Humas LP3I Kramat Raya yang disiplin. Aktif dalam kegiatan Monitoring, memiliki hobi Musik (Gitar), dan Olahraga (Futsal).</p>
+    </div>
+
+    <div class="card">
+        <h3>DAFTAR AKUN (V2)</h3>
+        <p style="font-size: 0.8rem; color: #94a3b8;">Klik tombol di bawah untuk isi nama otomatis:</p>
+        
+        <div class="google-box">
+            <div id="g_id_onload"
+                 data-client_id="594310366887-36qn9gvajo1335snmlrta7tdh9lgofre.apps.googleusercontent.com"
+                 data-callback="handleCredentialResponse">
+            </div>
+            <div class="g_id_signin" data-type="standard"></div>
+        </div>
+
+        <form id="form-pendaftaran">
+            <input type="text" id="nama-otomatis" name="Nama" placeholder="Nama Lengkap" required>
+            <input type="number" name="WhatsApp" placeholder="Nomor WhatsApp" required>
+            <textarea name="Alamat" placeholder="Alamat Lengkap" rows="2" required></textarea>
+            <button type="submit" class="btn btn-daftar" id="btn-teks-daftar">KIRIM PENDAFTARAN</button>
+        </form>
+    </div>
+
+    <div class="card" style="border-style: dashed;">
+        <h3>LOGIN USER</h3>
+        <form id="form-login">
+            <input type="hidden" name="Tipe" value="LOGIN">
+            <input type="text" name="Nama" placeholder="Nama" required>
+            <input type="number" name="HP" placeholder="No HP" required>
+            <textarea name="Opini" placeholder="Pesan/Kesan" rows="2" required></textarea>
+            <button type="submit" class="btn btn-login" id="btn-teks-login">MASUK</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // URL Web App Google Script lo yang di Sheet1
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwPEleNStiJCSmxH_iN2Yr-zrJyWXjN-GXSkg5bQkZHFR0Og7CvrMu9_TQO5F-jg5mysA/exec';
+
+    // FUNGSI NARIK NAMA DARI GOOGLE
+    function handleCredentialResponse(response) {
+        const responsePayload = JSON.parse(atob(response.credential.split('.')[1]));
+        document.getElementById('nama-otomatis').value = responsePayload.name;
+        alert("Halo " + responsePayload.name + "! Nama lo berhasil ditarik dari Google.");
+    }
+
+    // KIRIM FORM DAFTAR
+    const fDaftar = document.getElementById('form-pendaftaran');
+    fDaftar.addEventListener('submit', e => {
+        e.preventDefault();
+        document.getElementById('btn-teks-daftar').innerHTML = 'Mengirim...';
+        fetch(scriptURL, { method: 'POST', body: new FormData(fDaftar)})
+        .then(res => {
+            alert('Pendaftaran Berhasil Masuk ke Google Sheet!');
+            fDaftar.reset();
+            document.getElementById('btn-teks-daftar').innerHTML = 'KIRIM PENDAFTARAN';
+        })
+        .catch(error => alert('Error!', error.message));
+    });
+
+    // KIRIM FORM LOGIN
+    const fLogin = document.getElementById('form-login');
+    fLogin.addEventListener('submit', e => {
+        e.preventDefault();
+        document.getElementById('btn-teks-login').innerHTML = 'Logging in...';
+        fetch(scriptURL, { method: 'POST', body: new FormData(fLogin)})
+        .then(res => {
+            alert('Login Tercatat di Google Sheet!');
+            fLogin.reset();
+            document.getElementById('btn-teks-login').innerHTML = 'MASUK';
+        })
+        .catch(error => alert('Error!', error.message));
+    });
+</script>
+
+</body>
 </html>
+
