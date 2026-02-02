@@ -8,7 +8,6 @@
         :root { --gold: #fbbf24; --blue: #2563eb; --dark: #020617; --card: #1e293b; --text: #cbd5e1; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--dark); color: white; line-height: 1.8; }
         
-        /* Header Section */
         .header { background: linear-gradient(135deg, #1e293b 0%, #020617 100%); padding: 80px 20px 120px; text-align: center; position: relative; }
         .header h1 { font-size: 3rem; color: var(--gold); margin: 0; letter-spacing: 4px; text-transform: uppercase; }
         .header p { color: #94a3b8; font-size: 1.1rem; margin-top: 10px; }
@@ -16,7 +15,6 @@
         .wave { position: absolute; bottom: 0; left: 0; width: 100%; line-height: 0; }
         .wave svg { display: block; width: 100%; height: 80px; fill: var(--dark); }
 
-        /* Content Container */
         .container { max-width: 850px; margin: -60px auto 60px; padding: 0 20px; position: relative; z-index: 10; }
         .card { background: var(--card); padding: 45px; border-radius: 30px; border: 1px solid #334155; box-shadow: 0 25px 50px rgba(0,0,0,0.7); }
         
@@ -31,7 +29,6 @@
         .list-misi li { margin-bottom: 12px; padding-left: 30px; position: relative; color: var(--text); }
         .list-misi li::before { content: '✦'; position: absolute; left: 0; color: var(--gold); }
 
-        /* Form Daftar Sekarang */
         .register-section { margin-top: 50px; padding: 35px; background: #0f172a; border-radius: 20px; border: 2px solid var(--gold); text-align: center; }
         .register-section h3 { color: var(--gold); margin-bottom: 20px; text-transform: uppercase; }
         input, textarea { width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; border: 1px solid #334155; background: #1e293b; color: white; box-sizing: border-box; font-size: 1rem; font-family: inherit; }
@@ -91,8 +88,8 @@
 <footer>© 2026 Gibran Official Portofolio</footer>
 
 <script>
-    // Link Apps Script lo sudah gue pasang di sini
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwvfabN3XICUD17kImxHjKf2pfNOkDialdonvkPvuOvAG9BySSpmvMswEFzc_x7zcqlZQ/exec';
+    // URL Web App baru lo sudah terpasang di bawah ini:
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwS6CvxXW8lmHPZvPR0-S1XzV3pyODxKOvcDpW1--PgvdqwHLcJz9s3gMDJe9rgvuXnng/exec';
     const form = document.getElementById('gibran-form');
     const btn = document.getElementById('btn-teks');
 
@@ -109,7 +106,7 @@
                 form.reset();
             })
             .catch(error => {
-                alert('Waduh Gagal! Cek koneksi internet atau script lo.');
+                alert('Gagal! Pastikan lo sudah Run fungsi SETUP di Apps Script dan pilih NEW VERSION saat Deploy.');
                 btn.disabled = false;
                 btn.innerText = 'DAFTAR SEKARANG';
             });
