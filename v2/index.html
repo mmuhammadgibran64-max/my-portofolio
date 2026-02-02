@@ -8,53 +8,34 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
         :root { --gold: #fbbf24; --blue: #3b82f6; --dark: #020617; --card: #1e293b; }
-        
         body { font-family: 'Poppins', sans-serif; background: var(--dark); color: white; margin: 0; line-height: 1.6; }
-        
-        .header-main { text-align: center; padding: 80px 20px; background: linear-gradient(180deg, #1e293b 0%, #020617 100%); border-bottom: 2px solid var(--gold); }
+        .header-main { text-align: center; padding: 60px 20px; background: linear-gradient(180deg, #1e293b 0%, #020617 100%); border-bottom: 2px solid var(--gold); }
         .header-main h1 { color: var(--gold); font-size: 2.5rem; margin: 0; letter-spacing: 2px; text-transform: uppercase; }
-
-        .container { max-width: 800px; margin: auto; padding: 40px 20px; }
-        .section { background: var(--card); padding: 30px; border-radius: 20px; margin-bottom: 30px; border: 1px solid #334155; }
-        
-        h3 { color: var(--gold); border-left: 5px solid var(--gold); padding-left: 15px; margin-bottom: 20px; }
-        p { color: #cbd5e1; margin-bottom: 15px; text-align: justify; }
-
-        /* Form & Google Login */
-        .form-box { background: #0f172a; padding: 25px; border-radius: 15px; border: 1px dashed var(--gold); }
-        input, textarea { width: 100%; padding: 14px; margin: 10px 0; border-radius: 10px; border: 1px solid #334155; background: #020617; color: white; box-sizing: border-box; }
-        .btn { width: 100%; padding: 16px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 1rem; background: var(--blue); color: white; }
-        .google-box { display: flex; justify-content: center; margin-bottom: 20px; background: white; padding: 10px; border-radius: 10px; }
+        .container { max-width: 800px; margin: auto; padding: 20px; }
+        .section { background: var(--card); padding: 25px; border-radius: 20px; margin-bottom: 25px; border: 1px solid #334155; }
+        h3 { color: var(--gold); border-left: 5px solid var(--gold); padding-left: 15px; margin-bottom: 15px; }
+        .form-box { background: #0f172a; padding: 20px; border-radius: 15px; border: 1px dashed var(--gold); text-align: center; }
+        .btn { width: 100%; padding: 15px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; background: var(--blue); color: white; margin-top: 10px; }
+        .google-box { display: flex; justify-content: center; margin-bottom: 15px; }
     </style>
 </head>
 <body>
 
 <div class="header-main">
     <h1>M. GIBRAN</h1>
-    <p>Public Relations | Monitoring | Musician | Content Creator</p>
+    <p>Public Relations | Monitoring | Musician</p>
 </div>
 
 <div class="container">
-    
     <div class="section">
         <h3>TENTANG SAYA</h3>
-        <p>Perkenalkan, nama saya <b>Gibran</b>. Saya merupakan mahasiswa Hubungan Masyarakat (Humas) di <b>LP3I Kramat Raya</b>. Saya memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring selama satu bulan. Saat ini saya sedang fokus mengembangkan diri, keterampilan, serta portofolio pribadi.</p>
-        <p>Saya adalah pribadi yang disiplin, cepat beradaptasi, serta mau belajar hal baru. Dalam keseharian, saya senang bermain futsal yang menjadi hobi saya sejak lama.</p>
-    </div>
-
-    <div class="section">
-        <h3>KEAHLIAN & PENGALAMAN</h3>
-        <p>• <b>Bermain Gitar:</b> Memahami chord dasar hingga intermediate, serta dapat mengiringi lagu acoustic dengan baik.</p>
-        <p>• <b>Futsal:</b> Kemampuan kontrol bola yang baik dan mampu bekerja sama dalam tim.</p>
-        <p>• <b>Pengalaman BGI:</b> Bertanggung jawab dalam tugas operasional dan manajemen waktu secara profesional.</p>
-        <hr style="border:0; border-top:1px solid #334155; margin:20px 0;">
-        <p><b>Visi:</b> Menjadi individu yang mampu berkontribusi maksimal dan berkolaborasi dengan baik dalam tim.</p>
-        <p><b>Misi:</b> Membangun hubungan profesional, mengembangkan keterampilan, dan menjaga integritas kerja.</p>
+        <p>Mahasiswa Humas LP3I Kramat Raya. Pengalaman Monitoring di Gatot Subroto. Disiplin, cepat beradaptasi, dan aktif di Futsal serta Musik.</p>
     </div>
 
     <div class="section">
         <h3>MASUK KE DASHBOARD</h3>
         <div class="form-box">
+            <p style="color: #94a3b8; font-size: 0.9rem;">Klik tombol Google di bawah untuk akses Dashboard:</p>
             <div class="google-box">
                 <div id="g_id_onload"
                      data-client_id="594310366887-36qn9gvajo1335snmlrta7tdh9lgofre.apps.googleusercontent.com"
@@ -62,49 +43,18 @@
                 </div>
                 <div class="g_id_signin" data-type="standard"></div>
             </div>
-
-            <form id="form-pendaftaran">
-                <input type="text" id="nama-isi" name="Nama" placeholder="Nama Lengkap" required>
-                <input type="number" name="WhatsApp" placeholder="Nomor WhatsApp" required>
-                <button type="submit" class="btn" id="btn-submit">DAFTAR & BUKA DASHBOARD</button>
-            </form>
+            <p style="font-size: 0.8rem; color: #64748b;">Akses ini hanya diminta sekali saat ingin masuk.</p>
         </div>
     </div>
-
 </div>
 
 <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwPEleNStiJCSmxH_iN2Yr-zrJyWXjN-GXSkg5bQkZHFR0Og7CvrMu9_TQO5F-jg5mysA/exec';
-
-    // FUNGSI PINDAH KE DASHBOARD
-    function masukKeDashboard() {
+    function handleCredentialResponse(response) {
+        // Simpan status login sederhana di browser
+        localStorage.setItem('gibran_login', 'true');
+        alert("Login Berhasil! Membuka Dashboard...");
         window.location.href = 'dashboard.html';
     }
-
-    // CALLBACK GOOGLE LOGIN
-    function handleCredentialResponse(response) {
-        const payload = JSON.parse(atob(response.credential.split('.')[1]));
-        document.getElementById('nama-isi').value = payload.name;
-        
-        // Setelah login Google, kasih jeda sebentar terus pindah ke dashboard
-        alert("Halo " + payload.name + "! Kamu akan dialihkan ke Dashboard.");
-        masukKeDashboard();
-    }
-
-    // KIRIM FORM MANUAL
-    const form = document.getElementById('form-pendaftaran');
-    form.addEventListener('submit', e => {
-        e.preventDefault();
-        document.getElementById('btn-submit').innerText = 'Menghubungkan...';
-        
-        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-        .then(response => {
-            alert('Data Terkirim! Membuka Dashboard...');
-            masukKeDashboard(); // PINDAH KE DASHBOARD SETELAH DAFTAR
-        })
-        .catch(error => alert('Error: ' + error.message));
-    });
 </script>
-
 </body>
 </html>
