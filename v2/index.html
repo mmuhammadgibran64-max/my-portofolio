@@ -54,33 +54,19 @@
 <div class="container">
     <div class="card">
         <h2>Perkenalkan</h2>
-        <p>Nama saya <b>Gibran</b>. Saya merupakan mahasiswa Hubungan Masyarakat (Humas) di LP3I Kramat Raya. Saya memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring, dengan masa kerja selama satu bulan. Setelah itu saya belum bekerja lagi dan sedang fokus mengembangkan diri, keterampilan, serta portofolio pribadi.</p>
-        <p>Saya adalah pribadi yang disiplin, cepat beradaptasi, serta mau belajar hal baru. Dalam keseharian, saya senang melakukan aktivitas positif, salah satunya bermain futsal yang menjadi hobi saya sejak lama.</p>
-        <p>Dengan latar belakang Humas dan pengalaman di lapangan, saya siap berkontribusi dalam pekerjaan atau proyek yang membutuhkan komunikasi, kedisiplinan, dan kemampuan analisis dasar.</p>
+        <p>Nama saya <b>Gibran</b>. Saya mahasiswa Hubungan Masyarakat (Humas) di LP3I Kramat Raya. Memiliki pengalaman di Gatot Subroto bagian Monitoring. Saya disiplin, cepat belajar, dan hobi bermain futsal serta gitar.</p>
 
         <h2>Keahlian</h2>
-        <div class="skill-box"><b>🎸 Bermain Gitar</b> — Mampu memainkan beberapa genre musik, memahami chord dasar hingga intermediate, serta dapat mengiringi lagu acoustic dengan baik.</div>
-        <div class="skill-box"><b>⚽ Futsal</b> — Memiliki kemampuan kontrol bola yang baik, cepat dalam pengambilan keputusan, dan mampu bekerja sama dalam tim sebagai pemain bertahan maupun penyerang.</div>
-
-        <h2>Pengalaman Kerja</h2>
-        <p><b>BGI</b><br>Pernah bekerja di BGI dan bertanggung jawab dalam beberapa tugas operasional seperti membantu proses pekerjaan sehari-hari, mendukung kegiatan tim, dan menjalankan instruksi sesuai standar perusahaan. Pengalaman ini membuat saya lebih matang dalam bekerja secara profesional, memahami manajemen waktu, serta menjaga kualitas hasil kerja.</p>
-
-        <h2>Visi & Misi</h2>
-        <p><b>Visi:</b> Menjadi individu yang mampu berkontribusi secara maksimal, bekerja dengan penuh tanggung jawab, serta dapat berkolaborasi dengan baik dalam tim untuk mencapai tujuan perusahaan.</p>
-        <ul class="list-misi">
-            <li>Membangun hubungan kerja yang positif dan profesional demi mendukung perkembangan perusahaan.</li>
-            <li>Mengembangkan pengetahuan dan keterampilan agar dapat memberikan hasil kerja yang kompeten.</li>
-            <li>Berperan aktif dalam setiap tugas yang diberikan untuk meningkatkan efisiensi dan kualitas kerja tim.</li>
-            <li>Menjaga integritas, disiplin, dan komitmen dalam setiap proses pekerjaan.</li>
-        </ul>
+        <div class="skill-box"><b>🎸 Bermain Gitar</b> — Mengiringi lagu acoustic dengan baik.</div>
+        <div class="skill-box"><b>⚽ Futsal</b> — Pemain tim yang kompeten.</div>
 
         <div class="register-section">
             <h3>DAFTAR SEKARANG</h3>
             <form id="gibran-form">
                 <input type="text" name="Nama" placeholder="Nama Lengkap" required>
-                <input type="number" name="WhatsApp" placeholder="Nomor WhatsApp Aktif" required>
+                <input type="number" name="WhatsApp" placeholder="Nomor WhatsApp" required>
                 <textarea name="Alamat" placeholder="Alamat Lengkap" rows="3" required></textarea>
-                <button type="submit" class="btn-submit" id="btn-teks">DAFTAR SEKARANG</button>
+                <button type="submit" class="btn-submit" id="btn-teks">KIRIM DATA</button>
             </form>
         </div>
     </div>
@@ -89,8 +75,8 @@
 <footer>© 2026 Gibran Official Portofolio</footer>
 
 <script>
-    // Link Apps Script terbaru lo sudah gue pasangkan di sini:
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxE9FfPse4yJtR-5k_m0KM2Flom8lRXIsRXspDyhbdCbP6luJYVTtVICKGw_H4OKycOgw/exec';
+    // Memasukkan URL exec terakhir lo
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwYj2kqWccpWiR1o7k2KJRVcPjKnHAYXk5QxrA183NbrvrH4GN1428x2RS8gaL7zLNglA/exec';
     const form = document.getElementById('gibran-form');
     const btn = document.getElementById('btn-teks');
 
@@ -101,15 +87,15 @@
         
         fetch(scriptURL, { method: 'POST', body: new FormData(form)})
             .then(response => {
-                alert('Mantap Bran! Data Nama, WhatsApp, dan Alamat lo sudah masuk ke Google Sheets.');
+                alert('Mantap Bran! Data lo sudah mendarat di Google Sheet.');
                 btn.disabled = false;
-                btn.innerText = 'DAFTAR SEKARANG';
+                btn.innerText = 'KIRIM DATA';
                 form.reset();
             })
             .catch(error => {
-                alert('Gagal! Cek koneksi internet atau New Version di Deployment.');
+                alert('Gagal! Cek koneksi atau New Version di Apps Script.');
                 btn.disabled = false;
-                btn.innerText = 'DAFTAR SEKARANG';
+                btn.innerText = 'KIRIM DATA';
             });
     });
 </script>
