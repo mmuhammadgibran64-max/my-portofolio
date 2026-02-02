@@ -3,52 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Gibran - Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Dashboard Command Center - M. Gibran</title>
     <style>
-        /* ===== RESET & BASE STYLES ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
+        
+        :root { 
+            --neon-blue: #00f3ff; 
+            --neon-gold: #fbbf24; 
+            --dark-bg: #020617; 
+            --card-bg: #1e293b; 
         }
         
-        body {
-            background-color: #f5f7fa;
-            color: #333;
-            line-height: 1.6;
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: var(--dark-bg); 
+            color: white; 
+            margin: 0; 
+            padding: 20px; 
+            overflow-x: hidden;
         }
-        
-        /* ===== HEADER & NAVIGATION ===== */
-        .header {
-            background: linear-gradient(135deg, #2c3e50, #3498db);
-            color: white;
-            padding: 20px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+
+        h2, h3 { 
+            font-family: 'Orbitron', sans-serif; 
+            color: var(--neon-gold); 
+            text-align: center; 
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+
+        /* 1. JAM BERGERAK DIGITAL */
+        #clock { 
+            font-family: 'Orbitron', sans-serif; 
+            font-size: 3.5rem; 
+            text-align: center; 
+            color: var(--neon-blue); 
+            text-shadow: 0 0 20px var(--neon-blue); 
+            margin: 20px 0; 
+            background: rgba(0, 243, 255, 0.1);
+            border-radius: 15px;
+            padding: 10px;
         }
+
+        .container { max-width: 900px; margin: auto; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
         
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .card { 
+            background: var(--card-bg); 
+            border: 1px solid #334155; 
+            padding: 20px; 
+            border-radius: 25px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6); 
         }
-        
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
+
+        /* 2. CCTV & ABSEN MUKA */
+        .video-box { 
+            width: 100%; 
+            background: black; 
+            border-radius: 15px; 
+            overflow: hidden; 
+            position: relative; 
+            aspect-ratio: 16/9; 
+            border: 2px solid var(--neon-blue);
         }
+        video { width: 100%; height: 100%; object-fit: cover; }
+        .rec-dot { 
+            position: absolute; 
+            top: 15px; 
+            left: 15px; 
+            width: 12px; 
+            height: 12px; 
+            background: red; 
+            border-radius: 50%; 
+            animation: blink 1s infinite; 
+            z-index: 10;
+        }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
+
+        /* 3. GALLERY & UPLOAD */
+        .gallery { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); 
+            gap: 15px; 
+            margin-top: 20px; 
+        }
+        .gallery-item { 
+            position: relative; 
+            background: #0f172a; 
+            border-radius: 12px; 
+            padding: 5px; 
+            border: 1px solid #334155;
+            transition: 0.3s;
+        }
+        .gallery-item:hover { border-color: var(--neon-blue); }
+        .gallery-item img { 
+            width: 100%; 
+            aspect-ratio: 1/1; 
+            object-fit: cover; 
+            border-radius: 8px; 
+        }
+
+        /* BUTTONS */
+        .btn { 
+            width: 100%; 
+            padding: 14px; 
+            margin-top: 10px; 
+            border: none; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+        .btn-absen { background: var(--neon-blue); color: black; font-family: 'Orbitron'; }
+        .btn-upload { background: var(--neon-gold); color: black; }
+        .btn-download { background: #10b981; color: white; padding: 5px; font-size: 11px; margin-top: 5px; }
+        .btn-delete { background: #ef4444; color: white; padding: 5px; font-size: 11px; margin-top: 5px; }
         
-        .logo i {
-            margin-right: 
+        .action-btns { display: flex; gap: 5px; }
+
+        .info-skill { font-size: 0.9rem; color: #cbd5e1; line-height: 1.5; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>GIBRAN COMMAND CENTER</h2>
+        
+        <div id="clock">00:00:00</div>
+
+        <div class="grid">
+            <div class="card">
+                <h3>LIVE CCTV / ABSEN</h3>
+                <div class="video-box">
+                    <div class="rec-dot"></div>
+                    <video id="webcam" autoplay playsinline></video>
+                </div>
+                <button class="btn btn-absen" onclick="takeSnapshot()">AMBIL FOTO ABSEN</button>
+                <canvas id="canvas" style="display:none;"></canvas>
+            </div>
+
+            <div class="card">
+                <h3>SKILL UTAMA</h3>
+                <div class="info-skill">
+                    <p><b>• Desain Grafis:</b> Poster, Logo, Banner.</p>
+                    <p><b>• Content Creator:</b> Ide Kreatif IG/TikTok.</p>
+                    <p><b>• Video Editing:</b> Adobe Premiere Pro.</p>
+                    <p><b>• Fotografi:</b> Komposisi & Lighting.</p>
+                </div>
+                <hr style="border:0; border-top:1px solid #334155; margin:15px 0;">
+                <button class="btn btn-upload" onclick="document.getElementById('fileInput').click()">UPLOAD FOTO DARI HP</button>
+                <input type="file" id="fileInput" accept="image/*" multiple style="display:none;">
+            </div>
+        </div>
+
+        <div class="card" style="margin-top:20px;">
+            <h3>GALLERY FOTO</h3>
+            <div id="galleryContainer" class="gallery">
+                </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="btn" style="width:200px; background:#475569; color:white;" onclick="window.location.href='index.html'">KELUAR / BACK</button>
+        </div>
+    </div>
+
+    <script>
+        // 1. FUNGSI JAM BERGERAK
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString();
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // 2. AKSES KAMERA CCTV
+        const video = document.getElementById('webcam');
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => { video.srcObject = stream; })
+            .catch(err => alert("Kamera tidak aktif: " + err));
+
+        // 3. FUNGSI AMBIL FOTO ABSEN
+        function takeSnapshot() {
+            const canvas = document.getElementById('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+            const dataUrl = canvas.toDataURL('image/png');
+            createGalleryItem(dataUrl);
+        }
+
+        // 4. UPLOAD FOTO DARI HP
+        document.getElementById('fileInput').addEventListener('change', function() {
+            for (let file of this.files) {
+                const reader = new FileReader();
+                reader.onload = (e) => createGalleryItem(e.target.result);
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // 5. RENDER GALLERY (LIHAT, DOWNLOAD, HAPUS)
+        function createGalleryItem(src) {
+            const container = document.getElementById('galleryContainer');
+            
+            const item = document.createElement('div');
+            item.className = 'gallery-item';
+            
+            const img = document.createElement('img');
+            img.src = src;
+            
+            const btnGroup = document.createElement('div');
+            btnGroup.className = 'action-btns';
+
+            // Tombol Download
+            const downBtn = document.createElement('button');
+            downBtn.innerText = 'SAVE';
+            downBtn.className = 'btn btn-download';
+            downBtn.onclick = () => {
+                const a = document.createElement('a');
+                a.href = src;
+                a.download = 'Gibran_Photo_' + Date.now() + '.png';
+                a.click();
+            };
+
+            // Tombol Hapus
+            const delBtn = document.createElement('button');
+            delBtn.innerText = 'HAPUS';
+            delBtn.className = 'btn btn-delete';
+            delBtn.onclick = () => item.remove();
+
+            btnGroup.appendChild(downBtn);
+            btnGroup.appendChild(delBtn);
+            item.appendChild(img);
+            item.appendChild(btnGroup);
+            container.appendChild(item);
+        }
+    </script>
+</body>
+</html>
