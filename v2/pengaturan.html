@@ -1,1 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengaturan - Gibran v.1.1.3</title>
+    <style>
+        body { font-family: sans-serif; background: #020617; color: white; padding: 20px; }
+        .card { background: #1e293b; padding: 20px; border-radius: 15px; border: 1px solid #334155; max-width: 400px; margin: auto; }
+        .row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #334155; }
+        .status-on { color: #10b981; font-weight: bold; }
+        .status-off { color: #ef4444; font-weight: bold; }
+        .footer { text-align: center; font-size: 11px; color: #64748b; margin-top: 20px; }
+    </style>
+</head>
+<body>
 
+<div class="card">
+    <h3 style="text-align:center; color:#fbbf24;">SYSTEM SETTINGS</h3>
+    
+    <div class="row">
+        <span>Foto Profil</span>
+        <img src="https://via.placeholder.com/50" style="border-radius: 50%; border: 2px solid #fbbf24;">
+    </div>
+
+    <div class="row">
+        <span>Koneksi Wifi</span>
+        <label><input type="checkbox" checked> <span class="status-on">Connected</span></label>
+    </div>
+
+    <div class="row">
+        <span>Akses Aplikasi</span>
+        <span id="stat" class="status-on">Memeriksa...</span>
+    </div>
+
+    <div class="row">
+        <span>Keamanan</span>
+        <span class="status-on">SSL Aktif</span>
+    </div>
+
+    <button onclick="location.href='index.html'" style="width:100%; padding:10px; background:#475569; color:white; border:none; border-radius:10px; cursor:pointer;">Kembali</button>
+
+    <div class="footer">
+        Versi: 1.1.3 (Beta)<br>
+        Portofolio Online Gibran
+    </div>
+</div>
+
+<script>
+    function updateStatus() {
+        const stat = document.getElementById('stat');
+        if(navigator.onLine) {
+            stat.innerText = "ONLINE"; stat.className = "status-on";
+        } else {
+            stat.innerText = "OFFLINE"; stat.className = "status-off";
+        }
+    }
+    updateStatus();
+    window.addEventListener('online', updateStatus);
+    window.addEventListener('offline', updateStatus);
+</script>
+
+</body>
+</html>
