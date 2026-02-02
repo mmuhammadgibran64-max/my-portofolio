@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GIBRAN STORE | v.3.6.0 Admin Control</title>
+    <title>GIBRAN STORE | v.3.6.2 Full Version</title>
     <style>
         :root { --primary: #2563eb; --gold: #fbbf24; --slate: #1e293b; --success: #10b981; --dark: #020617; --light-bg: #f8fafc; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; transition: 0.3s; background: var(--dark); color: white; }
@@ -11,117 +11,92 @@
         body.gelap { background: var(--dark); color: white; }
         body.terang { background: var(--light-bg); color: #1e293b; }
 
-        /* NAVBAR */
-        .navbar { background: #1e293b; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #334155; }
-        .nav-logo { font-size: 1.1rem; font-weight: bold; color: var(--gold); text-decoration: none; }
-        .nav-links { display: flex; gap: 12px; }
-        .nav-links a { color: #94a3b8; text-decoration: none; font-size: 0.8rem; cursor: pointer; font-weight: 500; }
-        .nav-links a:hover { color: var(--gold); }
+        /* HEADER & NAVBAR */
+        .navbar { 
+            background: #1e293b; padding: 12px 15px; display: flex; 
+            justify-content: space-between; align-items: center; 
+            position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid var(--gold); 
+        }
+        .nav-logo { font-size: 1.1rem; font-weight: bold; color: var(--gold); text-decoration: none; text-transform: uppercase; }
+        .admin-nav-text { font-size: 0.7rem; color: #94a3b8; border: 1px solid #475569; padding: 4px 8px; border-radius: 5px; cursor: pointer; }
+
+        /* DESKRIPSI TOKO (Yang Lo Maksud) */
+        .store-desc { padding: 15px; text-align: center; background: #0f172a; border-bottom: 1px solid #334155; }
+        .store-desc h2 { color: var(--gold); margin: 0; font-size: 1.2rem; }
+        .store-desc p { font-size: 0.8rem; color: #94a3b8; margin: 5px 0 0 0; }
+
+        .bottom-nav { background: #1e293b; padding: 10px; display: flex; justify-content: space-around; }
+        .bottom-nav a { color: #cbd5e1; text-decoration: none; font-size: 0.8rem; cursor: pointer; }
 
         /* MODAL */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); overflow-y: auto; }
-        .modal-content { background: #1e293b; color: white; margin: 5% auto; padding: 25px; border-radius: 20px; width: 90%; max-width: 500px; border: 2px solid var(--gold); }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); }
+        .modal-content { background: #1e293b; color: white; margin: 10% auto; padding: 25px; border-radius: 20px; width: 85%; max-width: 450px; border: 2px solid var(--gold); }
         
-        .history-item { background: #0f172a; padding: 15px; border-radius: 12px; margin-bottom: 10px; border-left: 4px solid var(--gold); }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; padding: 20px; }
-        .product-card { background: white; color: #1e293b; padding: 15px; border-radius: 12px; text-align: center; }
-        
-        .gate-container { display: flex; align-items: center; justify-content: center; min-height: 90vh; padding: 20px; }
-        .gate-card { background: #1e293b; padding: 40px; border-radius: 20px; width: 100%; max-width: 400px; text-align: center; border: 1px solid #334155; }
+        /* CARDS */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 12px; padding: 15px; }
+        .product-card { background: white; color: #1e293b; padding: 12px; border-radius: 12px; text-align: center; }
+        .btn-beli { background: var(--primary); color: white; border: none; padding: 8px; border-radius: 6px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 8px; }
+
+        /* GATE FORMS */
+        .gate-container { display: flex; align-items: center; justify-content: center; min-height: 80vh; padding: 20px; }
+        .gate-card { background: #1e293b; padding: 30px; border-radius: 20px; width: 100%; max-width: 380px; text-align: center; border: 1px solid #334155; }
         input, textarea, select { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box; }
-        .btn-big { width: 100%; padding: 15px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        
-        /* ADMIN SECTION STYLE */
-        .admin-box { background: #0f172a; padding: 15px; border-radius: 10px; margin-top: 10px; border: 1px dashed var(--gold); }
-        .contact-link { display: block; color: white; text-decoration: none; margin: 10px 0; font-size: 0.9rem; padding: 10px; background: #1e293b; border-radius: 8px; transition: 0.2s; }
-        .contact-link:hover { background: var(--primary); }
+        .btn-big { width: 100%; padding: 15px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body class="gelap">
 
 <nav id="main-navbar" class="navbar" style="display: none;">
     <a href="#" class="nav-logo">GIBRAN STORE</a>
-    <div class="nav-links">
-        <a onclick="location.reload()">Katalog</a>
-        <a onclick="openModal('modal-history')">Riwayat</a>
-        <a onclick="openModal('modal-settings')">Pengaturan</a>
-        <a onclick="openModal('modal-admin')" style="color: var(--gold); font-weight: bold;">ADMIN CONTROL</a>
-    </div>
+    <div class="admin-nav-text" onclick="openModal('modal-admin')">ADMIN CONTROL</div>
 </nav>
+
+<div id="store-header" class="store-desc" style="display: none;">
+    <h2>Selamat Datang</h2>
+    <p>Penyedia jajanan dan kebutuhan harian terlengkap di area Anda. Kualitas terjamin, harga bersahabat!</p>
+</div>
+
+<div id="sub-nav" class="bottom-nav" style="display: none;">
+    <a onclick="location.reload()">KATALOG</a>
+    <a onclick="openModal('modal-history')">RIWAYAT</a>
+    <a onclick="openModal('modal-settings')">PENGATURAN</a>
+</div>
 
 <div id="modal-admin" class="modal">
     <div class="modal-content">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-            <h3 style="margin:0; color:var(--gold);">🛠️ ADMIN CONTROL</h3>
-            <span style="cursor:pointer; font-size:1.5rem;" onclick="closeModal('modal-admin')">&times;</span>
-        </div>
-        <div class="admin-box">
-            <h4 style="margin-top:0;">Kontak Admin:</h4>
-            
-            <p style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 5px;">Email Resmi:</p>
-            <a href="mailto:mmgibran941@gmail.com" class="contact-link">📧 mmgibran941@gmail.com</a>
-            
-            <p style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 5px; margin-top: 15px;">WhatsApp Admin:</p>
-            <a href="https://wa.me/6285123332018" target="_blank" class="contact-link">💬 Chat via WhatsApp</a>
-        </div>
-        <p style="font-size: 0.7rem; text-align: center; color: #94a3b8; margin-top: 20px;">Hanya untuk keperluan teknis dan manajemen toko.</p>
-        <button class="btn-big" style="background:var(--slate); color:white;" onclick="closeModal('modal-admin')">TUTUP</button>
-    </div>
-</div>
-
-<div id="modal-history" class="modal">
-    <div class="modal-content">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-            <h3 style="margin:0; color:var(--gold);">📜 RIWAYAT PESANAN</h3>
-            <span style="cursor:pointer; font-size:1.5rem;" onclick="closeModal('modal-history')">&times;</span>
-        </div>
-        <div id="history-list"></div>
-        <button class="btn-big" style="background:#ef4444; color:white; margin-top:20px;" onclick="hapusSemuaRiwayat()">HAPUS SEMUA RIWAYAT</button>
-    </div>
-</div>
-
-<div id="modal-settings" class="modal">
-    <div class="modal-content">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-            <h3 style="margin:0;">⚙️ PENGATURAN</h3>
-            <span style="cursor:pointer; font-size:1.5rem;" onclick="closeModal('modal-settings')">&times;</span>
-        </div>
-        <p style="font-size:0.8rem; color:var(--gold);">Versi Aplikasi v.3.6.0</p>
-        <div style="margin: 15px 0;">
-            <label>Mode Pencahayaan:</label>
-            <select onchange="document.body.className = this.value">
-                <option value="gelap">Mode Gelap</option>
-                <option value="terang">Mode Terang</option>
-            </select>
-        </div>
-        <button class="btn-big" style="background:var(--success); color:white;" onclick="closeModal('modal-settings')">SIMPAN</button>
+        <h3 style="color:var(--gold);">🛠️ ADMIN CONTROL</h3>
+        <p style="font-size:0.8rem;">Email: <strong>mmgibran941@gmail.com</strong></p>
+        <p style="font-size:0.8rem;">WhatsApp: <strong>+62 851-2333-2018</strong></p>
+        <a href="mailto:mmgibran941@gmail.com" style="display:block; background:var(--primary); color:white; padding:10px; text-align:center; border-radius:8px; text-decoration:none; margin-bottom:10px;">Kirim Email</a>
+        <a href="https://wa.me/6285123332018" style="display:block; background:var(--success); color:white; padding:10px; text-align:center; border-radius:8px; text-decoration:none;">Chat WhatsApp</a>
+        <button class="btn-big" style="background:var(--slate); margin-top:15px;" onclick="closeModal('modal-admin')">TUTUP</button>
     </div>
 </div>
 
 <div id="reg-screen" class="gate-container">
     <div class="gate-card">
-        <h2 style="color:var(--gold);">GIBRAN STORE</h2>
+        <h2 style="color:var(--gold);">DAFTAR MEMBER</h2>
         <form id="form-register">
-            <input type="date" name="tanggal" required id="reg-date">
+            <input type="date" name="tanggal" id="reg-date" required>
             <input type="text" name="nama" placeholder="Nama Lengkap" required>
-            <input type="number" name="whatsapp" placeholder="Nomor WhatsApp" required>
+            <input type="number" name="whatsapp" placeholder="WhatsApp" required>
             <textarea name="alamat" placeholder="Alamat Lengkap" required></textarea>
             <input type="hidden" name="sheetTarget" value="register.html">
-            <button type="submit" id="btn-submit-reg" class="btn-big" style="background:var(--gold); color:black;">DAFTAR</button>
+            <button type="submit" id="btn-submit-reg" class="btn-big" style="background:var(--gold); color:black;">DAFTAR SEKARANG</button>
         </form>
-        <button id="btn-to-login" class="btn-big" style="display:none; background:var(--primary); color:white;" onclick="showLogin()">LANJUT LOGIN</button>
+        <button id="btn-to-login" class="btn-big" style="display:none; background:var(--primary); color:white;" onclick="showLogin()">SUDAH DAFTAR? LOGIN</button>
     </div>
 </div>
 
 <div id="login-screen" class="gate-container" style="display:none;">
     <div class="gate-card">
-        <h2 style="color:var(--primary);">LOGIN</h2>
+        <h2 style="color:var(--primary);">MASUK TOKO</h2>
         <form id="form-login">
-            <input type="text" id="l-nama" name="nama" placeholder="Nama" required>
-            <input type="number" id="l-wa" name="whatsapp" placeholder="WhatsApp" required>
-            <input type="text" id="l-rumah" name="no_rumah" placeholder="No Rumah" required>
+            <input type="text" id="l-nama" name="nama" placeholder="Nama Anda" required>
+            <input type="number" id="l-wa" name="whatsapp" placeholder="Nomor WhatsApp" required>
+            <input type="text" id="l-rumah" name="no_rumah" placeholder="Nomor Rumah (Blok/No)" required>
             <input type="hidden" name="sheetTarget" value="User">
-            <button type="submit" id="btn-submit-login" class="btn-big" style="background:var(--primary); color:white;">MASUK TOKO</button>
+            <button type="submit" id="btn-submit-login" class="btn-big" style="background:var(--primary); color:white;">MASUK KE KATALOG</button>
         </form>
     </div>
 </div>
@@ -138,26 +113,25 @@
             ];
             document.write(items.map(i => `
                 <div class="product-card">
-                    <h4>${i.n}</h4><p style="color:var(--primary); font-weight:bold;">${i.p}</p>
-                    <button class="btn-beli-kecil" onclick="startPay('${i.n}', '${i.p}')">Beli</button>
+                    <h4 style="font-size:0.9rem; margin:5px 0;">${i.n}</h4>
+                    <p style="color:var(--primary); font-size:0.85rem; font-weight:bold;">${i.p}</p>
+                    <button class="btn-beli" onclick="startPay('${i.n}', '${i.p}')">Beli</button>
                 </div>
             `).join(''));
         </script>
     </div>
 </div>
 
+<div id="modal-history" class="modal"><div class="modal-content"><h3 style="color:var(--gold);">RIWAYAT</h3><div id="history-list"></div><button class="btn-big" onclick="closeModal('modal-history')">TUTUP</button></div></div>
+<div id="modal-settings" class="modal"><div class="modal-content"><h3>PENGATURAN</h3><select onchange="document.body.className = this.value"><option value="gelap">Mode Gelap</option><option value="terang">Mode Terang</option></select><button class="btn-big" onclick="closeModal('modal-settings')" style="margin-top:10px;">SIMPAN</button></div></div>
+
 <div id="pay-screen" class="gate-container" style="display:none;">
     <div class="gate-card" style="border: 2px solid var(--gold);">
-        <h3>KONFIRMASI PESANAN</h3>
-        <p id="item-info" style="background:#0f172a; padding:15px; border-radius:10px;"></p>
+        <h3>KONFIRMASI</h3>
+        <p id="item-info"></p>
         <form id="form-order">
-            <input type="hidden" name="sheetTarget" value="Order">
-            <input type="hidden" name="Nama" id="o-nama">
-            <input type="hidden" name="No HP" id="o-hp">
-            <input type="hidden" name="Total" id="o-total">
-            <input type="hidden" name="Alamat" id="o-alamat">
-            <input type="hidden" name="Tanggal" id="o-tgl">
-            <button type="submit" id="btn-pay" class="btn-big" style="background:var(--success); color:white;">SELESAIKAN</button>
+            <input type="hidden" name="sheetTarget" value="Order"><input type="hidden" name="Nama" id="o-nama"><input type="hidden" name="No HP" id="o-hp"><input type="hidden" name="Total" id="o-total"><input type="hidden" name="Alamat" id="o-alamat"><input type="hidden" name="Tanggal" id="o-tgl">
+            <button type="submit" id="btn-pay" class="btn-big" style="background:var(--success); color:white;">BELI SEKARANG</button>
             <button type="button" onclick="location.reload()" style="background:none; color:gray; border:none; margin-top:10px; cursor:pointer;">Batal</button>
         </form>
     </div>
@@ -166,11 +140,9 @@
 <script>
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwS6CvxXW8lmHPZvPR0-S1XzV3pyODxKOvcDpW1--PgvdqwHLcJz9s3gMDJe9rgvuXnng/exec';
     let user = { n: "", w: "", a: "" };
-
-    // Otomatis isi tanggal hari ini
     document.getElementById('reg-date').valueAsDate = new Date();
 
-    function openModal(id) { document.getElementById(id).style.display='block'; if(id === 'modal-history') updateHistoryUI(); }
+    function openModal(id) { document.getElementById(id).style.display='block'; }
     function closeModal(id) { document.getElementById(id).style.display='none'; }
     function showLogin() { document.getElementById('reg-screen').style.display='none'; document.getElementById('login-screen').style.display='flex'; }
 
@@ -187,17 +159,21 @@
 
     document.getElementById('form-login').onsubmit = async e => {
         e.preventDefault();
-        document.getElementById('btn-submit-login').innerText = "Logging in...";
+        document.getElementById('btn-submit-login').innerText = "Verifikasi...";
         user = { n: document.getElementById('l-nama').value, w: document.getElementById('l-wa').value, a: document.getElementById('l-rumah').value };
         await postData(e.target);
         document.getElementById('login-screen').style.display='none';
         document.getElementById('main-navbar').style.display='flex';
+        document.getElementById('store-header').style.display='block';
+        document.getElementById('sub-nav').style.display='flex';
         document.getElementById('shop-content').style.display='block';
     };
 
     function startPay(n, p) {
         document.getElementById('shop-content').style.display='none';
         document.getElementById('main-navbar').style.display='none';
+        document.getElementById('store-header').style.display='none';
+        document.getElementById('sub-nav').style.display='none';
         document.getElementById('pay-screen').style.display='flex';
         document.getElementById('item-info').innerText = n + " (" + p + ")";
         document.getElementById('o-nama').value = user.n;
@@ -210,38 +186,10 @@
     document.getElementById('form-order').onsubmit = async e => {
         e.preventDefault();
         document.getElementById('btn-pay').innerText = "Sending...";
-        let history = JSON.parse(localStorage.getItem('gibran_history') || "[]");
-        history.push({ item: document.getElementById('o-total').value, tanggal: document.getElementById('o-tgl').value });
-        localStorage.setItem('gibran_history', JSON.stringify(history));
         await postData(e.target);
-        alert('Order Berhasil Dikirim!');
+        alert('Terima kasih! Pesanan Anda sedang diproses.');
         location.reload();
     };
-
-    function updateHistoryUI() {
-        const list = document.getElementById('history-list');
-        const history = JSON.parse(localStorage.getItem('gibran_history') || "[]");
-        if(history.length === 0) { list.innerHTML = '<p style="text-align:center;">Kosong.</p>'; return; }
-        list.innerHTML = history.map((h, i) => `
-            <div class="history-item">
-                <p><strong>${h.item}</strong></p>
-                <p style="font-size:0.7rem;">${h.tanggal}</p>
-                <button onclick="downloadRiwayat(${i})">Nota</button> <button onclick="hapusSatu(${i})">Hapus</button>
-            </div>`).join('');
-    }
-
-    function downloadRiwayat(i) {
-        const h = JSON.parse(localStorage.getItem('gibran_history'))[i];
-        const blob = new Blob([`NOTA: ${h.item}\n${h.tanggal}`], { type: 'text/plain' });
-        const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'Nota.txt'; a.click();
-    }
-
-    function hapusSatu(i) {
-        let h = JSON.parse(localStorage.getItem('gibran_history')); h.splice(i, 1);
-        localStorage.setItem('gibran_history', JSON.stringify(h)); updateHistoryUI();
-    }
-
-    function hapusSemuaRiwayat() { localStorage.removeItem('gibran_history'); updateHistoryUI(); }
 </script>
 </body>
 </html>
