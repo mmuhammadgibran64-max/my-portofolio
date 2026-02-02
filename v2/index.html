@@ -3,146 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gibran Portofolio | LP3I Kramat Raya</title>
-    <style>
-        :root { --gold: #fbbf24; --blue: #2563eb; --dark: #020617; --card: #1e293b; --text: #cbd5e1; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--dark); color: white; line-height: 1.8; }
-        
-        .header { background: linear-gradient(135deg, #1e293b 0%, #020617 100%); padding: 80px 20px 120px; text-align: center; position: relative; }
-        .header h1 { font-size: 3rem; color: var(--gold); margin: 0; letter-spacing: 4px; text-transform: uppercase; }
-        .header p { color: #94a3b8; font-size: 1.1rem; margin-top: 10px; }
-        
-        .wave { position: absolute; bottom: 0; left: 0; width: 100%; line-height: 0; }
-        .wave svg { display: block; width: 100%; height: 80px; fill: var(--dark); }
-
-        .container { max-width: 850px; margin: -60px auto 60px; padding: 0 20px; position: relative; z-index: 10; }
-        .card { background: var(--card); padding: 45px; border-radius: 30px; border: 1px solid #334155; box-shadow: 0 25px 50px rgba(0,0,0,0.7); margin-bottom: 30px; }
-        
-        h2 { color: var(--gold); border-bottom: 3px solid var(--blue); display: inline-block; margin-top: 40px; padding-bottom: 5px; font-size: 1.5rem; }
-        h2:first-child { margin-top: 0; }
-        p { text-align: justify; color: var(--text); font-size: 1.05rem; }
-        
-        .skill-box { margin: 20px 0; padding: 20px; background: rgba(255,255,255,0.03); border-radius: 15px; border-left: 5px solid var(--gold); }
-        .skill-box b { color: var(--gold); display: block; margin-bottom: 5px; }
-
-        .list-misi { list-style: none; padding: 0; }
-        .list-misi li { margin-bottom: 12px; padding-left: 30px; position: relative; color: var(--text); }
-        .list-misi li::before { content: '✦'; position: absolute; left: 0; color: var(--gold); }
-
-        .register-section { margin-top: 40px; padding: 35px; background: #0f172a; border-radius: 20px; border: 2px solid var(--gold); text-align: center; }
-        .register-section h3 { color: var(--gold); margin-bottom: 20px; text-transform: uppercase; }
-        
-        input, textarea { width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; border: 1px solid #334155; background: #1e293b; color: white; box-sizing: border-box; font-size: 1rem; font-family: inherit; }
-        
-        .btn-submit { width: 100%; padding: 18px; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 1.1rem; transition: 0.3s; margin-top: 10px; }
-        .btn-blue { background: var(--blue); }
-        .btn-gold { background: #d97706; color: white; }
-        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
-
-        footer { text-align: center; padding: 40px; color: #475569; font-size: 0.9rem; }
-    </style>
-</head>
-<body>
-
-<div class="header">
-    <h1>GIBRAN PORTOFOLIO</h1>
-    <p>Mahasiswa Hubungan Masyarakat (Humas) | LP3I Kramat Raya</p>
-    <div class="wave">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.11,102.32,131.52,106.33,202.24,96.84,251.7,90.2,284.09,70.92,321.39,56.44Z"></path></svg>
-    </div>
-</div>
-
-<div class="container">
-    <div class="card">
-        <h2>Perkenalkan</h2>
-        <p>Nama saya <b>Gibran</b>. Saya merupakan mahasiswa Hubungan Masyarakat (Humas) di LP3I Kramat Raya. Saya memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring selama satu bulan. Saat ini saya sedang fokus mengembangkan diri, keterampilan, serta portofolio pribadi.</p>
-        <p>Saya adalah pribadi yang disiplin, cepat beradaptasi, serta mau belajar hal baru. Dalam keseharian, saya senang bermain futsal.</p>
-
-        <h2>Keahlian</h2>
-        <div class="skill-box"><b>🎸 Bermain Gitar</b> — Memahami chord dasar hingga intermediate, serta dapat mengiringi lagu acoustic dengan baik.</div>
-        <div class="skill-box"><b>⚽ Futsal</b> — Mampu bekerja sama dalam tim sebagai pemain bertahan maupun penyerang.</div>
-
-        <h2>Pengalaman Kerja</h2>
-        <p><b>BGI</b><br>Pernah bekerja di BGI dan bertanggung jawab dalam beberapa tugas operasional. Pengalaman ini membuat saya lebih matang dalam bekerja secara profesional dan memahami manajemen waktu.</p>
-
-        <h2>Visi & Misi</h2>
-        <p><b>Visi:</b> Menjadi individu yang mampu berkontribusi secara maksimal dan bertanggung jawab.</p>
-        <ul class="list-misi">
-            <li>Membangun hubungan kerja positif dan profesional.</li>
-            <li>Mengembangkan keterampilan agar kompeten.</li>
-            <li>Menjaga integritas dan disiplin dalam setiap proses pekerjaan.</li>
-        </ul>
-
-        <div class="register-section">
-            <h3>DAFTAR SEKARANG</h3>
-            <form id="form-daftar">
-                <input type="text" name="Nama" placeholder="Nama Lengkap" required>
-                <input type="number" name="WhatsApp" placeholder="Nomor WhatsApp" required>
-                <textarea name="Alamat" placeholder="Alamat Lengkap" rows="2" required></textarea>
-                <button type="submit" class="btn-submit btn-blue" id="btn-daftar-teks">KIRIM PENDAFTARAN</button>
-            </form>
-        </div>
-
-        <div class="register-section" style="border-style: dashed; background: #1e293b;">
-            <h3>LOGIN USER</h3>
-            <form id="form-login">
-                <input type="hidden" name="Tipe" value="LOGIN">
-                <input type="text" name="Nama" placeholder="Nama User" required>
-                <input type="number" name="HP" placeholder="Nomor HP" required>
-                <textarea name="Opini" placeholder="Opini / Keterangan" rows="2" required></textarea>
-                <button type="submit" class="btn-submit btn-gold" id="btn-login-teks">LOGIN SEKARANG</button>
-            </form>
-        </div>
-    </div>
-</div>
-
-<footer>© 2026 Gibran Official Portofolio</footer>
-
-<script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwPEleNStiJCSmxH_iN2Yr-zrJyWXjN-GXSkg5bQkZHFR0Og7CvrMu9_TQO5F-jg5mysA/exec';
-
-    // Logika Form Daftar
-    const fDaftar = document.getElementById('form-daftar');
-    fDaftar.addEventListener('submit', e => {
-        e.preventDefault();
-        const btnD = document.getElementById('btn-daftar-teks');
-        btnD.innerText = 'Mengirim...';
-        fetch(scriptURL, { method: 'POST', body: new FormData(fDaftar)})
-        .then(() => { alert('Daftar Berhasil!'); btnD.innerText = 'KIRIM PENDAFTARAN'; fDaftar.reset(); })
-        .catch(() => alert('Error!'));
-    });
-
-    // Logika Form Login
-    const fLogin = document.getElementById('form-login');
-    fLogin.addEventListener('submit', e => {
-        e.preventDefault();
-        const btnL = document.getElementById('btn-login-teks');
-        btnL.innerText = 'Memproses...';
-        fetch(scriptURL, { method: 'POST', body: new FormData(fLogin)})
-        .then(() => { alert('Login Berhasil! Data Masuk ke Sheet User.'); btnL.innerText = 'LOGIN SEKARANG'; fLogin.reset(); })
-        .catch(() => alert('Error!'));
-    });
-</script>
-</body>
-</html><!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gibran Portofolio V2 - Humas LP3I</title>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
-        :root { --gold: #fbbf24; --blue: #2563eb; --dark: #0f172a; --card: #1e293b; }
-        body { font-family: 'Inter', sans-serif; background: var(--dark); color: white; margin: 0; padding-bottom: 50px; }
-        .header { text-align: center; padding: 60px 20px; background: linear-gradient(to bottom, #1e293b, #0f172a); }
-        .container { max-width: 600px; margin: -40px auto 0; padding: 0 20px; }
-        .card { background: var(--card); padding: 25px; border-radius: 15px; border: 1px solid #334155; margin-bottom: 20px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); }
-        h2, h3 { color: var(--gold); margin-top: 0; }
-        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #334155; background: #020617; color: white; box-sizing: border-box; }
-        .btn { width: 100%; padding: 14px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+        
+        :root { --gold: #fbbf24; --blue: #3b82f6; --dark: #020617; --card: #1e293b; }
+        
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background-color: var(--dark); 
+            color: #f1f5f9; 
+            margin: 0; 
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Header Rapi */
+        .header { 
+            text-align: center; 
+            padding: 100px 20px 60px; 
+            background: linear-gradient(180deg, #1e293b 0%, #020617 100%);
+        }
+        .header h1 { 
+            font-size: 2.5rem; 
+            margin: 0; 
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        .header p { 
+            font-size: 1rem; 
+            color: #94a3b8; 
+            margin-top: 5px;
+        }
+
+        /* Container & Card */
+        .container { max-width: 500px; margin: -40px auto 50px; padding: 0 20px; }
+        .card { 
+            background: var(--card); 
+            padding: 25px; 
+            border-radius: 20px; 
+            border: 1px solid #334155; 
+            margin-bottom: 25px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+        
+        h3 { color: var(--gold); text-align: center; margin-bottom: 20px; font-size: 1.2rem; }
+        
+        /* Form Styling */
+        input, textarea { 
+            width: 100%; 
+            padding: 14px; 
+            margin: 10px 0; 
+            border-radius: 12px; 
+            border: 1px solid #334155; 
+            background: #0f172a; 
+            color: white; 
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        
+        input:focus { border-color: var(--gold); outline: none; }
+
+        .btn { 
+            width: 100%; 
+            padding: 15px; 
+            border: none; 
+            border-radius: 12px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+            margin-top: 10px;
+            font-size: 15px;
+        }
         .btn-daftar { background: var(--blue); color: white; }
-        .btn-login { background: var(--gold); color: black; }
-        .google-box { display: flex; justify-content: center; margin: 15px 0; background: white; padding: 10px; border-radius: 8px; }
+        .btn-login { background: var(--gold); color: #020617; }
+        .btn:hover { transform: translateY(-2px); opacity: 0.9; }
+
+        /* Google Button Centering */
+        .google-box { 
+            display: flex; 
+            justify-content: center; 
+            margin-bottom: 20px;
+            padding: 10px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+        }
+
+        .desc-text { text-align: center; color: #cbd5e1; font-size: 0.95rem; }
     </style>
 </head>
 <body>
@@ -154,14 +103,12 @@
 
 <div class="container">
     <div class="card">
-        <h3>TENTANG SAYA</h3>
-        <p>Mahasiswa Humas LP3I Kramat Raya yang disiplin. Aktif dalam kegiatan Monitoring, memiliki hobi Musik (Gitar), dan Olahraga (Futsal).</p>
+        <h3>BIO SINGKAT</h3>
+        <p class="desc-text">Mahasiswa Humas LP3I Kramat Raya yang disiplin. Ahli dalam Monitoring, hobi Musik (Gitar), dan aktif di Olahraga (Futsal).</p>
     </div>
 
     <div class="card">
-        <h3>DAFTAR AKUN (V2)</h3>
-        <p style="font-size: 0.8rem; color: #94a3b8;">Klik tombol di bawah untuk isi nama otomatis:</p>
-        
+        <h3>REGISTRASI V2</h3>
         <div class="google-box">
             <div id="g_id_onload"
                  data-client_id="594310366887-36qn9gvajo1335snmlrta7tdh9lgofre.apps.googleusercontent.com"
@@ -169,67 +116,65 @@
             </div>
             <div class="g_id_signin" data-type="standard"></div>
         </div>
-
+        
         <form id="form-pendaftaran">
             <input type="text" id="nama-otomatis" name="Nama" placeholder="Nama Lengkap" required>
             <input type="number" name="WhatsApp" placeholder="Nomor WhatsApp" required>
-            <textarea name="Alamat" placeholder="Alamat Lengkap" rows="2" required></textarea>
-            <button type="submit" class="btn btn-daftar" id="btn-teks-daftar">KIRIM PENDAFTARAN</button>
+            <textarea name="Alamat" placeholder="Alamat Domisili" rows="2" required></textarea>
+            <button type="submit" class="btn btn-daftar" id="txt-daftar">KIRIM DATA</button>
         </form>
     </div>
 
-    <div class="card" style="border-style: dashed;">
-        <h3>LOGIN USER</h3>
+    <div class="card">
+        <h3>MASUK KE SISTEM</h3>
         <form id="form-login">
             <input type="hidden" name="Tipe" value="LOGIN">
-            <input type="text" name="Nama" placeholder="Nama" required>
-            <input type="number" name="HP" placeholder="No HP" required>
-            <textarea name="Opini" placeholder="Pesan/Kesan" rows="2" required></textarea>
-            <button type="submit" class="btn btn-login" id="btn-teks-login">MASUK</button>
+            <input type="text" name="Nama" placeholder="Nama User" required>
+            <input type="number" name="HP" placeholder="No. Handphone" required>
+            <textarea name="Opini" placeholder="Pesan Singkat" rows="2" required></textarea>
+            <button type="submit" class="btn btn-login" id="txt-login">LOG IN</button>
         </form>
     </div>
 </div>
 
 <script>
-    // URL Web App Google Script lo yang di Sheet1
     const scriptURL = 'https://script.google.com/macros/s/AKfycbwPEleNStiJCSmxH_iN2Yr-zrJyWXjN-GXSkg5bQkZHFR0Og7CvrMu9_TQO5F-jg5mysA/exec';
 
-    // FUNGSI NARIK NAMA DARI GOOGLE
+    // FUNGSI GOOGLE LOGIN
     function handleCredentialResponse(response) {
-        const responsePayload = JSON.parse(atob(response.credential.split('.')[1]));
-        document.getElementById('nama-otomatis').value = responsePayload.name;
-        alert("Halo " + responsePayload.name + "! Nama lo berhasil ditarik dari Google.");
+        const payload = JSON.parse(atob(response.credential.split('.')[1]));
+        document.getElementById('nama-otomatis').value = payload.name;
+        alert("Halo " + payload.name + "! Nama otomatis terisi.");
     }
 
-    // KIRIM FORM DAFTAR
+    // KIRIM PENDAFTARAN
     const fDaftar = document.getElementById('form-pendaftaran');
     fDaftar.addEventListener('submit', e => {
         e.preventDefault();
-        document.getElementById('btn-teks-daftar').innerHTML = 'Mengirim...';
+        document.getElementById('txt-daftar').innerText = 'Sedang Mengirim...';
         fetch(scriptURL, { method: 'POST', body: new FormData(fDaftar)})
-        .then(res => {
-            alert('Pendaftaran Berhasil Masuk ke Google Sheet!');
+        .then(() => { 
+            alert('Data Pendaftaran Berhasil Terkirim!'); 
             fDaftar.reset();
-            document.getElementById('btn-teks-daftar').innerHTML = 'KIRIM PENDAFTARAN';
+            document.getElementById('txt-daftar').innerText = 'KIRIM DATA';
         })
-        .catch(error => alert('Error!', error.message));
+        .catch(err => alert('Gagal: ' + err.message));
     });
 
-    // KIRIM FORM LOGIN
+    // KIRIM LOGIN
     const fLogin = document.getElementById('form-login');
     fLogin.addEventListener('submit', e => {
         e.preventDefault();
-        document.getElementById('btn-teks-login').innerHTML = 'Logging in...';
+        document.getElementById('txt-login').innerText = 'Proses Login...';
         fetch(scriptURL, { method: 'POST', body: new FormData(fLogin)})
-        .then(res => {
-            alert('Login Tercatat di Google Sheet!');
+        .then(() => { 
+            alert('Login Berhasil Tercatat!'); 
             fLogin.reset();
-            document.getElementById('btn-teks-login').innerHTML = 'MASUK';
+            document.getElementById('txt-login').innerText = 'LOG IN';
         })
-        .catch(error => alert('Error!', error.message));
+        .catch(err => alert('Gagal: ' + err.message));
     });
 </script>
 
 </body>
 </html>
-
