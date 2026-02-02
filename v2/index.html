@@ -3,177 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRIVATE UPDATE V2 | M. GIBRAN</title>
+    <title>GIBRAN STORE | v.3.6.0 Admin Control</title>
     <style>
-        :root {
-            --primary: #2563eb; --dark: #0f172a; --light: #f8fafc;
-            --accent: #ffcc00; --success: #10b981; --danger: #ef4444; --purple: #8b5cf6;
-            --orange: #f97316;
-        }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: var(--light); color: var(--dark); line-height: 1.6; }
+        :root { --primary: #2563eb; --gold: #fbbf24; --slate: #1e293b; --success: #10b981; --dark: #020617; --light-bg: #f8fafc; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; transition: 0.3s; background: var(--dark); color: white; }
         
-        /* HEADER */
-        header { background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%); color: white; padding: 4rem 1rem; text-align: center; }
-        .container { max-width: 900px; margin: 0 auto; padding: 0 20px 50px 20px; }
-        .main-card { background: white; border-radius: 20px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: -50px; }
+        body.gelap { background: var(--dark); color: white; }
+        body.terang { background: var(--light-bg); color: #1e293b; }
 
-        /* TEXT CONTENT */
-        .section-title { color: var(--primary); border-left: 6px solid var(--accent); padding-left: 15px; margin-top: 35px; font-size: 1.4rem; text-transform: uppercase; font-weight: bold; }
-        .content-text { text-align: justify; color: #334155; font-size: 1.05rem; background: #f8fafc; padding: 25px; border-radius: 12px; border: 1px solid #e2e8f0; white-space: pre-line; }
-        
-        /* SKILLS GRID */
-        .grid-keahlian { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px; }
-        .card-skill { background: #ffffff; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; }
-        .card-skill h3 { margin-top: 0; color: var(--primary); font-size: 1.1rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; }
-
-        /* BUTTONS */
-        .btn-container { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 45px; }
-        .btn { padding: 14px 28px; border-radius: 10px; font-weight: bold; cursor: pointer; border: none; display: inline-flex; align-items: center; transition: 0.3s; font-size: 1rem; text-decoration: none; }
-        
-        .btn-daftar { background: var(--primary); color: white; }
-        .btn-toko { background: var(--orange); color: white; } 
-        .btn-login { background: var(--purple); color: white; display: none; }
+        /* NAVBAR */
+        .navbar { background: #1e293b; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #334155; }
+        .nav-logo { font-size: 1.1rem; font-weight: bold; color: var(--gold); text-decoration: none; }
+        .nav-links { display: flex; gap: 12px; }
+        .nav-links a { color: #94a3b8; text-decoration: none; font-size: 0.8rem; cursor: pointer; font-weight: 500; }
+        .nav-links a:hover { color: var(--gold); }
 
         /* MODAL */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); align-items: center; justify-content: center; }
-        .modal-content { background: white; padding: 35px; border-radius: 20px; width: 90%; max-width: 500px; color: black; position: relative; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #cbd5e1; border-radius: 10px; box-sizing: border-box; }
-
-        /* DASHBOARD VIEW */
-        #dashboard-view { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #020617; color: white; z-index: 3000; overflow-y: auto; padding: 30px; box-sizing: border-box; }
-        .jam-digital { font-size: 2.5rem; color: var(--accent); font-weight: bold; }
-        .cctv-monitor { background: #000; border: 3px solid #334155; border-radius: 15px; overflow: hidden; height: 400px; position: relative; margin-top: 20px; }
-        video { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
-        .room-box { background: #1e293b; padding: 25px; border-radius: 15px; margin-top: 25px; border-left: 6px solid var(--primary); }
-
-        @media (max-width: 768px) { .grid-keahlian { grid-template-columns: 1fr; } }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); overflow-y: auto; }
+        .modal-content { background: #1e293b; color: white; margin: 5% auto; padding: 25px; border-radius: 20px; width: 90%; max-width: 500px; border: 2px solid var(--gold); }
+        
+        .history-item { background: #0f172a; padding: 15px; border-radius: 12px; margin-bottom: 10px; border-left: 4px solid var(--gold); }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; padding: 20px; }
+        .product-card { background: white; color: #1e293b; padding: 15px; border-radius: 12px; text-align: center; }
+        
+        .gate-container { display: flex; align-items: center; justify-content: center; min-height: 90vh; padding: 20px; }
+        .gate-card { background: #1e293b; padding: 40px; border-radius: 20px; width: 100%; max-width: 400px; text-align: center; border: 1px solid #334155; }
+        input, textarea, select { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box; }
+        .btn-big { width: 100%; padding: 15px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        
+        /* ADMIN SECTION STYLE */
+        .admin-box { background: #0f172a; padding: 15px; border-radius: 10px; margin-top: 10px; border: 1px dashed var(--gold); }
+        .contact-link { display: block; color: white; text-decoration: none; margin: 10px 0; font-size: 0.9rem; padding: 10px; background: #1e293b; border-radius: 8px; transition: 0.2s; }
+        .contact-link:hover { background: var(--primary); }
     </style>
 </head>
-<body>
+<body class="gelap">
 
-<div id="main-content">
-    <header>
-        <h1>M. GIBRAN</h1>
-        <p>Humas | Desain Grafis | Video Editor | Content Creator</p>
-    </header>
+<nav id="main-navbar" class="navbar" style="display: none;">
+    <a href="#" class="nav-logo">GIBRAN STORE</a>
+    <div class="nav-links">
+        <a onclick="location.reload()">Katalog</a>
+        <a onclick="openModal('modal-history')">Riwayat</a>
+        <a onclick="openModal('modal-settings')">Pengaturan</a>
+        <a onclick="openModal('modal-admin')" style="color: var(--gold); font-weight: bold;">ADMIN CONTROL</a>
+    </div>
+</nav>
 
-    <div class="container">
-        <div class="main-card">
-            <h2 class="section-title">Tentang Saya</h2>
-            <div class="content-text">
-                Perkenalkan, nama saya Gibran. Saya merupakan mahasiswa Hubungan Masyarakat (Humas) di LP3I Kramat Raya. Memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring. 
-                
-                Saya pribadi yang disiplin, cepat beradaptasi, dan hobi bermain futsal. Aktif dalam kegiatan multimedia dan komunikasi digital.
-            </div>
-
-            <h2 class="section-title">Keahlian & Kompetensi</h2>
-            <div class="grid-keahlian">
-                <div class="card-skill"><h3>🎨 Multimedia</h3><p>Desain Grafis, Video Editing (Adobe Premiere), & Animasi Dasar.</p></div>
-                <div class="card-skill"><h3>🏢 Pengalaman Kerja</h3><p>Monitoring (Gatot Subroto) & Operasional di BGI.</p></div>
-                <div class="card-skill"><h3>🎸 Musik</h3><p>Memahami instrumen gitar akustik untuk hobi dan kreativitas.</p></div>
-                <div class="card-skill"><h3>⚽ Olahraga</h3><p>Futsal sebagai sarana menjaga kedisiplinan dan kerja sama tim.</p></div>
-            </div>
-
-            <div class="btn-container">
-                <button class="btn btn-daftar" id="btn-show-daftar" onclick="document.getElementById('modal-d').style.display='flex'">📝 Daftar Sekarang</button>
-                
-                <a href="../shop/index.html" class="btn btn-toko">🛒 Toko Online</a>
-                
-                <button class="btn btn-login" id="btn-show-login" onclick="document.getElementById('modal-l').style.display='flex'">🔑 Login Akun</button>
-            </div>
+<div id="modal-admin" class="modal">
+    <div class="modal-content">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h3 style="margin:0; color:var(--gold);">🛠️ ADMIN CONTROL</h3>
+            <span style="cursor:pointer; font-size:1.5rem;" onclick="closeModal('modal-admin')">&times;</span>
         </div>
+        <div class="admin-box">
+            <h4 style="margin-top:0;">Kontak Admin:</h4>
+            
+            <p style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 5px;">Email Resmi:</p>
+            <a href="mailto:mmgibran941@gmail.com" class="contact-link">📧 mmgibran941@gmail.com</a>
+            
+            <p style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 5px; margin-top: 15px;">WhatsApp Admin:</p>
+            <a href="https://wa.me/6285123332018" target="_blank" class="contact-link">💬 Chat via WhatsApp</a>
+        </div>
+        <p style="font-size: 0.7rem; text-align: center; color: #94a3b8; margin-top: 20px;">Hanya untuk keperluan teknis dan manajemen toko.</p>
+        <button class="btn-big" style="background:var(--slate); color:white;" onclick="closeModal('modal-admin')">TUTUP</button>
     </div>
 </div>
 
-<div id="modal-d" class="modal">
+<div id="modal-history" class="modal">
     <div class="modal-content">
-        <h2 style="color:var(--primary)">Form Pendaftaran</h2>
-        <form id="form-daftar-v2">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+            <h3 style="margin:0; color:var(--gold);">📜 RIWAYAT PESANAN</h3>
+            <span style="cursor:pointer; font-size:1.5rem;" onclick="closeModal('modal-history')">&times;</span>
+        </div>
+        <div id="history-list"></div>
+        <button class="btn-big" style="background:#ef4444; color:white; margin-top:20px;" onclick="hapusSemuaRiwayat()">HAPUS SEMUA RIWAYAT</button>
+    </div>
+</div>
+
+<div id="modal-settings" class="modal">
+    <div class="modal-content">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h3 style="margin:0;">⚙️ PENGATURAN</h3>
+            <span style="cursor:pointer; font-size:1.5rem;" onclick="closeModal('modal-settings')">&times;</span>
+        </div>
+        <p style="font-size:0.8rem; color:var(--gold);">Versi Aplikasi v.3.6.0</p>
+        <div style="margin: 15px 0;">
+            <label>Mode Pencahayaan:</label>
+            <select onchange="document.body.className = this.value">
+                <option value="gelap">Mode Gelap</option>
+                <option value="terang">Mode Terang</option>
+            </select>
+        </div>
+        <button class="btn-big" style="background:var(--success); color:white;" onclick="closeModal('modal-settings')">SIMPAN</button>
+    </div>
+</div>
+
+<div id="reg-screen" class="gate-container">
+    <div class="gate-card">
+        <h2 style="color:var(--gold);">GIBRAN STORE</h2>
+        <form id="form-register">
+            <input type="date" name="tanggal" required id="reg-date">
             <input type="text" name="nama" placeholder="Nama Lengkap" required>
-            <input type="number" name="hp" placeholder="Nomor WhatsApp" required>
-            <input type="text" name="opini" placeholder="Opini Anda" required>
-            <button type="submit" class="btn btn-daftar" style="width: 100%; justify-content: center;">Kirim & Buka Login</button>
+            <input type="number" name="whatsapp" placeholder="Nomor WhatsApp" required>
+            <textarea name="alamat" placeholder="Alamat Lengkap" required></textarea>
+            <input type="hidden" name="sheetTarget" value="register.html">
+            <button type="submit" id="btn-submit-reg" class="btn-big" style="background:var(--gold); color:black;">DAFTAR</button>
+        </form>
+        <button id="btn-to-login" class="btn-big" style="display:none; background:var(--primary); color:white;" onclick="showLogin()">LANJUT LOGIN</button>
+    </div>
+</div>
+
+<div id="login-screen" class="gate-container" style="display:none;">
+    <div class="gate-card">
+        <h2 style="color:var(--primary);">LOGIN</h2>
+        <form id="form-login">
+            <input type="text" id="l-nama" name="nama" placeholder="Nama" required>
+            <input type="number" id="l-wa" name="whatsapp" placeholder="WhatsApp" required>
+            <input type="text" id="l-rumah" name="no_rumah" placeholder="No Rumah" required>
+            <input type="hidden" name="sheetTarget" value="User">
+            <button type="submit" id="btn-submit-login" class="btn-big" style="background:var(--primary); color:white;">MASUK TOKO</button>
         </form>
     </div>
 </div>
 
-<div id="modal-l" class="modal">
-    <div class="modal-content">
-        <h2 style="color:var(--purple)">🔑 Login Akun</h2>
-        <form id="form-login-v2">
-            <input type="text" name="nama" placeholder="Nama Lengkap" required>
-            <input type="number" name="hp" placeholder="Nomor HP" required>
-            <button type="submit" class="btn btn-login" style="width: 100%; justify-content: center; display: flex;">Masuk Dashboard</button>
-        </form>
+<div id="shop-content" style="display:none;">
+    <div class="product-grid">
+        <script>
+            const items = [
+                {n: "Peye Kacang (Kecil)", p: "Rp5.000"}, {n: "Peye Kacang (Besar)", p: "Rp10.000"},
+                {n: "Slondok", p: "Rp20.000"}, {n: "Opak", p: "Rp20.000"},
+                {n: "Kacang", p: "Rp2.000"}, {n: "Kripik Pedes", p: "Rp15.000"},
+                {n: "Kue Sus Kering", p: "Rp15.000"}, {n: "Reginang (isi 3)", p: "Rp5.000"},
+                {n: "Aqua Galon", p: "Rp22.000"}
+            ];
+            document.write(items.map(i => `
+                <div class="product-card">
+                    <h4>${i.n}</h4><p style="color:var(--primary); font-weight:bold;">${i.p}</p>
+                    <button class="btn-beli-kecil" onclick="startPay('${i.n}', '${i.p}')">Beli</button>
+                </div>
+            `).join(''));
+        </script>
     </div>
 </div>
 
-<div id="dashboard-view">
-    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); padding-bottom: 15px;">
-        <h1>ADMIN CONTROL</h1>
-        <div class="jam-digital" id="jam-admin">00:00:00</div>
+<div id="pay-screen" class="gate-container" style="display:none;">
+    <div class="gate-card" style="border: 2px solid var(--gold);">
+        <h3>KONFIRMASI PESANAN</h3>
+        <p id="item-info" style="background:#0f172a; padding:15px; border-radius:10px;"></p>
+        <form id="form-order">
+            <input type="hidden" name="sheetTarget" value="Order">
+            <input type="hidden" name="Nama" id="o-nama">
+            <input type="hidden" name="No HP" id="o-hp">
+            <input type="hidden" name="Total" id="o-total">
+            <input type="hidden" name="Alamat" id="o-alamat">
+            <input type="hidden" name="Tanggal" id="o-tgl">
+            <button type="submit" id="btn-pay" class="btn-big" style="background:var(--success); color:white;">SELESAIKAN</button>
+            <button type="button" onclick="location.reload()" style="background:none; color:gray; border:none; margin-top:10px; cursor:pointer;">Batal</button>
+        </form>
     </div>
-
-    <div class="cctv-monitor">
-        <video id="web-cam-v2" autoplay playsinline muted></video>
-    </div>
-
-    <div class="room-box">
-        <h3>📂 Ruangan Khusus Gibran</h3>
-        <input type="file" id="up-g">
-        <button onclick="up('up-g','list-g')" class="btn btn-daftar" style="margin-top:10px;">Simpan</button>
-        <div id="list-g" style="margin-top:10px;"></div>
-    </div>
-
-    <div class="room-box" style="border-left-color: var(--purple);">
-        <h3>📂 Ruangan Khusus Stiven</h3>
-        <input type="file" id="up-s">
-        <button onclick="up('up-s','list-s')" class="btn btn-login" style="display:block; margin-top:10px;">Simpan</button>
-        <div id="list-s" style="margin-top:10px;"></div>
-    </div>
-
-    <button onclick="location.reload()" style="margin-top:20px; background:red; color:white; border:none; padding:15px; border-radius:10px; cursor:pointer; width:100%;">LOGOUT</button>
 </div>
 
 <script>
-    const DATABASE_URL = 'https://script.google.com/macros/s/AKfycbxqbpqaLr31aPnLmALq3VZQ8t5z7VkWTT0LwxO0AE-1hj6s03X7BVPrQecyH5x8jSvgew/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwS6CvxXW8lmHPZvPR0-S1XzV3pyODxKOvcDpW1--PgvdqwHLcJz9s3gMDJe9rgvuXnng/exec';
+    let user = { n: "", w: "", a: "" };
 
-    document.getElementById('form-daftar-v2').onsubmit = e => {
+    // Otomatis isi tanggal hari ini
+    document.getElementById('reg-date').valueAsDate = new Date();
+
+    function openModal(id) { document.getElementById(id).style.display='block'; if(id === 'modal-history') updateHistoryUI(); }
+    function closeModal(id) { document.getElementById(id).style.display='none'; }
+    function showLogin() { document.getElementById('reg-screen').style.display='none'; document.getElementById('login-screen').style.display='flex'; }
+
+    async function postData(f) { return fetch(SCRIPT_URL, { method: 'POST', body: new FormData(f), mode: 'no-cors' }); }
+
+    document.getElementById('form-register').onsubmit = async e => {
         e.preventDefault();
-        fetch(DATABASE_URL, { method: 'POST', body: new FormData(e.target), mode: 'no-cors' }).then(() => {
-            alert('Pendaftaran Berhasil!');
-            document.getElementById('modal-d').style.display = 'none';
-            document.getElementById('btn-show-daftar').style.display = 'none';
-            document.getElementById('btn-show-login').style.display = 'inline-flex';
-        });
+        document.getElementById('btn-submit-reg').innerText = "Processing...";
+        await postData(e.target);
+        alert('Registrasi Berhasil!');
+        document.getElementById('form-register').style.display='none';
+        document.getElementById('btn-to-login').style.display='block';
     };
 
-    document.getElementById('form-login-v2').onsubmit = e => {
+    document.getElementById('form-login').onsubmit = async e => {
         e.preventDefault();
-        let fd = new FormData(e.target); fd.append('sheetTarget', 'login.html');
-        fetch(DATABASE_URL, { method: 'POST', body: fd, mode: 'no-cors' }).then(() => {
-            document.getElementById('main-content').style.display = 'none';
-            document.getElementById('dashboard-view').style.display = 'block';
-            startCam();
-        });
+        document.getElementById('btn-submit-login').innerText = "Logging in...";
+        user = { n: document.getElementById('l-nama').value, w: document.getElementById('l-wa').value, a: document.getElementById('l-rumah').value };
+        await postData(e.target);
+        document.getElementById('login-screen').style.display='none';
+        document.getElementById('main-navbar').style.display='flex';
+        document.getElementById('shop-content').style.display='block';
     };
 
-    function startCam() {
-        navigator.mediaDevices.getUserMedia({ video: true }).then(s => {
-            document.getElementById('web-cam-v2').srcObject = s;
-        });
+    function startPay(n, p) {
+        document.getElementById('shop-content').style.display='none';
+        document.getElementById('main-navbar').style.display='none';
+        document.getElementById('pay-screen').style.display='flex';
+        document.getElementById('item-info').innerText = n + " (" + p + ")";
+        document.getElementById('o-nama').value = user.n;
+        document.getElementById('o-hp').value = "'" + user.w;
+        document.getElementById('o-total').value = p + " [" + n + "]";
+        document.getElementById('o-alamat').value = user.a;
+        document.getElementById('o-tgl').value = new Date().toLocaleString('id-ID');
     }
 
-    setInterval(() => {
-        document.getElementById('jam-admin').innerText = new Date().toLocaleTimeString();
-    }, 1000);
+    document.getElementById('form-order').onsubmit = async e => {
+        e.preventDefault();
+        document.getElementById('btn-pay').innerText = "Sending...";
+        let history = JSON.parse(localStorage.getItem('gibran_history') || "[]");
+        history.push({ item: document.getElementById('o-total').value, tanggal: document.getElementById('o-tgl').value });
+        localStorage.setItem('gibran_history', JSON.stringify(history));
+        await postData(e.target);
+        alert('Order Berhasil Dikirim!');
+        location.reload();
+    };
 
-    function up(i, l) {
-        const f = document.getElementById(i).files[0];
-        if(f) {
-            document.getElementById(l).innerHTML += `<div style="color:white; background:rgba(255,255,255,0.1); padding:5px; margin-top:5px; border-radius:5px;">📄 ${f.name}</div>`;
-        }
+    function updateHistoryUI() {
+        const list = document.getElementById('history-list');
+        const history = JSON.parse(localStorage.getItem('gibran_history') || "[]");
+        if(history.length === 0) { list.innerHTML = '<p style="text-align:center;">Kosong.</p>'; return; }
+        list.innerHTML = history.map((h, i) => `
+            <div class="history-item">
+                <p><strong>${h.item}</strong></p>
+                <p style="font-size:0.7rem;">${h.tanggal}</p>
+                <button onclick="downloadRiwayat(${i})">Nota</button> <button onclick="hapusSatu(${i})">Hapus</button>
+            </div>`).join('');
     }
+
+    function downloadRiwayat(i) {
+        const h = JSON.parse(localStorage.getItem('gibran_history'))[i];
+        const blob = new Blob([`NOTA: ${h.item}\n${h.tanggal}`], { type: 'text/plain' });
+        const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'Nota.txt'; a.click();
+    }
+
+    function hapusSatu(i) {
+        let h = JSON.parse(localStorage.getItem('gibran_history')); h.splice(i, 1);
+        localStorage.setItem('gibran_history', JSON.stringify(h)); updateHistoryUI();
+    }
+
+    function hapusSemuaRiwayat() { localStorage.removeItem('gibran_history'); updateHistoryUI(); }
 </script>
 </body>
 </html>
