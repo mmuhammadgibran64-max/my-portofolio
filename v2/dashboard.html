@@ -3,107 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - M. Gibran</title>
+    <title>Dashboard Command Center</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
-        :root { --neon-blue: #00f3ff; --neon-gold: #fbbf24; --dark-bg: #020617; --card-bg: #1e293b; }
-        body { font-family: 'Poppins', sans-serif; background: var(--dark-bg); color: white; margin: 0; padding: 20px; }
-        h2 { font-family: 'Orbitron', sans-serif; color: var(--neon-gold); text-align: center; }
-        #clock { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; text-align: center; color: var(--neon-blue); margin-bottom: 20px; }
+        :root { --neon: #00f3ff; --gold: #fbbf24; --dark: #020617; --card: #1e293b; }
+        body { font-family: 'Poppins', sans-serif; background: var(--dark); color: white; margin: 0; padding: 20px; }
+        #clock { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; text-align: center; color: var(--neon); margin: 20px 0; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .card { background: var(--card-bg); border: 1px solid #334155; padding: 20px; border-radius: 20px; }
-        .video-box { width: 100%; background: black; border-radius: 15px; overflow: hidden; position: relative; aspect-ratio: 16/9; border: 2px solid var(--neon-blue); }
+        .card { background: var(--card); padding: 20px; border-radius: 20px; border: 1px solid #334155; }
+        .video-box { width: 100%; background: black; border-radius: 15px; overflow: hidden; position: relative; aspect-ratio: 16/9; border: 2px solid var(--neon); }
         video { width: 100%; height: 100%; object-fit: cover; }
+        .btn { width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px; transition: 0.3s; }
+        .btn-absen { background: var(--neon); color: black; }
+        .btn-upload { background: var(--gold); color: black; }
         .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; margin-top: 20px; }
-        .gallery-item { background: #0f172a; padding: 8px; border-radius: 12px; border: 1px solid #334155; text-align: center; }
-        .gallery-item img { width: 100%; border-radius: 8px; }
-        .btn { width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px; }
-        .btn-absen { background: var(--neon-blue); color: black; }
-        .btn-del { background: #ef4444; color: white; font-size: 10px; }
-        .btn-logout { background: #475569; color: white; width: 150px; margin: 40px auto; display: block; }
+        .gallery-item { background: #0f172a; padding: 10px; border-radius: 12px; border: 1px solid #334155; text-align: center; }
+        .gallery-item img { width: 100%; border-radius: 8px; margin-bottom: 10px; }
+        .action-btns { display: flex; gap: 5px; flex-direction: column; }
+        .btn-sm { padding: 5px; font-size: 11px; border-radius: 5px; border: none; cursor: pointer; font-weight: bold; }
+        .btn-dl { background: #10b981; color: white; }
+        .btn-del { background: #ef4444; color: white; }
     </style>
 </head>
 <body>
 
     <div id="clock">00:00:00</div>
-    <h2>COMMAND CENTER</h2>
+    <h2 style="text-align: center; font-family: 'Orbitron'; color: var(--gold);">COMMAND CENTER</h2>
 
     <div class="grid">
         <div class="card">
-            <h3>CCTV / ABSEN</h3>
-            <div class="video-box"><video id="webcam" autoplay playsinline></video></div>
-            <button class="btn btn-absen" onclick="takeSnapshot()">AMBIL FOTO</button>
+            <h3>CCTV / ABSEN WAJAH</h3>
+            <div class="video-box">
+                <video id="webcam" autoplay playsinline></video>
+            </div>
+            <button class="btn btn-absen" onclick="takeSnapshot()">AMBIL FOTO & SIMPAN</button>
             <canvas id="canvas" style="display:none;"></canvas>
         </div>
+
         <div class="card">
             <h3>UPLOAD FOTO</h3>
+            <p style="font-size: 0.8rem; color: #94a3b8;">Foto tersimpan permanen di memori browser.</p>
             <input type="file" id="fileInput" accept="image/*" multiple style="display:none;">
-            <button class="btn" style="background:var(--neon-gold);" onclick="document.getElementById('fileInput').click()">PILIH DARI HP</button>
+            <button class="btn btn-upload" onclick="document.getElementById('fileInput').click()">PILIH DARI GALERI HP</button>
         </div>
     </div>
 
     <div class="card" style="margin-top: 20px;">
-        <h3>PENYIMPANAN PERMANEN</h3>
+        <h3>GALLERY PENYIMPANAN</h3>
         <div id="galleryContainer" class="gallery"></div>
     </div>
 
-    <button class="btn btn-logout" onclick="logout()">KELUAR</button>
-
     <script>
-        // Jam
+        // JAM BERGERAK
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000);
 
-        // Kamera
+        // KAMERA
         const video = document.getElementById('webcam');
-        navigator.mediaDevices.getUserMedia({ video: true }).then(stream => video.srcObject = stream);
+        navigator.mediaDevices.getUserMedia({ video: true }).then(stream => video.srcObject = stream).catch(e => console.log("Kamera error"));
 
-        // Load Foto pas Refresh (Gak Bakal Hilang)
+        // LOAD DATA BIAR GAK ILANG PAS REFRESH
         window.onload = () => {
-            const saved = JSON.parse(localStorage.getItem('gibran_photos') || '[]');
+            const saved = JSON.parse(localStorage.getItem('gibran_data') || '[]');
             saved.forEach(p => renderPhoto(p.id, p.src));
         };
 
+        // FUNGSI ABSEN
         function takeSnapshot() {
             const canvas = document.getElementById('canvas');
             canvas.width = video.videoWidth; canvas.height = video.videoHeight;
             canvas.getContext('2d').drawImage(video, 0, 0);
-            savePhoto(canvas.toDataURL('image/png'));
+            saveData(canvas.toDataURL('image/png'));
         }
 
+        // FUNGSI UPLOAD
         document.getElementById('fileInput').addEventListener('change', function() {
             for (let file of this.files) {
                 const reader = new FileReader();
-                reader.onload = (e) => savePhoto(e.target.result);
+                reader.onload = (e) => saveData(e.target.result);
                 reader.readAsDataURL(file);
             }
         });
 
-        function savePhoto(src) {
+        // SIMPAN KE LOCALSTORAGE (ANTI-ILANG)
+        function saveData(src) {
             const id = Date.now();
-            const saved = JSON.parse(localStorage.getItem('gibran_photos') || '[]');
+            const saved = JSON.parse(localStorage.getItem('gibran_data') || '[]');
             saved.push({ id, src });
-            localStorage.setItem('gibran_photos', JSON.stringify(saved));
+            localStorage.setItem('gibran_data', JSON.stringify(saved));
             renderPhoto(id, src);
         }
 
+        // TAMPILKAN FOTO, DOWNLOAD, HAPUS
         function renderPhoto(id, src) {
             const item = document.createElement('div');
             item.className = 'gallery-item';
             item.id = 'photo-' + id;
-            item.innerHTML = `<img src="${src}"><button class="btn btn-del" onclick="deletePhoto(${id})">HAPUS</button>`;
+            item.innerHTML = `
+                <img src="${src}">
+                <div class="action-btns">
+                    <button class="btn-sm btn-dl" onclick="downloadPhoto('${src}')">DOWNLOAD</button>
+                    <button class="btn-sm btn-del" onclick="deletePhoto(${id})">HAPUS</button>
+                </div>
+            `;
             document.getElementById('galleryContainer').appendChild(item);
+        }
+
+        function downloadPhoto(src) {
+            const a = document.createElement('a'); a.href = src; a.download = 'Gibran_Image.png'; a.click();
         }
 
         function deletePhoto(id) {
             document.getElementById('photo-' + id).remove();
-            let saved = JSON.parse(localStorage.getItem('gibran_photos') || '[]');
+            let saved = JSON.parse(localStorage.getItem('gibran_data') || '[]');
             saved = saved.filter(p => p.id !== id);
-            localStorage.setItem('gibran_photos', JSON.stringify(saved));
-        }
-
-        function logout() {
-            localStorage.removeItem('gibran_login');
-            window.location.href = 'index.html';
+            localStorage.setItem('gibran_data', JSON.stringify(saved));
         }
     </script>
 </body>
