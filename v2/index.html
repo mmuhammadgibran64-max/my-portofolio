@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio | Gibran</title>
+    <title>Gibran Portofolio | LP3I Kramat Raya</title>
     <style>
         :root { --gold: #fbbf24; --blue: #2563eb; --dark: #020617; --card: #1e293b; --text: #cbd5e1; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--dark); color: white; line-height: 1.8; }
         
-        /* Header Wave */
+        /* Header Section */
         .header { background: linear-gradient(135deg, #1e293b 0%, #020617 100%); padding: 80px 20px 120px; text-align: center; position: relative; }
         .header h1 { font-size: 3rem; color: var(--gold); margin: 0; letter-spacing: 4px; text-transform: uppercase; }
+        .header p { color: #94a3b8; font-size: 1.1rem; margin-top: 10px; }
+        
         .wave { position: absolute; bottom: 0; left: 0; width: 100%; line-height: 0; }
-        .wave svg { display: block; width: calc(150% + 1.3px); height: 80px; fill: var(--dark); }
+        .wave svg { display: block; width: 100%; height: 80px; fill: var(--dark); }
 
-        /* Container */
+        /* Content Container */
         .container { max-width: 850px; margin: -60px auto 60px; padding: 0 20px; position: relative; z-index: 10; }
         .card { background: var(--card); padding: 45px; border-radius: 30px; border: 1px solid #334155; box-shadow: 0 25px 50px rgba(0,0,0,0.7); }
         
@@ -29,14 +31,16 @@
         .list-misi li { margin-bottom: 12px; padding-left: 30px; position: relative; color: var(--text); }
         .list-misi li::before { content: '✦'; position: absolute; left: 0; color: var(--gold); }
 
-        /* FORM DAFTAR SEKARANG */
+        /* Form Daftar Sekarang */
         .register-section { margin-top: 50px; padding: 35px; background: #0f172a; border-radius: 20px; border: 2px solid var(--gold); text-align: center; }
-        .register-section h3 { color: var(--gold); margin-bottom: 20px; }
-        input { width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; border: 1px solid #334155; background: #1e293b; color: white; box-sizing: border-box; font-size: 1rem; }
+        .register-section h3 { color: var(--gold); margin-bottom: 20px; text-transform: uppercase; }
+        input, textarea { width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; border: 1px solid #334155; background: #1e293b; color: white; box-sizing: border-box; font-size: 1rem; font-family: inherit; }
+        
         .btn-submit { width: 100%; padding: 18px; background: var(--blue); color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 1.1rem; transition: 0.3s; margin-top: 10px; }
         .btn-submit:hover { background: #1d4ed8; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(37, 99, 235, 0.4); }
+        .btn-submit:disabled { background: #475569; cursor: not-allowed; }
 
-        footer { text-align: center; padding: 40px; color: #475569; }
+        footer { text-align: center; padding: 40px; color: #475569; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -57,24 +61,14 @@
         <p>Dengan latar belakang Humas dan pengalaman di lapangan, saya siap berkontribusi dalam pekerjaan atau proyek yang membutuhkan komunikasi, kedisiplinan, dan kemampuan analisis dasar.</p>
 
         <h2>Keahlian</h2>
-        <div class="skill-box">
-            <b>🎸 Bermain Gitar</b>
-            Mampu memainkan beberapa genre musik, memahami chord dasar hingga intermediate, serta dapat mengiringi lagu acoustic dengan baik.
-        </div>
-        <div class="skill-box">
-            <b>⚽ Futsal</b>
-            Memiliki kemampuan kontrol bola yang baik, cepat dalam pengambilan keputusan, dan mampu bekerja sama dalam tim sebagai pemain bertahan maupun penyerang.
-        </div>
+        <div class="skill-box"><b>🎸 Bermain Gitar</b> — Mampu memainkan beberapa genre musik, memahami chord dasar hingga intermediate, serta dapat mengiringi lagu acoustic dengan baik.</div>
+        <div class="skill-box"><b>⚽ Futsal</b> — Memiliki kemampuan kontrol bola yang baik, cepat dalam pengambilan keputusan, dan mampu bekerja sama dalam tim sebagai pemain bertahan maupun penyerang.</div>
 
         <h2>Pengalaman Kerja</h2>
-        <p><b>BGI</b><br>
-        Pernah bekerja di BGI dan bertanggung jawab dalam beberapa tugas operasional seperti membantu proses pekerjaan sehari-hari, mendukung kegiatan tim, dan menjalankan instruksi sesuai standar perusahaan. Pengalaman ini membuat saya lebih matang dalam bekerja secara profesional, memahami manajemen waktu, serta menjaga kualitas hasil kerja.</p>
+        <p><b>BGI</b><br>Pernah bekerja di BGI dan bertanggung jawab dalam beberapa tugas operasional seperti membantu proses pekerjaan sehari-hari, mendukung kegiatan tim, dan menjalankan instruksi sesuai standar perusahaan. Pengalaman ini membuat saya lebih matang dalam bekerja secara profesional, memahami manajemen waktu, serta menjaga kualitas hasil kerja.</p>
 
         <h2>Visi & Misi</h2>
-        <p><b>Visi:</b><br>
-        Menjadi individu yang mampu berkontribusi secara maksimal, bekerja dengan penuh tanggung jawab, serta dapat berkolaborasi dengan baik dalam tim untuk mencapai tujuan perusahaan.</p>
-        
-        <p><b>Misi:</b></p>
+        <p><b>Visi:</b> Menjadi individu yang mampu berkontribusi secara maksimal, bekerja dengan penuh tanggung jawab, serta dapat berkolaborasi dengan baik dalam tim untuk mencapai tujuan perusahaan.</p>
         <ul class="list-misi">
             <li>Membangun hubungan kerja yang positif dan profesional demi mendukung perkembangan perusahaan.</li>
             <li>Mengembangkan pengetahuan dan keterampilan agar dapat memberikan hasil kerja yang kompeten.</li>
@@ -83,12 +77,12 @@
         </ul>
 
         <div class="register-section">
-            <h3>Daftar Sekarang</h3>
-            <form id="google-sheet-form">
+            <h3>DAFTAR SEKARANG</h3>
+            <form id="gibran-form">
                 <input type="text" name="Nama" placeholder="Nama Lengkap" required>
-                <input type="number" name="NoHP" placeholder="Nomor Handphone Aktif" required>
-                <input type="date" name="Tanggal" required>
-                <button type="submit" class="btn-submit">DAFTAR SEKARANG</button>
+                <input type="number" name="WhatsApp" placeholder="Nomor WhatsApp Aktif" required>
+                <textarea name="Alamat" placeholder="Alamat Lengkap" rows="3" required></textarea>
+                <button type="submit" class="btn-submit" id="btn-teks">DAFTAR SEKARANG</button>
             </form>
         </div>
     </div>
@@ -97,16 +91,29 @@
 <footer>© 2026 Gibran Official Portofolio</footer>
 
 <script>
-    const scriptURL = 'URL_GOOGLE_APPS_SCRIPT_LO_DISINI';
-    const form = document.getElementById('google-sheet-form');
+    // Link Apps Script lo sudah gue pasang di sini
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwvfabN3XICUD17kImxHjKf2pfNOkDialdonvkPvuOvAG9BySSpmvMswEFzc_x7zcqlZQ/exec';
+    const form = document.getElementById('gibran-form');
+    const btn = document.getElementById('btn-teks');
 
     form.addEventListener('submit', e => {
-      e.preventDefault();
-      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-        .then(response => alert('Berhasil! Data lo sudah masuk ke Google Sheets.'))
-        .catch(error => alert('Waduh Error! Cek lagi URL script-nya, Bran.'));
+        e.preventDefault();
+        btn.disabled = true;
+        btn.innerText = 'Mengirim...';
+        
+        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            .then(response => {
+                alert('Mantap Bran! Data Nama, WhatsApp, dan Alamat lo sudah masuk ke Google Sheets.');
+                btn.disabled = false;
+                btn.innerText = 'DAFTAR SEKARANG';
+                form.reset();
+            })
+            .catch(error => {
+                alert('Waduh Gagal! Cek koneksi internet atau script lo.');
+                btn.disabled = false;
+                btn.innerText = 'DAFTAR SEKARANG';
+            });
     });
 </script>
-
 </body>
 </html>
