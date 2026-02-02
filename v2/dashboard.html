@@ -3,234 +3,1095 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REAL DASHBOARD | GIBRAN & STIVEN</title>
+    <title>Dashboard Gibran - Mahasiswa Humas LP3I</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --dark: #020617;
-            --primary: #3b82f6;
-            --accent: #ffb700;
-            --success: #22c55e;
-            --danger: #ef4444;
-            --card-bg: #1e293b;
+        /* ===== RESET & BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        
         body {
-            font-family: 'Segoe UI', sans-serif;
-            margin: 0; background: var(--dark); color: #f1f5f9;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
         }
-
-        header {
-            background: #0f172a; padding: 15px 30px;
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 3px solid var(--primary);
-            position: sticky; top: 0; z-index: 1000;
+        
+        /* ===== HEADER & NAVIGATION ===== */
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-
-        .jam-digital {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1.8rem; font-weight: bold; color: var(--accent);
-            text-shadow: 0 0 10px var(--accent);
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
-
-        .container { padding: 25px; max-width: 1400px; margin: auto; }
-
-        .grid-layout {
-            display: grid; grid-template-columns: 1fr 350px; gap: 20px;
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: #27ae60;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid white;
+        }
+        
+        .logout-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        /* ===== DASHBOARD LAYOUT ===== */
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 30px;
+            padding: 30px 0;
+        }
+        
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+        }
+        
+        .profile-card {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 5px solid #3498db;
+        }
+        
+        .profile-card h3 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .profile-card p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .sidebar-nav {
+            list-style: none;
+        }
+        
+        .sidebar-nav li {
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            color: #2c3e50;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-nav a:hover, .sidebar-nav a.active {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .sidebar-nav i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        /* ===== DASHBOARD CARDS ===== */
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
         .card {
-            background: var(--card-bg); border-radius: 12px; padding: 20px;
-            border: 1px solid #334155; margin-bottom: 20px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
-
-        /* REAL CCTV STYLE */
-        .cctv-container {
-            background: #000; border: 2px solid #475569; border-radius: 8px;
-            position: relative; overflow: hidden; line-height: 0;
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
         }
-        video {
-            width: 100%; height: auto; transform: scaleX(-1); /* Mirror effect */
-            background: #000;
+        
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background-color: #e8f4fc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
         }
-        .cctv-overlay {
-            position: absolute; top: 10px; left: 10px; color: #ff0000;
-            font-size: 0.8rem; font-weight: bold; pointer-events: none;
-            display: flex; align-items: center; gap: 5px;
+        
+        .card-icon i {
+            font-size: 1.5rem;
+            color: #3498db;
         }
-        .blink { animation: blinker 1s linear infinite; }
-        @keyframes blinker { 50% { opacity: 0; } }
-
-        /* ROOMS */
-        .room-header { 
-            padding: 10px 15px; border-radius: 8px 8px 0 0; 
-            font-weight: bold; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;
+        
+        .card-title {
+            color: #2c3e50;
+            font-size: 1.2rem;
         }
-        .bg-gibran { background: var(--primary); }
-        .bg-stiven { background: #8b5cf6; }
-
-        /* FILE MANAGER */
-        .file-list { background: #0f172a; border-radius: 8px; padding: 10px; min-height: 50px; }
-        .file-row {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 8px; border-bottom: 1px solid #334155;
+        
+        /* ===== LIVE CLOCK ===== */
+        .clock-container {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(52, 152, 219, 0.2);
         }
-        .file-row:last-child { border: none; }
-
-        .btn {
-            padding: 8px 12px; border: none; border-radius: 6px; cursor: pointer;
-            font-size: 0.8rem; font-weight: bold; transition: 0.2s;
+        
+        .clock-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            opacity: 0.9;
         }
-        .btn-upload { background: var(--success); color: white; width: 100%; margin-top: 10px; }
-        .btn-del { background: var(--danger); color: white; }
-        .btn-dl { background: var(--primary); color: white; text-decoration: none; display: inline-block; }
-
-        table { width: 100%; border-collapse: collapse; }
-        th, td { text-align: left; padding: 10px; border-bottom: 1px solid #334155; font-size: 0.9rem; }
-        th { color: var(--accent); }
-
-        .status-dot { height: 8px; width: 8px; background: var(--success); border-radius: 50%; display: inline-block; margin-right: 5px; }
-
-        @media (max-width: 1000px) { .grid-layout { grid-template-columns: 1fr; } }
+        
+        .live-clock {
+            font-size: 3.5rem;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .clock-date {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        /* ===== UPLOAD SECTION ===== */
+        .upload-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+        
+        .upload-container {
+            border: 2px dashed #3498db;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            background-color: #f8f9fa;
+            margin-bottom: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .upload-container:hover {
+            background-color: #e8f4fc;
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        .upload-text {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .upload-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .upload-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        #fileInput {
+            display: none;
+        }
+        
+        .image-preview {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .preview-image {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .preview-actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .action-btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .save-btn {
+            background-color: #27ae60;
+            color: white;
+        }
+        
+        .save-btn:hover {
+            background-color: #219653;
+        }
+        
+        .cancel-btn {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .cancel-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        /* ===== GALLERY SECTION ===== */
+        .gallery-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-info {
+            padding: 15px;
+            background-color: white;
+        }
+        
+        .gallery-name {
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .gallery-date {
+            color: #7f8c8d;
+            font-size: 0.85rem;
+        }
+        
+        .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(231, 76, 60, 0.8);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .gallery-item:hover .delete-btn {
+            opacity: 1;
+        }
+        
+        .empty-gallery {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+        }
+        
+        .empty-gallery i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #ddd;
+        }
+        
+        /* ===== FOOTER ===== */
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section h3 {
+            color: #3498db;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-section p {
+            margin-bottom: 8px;
+            color: #ddd;
+            font-size: 0.9rem;
+        }
+        
+        .copyright {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* ===== MESSAGE STYLES ===== */
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 992px) {
+            .dashboard-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-cards {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .user-menu {
+                margin-top: 15px;
+            }
+            
+            .live-clock {
+                font-size: 2.5rem;
+            }
+            
+            .upload-container {
+                padding: 30px 20px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .live-clock {
+                font-size: 2rem;
+            }
+            
+            .clock-date {
+                font-size: 1rem;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .upload-container {
+                padding: 20px 15px;
+            }
+        }
     </style>
 </head>
 <body>
-
-<header>
-    <div>
-        <h2 style="margin:0">SECURE <span style="color:var(--primary)">DASHBOARD</span></h2>
-        <small>Operator: Gibran & Stiven</small>
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard Gibran</span>
+                </div>
+                
+                <div class="user-menu">
+                    <div class="user-info">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                             alt="Foto Profil" class="user-avatar" id="headerAvatar">
+                        <div>
+                            <div id="userName">Gibran</div>
+                            <div style="font-size: 0.8rem; opacity: 0.8;">Mahasiswa Humas</div>
+                        </div>
+                    </div>
+                    
+                    <button class="logout-btn" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- ===== DASHBOARD CONTENT ===== -->
+    <div class="container">
+        <div class="dashboard-layout">
+            <!-- ===== SIDEBAR ===== -->
+            <div class="sidebar">
+                <div class="profile-card">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                         alt="Foto Profil" class="profile-avatar" id="profileAvatar">
+                    <h3 id="profileName">Gibran</h3>
+                    <p id="profileTitle">Mahasiswa Humas LP3I</p>
+                    <p><i class="fas fa-phone"></i> <span id="profilePhone">081234567890</span></p>
+                </div>
+                
+                <ul class="sidebar-nav">
+                    <li><a href="#" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="#"><i class="fas fa-user"></i> Profil</a></li>
+                    <li><a href="#"><i class="fas fa-image"></i> Galeri Foto</a></li>
+                    <li><a href="#"><i class="fas fa-chart-bar"></i> Statistik</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> Pengaturan</a></li>
+                    <li><a href="index.html"><i class="fas fa-globe"></i> Kembali ke Website</a></li>
+                </ul>
+            </div>
+            
+            <!-- ===== MAIN CONTENT ===== -->
+            <div class="main-content">
+                <!-- ===== DASHBOARD CARDS ===== -->
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <div>
+                                <div class="card-title">Total Pendaftaran</div>
+                                <div style="font-size: 1.5rem; font-weight: 700; color: #2c3e50;" id="totalRegistrations">0</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-image"></i>
+                            </div>
+                            <div>
+                                <div class="card-title">Foto Diunggah</div>
+                                <div style="font-size: 1.5rem; font-weight: 700; color: #2c3e50;" id="totalPhotos">0</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-calendar"></i>
+                            </div>
+                            <div>
+                                <div class="card-title">Aktivitas Terakhir</div>
+                                <div style="font-size: 1rem; color: #7f8c8d;" id="lastActivity">-</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ===== LIVE CLOCK ===== -->
+                <div class="clock-container">
+                    <div class="clock-title">
+                        <i class="fas fa-clock"></i> Waktu Saat Ini
+                    </div>
+                    <div class="live-clock" id="liveClock">00:00:00</div>
+                    <div class="clock-date" id="liveDate">Senin, 1 Januari 2023</div>
+                </div>
+                
+                <!-- ===== UPLOAD FOTO SECTION ===== -->
+                <div class="upload-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-upload"></i> Upload Foto
+                    </h2>
+                    
+                    <div id="uploadMessage" class="message"></div>
+                    
+                    <div class="upload-container" id="uploadContainer">
+                        <div class="upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <div class="upload-text">
+                            Klik atau tarik file ke sini untuk mengunggah foto
+                        </div>
+                        <p style="color: #7f8c8d; margin-bottom: 20px; font-size: 0.9rem;">
+                            Format yang didukung: JPG, PNG, GIF (Maks. 5MB)
+                        </p>
+                        <button class="upload-btn" id="selectFileBtn">Pilih File</button>
+                        <input type="file" id="fileInput" accept="image/*">
+                    </div>
+                    
+                    <div class="image-preview" id="imagePreview">
+                        <img id="previewImage" class="preview-image" src="" alt="Preview">
+                        <div class="preview-actions">
+                            <button class="action-btn save-btn" id="saveImageBtn">
+                                <i class="fas fa-save"></i> Simpan ke Galeri
+                            </button>
+                            <button class="action-btn cancel-btn" id="cancelUploadBtn">
+                                <i class="fas fa-times"></i> Batal
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ===== GALERI FOTO SECTION ===== -->
+                <div class="gallery-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-images"></i> Galeri Foto
+                    </h2>
+                    
+                    <div id="galleryMessage" class="message"></div>
+                    
+                    <div class="gallery-grid" id="galleryGrid">
+                        <!-- Foto akan ditampilkan di sini secara dinamis -->
+                        <div class="empty-gallery" id="emptyGallery">
+                            <i class="fas fa-images"></i>
+                            <p>Belum ada foto di galeri. Unggah foto pertama Anda!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="jam-digital" id="jamReal">00:00:00</div>
-</header>
+    
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Dashboard Gibran</h3>
+                    <p><i class="fas fa-user"></i> Mahasiswa Humas LP3I</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Jakarta, Indonesia</p>
+                    <p><i class="fas fa-briefcase"></i> Pengalaman Monitoring: 1 Bulan</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Keterampilan</h3>
+                    <p><i class="fas fa-guitar"></i> Bermain Gitar</p>
+                    <p><i class="fas fa-futbol"></i> Futsal</p>
+                    <p><i class="fas fa-palette"></i> Desain Grafis</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Kontak</h3>
+                    <p><i class="fas fa-phone"></i> <span id="footerPhone">081234567890</span></p>
+                    <p><i class="fas fa-envelope"></i> Data tersimpan di Local Storage</p>
+                    <p><i class="fas fa-database"></i> Foto tersimpan di Browser</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Dashboard Gibran. Semua hak dilindungi.</p>
+                <p>Dashboard ini menyimpan data di local storage browser Anda.</p>
+            </div>
+        </div>
+    </footer>
 
-<div class="container">
-    <div class="grid-layout">
+    <script>
+        // ===== VARIABLES =====
+        let currentUser = null;
+        let uploadedImage = null;
+        let uploadedImageName = "";
+        let userPhotos = [];
         
-        <div class="main-content">
+        // ===== DOM ELEMENTS =====
+        // User info elements
+        const userNameElement = document.getElementById('userName');
+        const profileNameElement = document.getElementById('profileName');
+        const profilePhoneElement = document.getElementById('profilePhone');
+        const footerPhoneElement = document.getElementById('footerPhone');
+        const headerAvatar = document.getElementById('headerAvatar');
+        const profileAvatar = document.getElementById('profileAvatar');
+        
+        // Dashboard stats
+        const totalRegistrationsElement = document.getElementById('totalRegistrations');
+        const totalPhotosElement = document.getElementById('totalPhotos');
+        const lastActivityElement = document.getElementById('lastActivity');
+        
+        // Clock elements
+        const liveClockElement = document.getElementById('liveClock');
+        const liveDateElement = document.getElementById('liveDate');
+        
+        // Upload elements
+        const uploadContainer = document.getElementById('uploadContainer');
+        const fileInput = document.getElementById('fileInput');
+        const selectFileBtn = document.getElementById('selectFileBtn');
+        const imagePreview = document.getElementById('imagePreview');
+        const previewImage = document.getElementById('previewImage');
+        const saveImageBtn = document.getElementById('saveImageBtn');
+        const cancelUploadBtn = document.getElementById('cancelUploadBtn');
+        const uploadMessage = document.getElementById('uploadMessage');
+        
+        // Gallery elements
+        const galleryGrid = document.getElementById('galleryGrid');
+        const emptyGallery = document.getElementById('emptyGallery');
+        const galleryMessage = document.getElementById('galleryMessage');
+        
+        // Other elements
+        const logoutBtn = document.getElementById('logoutBtn');
+        
+        // ===== CHECK LOGIN STATUS =====
+        function checkLoginStatus() {
+            const userData = localStorage.getItem('currentUser');
             
-            <div class="card">
-                <h3 style="margin-top:0"><span class="status-dot"></span> Monitoring Akses User</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>User</th>
-                            <th>Aktivitas</th>
-                            <th>Waktu</th>
-                            <th>IP Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="logTable">
-                        <tr><td>Gibran</td><td>Admin Login</td><td>Baru saja</td><td style="color:var(--success)">Encrypted</td></tr>
-                        <tr><td>Stiven</td><td>Admin Login</td><td>Baru saja</td><td style="color:var(--success)">Encrypted</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="card" style="padding:0; overflow:hidden;">
-                <div class="room-header bg-gibran">📂 Ruangan Khusus Gibran</div>
-                <div style="padding:20px">
-                    <input type="file" id="inputGibran">
-                    <button class="btn btn-upload" onclick="handleUpload('inputGibran', 'listGibran')">Simpan ke Storage</button>
-                    <div class="file-list" id="listGibran" style="margin-top:15px">
-                        <small style="color:gray">Belum ada file.</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" style="padding:0; overflow:hidden;">
-                <div class="room-header bg-stiven">📂 Ruangan Khusus Stiven</div>
-                <div style="padding:20px">
-                    <input type="file" id="inputStiven">
-                    <button class="btn btn-upload" style="background:#8b5cf6" onclick="handleUpload('inputStiven', 'listStiven')">Simpan ke Storage</button>
-                    <div class="file-list" id="listStiven" style="margin-top:15px">
-                        <small style="color:gray">Belum ada file.</small>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="sidebar">
+            if (!userData) {
+                // Jika belum login, redirect ke halaman utama
+                window.location.href = 'index.html';
+                return;
+            }
             
-            <div class="card">
-                <h3 style="margin-top:0">📸 Live Cam Monitor</h3>
-                <div class="cctv-container">
-                    <div class="cctv-overlay">
-                        <span class="blink">●</span> REC LIVE - CAM 01
-                    </div>
-                    <video id="webcam" autoplay playsinline muted></video>
-                </div>
-                <p style="font-size:0.8rem; margin-top:10px; color:#94a3b8">
-                    Status: <span style="color:var(--success)">Aktif</span><br>
-                    Lokasi: Terminal Admin
-                </p>
-                <button class="btn" style="width:100%; background:#475569; color:white;" onclick="startCamera()">Aktifkan Kamera</button>
-            </div>
-
-            <div class="card">
-                <h3>⚙️ System Info</h3>
-                <p><small>CPU Usage: 12%</small></p>
-                <div style="background:#0f172a; height:10px; border-radius:5px; overflow:hidden">
-                    <div style="background:var(--primary); width:12%; height:100%"></div>
-                </div>
-                <p><small>Memory: 450MB / 2GB</small></p>
-                <div style="background:#0f172a; height:10px; border-radius:5px; overflow:hidden">
-                    <div style="background:var(--success); width:25%; height:100%"></div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<script>
-    // 1. JAM BERGERAK REAL-TIME
-    function updateClock() {
-        const now = new Date();
-        document.getElementById('jamReal').innerText = now.toLocaleTimeString('id-ID');
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-
-    // 2. REAL CCTV CAMERA (Akses Webcam)
-    async function startCamera() {
-        const video = document.getElementById('webcam');
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-            video.srcObject = stream;
-        } catch (err) {
-            alert("Gagal akses kamera: " + err);
+            currentUser = JSON.parse(userData);
+            loadUserData();
+            loadUserPhotos();
+            updateDashboardStats();
         }
-    }
-    // Autostart kamera pas buka dashboard
-    window.onload = startCamera;
-
-    // 3. FUNGSI UPLOAD, DOWNLOAD, HAPUS (Fungsional)
-    function handleUpload(inputId, listId) {
-        const input = document.getElementById(inputId);
-        const list = document.getElementById(listId);
         
-        if (input.files.length === 0) return alert("Pilih file dulu!");
-
-        const file = input.files[0];
-        const fileURL = URL.createObjectURL(file); // Buat link download sementara
-
-        // Hapus teks "Belum ada file" kalau ada
-        if (list.querySelector('small')) list.innerHTML = '';
-
-        const row = document.createElement('div');
-        row.className = 'file-row';
-        row.innerHTML = `
-            <span>📄 ${file.name}</span>
-            <div style="display:flex; gap:5px">
-                <a href="${fileURL}" download="${file.name}" class="btn btn-dl">Download</a>
-                <button class="btn btn-del" onclick="this.parentElement.parentElement.remove()">Hapus</button>
-            </div>
-        `;
-        list.appendChild(row);
-        input.value = ""; // Reset input
-    }
-</script>
-
+        // ===== LOAD USER DATA =====
+        function loadUserData() {
+            // Update user info elements
+            userNameElement.textContent = currentUser.nama || 'Gibran';
+            profileNameElement.textContent = currentUser.nama || 'Gibran';
+            
+            if (currentUser.hp) {
+                profilePhoneElement.textContent = currentUser.hp;
+                footerPhoneElement.textContent = currentUser.hp;
+            }
+            
+            // Update profile title
+            const profileTitle = document.getElementById('profileTitle');
+            if (currentUser.nama) {
+                profileTitle.textContent = `Pengguna: ${currentUser.nama}`;
+            }
+        }
+        
+        // ===== LOAD USER PHOTOS =====
+        function loadUserPhotos() {
+            const photosData = localStorage.getItem('userPhotos');
+            
+            if (photosData) {
+                userPhotos = JSON.parse(photosData);
+                displayPhotos();
+            } else {
+                userPhotos = [];
+                emptyGallery.style.display = 'block';
+            }
+            
+            updateDashboardStats();
+        }
+        
+        // ===== DISPLAY PHOTOS IN GALLERY =====
+        function displayPhotos() {
+            if (userPhotos.length === 0) {
+                emptyGallery.style.display = 'block';
+                galleryGrid.innerHTML = '';
+                galleryGrid.appendChild(emptyGallery);
+                return;
+            }
+            
+            emptyGallery.style.display = 'none';
+            galleryGrid.innerHTML = '';
+            
+            // Display photos in reverse order (newest first)
+            userPhotos.slice().reverse().forEach((photo, index) => {
+                const actualIndex = userPhotos.length - 1 - index;
+                const photoItem = createPhotoElement(photo, actualIndex);
+                galleryGrid.appendChild(photoItem);
+            });
+        }
+        
+        // ===== CREATE PHOTO ELEMENT =====
+        function createPhotoElement(photo, index) {
+            const item = document.createElement('div');
+            item.className = 'gallery-item';
+            
+            item.innerHTML = `
+                <img src="${photo.data}" alt="${photo.name}" class="gallery-img">
+                <button class="delete-btn" data-index="${index}">
+                    <i class="fas fa-trash"></i>
+                </button>
+                <div class="gallery-info">
+                    <div class="gallery-name">${photo.name}</div>
+                    <div class="gallery-date">${photo.date}</div>
+                </div>
+            `;
+            
+            // Add delete event listener
+            const deleteBtn = item.querySelector('.delete-btn');
+            deleteBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                deletePhoto(index);
+            });
+            
+            return item;
+        }
+        
+        // ===== DELETE PHOTO =====
+        function deletePhoto(index) {
+            if (confirm('Apakah Anda yakin ingin menghapus foto ini?')) {
+                userPhotos.splice(index, 1);
+                localStorage.setItem('userPhotos', JSON.stringify(userPhotos));
+                
+                showMessage(galleryMessage, 'Foto berhasil dihapus!', 'success');
+                displayPhotos();
+                updateDashboardStats();
+                
+                // Hide message after 3 seconds
+                setTimeout(() => {
+                    galleryMessage.style.display = 'none';
+                }, 3000);
+            }
+        }
+        
+        // ===== UPDATE DASHBOARD STATS =====
+        function updateDashboardStats() {
+            // Update total photos
+            totalPhotosElement.textContent = userPhotos.length;
+            
+            // Update total registrations (from localStorage)
+            const registrations = localStorage.getItem('totalRegistrations') || 0;
+            totalRegistrationsElement.textContent = registrations;
+            
+            // Update last activity
+            if (userPhotos.length > 0) {
+                const lastPhoto = userPhotos[userPhotos.length - 1];
+                lastActivityElement.textContent = `Foto terakhir: ${lastPhoto.date}`;
+            } else {
+                lastActivityElement.textContent = 'Belum ada aktivitas';
+            }
+        }
+        
+        // ===== LIVE CLOCK FUNCTION =====
+        function updateClock() {
+            const now = new Date();
+            
+            // Format time
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            liveClockElement.textContent = `${hours}:${minutes}:${seconds}`;
+            
+            // Format date
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const formattedDate = now.toLocaleDateString('id-ID', options);
+            liveDateElement.textContent = formattedDate;
+        }
+        
+        // Update clock every second
+        setInterval(updateClock, 1000);
+        updateClock(); // Initial call
+        
+        // ===== FILE UPLOAD HANDLING =====
+        selectFileBtn.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
+        uploadContainer.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
+        // Drag and drop functionality
+        uploadContainer.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadContainer.style.backgroundColor = '#e8f4fc';
+        });
+        
+        uploadContainer.addEventListener('dragleave', () => {
+            uploadContainer.style.backgroundColor = '#f8f9fa';
+        });
+        
+        uploadContainer.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadContainer.style.backgroundColor = '#f8f9fa';
+            
+            if (e.dataTransfer.files.length) {
+                handleFileUpload(e.dataTransfer.files[0]);
+            }
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length) {
+                handleFileUpload(e.target.files[0]);
+            }
+        });
+        
+        // ===== HANDLE FILE UPLOAD =====
+        function handleFileUpload(file) {
+            // Check file type
+            if (!file.type.match('image.*')) {
+                showMessage(uploadMessage, 'File harus berupa gambar!', 'error');
+                return;
+            }
+            
+            // Check file size (max 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                showMessage(uploadMessage, 'Ukuran file maksimal 5MB!', 'error');
+                return;
+            }
+            
+            uploadedImageName = file.name;
+            
+            // Read file as data URL
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                uploadedImage = e.target.result;
+                previewImage.src = uploadedImage;
+                imagePreview.style.display = 'block';
+                
+                // Scroll to preview
+                imagePreview.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        // ===== SAVE IMAGE TO GALLERY =====
+        saveImageBtn.addEventListener('click', () => {
+            if (!uploadedImage) {
+                showMessage(uploadMessage, 'Tidak ada gambar untuk disimpan!', 'error');
+                return;
+            }
+            
+            // Create photo object
+            const now = new Date();
+            const photo = {
+                name: uploadedImageName,
+                data: uploadedImage,
+                date: now.toLocaleDateString('id-ID') + ' ' + now.toLocaleTimeString('id-ID'),
+                timestamp: now.getTime()
+            };
+            
+            // Add to user photos
+            userPhotos.push(photo);
+            
+            // Save to localStorage
+            localStorage.setItem('userPhotos', JSON.stringify(userPhotos));
+            
+            // Show success message
+            showMessage(uploadMessage, 'Foto berhasil disimpan ke galeri!', 'success');
+            
+            // Reset upload
+            resetUpload();
+            
+            // Update gallery and stats
+            displayPhotos();
+            updateDashboardStats();
+            
+            // Hide message after 3 seconds
+            setTimeout(() => {
+                uploadMessage.style.display = 'none';
+            }, 3000);
+        });
+        
+        // ===== CANCEL UPLOAD =====
+        cancelUploadBtn.addEventListener('click', resetUpload);
+        
+        // ===== RESET UPLOAD =====
+        function resetUpload() {
+            uploadedImage = null;
+            uploadedImageName = "";
+            fileInput.value = "";
+            imagePreview.style.display = 'none';
+            uploadMessage.style.display = 'none';
+        }
+        
+        // ===== SHOW MESSAGE FUNCTION =====
+        function showMessage(messageElement, text, type) {
+            messageElement.textContent = text;
+            messageElement.className = 'message ' + (type === 'success' ? 'success-message' : 'error-message');
+            messageElement.style.display = 'block';
+            
+            // Scroll to message
+            messageElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        // ===== LOGOUT FUNCTION =====
+        logoutBtn.addEventListener('click', () => {
+            if (confirm('Apakah Anda yakin ingin logout?')) {
+                // Clear current user from localStorage
+                localStorage.removeItem('currentUser');
+                
+                // Redirect to main page
+                window.location.href = 'index.html';
+            }
+        });
+        
+        // ===== INITIALIZE DASHBOARD =====
+        document.addEventListener('DOMContentLoaded', () => {
+            checkLoginStatus();
+            
+            // Initialize total registrations if not exists
+            if (!localStorage.getItem('totalRegistrations')) {
+                localStorage.setItem('totalRegistrations', '1');
+            }
+            
+            console.log('Dashboard Gibran siap digunakan!');
+        });
+    </script>
 </body>
 </html>
