@@ -3,42 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gibran Portofolio | LP3I Kramat Raya</title>
+    <title>Gibran Portofolio & User System</title>
     <style>
         :root { --gold: #fbbf24; --blue: #2563eb; --dark: #020617; --card: #1e293b; --text: #cbd5e1; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--dark); color: white; line-height: 1.8; }
-        
-        .header { background: linear-gradient(135deg, #1e293b 0%, #020617 100%); padding: 80px 20px 120px; text-align: center; position: relative; }
-        .header h1 { font-size: 3rem; color: var(--gold); margin: 0; letter-spacing: 4px; text-transform: uppercase; }
-        .header p { color: #94a3b8; font-size: 1.1rem; margin-top: 10px; }
-        
-        .wave { position: absolute; bottom: 0; left: 0; width: 100%; line-height: 0; }
-        .wave svg { display: block; width: 100%; height: 80px; fill: var(--dark); }
-
-        .container { max-width: 850px; margin: -60px auto 60px; padding: 0 20px; position: relative; z-index: 10; }
-        .card { background: var(--card); padding: 45px; border-radius: 30px; border: 1px solid #334155; box-shadow: 0 25px 50px rgba(0,0,0,0.7); }
-        
-        h2 { color: var(--gold); border-bottom: 3px solid var(--blue); display: inline-block; margin-top: 40px; padding-bottom: 5px; font-size: 1.5rem; }
-        h2:first-child { margin-top: 0; }
-        p { text-align: justify; color: var(--text); font-size: 1.05rem; }
-        
-        .skill-box { margin: 20px 0; padding: 20px; background: rgba(255,255,255,0.03); border-radius: 15px; border-left: 5px solid var(--gold); }
-        .skill-box b { color: var(--gold); display: block; margin-bottom: 5px; }
-
-        .list-misi { list-style: none; padding: 0; }
-        .list-misi li { margin-bottom: 12px; padding-left: 30px; position: relative; color: var(--text); }
-        .list-misi li::before { content: '✦'; position: absolute; left: 0; color: var(--gold); }
-
-        .register-section { margin-top: 50px; padding: 35px; background: #0f172a; border-radius: 20px; border: 2px solid var(--gold); text-align: center; }
-        .register-section h3 { color: var(--gold); margin-bottom: 20px; text-transform: uppercase; }
-        
-        input, textarea { width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; border: 1px solid #334155; background: #1e293b; color: white; box-sizing: border-box; font-size: 1rem; font-family: inherit; }
-        
-        .btn-submit { width: 100%; padding: 18px; background: var(--blue); color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 1.1rem; transition: 0.3s; margin-top: 10px; }
-        .btn-submit:hover { background: #1d4ed8; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(37, 99, 235, 0.4); }
-        .btn-submit:disabled { background: #475569; cursor: not-allowed; }
-
-        footer { text-align: center; padding: 40px; color: #475569; font-size: 0.9rem; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--dark); color: white; line-height: 1.8; }
+        .header { background: linear-gradient(135deg, #1e293b 0%, #020617 100%); padding: 60px 20px; text-align: center; }
+        .header h1 { color: var(--gold); text-transform: uppercase; letter-spacing: 3px; margin: 0; }
+        .container { max-width: 800px; margin: -20px auto 60px; padding: 0 20px; }
+        .card { background: var(--card); padding: 30px; border-radius: 20px; border: 1px solid #334155; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h3 { color: var(--gold); text-align: center; margin-top: 0; }
+        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box; font-family: inherit; }
+        .btn { width: 100%; padding: 15px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 1rem; }
+        .btn-daftar { background: var(--blue); color: white; }
+        .btn-login { background: var(--gold); color: black; }
+        .btn:hover { transform: translateY(-3px); opacity: 0.9; }
+        footer { text-align: center; padding: 20px; color: #475569; font-size: 0.8rem; }
     </style>
 </head>
 <body>
@@ -46,58 +25,59 @@
 <div class="header">
     <h1>GIBRAN PORTOFOLIO</h1>
     <p>Mahasiswa Hubungan Masyarakat (Humas) | LP3I Kramat Raya</p>
-    <div class="wave">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.11,102.32,131.52,106.33,202.24,96.84,251.7,90.2,284.09,70.92,321.39,56.44Z"></path></svg>
-    </div>
 </div>
 
 <div class="container">
     <div class="card">
-        <h2>Perkenalkan</h2>
-        <p>Nama saya <b>Gibran</b>. Saya mahasiswa Hubungan Masyarakat (Humas) di LP3I Kramat Raya. Memiliki pengalaman di Gatot Subroto bagian Monitoring. Saya disiplin, cepat belajar, dan hobi bermain futsal serta gitar.</p>
+        <h3>DAFTAR SEKARANG</h3>
+        <form id="form-daftar">
+            <input type="text" name="Nama" placeholder="Nama Lengkap" required>
+            <input type="number" name="WhatsApp" placeholder="WhatsApp Aktif" required>
+            <textarea name="Alamat" placeholder="Alamat Lengkap" rows="2" required></textarea>
+            <button type="submit" class="btn btn-daftar" id="btn-daftar-teks">KIRIM PENDAFTARAN</button>
+        </form>
+    </div>
 
-        <h2>Keahlian</h2>
-        <div class="skill-box"><b>🎸 Bermain Gitar</b> — Mengiringi lagu acoustic dengan baik.</div>
-        <div class="skill-box"><b>⚽ Futsal</b> — Pemain tim yang kompeten.</div>
-
-        <div class="register-section">
-            <h3>DAFTAR SEKARANG</h3>
-            <form id="gibran-form">
-                <input type="text" name="Nama" placeholder="Nama Lengkap" required>
-                <input type="number" name="WhatsApp" placeholder="Nomor WhatsApp" required>
-                <textarea name="Alamat" placeholder="Alamat Lengkap" rows="3" required></textarea>
-                <button type="submit" class="btn-submit" id="btn-teks">KIRIM DATA</button>
-            </form>
-        </div>
+    <div class="card" style="border: 2px solid var(--gold);">
+        <h3>LOGIN USER</h3>
+        <form id="form-login">
+            <input type="hidden" name="Tipe" value="LOGIN">
+            <input type="text" name="Nama" placeholder="Nama Lengkap" required>
+            <input type="number" name="HP" placeholder="Nomor Handphone" required>
+            <textarea name="Opini" placeholder="Opini atau Keterangan" rows="3" required></textarea>
+            <button type="submit" class="btn btn-login" id="btn-login-teks">LOGIN SEKARANG</button>
+        </form>
     </div>
 </div>
 
-<footer>© 2026 Gibran Official Portofolio</footer>
+<footer>© 2026 Gibran Portofolio System</footer>
 
 <script>
-    // Memasukkan URL exec terakhir lo
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwYj2kqWccpWiR1o7k2KJRVcPjKnHAYXk5QxrA183NbrvrH4GN1428x2RS8gaL7zLNglA/exec';
-    const form = document.getElementById('gibran-form');
-    const btn = document.getElementById('btn-teks');
+    // Link Exec lo yang baru banget
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwPEleNStiJCSmxH_iN2Yr-zrJyWXjN-GXSkg5bQkZHFR0Og7CvrMu9_TQO5F-jg5mysA/exec';
 
-    form.addEventListener('submit', e => {
+    // Proses Form Daftar
+    const fDaftar = document.getElementById('form-daftar');
+    fDaftar.addEventListener('submit', e => {
         e.preventDefault();
-        btn.disabled = true;
-        btn.innerText = 'Mengirim...';
-        
-        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-            .then(response => {
-                alert('Mantap Bran! Data lo sudah mendarat di Google Sheet.');
-                btn.disabled = false;
-                btn.innerText = 'KIRIM DATA';
-                form.reset();
-            })
-            .catch(error => {
-                alert('Gagal! Cek koneksi atau New Version di Apps Script.');
-                btn.disabled = false;
-                btn.innerText = 'KIRIM DATA';
-            });
+        const btnD = document.getElementById('btn-daftar-teks');
+        btnD.innerText = 'Mengirim...';
+        fetch(scriptURL, { method: 'POST', body: new FormData(fDaftar)})
+        .then(() => { alert('Daftar Berhasil! Data masuk ke Sheet1.'); btnD.innerText = 'KIRIM PENDAFTARAN'; fDaftar.reset(); })
+        .catch(() => alert('Gagal mengirim pendaftaran!'));
+    });
+
+    // Proses Form Login
+    const fLogin = document.getElementById('form-login');
+    fLogin.addEventListener('submit', e => {
+        e.preventDefault();
+        const btnL = document.getElementById('btn-login-teks');
+        btnL.innerText = 'Memproses Login...';
+        fetch(scriptURL, { method: 'POST', body: new FormData(fLogin)})
+        .then(() => { alert('Login Berhasil! Data Nama, HP, dan Opini masuk ke Sheet User.'); btnL.innerText = 'LOGIN SEKARANG'; fLogin.reset(); })
+        .catch(() => alert('Gagal login!'));
     });
 </script>
+
 </body>
 </html>
