@@ -22,6 +22,77 @@
             min-height: 100vh;
         }
         
+        /* ===== BUTTON MASUK KE WEBSITE ===== */
+        .website-access-container {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #2c3e50, #4a235a);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            color: white;
+        }
+        
+        .website-access-container h2 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            color: #fff;
+        }
+        
+        .website-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .website-btn {
+            display: inline-flex;
+            align-items: center;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+        
+        .website-btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.4);
+        }
+        
+        .website-btn i {
+            margin-right: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .register-btn {
+            background-color: #27ae60;
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
+        }
+        
+        .register-btn:hover {
+            background-color: #219653;
+            box-shadow: 0 10px 25px rgba(39, 174, 96, 0.4);
+        }
+        
+        .dashboard-btn {
+            background-color: #9b59b6;
+            box-shadow: 0 5px 15px rgba(155, 89, 182, 0.3);
+        }
+        
+        .dashboard-btn:hover {
+            background-color: #8e44ad;
+            box-shadow: 0 10px 25px rgba(155, 89, 182, 0.4);
+        }
+        
         /* ===== MAIN CONTAINER ===== */
         .container {
             max-width: 1100px;
@@ -325,7 +396,7 @@
             font-size: 1.2rem;
         }
         
-        /* ===== REGISTER BUTTON ===== */
+        /* ===== REGISTER BUTTON SECTION ===== */
         .register-section {
             text-align: center;
             margin-top: 60px;
@@ -334,7 +405,7 @@
             border-radius: 15px;
         }
         
-        .register-btn {
+        .register-btn-bottom {
             display: inline-block;
             background-color: #27ae60;
             color: white;
@@ -349,13 +420,13 @@
             box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
         }
         
-        .register-btn:hover {
+        .register-btn-bottom:hover {
             background-color: #219653;
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(39, 174, 96, 0.4);
         }
         
-        .register-btn i {
+        .register-btn-bottom i {
             margin-right: 10px;
         }
         
@@ -604,6 +675,17 @@
             .form-row {
                 grid-template-columns: 1fr;
             }
+            
+            .website-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .website-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
         }
         
         @media (max-width: 768px) {
@@ -665,7 +747,11 @@
                 font-size: 1.8rem;
             }
             
-            .register-btn {
+            .website-access-container h2 {
+                font-size: 1.5rem;
+            }
+            
+            .register-btn-bottom {
                 padding: 15px 30px;
                 font-size: 1.1rem;
             }
@@ -677,6 +763,19 @@
     </style>
 </head>
 <body>
+    <!-- ===== BUTTON MASUK KE WEBSITE GIBRAN ===== -->
+    <div class="website-access-container">
+        <h2><i class="fas fa-door-open"></i> Masuk ke Website Gibran</h2>
+        <div class="website-buttons">
+            <button class="website-btn register-btn" id="openModalBtnTop">
+                <i class="fas fa-user-plus"></i> Daftar Sekarang
+            </button>
+            <button class="website-btn dashboard-btn" id="dashboardBtn">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </button>
+        </div>
+    </div>
+    
     <!-- ===== MAIN CONTAINER ===== -->
     <div class="container">
         <!-- ===== HEADER SECTION ===== -->
@@ -789,9 +888,9 @@
                 </div>
             </div>
             
-            <!-- ===== REGISTER BUTTON SECTION ===== -->
+            <!-- ===== REGISTER BUTTON SECTION (DI BAWAH) ===== -->
             <div class="register-section">
-                <button class="register-btn" id="openModalBtn">
+                <button class="register-btn-bottom" id="openModalBtnBottom">
                     <i class="fas fa-user-plus"></i> Daftar Sekarang
                 </button>
                 <p class="register-description">
@@ -893,7 +992,9 @@
         
         // ===== DOM ELEMENTS =====
         const modal = document.getElementById('daftarModal');
-        const openModalBtn = document.getElementById('openModalBtn');
+        const openModalBtnTop = document.getElementById('openModalBtnTop');
+        const openModalBtnBottom = document.getElementById('openModalBtnBottom');
+        const dashboardBtn = document.getElementById('dashboardBtn');
         const closeModalBtn = document.querySelector('.close-modal');
         const messageDiv = document.getElementById('message');
         const daftarForm = document.getElementById('daftarForm');
@@ -904,25 +1005,38 @@
         const today = new Date();
         const formattedDate = today.toISOString().split('T')[0];
         tanggalInput.value = formattedDate;
-        tanggalInput.max = formattedDate; // Tidak bisa memilih tanggal di masa depan
+        tanggalInput.max = formattedDate;
         
         // ===== MODAL FUNCTIONS =====
-        openModalBtn.addEventListener('click', () => {
+        const openModal = () => {
             modal.style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Prevent scrolling
+            document.body.style.overflow = 'hidden';
             messageDiv.style.display = 'none';
-        });
+        };
         
-        closeModalBtn.addEventListener('click', () => {
+        const closeModal = () => {
             modal.style.display = 'none';
             document.body.style.overflow = 'auto';
-        });
+        };
         
+        // Event listeners for opening modal
+        openModalBtnTop.addEventListener('click', openModal);
+        openModalBtnBottom.addEventListener('click', openModal);
+        
+        // Event listener for closing modal
+        closeModalBtn.addEventListener('click', closeModal);
+        
+        // Close modal when clicking outside
         window.addEventListener('click', (event) => {
             if (event.target === modal) {
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
+                closeModal();
             }
+        });
+        
+        // Dashboard button functionality
+        dashboardBtn.addEventListener('click', () => {
+            alert('Fitur Dashboard sedang dalam pengembangan. Silakan daftar terlebih dahulu untuk mengakses dashboard.');
+            openModal();
         });
         
         // ===== FORM SUBMISSION =====
@@ -953,9 +1067,10 @@
                 return;
             }
             
-            // Validate phone number (simple validation)
+            // Validate phone number
             const phoneRegex = /^[0-9]{10,13}$/;
-            if (!phoneRegex.test(formData.hp.replace(/\D/g, ''))) {
+            const cleanPhone = formData.hp.replace(/\D/g, '');
+            if (!phoneRegex.test(cleanPhone)) {
                 showMessage('Nomor handphone tidak valid! Harap masukkan 10-13 digit angka.', 'error');
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
@@ -982,8 +1097,7 @@
                 
                 // Auto-close modal after 3 seconds
                 setTimeout(() => {
-                    modal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
+                    closeModal();
                 }, 3000);
                 
             } catch (error) {
@@ -1006,36 +1120,7 @@
             messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
         
-        // ===== ALTERNATIVE FORM SUBMISSION (if fetch doesn't work) =====
-        function submitFormAlternative(formData) {
-            // Create hidden form
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = scriptURL;
-            form.style.display = 'none';
-            
-            // Add hidden inputs for each data field
-            for (const key in formData) {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = key;
-                input.value = formData[key];
-                form.appendChild(input);
-            }
-            
-            // Add form to body and submit
-            document.body.appendChild(form);
-            form.submit();
-            
-            // Remove form after submission
-            setTimeout(() => {
-                document.body.removeChild(form);
-            }, 1000);
-            
-            return true;
-        }
-        
-        // ===== ADD PHONE NUMBER FORMATTING =====
+        // ===== PHONE NUMBER FORMATTING =====
         const phoneInput = document.getElementById('hp');
         phoneInput.addEventListener('input', function(e) {
             // Remove non-digit characters
@@ -1051,10 +1136,9 @@
             e.target.value = value;
         });
         
-        // ===== INITIALIZE TOOLTIPS (if needed) =====
+        // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', function() {
-            // Add any initialization code here if needed
-            console.log('Portfolio page loaded successfully!');
+            console.log('Portfolio website Gibran loaded successfully!');
         });
     </script>
 </body>
