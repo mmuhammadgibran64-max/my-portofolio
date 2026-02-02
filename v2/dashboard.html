@@ -3,163 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gibran Command Center - Dashboard</title>
+    <title>Gibran Storage Center</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;600&display=swap');
+        body { font-family: 'Poppins', sans-serif; background: #020617; color: white; margin: 0; padding: 15px; }
+        #clock { font-family: 'Orbitron'; font-size: 2rem; text-align: center; color: #00f3ff; margin: 10px 0; }
+        .card { background: #1e293b; padding: 15px; border-radius: 15px; margin-bottom: 15px; border: 1px solid #334155; }
+        .video-wrap { width: 100%; border-radius: 10px; overflow: hidden; border: 2px solid #00f3ff; background: #000; }
+        video { width: 100%; display: block; }
+        .btn { width: 100%; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .btn-absen { background: #00f3ff; color: #000; }
+        .btn-upload { background: #fbbf24; color: #000; }
         
-        :root { --neon: #00f3ff; --gold: #fbbf24; --dark: #020617; --card: #1e293b; }
-        
-        body { font-family: 'Poppins', sans-serif; background: var(--dark); color: white; margin: 0; padding: 15px; }
-        h2, h3 { font-family: 'Orbitron', sans-serif; color: var(--gold); text-align: center; margin: 10px 0; }
-
-        #clock { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; text-align: center; color: var(--neon); text-shadow: 0 0 10px var(--neon); margin: 15px 0; }
-
-        .container { max-width: 900px; margin: auto; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
-        .card { background: var(--card); border: 1px solid #334155; padding: 15px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
-
-        /* CCTV AREA */
-        .video-box { width: 100%; background: #000; border-radius: 15px; overflow: hidden; position: relative; aspect-ratio: 16/9; border: 2px solid var(--neon); }
-        video { width: 100%; height: 100%; object-fit: cover; }
-        .rec-dot { position: absolute; top: 10px; left: 10px; width: 10px; height: 10px; background: red; border-radius: 50%; animation: blink 1s infinite; z-index: 5; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
-
-        /* GALLERY */
+        /* Galeri */
         .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-top: 20px; }
-        .gallery-item { background: #0f172a; padding: 8px; border-radius: 12px; border: 1px solid #334155; position: relative; }
-        .gallery-item img { width: 100%; border-radius: 8px; margin-bottom: 5px; display: block; }
-
-        /* BUTTONS */
-        .btn { width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px; transition: 0.3s; font-family: 'Poppins'; }
-        .btn-absen { background: var(--neon); color: #000; }
-        .btn-upload { background: var(--gold); color: #000; }
-        .btn-dl { background: #10b981; color: white; font-size: 10px; margin-bottom: 4px; }
-        .btn-del { background: #ef4444; color: white; font-size: 10px; }
-        
-        .action-area { display: flex; flex-direction: column; }
+        .item { background: #0f172a; padding: 5px; border-radius: 10px; border: 1px solid #334155; }
+        .item img { width: 100%; border-radius: 5px; }
+        .btn-del { background: #ef4444; color: white; width: 100%; border: none; padding: 5px; margin-top: 5px; border-radius: 4px; font-size: 10px; }
+        .btn-dl { background: #10b981; color: white; width: 100%; border: none; padding: 5px; margin-top: 5px; border-radius: 4px; font-size: 10px; }
     </style>
 </head>
 <body>
 
-<div class="container">
     <div id="clock">00:00:00</div>
-    <h2>GIBRAN COMMAND CENTER</h2>
+    <h3 style="text-align:center; color:#fbbf24;">DASHBOARD GIBRAN</h3>
 
-    <div class="grid">
-        <div class="card">
-            <h3>CCTV / SCAN WAJAH</h3>
-            <div class="video-box">
-                <div class="rec-dot"></div>
-                <video id="webcam" autoplay playsinline></video>
-            </div>
-            <button class="btn btn-absen" onclick="takeSnapshot()">AMBIL FOTO & ABSEN</button>
-            <canvas id="canvas" style="display:none;"></canvas>
+    <div class="card">
+        <div class="video-wrap">
+            <video id="v" autoplay playsinline></video>
         </div>
-
-        <div class="card">
-            <h3>FILE MANAGER</h3>
-            <p style="font-size: 0.8rem; color: #94a3b8;">Upload foto apa saja di sini, data tersimpan permanen di browser ini.</p>
-            <input type="file" id="fileInput" accept="image/*" multiple style="display:none;">
-            <button class="btn btn-upload" onclick="document.getElementById('fileInput').click()">PILIH DARI GALERI</button>
-            <button class="btn" style="background: #475569; color: white;" onclick="window.location.href='index.html'">BACK TO PROFIL</button>
-        </div>
+        <button class="btn btn-absen" id="btn-snap">AMBIL FOTO ABSEN</button>
+        <canvas id="c" style="display:none;"></canvas>
     </div>
 
-    <div class="card" style="margin-top: 20px;">
-        <h3>STORAGE GALERI (ANTI-HILANG)</h3>
-        <div id="galleryContainer" class="gallery">
-            </div>
+    <div class="card">
+        <input type="file" id="up" accept="image/*" multiple style="display:none;">
+        <button class="btn btn-upload" onclick="document.getElementById('up').click()">UPLOAD DARI HP</button>
+        <button class="btn" style="background:#475569; color:white;" onclick="location.href='index.html'">KEMBALI KE PROFIL</button>
     </div>
-</div>
+
+    <div class="card">
+        <h4 style="margin:0;">STORAGE GALERI</h4>
+        <div class="gallery" id="gal"></div>
+    </div>
 
 <script>
+    const v = document.getElementById('v');
+    const c = document.getElementById('c');
+    const gal = document.getElementById('gal');
+    const up = document.getElementById('up');
+
     // 1. JAM BERGERAK
-    setInterval(() => {
-        document.getElementById('clock').innerText = new Date().toLocaleTimeString();
-    }, 1000);
+    setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000);
 
-    // 2. AKSES KAMERA (SANGAT PENTING)
-    const video = document.getElementById('webcam');
+    // 2. KAMERA (Wajib HTTPS di GitHub Pages)
     navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } })
-        .then(stream => { video.srcObject = stream; })
-        .catch(err => { console.error("Kamera Error: ", err); alert("Aktifkan Izin Kamera!"); });
+    .then(s => v.srcObject = s)
+    .catch(e => alert("Kamera error/ditolak. Pastikan pake HTTPS!"));
 
-    // 3. LOAD DATA LAMA (ANTI-REFRESH)
-    window.addEventListener('DOMContentLoaded', () => {
-        const saved = JSON.parse(localStorage.getItem('gibran_storage_v3') || '[]');
-        saved.forEach(item => renderPhoto(item.id, item.src));
-    });
+    // 3. LOAD DATA (ANTI-REFRESH)
+    function load() {
+        const d = JSON.parse(localStorage.getItem('GB_DATA') || '[]');
+        gal.innerHTML = ''; // Bersihin dulu
+        d.forEach(p => {
+            const div = document.createElement('div');
+            div.className = 'item';
+            div.innerHTML = `
+                <img src="${p.s}">
+                <button class="btn-dl" onclick="dl('${p.s}')">SAVE</button>
+                <button class="btn-del" onclick="hapus('${p.id}')">HAPUS</button>
+            `;
+            gal.appendChild(div);
+        });
+    }
+    load();
 
-    // 4. FUNGSI AMBIL FOTO (ABSEN)
-    function takeSnapshot() {
-        const canvas = document.getElementById('canvas');
-        const context = canvas.getContext('2d');
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        
-        const dataUrl = canvas.toDataURL('image/png');
-        saveToStorage(dataUrl);
+    // 4. SIMPAN DATA
+    function simpan(src) {
+        const d = JSON.parse(localStorage.getItem('GB_DATA') || '[]');
+        d.push({ id: Date.now().toString(), s: src });
+        localStorage.setItem('GB_DATA', JSON.stringify(d));
+        load(); // Refresh tampilan galeri
     }
 
-    // 5. FUNGSI UPLOAD DARI HP
-    document.getElementById('fileInput').addEventListener('change', function() {
-        const files = this.files;
-        for (let file of files) {
-            const reader = new FileReader();
-            reader.onload = (e) => saveToStorage(e.target.result);
-            reader.readAsDataURL(file);
+    // 5. EVENT ABSEN
+    document.getElementById('btn-snap').onclick = () => {
+        c.width = v.videoWidth;
+        c.height = v.videoHeight;
+        c.getContext('2d').drawImage(v, 0, 0);
+        simpan(c.toDataURL('image/png'));
+    };
+
+    // 6. EVENT UPLOAD
+    up.onchange = (e) => {
+        for (let f of e.target.files) {
+            const r = new FileReader();
+            r.onload = (ev) => simpan(ev.target.result);
+            r.readAsDataURL(f);
         }
-    });
+    };
 
-    // 6. SIMPAN KE STORAGE
-    function saveToStorage(src) {
-        const id = Date.now() + Math.random();
-        const saved = JSON.parse(localStorage.getItem('gibran_storage_v3') || '[]');
-        saved.push({ id, src });
-        localStorage.setItem('gibran_storage_v3', JSON.stringify(saved));
-        renderPhoto(id, src);
-    }
+    // 7. DOWNLOAD & HAPUS
+    window.dl = (s) => {
+        const l = document.createElement('a');
+        l.href = s; l.download = 'Gibran_File.png'; l.click();
+    };
 
-    // 7. TAMPILKAN FOTO DENGAN TOMBOL DOWNLOAD & HAPUS
-    function renderPhoto(id, src) {
-        const container = document.getElementById('galleryContainer');
-        const item = document.createElement('div');
-        item.className = 'gallery-item';
-        item.id = 'img-' + id;
-        
-        item.innerHTML = `
-            <img src="${src}">
-            <div class="action-area">
-                <button class="btn btn-dl" onclick="downloadImg('${src}')">DOWNLOAD</button>
-                <button class="btn btn-del" onclick="deleteImg('${id}')">HAPUS</button>
-            </div>
-        `;
-        container.appendChild(item);
-    }
-
-    // 8. DOWNLOAD FOTO
-    function downloadImg(src) {
-        const a = document.createElement('a');
-        a.href = src;
-        a.download = 'Gibran_Center_' + Date.now() + '.png';
-        a.click();
-    }
-
-    // 9. HAPUS FOTO
-    function deleteImg(id) {
-        if(confirm("Hapus foto ini dari storage?")) {
-            // Hapus dari layar
-            const element = document.getElementById('img-' + id);
-            if(element) element.remove();
-            
-            // Hapus dari localStorage
-            let saved = JSON.parse(localStorage.getItem('gibran_storage_v3') || '[]');
-            saved = saved.filter(p => p.id != id);
-            localStorage.setItem('gibran_storage_v3', JSON.stringify(saved));
-        }
-    }
+    window.hapus = (id) => {
+        let d = JSON.parse(localStorage.getItem('GB_DATA') || '[]');
+        d = d.filter(x => x.id !== id);
+        localStorage.setItem('GB_DATA', JSON.stringify(d));
+        load();
+    };
 </script>
-
 </body>
 </html>
