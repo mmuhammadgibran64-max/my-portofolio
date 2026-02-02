@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Lengkap Gibran - Mahasiswa Humas LP3I</title>
+    <title>Profil Gibran - Mahasiswa Humas LP3I</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* ===== RESET & BASE STYLES ===== */
@@ -22,78 +22,45 @@
             min-height: 100vh;
         }
         
-        /* ===== BUTTON MASUK KE WEBSITE ===== */
-        .website-access-container {
+        /* ===== SATU BUTTON DI ATAS ===== */
+        .single-button-container {
             text-align: center;
             margin-bottom: 30px;
-            padding: 20px;
-            background: linear-gradient(135deg, #2c3e50, #4a235a);
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-            color: white;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
-        .website-access-container h2 {
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-            color: #fff;
-        }
-        
-        .website-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .website-btn {
+        .single-btn {
             display: inline-flex;
             align-items: center;
-            background-color: #3498db;
+            background: linear-gradient(135deg, #27ae60, #3498db);
             color: white;
             border: none;
-            padding: 15px 30px;
+            padding: 18px 45px;
             border-radius: 50px;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             text-decoration: none;
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+            box-shadow: 0 8px 20px rgba(39, 174, 96, 0.3);
+            min-width: 280px;
+            justify-content: center;
         }
         
-        .website-btn:hover {
-            background-color: #2980b9;
+        .single-btn:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.4);
+            box-shadow: 0 12px 25px rgba(39, 174, 96, 0.4);
+            background: linear-gradient(135deg, #219653, #2980b9);
         }
         
-        .website-btn i {
-            margin-right: 10px;
-            font-size: 1.3rem;
+        .single-btn i {
+            margin-right: 12px;
+            font-size: 1.4rem;
         }
         
-        .register-btn {
-            background-color: #27ae60;
-            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
-        }
-        
-        .register-btn:hover {
-            background-color: #219653;
-            box-shadow: 0 10px 25px rgba(39, 174, 96, 0.4);
-        }
-        
-        .dashboard-btn {
-            background-color: #9b59b6;
-            box-shadow: 0 5px 15px rgba(155, 89, 182, 0.3);
-        }
-        
-        .dashboard-btn:hover {
-            background-color: #8e44ad;
-            box-shadow: 0 10px 25px rgba(155, 89, 182, 0.4);
-        }
-        
-        /* ===== MAIN CONTAINER ===== */
+        /* ===== MAIN CONTAINER (DESKRIPSI PROFIL) ===== */
         .container {
             max-width: 1100px;
             margin: 0 auto;
@@ -178,7 +145,7 @@
             transform: translateY(-5px);
         }
         
-        /* ===== CONTENT SECTION ===== */
+        /* ===== CONTENT SECTION (DESKRIPSI) ===== */
         .content {
             padding: 50px;
         }
@@ -396,49 +363,6 @@
             font-size: 1.2rem;
         }
         
-        /* ===== REGISTER BUTTON SECTION ===== */
-        .register-section {
-            text-align: center;
-            margin-top: 60px;
-            padding: 40px;
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border-radius: 15px;
-        }
-        
-        .register-btn-bottom {
-            display: inline-block;
-            background-color: #27ae60;
-            color: white;
-            border: none;
-            padding: 18px 40px;
-            border-radius: 50px;
-            font-size: 1.3rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
-        }
-        
-        .register-btn-bottom:hover {
-            background-color: #219653;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(39, 174, 96, 0.4);
-        }
-        
-        .register-btn-bottom i {
-            margin-right: 10px;
-        }
-        
-        .register-description {
-            margin-top: 20px;
-            color: #666;
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
         /* ===== FOOTER ===== */
         .footer {
             background-color: #2c3e50;
@@ -531,7 +455,7 @@
         
         .modal-title {
             color: #2c3e50;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             font-size: 2rem;
             text-align: center;
         }
@@ -541,6 +465,47 @@
             margin-bottom: 30px;
             text-align: center;
             font-size: 1.1rem;
+        }
+        
+        /* ===== TAB STYLES ===== */
+        .tab-container {
+            margin-bottom: 30px;
+        }
+        
+        .tab-buttons {
+            display: flex;
+            border-bottom: 2px solid #eee;
+            margin-bottom: 25px;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 15px;
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #7f8c8d;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab-btn:hover {
+            color: #3498db;
+        }
+        
+        .tab-btn.active {
+            color: #3498db;
+            border-bottom: 3px solid #3498db;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
         }
         
         /* ===== FORM STYLES ===== */
@@ -675,17 +640,6 @@
             .form-row {
                 grid-template-columns: 1fr;
             }
-            
-            .website-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .website-btn {
-                width: 100%;
-                max-width: 300px;
-                justify-content: center;
-            }
         }
         
         @media (max-width: 768px) {
@@ -740,6 +694,12 @@
             .footer-content {
                 flex-direction: column;
             }
+            
+            .single-btn {
+                padding: 16px 35px;
+                font-size: 1.2rem;
+                min-width: 250px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -747,36 +707,26 @@
                 font-size: 1.8rem;
             }
             
-            .website-access-container h2 {
-                font-size: 1.5rem;
-            }
-            
-            .register-btn-bottom {
-                padding: 15px 30px;
-                font-size: 1.1rem;
-            }
-            
             .modal-title {
                 font-size: 1.7rem;
+            }
+            
+            .tab-btn {
+                font-size: 1rem;
+                padding: 12px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- ===== BUTTON MASUK KE WEBSITE GIBRAN ===== -->
-    <div class="website-access-container">
-        <h2><i class="fas fa-door-open"></i> Masuk ke Website Gibran</h2>
-        <div class="website-buttons">
-            <button class="website-btn register-btn" id="openModalBtnTop">
-                <i class="fas fa-user-plus"></i> Daftar Sekarang
-            </button>
-            <button class="website-btn dashboard-btn" id="dashboardBtn">
-                <i class="fas fa-tachometer-alt"></i> Dashboard
-            </button>
-        </div>
+    <!-- ===== SATU BUTTON DI ATAS ===== -->
+    <div class="single-button-container">
+        <button class="single-btn" id="openModalBtn">
+            <i class="fas fa-user-circle"></i> Daftar / Login
+        </button>
     </div>
     
-    <!-- ===== MAIN CONTAINER ===== -->
+    <!-- ===== MAIN CONTAINER (DESKRIPSI PROFIL) ===== -->
     <div class="container">
         <!-- ===== HEADER SECTION ===== -->
         <div class="header">
@@ -797,7 +747,7 @@
             </div>
         </div>
         
-        <!-- ===== MAIN CONTENT ===== -->
+        <!-- ===== MAIN CONTENT (DESKRIPSI) ===== -->
         <div class="content">
             <!-- ===== TENTANG SAYA ===== -->
             <div class="section">
@@ -887,16 +837,6 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- ===== REGISTER BUTTON SECTION (DI BAWAH) ===== -->
-            <div class="register-section">
-                <button class="register-btn-bottom" id="openModalBtnBottom">
-                    <i class="fas fa-user-plus"></i> Daftar Sekarang
-                </button>
-                <p class="register-description">
-                    Bergabunglah dengan jaringan profesional saya. Data Anda akan disimpan di Google Sheets "Daftar Sekarang" dan Anda akan mendapatkan update terbaru dari portofolio saya.
-                </p>
-            </div>
         </div>
         
         <!-- ===== FOOTER ===== -->
@@ -930,140 +870,259 @@
         </div>
     </div>
     
-    <!-- ===== MODAL FORM ===== -->
-    <div id="daftarModal" class="modal">
+    <!-- ===== MODAL DENGAN TAB DAFTAR & LOGIN ===== -->
+    <div id="appModal" class="modal">
         <div class="modal-content">
-            <span class="close-modal">&times;</span>
+            <span class="close-modal" id="closeModalBtn">&times;</span>
             
-            <h2 class="modal-title">Form Pendaftaran</h2>
-            <p class="modal-subtitle">Isi data Anda untuk bergabung dengan jaringan profesional saya</p>
+            <h2 class="modal-title"><i class="fas fa-user-circle"></i> Daftar & Login</h2>
+            <p class="modal-subtitle">Pilih opsi untuk melanjutkan</p>
             
-            <div id="message" class="message"></div>
-            
-            <form id="daftarForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label" for="nama">
-                            <i class="fas fa-user"></i> Nama Lengkap *
-                        </label>
-                        <input type="text" id="nama" name="nama" class="form-input" 
-                               placeholder="Masukkan nama lengkap Anda" required>
-                    </div>
+            <!-- Tab Container -->
+            <div class="tab-container">
+                <!-- Tab Buttons -->
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-tab="daftar-tab">
+                        <i class="fas fa-user-plus"></i> Daftar
+                    </button>
+                    <button class="tab-btn" data-tab="login-tab">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                </div>
+                
+                <!-- Daftar Tab Content -->
+                <div id="daftar-tab" class="tab-content active">
+                    <div id="daftarMessage" class="message"></div>
                     
-                    <div class="form-group">
-                        <label class="form-label" for="hp">
-                            <i class="fas fa-phone"></i> Nomor Handphone *
-                        </label>
-                        <input type="tel" id="hp" name="hp" class="form-input" 
-                               placeholder="Contoh: 081234567890" required>
-                    </div>
+                    <form id="daftarForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="daftarNama">
+                                    <i class="fas fa-user"></i> Nama Lengkap *
+                                </label>
+                                <input type="text" id="daftarNama" name="nama" class="form-input" 
+                                       placeholder="Masukkan nama lengkap Anda" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="daftarHp">
+                                    <i class="fas fa-phone"></i> Nomor Handphone *
+                                </label>
+                                <input type="tel" id="daftarHp" name="hp" class="form-input" 
+                                       placeholder="Contoh: 081234567890" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="daftarOpini">
+                                <i class="fas fa-comment"></i> Opini / Pendapat
+                            </label>
+                            <textarea id="daftarOpini" name="opini" class="form-textarea" 
+                                      placeholder="Berikan opini atau pendapat Anda tentang profil ini atau hal lainnya"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="daftarTanggal">
+                                <i class="fas fa-calendar"></i> Tanggal Terhubung *
+                            </label>
+                            <input type="date" id="daftarTanggal" name="tanggal" class="form-input" required>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn" id="daftarSubmitBtn">
+                            <i class="fas fa-user-plus"></i> Daftar Sekarang
+                        </button>
+                        
+                        <div class="form-note">
+                            <i class="fas fa-info-circle"></i>
+                            Data Anda akan dikirim ke Google Sheets "Daftar Sekarang".
+                        </div>
+                    </form>
                 </div>
                 
-                <div class="form-group">
-                    <label class="form-label" for="opini">
-                        <i class="fas fa-comment"></i> Opini / Pendapat
-                    </label>
-                    <textarea id="opini" name="opini" class="form-textarea" 
-                              placeholder="Berikan opini atau pendapat Anda tentang profil ini atau hal lainnya"></textarea>
+                <!-- Login Tab Content -->
+                <div id="login-tab" class="tab-content">
+                    <div id="loginMessage" class="message"></div>
+                    
+                    <form id="loginForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="loginNama">
+                                    <i class="fas fa-user"></i> Nama Lengkap *
+                                </label>
+                                <input type="text" id="loginNama" name="nama" class="form-input" 
+                                       placeholder="Masukkan nama lengkap Anda" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="loginHp">
+                                    <i class="fas fa-phone"></i> Nomor Handphone *
+                                </label>
+                                <input type="tel" id="loginHp" name="hp" class="form-input" 
+                                       placeholder="Contoh: 081234567890" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="loginOpini">
+                                <i class="fas fa-comment-dots"></i> Opini / Keterangan
+                            </label>
+                            <textarea id="loginOpini" name="opini" class="form-textarea" 
+                                      placeholder="Berikan opini atau keterangan tambahan"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="loginTanggal">
+                                <i class="fas fa-calendar-alt"></i> Tanggal Login *
+                            </label>
+                            <input type="date" id="loginTanggal" name="tanggal" class="form-input" required>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn" id="loginSubmitBtn">
+                            <i class="fas fa-sign-in-alt"></i> Login Sekarang
+                        </button>
+                        
+                        <div class="form-note">
+                            <i class="fas fa-info-circle"></i>
+                            Data login Anda akan disimpan di Google Sheets "User".
+                        </div>
+                    </form>
                 </div>
-                
-                <div class="form-group">
-                    <label class="form-label" for="tanggal">
-                        <i class="fas fa-calendar"></i> Tanggal Terhubung *
-                    </label>
-                    <input type="date" id="tanggal" name="tanggal" class="form-input" required>
-                </div>
-                
-                <button type="submit" class="submit-btn" id="submitBtn">
-                    <i class="fas fa-paper-plane"></i> Kirim Pendaftaran
-                </button>
-                
-                <div class="form-note">
-                    <i class="fas fa-info-circle"></i>
-                    Data Anda akan dikirim ke Google Sheets "Daftar Sekarang" melalui Apps Script. Pastikan data yang diisi benar.
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 
     <script>
-        // ===== VARIABLES =====
+        // ===== GOOGLE APPS SCRIPT URL =====
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxD_dm6bD8huwZr3n7N5Nfd0Nd7tx-FKGFluRbiZ0TYOAi9i9n1XFu5LSBk7F-b2awqjQ/exec';
         
         // ===== DOM ELEMENTS =====
-        const modal = document.getElementById('daftarModal');
-        const openModalBtnTop = document.getElementById('openModalBtnTop');
-        const openModalBtnBottom = document.getElementById('openModalBtnBottom');
-        const dashboardBtn = document.getElementById('dashboardBtn');
-        const closeModalBtn = document.querySelector('.close-modal');
-        const messageDiv = document.getElementById('message');
-        const daftarForm = document.getElementById('daftarForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const tanggalInput = document.getElementById('tanggal');
+        const appModal = document.getElementById('appModal');
+        const openModalBtn = document.getElementById('openModalBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
         
-        // ===== SET DEFAULT DATE =====
+        // Tab elements
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        // Daftar form elements
+        const daftarForm = document.getElementById('daftarForm');
+        const daftarSubmitBtn = document.getElementById('daftarSubmitBtn');
+        const daftarMessageDiv = document.getElementById('daftarMessage');
+        const daftarTanggalInput = document.getElementById('daftarTanggal');
+        
+        // Login form elements
+        const loginForm = document.getElementById('loginForm');
+        const loginSubmitBtn = document.getElementById('loginSubmitBtn');
+        const loginMessageDiv = document.getElementById('loginMessage');
+        const loginTanggalInput = document.getElementById('loginTanggal');
+        
+        // ===== SET DEFAULT DATE FOR BOTH FORMS =====
         const today = new Date();
         const formattedDate = today.toISOString().split('T')[0];
-        tanggalInput.value = formattedDate;
-        tanggalInput.max = formattedDate;
+        
+        daftarTanggalInput.value = formattedDate;
+        daftarTanggalInput.max = formattedDate;
+        
+        loginTanggalInput.value = formattedDate;
+        loginTanggalInput.max = formattedDate;
         
         // ===== MODAL FUNCTIONS =====
-        const openModal = () => {
-            modal.style.display = 'block';
+        openModalBtn.addEventListener('click', () => {
+            appModal.style.display = 'block';
             document.body.style.overflow = 'hidden';
-            messageDiv.style.display = 'none';
-        };
+            daftarMessageDiv.style.display = 'none';
+            loginMessageDiv.style.display = 'none';
+            
+            // Reset to Daftar tab when opening modal
+            switchTab('daftar-tab');
+        });
         
-        const closeModal = () => {
-            modal.style.display = 'none';
+        closeModalBtn.addEventListener('click', () => {
+            appModal.style.display = 'none';
             document.body.style.overflow = 'auto';
-        };
+        });
         
-        // Event listeners for opening modal
-        openModalBtnTop.addEventListener('click', openModal);
-        openModalBtnBottom.addEventListener('click', openModal);
-        
-        // Event listener for closing modal
-        closeModalBtn.addEventListener('click', closeModal);
-        
-        // Close modal when clicking outside
         window.addEventListener('click', (event) => {
-            if (event.target === modal) {
-                closeModal();
+            if (event.target === appModal) {
+                appModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
             }
         });
         
-        // Dashboard button functionality
-        dashboardBtn.addEventListener('click', () => {
-            alert('Fitur Dashboard sedang dalam pengembangan. Silakan daftar terlebih dahulu untuk mengakses dashboard.');
-            openModal();
+        // ===== TAB FUNCTIONALITY =====
+        function switchTab(tabId) {
+            // Hide all tab contents
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tab buttons
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabId).classList.add('active');
+            
+            // Activate selected tab button
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+        }
+        
+        // Add click event to tab buttons
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.getAttribute('data-tab');
+                switchTab(tabId);
+            });
         });
         
-        // ===== FORM SUBMISSION =====
+        // ===== PHONE NUMBER FORMATTING =====
+        function formatPhoneNumber(input) {
+            input.addEventListener('input', function(e) {
+                // Remove non-digit characters
+                let value = e.target.value.replace(/\D/g, '');
+                
+                // Format with spaces for readability
+                if (value.length > 4 && value.length <= 8) {
+                    value = value.replace(/(\d{4})(\d{1,4})/, '$1 $2');
+                } else if (value.length > 8) {
+                    value = value.replace(/(\d{4})(\d{4})(\d{1,5})/, '$1 $2 $3');
+                }
+                
+                e.target.value = value;
+            });
+        }
+        
+        // Apply formatting to both phone inputs
+        formatPhoneNumber(document.getElementById('daftarHp'));
+        formatPhoneNumber(document.getElementById('loginHp'));
+        
+        // ===== DAFTAR FORM SUBMISSION =====
         daftarForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             // Show loading state
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim Data...';
-            submitBtn.disabled = true;
+            const originalText = daftarSubmitBtn.innerHTML;
+            daftarSubmitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim Data...';
+            daftarSubmitBtn.disabled = true;
             
             // Hide previous message
-            messageDiv.style.display = 'none';
+            daftarMessageDiv.style.display = 'none';
             
             // Collect form data
             const formData = {
-                nama: document.getElementById('nama').value.trim(),
-                hp: document.getElementById('hp').value.trim(),
-                opini: document.getElementById('opini').value.trim(),
-                tanggal: document.getElementById('tanggal').value
+                nama: document.getElementById('daftarNama').value.trim(),
+                hp: document.getElementById('daftarHp').value.trim(),
+                opini: document.getElementById('daftarOpini').value.trim(),
+                tanggal: document.getElementById('daftarTanggal').value,
+                sheetName: "Daftar Sekarang"
             };
             
             // Validate form data
             if (!formData.nama || !formData.hp || !formData.tanggal) {
-                showMessage('Harap isi semua field yang wajib diisi!', 'error');
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
+                showMessage(daftarMessageDiv, 'Harap isi semua field yang wajib diisi!', 'error');
+                daftarSubmitBtn.innerHTML = originalText;
+                daftarSubmitBtn.disabled = false;
                 return;
             }
             
@@ -1071,9 +1130,9 @@
             const phoneRegex = /^[0-9]{10,13}$/;
             const cleanPhone = formData.hp.replace(/\D/g, '');
             if (!phoneRegex.test(cleanPhone)) {
-                showMessage('Nomor handphone tidak valid! Harap masukkan 10-13 digit angka.', 'error');
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
+                showMessage(daftarMessageDiv, 'Nomor handphone tidak valid! Harap masukkan 10-13 digit angka.', 'error');
+                daftarSubmitBtn.innerHTML = originalText;
+                daftarSubmitBtn.disabled = false;
                 return;
             }
             
@@ -1089,29 +1148,110 @@
                 });
                 
                 // Show success message
-                showMessage('✅ Pendaftaran berhasil dikirim! Data Anda telah disimpan di Google Sheets.', 'success');
+                showMessage(daftarMessageDiv, '✅ Pendaftaran berhasil! Data telah disimpan di sheet "Daftar Sekarang".', 'success');
                 
                 // Reset form
                 daftarForm.reset();
-                tanggalInput.value = formattedDate;
+                daftarTanggalInput.value = formattedDate;
                 
                 // Auto-close modal after 3 seconds
                 setTimeout(() => {
-                    closeModal();
+                    appModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
                 }, 3000);
                 
             } catch (error) {
                 console.error('Error:', error);
-                showMessage('❌ Terjadi kesalahan saat mengirim data. Silakan coba lagi.', 'error');
+                showMessage(daftarMessageDiv, '❌ Terjadi kesalahan saat mengirim data. Silakan coba lagi.', 'error');
             } finally {
                 // Restore button state
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
+                daftarSubmitBtn.innerHTML = originalText;
+                daftarSubmitBtn.disabled = false;
+            }
+        });
+        
+        // ===== LOGIN FORM SUBMISSION =====
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Show loading state
+            const originalText = loginSubmitBtn.innerHTML;
+            loginSubmitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sedang Login...';
+            loginSubmitBtn.disabled = true;
+            
+            // Hide previous message
+            loginMessageDiv.style.display = 'none';
+            
+            // Collect form data
+            const formData = {
+                nama: document.getElementById('loginNama').value.trim(),
+                hp: document.getElementById('loginHp').value.trim(),
+                opini: document.getElementById('loginOpini').value.trim(),
+                tanggal: document.getElementById('loginTanggal').value,
+                sheetName: "User"
+            };
+            
+            // Validate form data
+            if (!formData.nama || !formData.hp || !formData.tanggal) {
+                showMessage(loginMessageDiv, 'Harap isi semua field yang wajib diisi!', 'error');
+                loginSubmitBtn.innerHTML = originalText;
+                loginSubmitBtn.disabled = false;
+                return;
+            }
+            
+            // Validate phone number
+            const phoneRegex = /^[0-9]{10,13}$/;
+            const cleanPhone = formData.hp.replace(/\D/g, '');
+            if (!phoneRegex.test(cleanPhone)) {
+                showMessage(loginMessageDiv, 'Nomor handphone tidak valid! Harap masukkan 10-13 digit angka.', 'error');
+                loginSubmitBtn.innerHTML = originalText;
+                loginSubmitBtn.disabled = false;
+                return;
+            }
+            
+            try {
+                // Send data to Google Apps Script
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                // Show success message
+                showMessage(loginMessageDiv, '✅ Login berhasil! Data telah disimpan di sheet "User".', 'success');
+                
+                // Reset form
+                loginForm.reset();
+                loginTanggalInput.value = formattedDate;
+                
+                // Simpan data login di localStorage
+                localStorage.setItem('userLogin', JSON.stringify({
+                    nama: formData.nama,
+                    hp: formData.hp,
+                    loginTime: new Date().toLocaleString()
+                }));
+                
+                // Auto-close modal after 3 seconds
+                setTimeout(() => {
+                    appModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }, 3000);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                showMessage(loginMessageDiv, '❌ Terjadi kesalahan saat login. Silakan coba lagi.', 'error');
+            } finally {
+                // Restore button state
+                loginSubmitBtn.innerHTML = originalText;
+                loginSubmitBtn.disabled = false;
             }
         });
         
         // ===== SHOW MESSAGE FUNCTION =====
-        function showMessage(text, type) {
+        function showMessage(messageDiv, text, type) {
             messageDiv.textContent = text;
             messageDiv.className = 'message ' + (type === 'success' ? 'success-message' : 'error-message');
             messageDiv.style.display = 'block';
@@ -1120,25 +1260,9 @@
             messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
         
-        // ===== PHONE NUMBER FORMATTING =====
-        const phoneInput = document.getElementById('hp');
-        phoneInput.addEventListener('input', function(e) {
-            // Remove non-digit characters
-            let value = e.target.value.replace(/\D/g, '');
-            
-            // Format with spaces for readability
-            if (value.length > 4 && value.length <= 8) {
-                value = value.replace(/(\d{4})(\d{1,4})/, '$1 $2');
-            } else if (value.length > 8) {
-                value = value.replace(/(\d{4})(\d{4})(\d{1,5})/, '$1 $2 $3');
-            }
-            
-            e.target.value = value;
-        });
-        
         // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Portfolio website Gibran loaded successfully!');
+            console.log('Halaman profil Gibran dengan satu button siap digunakan!');
         });
     </script>
 </body>
