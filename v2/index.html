@@ -3,56 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio | Gibran</title>
+    <title>Gibran Portofolio | Professional Profile</title>
     <style>
-        :root { --primary: #2563eb; --gold: #fbbf24; --dark: #020617; --slate: #1e293b; }
+        :root { --gold: #fbbf24; --blue: #2563eb; --dark: #020617; --card: #1e293b; --text: #cbd5e1; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--dark); color: white; line-height: 1.6; }
         
-        /* Header dengan Efek Ombak (Wave) */
-        .header { 
-            background: linear-gradient(135deg, #1e293b 0%, #020617 100%); 
-            padding: 80px 20px 120px; 
-            text-align: center; 
-            position: relative; 
-        }
+        /* HEADER SECTION */
+        .header { background: linear-gradient(135deg, #1e293b 0%, #020617 100%); padding: 80px 20px 100px; text-align: center; position: relative; }
         .header h1 { font-size: 2.8rem; color: var(--gold); margin: 0; letter-spacing: 3px; }
-        .header p { color: #94a3b8; margin-top: 10px; font-weight: 300; }
-        
         .wave { position: absolute; bottom: 0; left: 0; width: 100%; line-height: 0; }
-        .wave svg { display: block; width: calc(150% + 1.3px); height: 80px; fill: var(--dark); }
+        .wave svg { display: block; width: calc(150% + 1.3px); height: 60px; fill: var(--dark); }
 
-        /* Kontainer Utama */
-        .container { max-width: 850px; margin: -60px auto 60px; padding: 0 20px; position: relative; z-index: 10; }
-        .card { background: var(--slate); padding: 40px; border-radius: 25px; border: 1px solid #334155; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+        /* CONTENT CONTAINER */
+        .container { max-width: 800px; margin: -50px auto 50px; padding: 0 20px; position: relative; z-index: 10; }
+        .card { background: var(--card); padding: 35px; border-radius: 25px; border: 1px solid #334155; box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
         
-        /* Tipografi Deskripsi */
-        h2 { color: var(--gold); border-bottom: 2px solid var(--primary); display: inline-block; padding-bottom: 5px; margin-top: 35px; }
-        h2:first-child { margin-top: 0; }
-        
-        p { text-align: justify; color: #cbd5e1; font-size: 1.05rem; margin-bottom: 20px; }
-        
-        .skill-item { margin-bottom: 20px; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border-left: 4px solid var(--gold); }
-        .skill-item b { color: var(--gold); font-size: 1.1rem; display: block; margin-bottom: 5px; }
+        #portfolio-content h2 { color: var(--gold); border-bottom: 2px solid var(--blue); display: inline-block; margin-top: 30px; }
+        #portfolio-content h2:first-child { margin-top: 0; }
+        .skill-tag { background: rgba(251, 191, 36, 0.1); padding: 15px; border-radius: 12px; border-left: 4px solid var(--gold); margin: 15px 0; }
+        .skill-tag b { color: var(--gold); display: block; margin-bottom: 5px; }
 
-        .mission-list { list-style: none; padding: 0; }
-        .mission-list li { margin-bottom: 12px; padding-left: 25px; position: relative; color: #cbd5e1; }
-        .mission-list li::before { content: '◈'; position: absolute; left: 0; color: var(--gold); }
+        /* FORM DAFTAR */
+        .reg-box { margin-top: 40px; padding: 30px; background: #0f172a; border-radius: 20px; border: 1px solid var(--gold); }
+        input { width: 100%; padding: 14px; margin: 10px 0; border-radius: 10px; border: 1px solid #334155; background: #1e293b; color: white; box-sizing: border-box; }
+        .btn { width: 100%; padding: 15px; background: var(--blue); color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 1rem; }
 
-        /* Form Pendaftaran Simple */
-        .reg-box { margin-top: 50px; padding: 30px; background: #0f172a; border-radius: 20px; border: 1px dashed #475569; }
-        .reg-box h3 { text-align: center; color: var(--gold); margin-top: 0; }
-        input { width: 100%; padding: 14px; margin: 12px 0; border-radius: 10px; border: 1px solid #334155; background: #1e293b; color: white; box-sizing: border-box; }
-        .btn-reg { width: 100%; padding: 16px; background: var(--primary); color: white; border: none; border-radius: 12px; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.3s; }
-        .btn-reg:hover { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4); }
-
-        footer { text-align: center; color: #475569; font-size: 0.8rem; margin-bottom: 40px; }
+        /* DASHBOARD SECTION (MUNCUL SETELAH DAFTAR) */
+        #dashboard-area { display: none; }
+        .dash-header { display: flex; justify-content: space-between; align-items: center; background: #0f172a; padding: 15px; border-radius: 15px; margin-bottom: 20px; border: 1px solid var(--gold); }
+        .banner { width: 100%; height: 150px; background: linear-gradient(45deg, var(--blue), #1e293b); border-radius: 15px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.5rem; color: var(--gold); }
+        .skill-main { background: #0f172a; padding: 20px; border-radius: 15px; margin-bottom: 15px; border-left: 5px solid var(--gold); }
+        #clock { font-family: monospace; color: var(--gold); font-size: 1.2rem; }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <h1>PORTOFOLIO</h1>
-    <p>Gibran | Humas LP3I Kramat Raya</p>
+    <h1 id="main-title">GIBRAN PORTOFOLIO</h1>
     <div class="wave">
         <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.11,102.32,131.52,106.33,202.24,96.84,251.7,90.2,284.09,70.92,321.39,56.44Z"></path></svg>
     </div>
@@ -60,50 +47,89 @@
 
 <div class="container">
     <div class="card">
-        <h2>Perkenalkan</h2>
-        <p>Nama saya <b>Gibran</b>. Saya merupakan mahasiswa Hubungan Masyarakat (Humas) di LP3I Kramat Raya. Saya memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring, dengan masa kerja selama satu bulan. Setelah itu saya belum bekerja lagi dan sedang fokus mengembangkan diri, keterampilan, serta portofolio pribadi.</p>
-        <p>Saya adalah pribadi yang disiplin, cepat beradaptasi, serta mau belajar hal baru. Dalam keseharian, saya senang melakukan aktivitas positif, salah satunya bermain futsal yang menjadi hobi saya sejak lama.</p>
-        <p>Dengan latar belakang Humas dan pengalaman di lapangan, saya siap berkontribusi dalam pekerjaan atau proyek yang membutuhkan komunikasi, kedisiplinan, dan kemampuan analisis dasar.</p>
+        <div id="portfolio-content">
+            <h2>Perkenalkan</h2>
+            <p>Nama saya <b>Gibran</b>. Saya merupakan mahasiswa Hubungan Masyarakat (Humas) di LP3I Kramat Raya. Saya memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring, dengan masa kerja selama satu bulan. Setelah itu saya belum bekerja lagi dan sedang fokus mengembangkan diri, keterampilan, serta portofolio pribadi.</p>
+            <p>Saya adalah pribadi yang disiplin, cepat beradaptasi, serta mau belajar hal baru. Dalam keseharian, saya senang bermain futsal yang menjadi hobi saya sejak lama.</p>
+            <p>Dengan latar belakang Humas dan pengalaman di lapangan, saya siap berkontribusi dalam pekerjaan atau proyek yang membutuhkan komunikasi, kedisiplinan, dan kemampuan analisis dasar.</p>
 
-        <h2>Keahlian</h2>
-        <div class="skill-item">
-            <b>🎸 Bermain Gitar</b>
-            Mampu memainkan beberapa genre musik, memahami chord dasar hingga intermediate, serta dapat mengiringi lagu acoustic dengan baik.
+            <h2>Keahlian</h2>
+            <div class="skill-tag"><b>🎸 Bermain Gitar</b> Mampu memainkan beberapa genre musik, memahami chord dasar hingga intermediate, serta dapat mengiringi lagu acoustic dengan baik.</div>
+            <div class="skill-tag"><b>⚽ Futsal</b> Memiliki kemampuan kontrol bola yang baik, cepat dalam pengambilan keputusan, dan mampu bekerja sama dalam tim sebagai pemain bertahan maupun penyerang.</div>
+
+            <h2>Pengalaman Kerja</h2>
+            <p><b>BGI</b><br>Pernah bekerja di BGI dan bertanggung jawab dalam beberapa tugas operasional seperti membantu proses pekerjaan sehari-hari, mendukung kegiatan tim, dan menjalankan instruksi sesuai standar perusahaan. Pengalaman ini membuat saya lebih matang dalam bekerja secara profesional, memahami manajemen waktu, serta menjaga kualitas hasil kerja.</p>
+
+            <h2>Visi & Misi</h2>
+            <p><b>Visi:</b> Menjadi individu yang mampu berkontribusi secara maksimal, bekerja dengan penuh tanggung jawab, serta dapat berkolaborasi dengan baik dalam tim untuk mencapai tujuan perusahaan.</p>
+            <p><b>Misi:</b><br>• Membangun hubungan kerja yang positif.<br>• Mengembangkan pengetahuan dan keterampilan.<br>• Berperan aktif meningkatkan efisiensi tim.<br>• Menjaga integritas dan disiplin.</p>
+
+            <div class="reg-box">
+                <h3 style="text-align:center; color:var(--gold); margin-top:0;">DAFTAR AKUN</h3>
+                <input type="text" id="reg-nama" placeholder="Nama Lengkap">
+                <input type="number" id="reg-hp" placeholder="Nomor Handphone Aktif">
+                <button class="btn" onclick="masukDashboard()">DAFTAR & MASUK</button>
+            </div>
         </div>
-        <div class="skill-item">
-            <b>⚽ Futsal</b>
-            Memiliki kemampuan kontrol bola yang baik, cepat dalam pengambilan keputusan, dan mampu bekerja sama dalam tim sebagai pemain bertahan maupun penyerang.
-        </div>
 
-        <h2>Pengalaman Kerja</h2>
-        <p><b>BGI</b><br>
-        Bertanggung jawab dalam beberapa tugas operasional seperti membantu proses pekerjaan sehari-hari, mendukung kegiatan tim, dan menjalankan instruksi sesuai standar perusahaan. Pengalaman ini membuat saya lebih matang dalam bekerja secara profesional, memahami manajemen waktu, serta menjaga kualitas hasil kerja.</p>
+        <div id="dashboard-area">
+            <div class="dash-header">
+                <div id="user-display" style="font-weight:bold; color:var(--gold);">Halo, User</div>
+                <div id="clock">00:00:00</div>
+            </div>
+            
+            <div class="banner">GIBRAN OFFICIAL BANNER</div>
+            
+            <h2 style="color:var(--gold);">Pekerjaan / Skill Utama</h2>
+            
+            <div class="skill-main">
+                <h3>🎨 Desain Grafis</h3>
+                <p>Membuat desain visual seperti poster, banner, logo, dan konten media sosial yang menarik dan profesional.</p>
+            </div>
+            <div class="skill-main">
+                <h3>📱 Content Creator</h3>
+                <p>Mampu membuat ide, konsep, dan produksi konten untuk platform digital (IG, TikTok, YouTube, dll.).</p>
+            </div>
+            <div class="skill-main">
+                <h3>🎬 Video Editing (Premiere Pro)</h3>
+                <p>Mengedit video dengan teknik cutting, color grading, efek sederhana, audio mixing, dan final export.</p>
+            </div>
+            <div class="skill-main">
+                <h3>✨ Animasi Dasar</h3>
+                <p>Mampu membuat animasi sederhana untuk kebutuhan konten, intro video, dan motion graphic ringan.</p>
+            </div>
+            <div class="skill-main">
+                <h3>📸 Fotografi</h3>
+                <p>Mengambil foto dengan komposisi yang baik, mengatur pencahayaan, dan memahami teknik dasar fotografi.</p>
+            </div>
 
-        <h2>Visi & Misi</h2>
-        <p><b>Visi:</b> Menjadi individu yang mampu berkontribusi secara maksimal, bekerja dengan penuh tanggung jawab, serta dapat berkolaborasi dengan baik dalam tim untuk mencapai tujuan perusahaan.</p>
-        
-        <p><b>Misi:</b></p>
-        <ul class="mission-list">
-            <li>Membangun hubungan kerja yang positif dan profesional demi mendukung perkembangan perusahaan.</li>
-            <li>Mengembangkan pengetahuan dan keterampilan agar dapat memberikan hasil kerja yang kompeten.</li>
-            <li>Berperan aktif dalam setiap tugas yang diberikan untuk meningkatkan efisiensi dan kualitas kerja tim.</li>
-            <li>Menjaga integritas, disiplin, dan komitmen dalam setiap proses pekerjaan.</li>
-        </ul>
-
-        <div class="reg-box">
-            <h3>DAFTAR AKUN</h3>
-            <form action="#">
-                <input type="text" placeholder="Masukkan Nama Lengkap" required>
-                <input type="number" placeholder="Nomor Handphone Aktif" required>
-                <button type="submit" class="btn-reg">DAFTAR SEKARANG</button>
-            </form>
+            <button onclick="location.reload()" style="width:100%; padding:10px; background:none; border:1px solid #475569; color:#94a3b8; cursor:pointer; margin-top:20px; border-radius:10px;">Keluar</button>
         </div>
     </div>
 </div>
 
-<footer>
-    © 2026 Gibran Portofolio - All Rights Reserved
-</footer>
+<script>
+    function masukDashboard() {
+        const nama = document.getElementById('reg-nama').value;
+        const hp = document.getElementById('reg-hp').value;
+        
+        if(nama && hp) {
+            document.getElementById('portfolio-content').style.display = 'none';
+            document.getElementById('dashboard-area').style.display = 'block';
+            document.getElementById('main-title').innerText = 'DASHBOARD MEMBER';
+            document.getElementById('user-display').innerText = '👤 ' + nama;
+            mulaiJam();
+        } else {
+            alert('Mohon isi Nama dan No HP dulu ya!');
+        }
+    }
 
+    function mulaiJam() {
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString('id-ID');
+        }, 1000);
+    }
+</script>
 </body>
 </html>
