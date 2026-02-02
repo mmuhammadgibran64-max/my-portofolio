@@ -3,193 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GIBRAN STORE | v.3.6.2 Full Version</title>
+    <title>Profil & Deskripsi - Gibran</title>
     <style>
-        :root { --primary: #2563eb; --gold: #fbbf24; --slate: #1e293b; --success: #10b981; --dark: #020617; --light-bg: #f8fafc; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; transition: 0.3s; background: var(--dark); color: white; }
-        
-        body.gelap { background: var(--dark); color: white; }
-        body.terang { background: var(--light-bg); color: #1e293b; }
-
-        /* HEADER & NAVBAR */
-        .navbar { 
-            background: #1e293b; padding: 12px 15px; display: flex; 
-            justify-content: space-between; align-items: center; 
-            position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid var(--gold); 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .nav-logo { font-size: 1.1rem; font-weight: bold; color: var(--gold); text-decoration: none; text-transform: uppercase; }
-        .admin-nav-text { font-size: 0.7rem; color: #94a3b8; border: 1px solid #475569; padding: 4px 8px; border-radius: 5px; cursor: pointer; }
-
-        /* DESKRIPSI TOKO (Yang Lo Maksud) */
-        .store-desc { padding: 15px; text-align: center; background: #0f172a; border-bottom: 1px solid #334155; }
-        .store-desc h2 { color: var(--gold); margin: 0; font-size: 1.2rem; }
-        .store-desc p { font-size: 0.8rem; color: #94a3b8; margin: 5px 0 0 0; }
-
-        .bottom-nav { background: #1e293b; padding: 10px; display: flex; justify-content: space-around; }
-        .bottom-nav a { color: #cbd5e1; text-decoration: none; font-size: 0.8rem; cursor: pointer; }
-
-        /* MODAL */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); }
-        .modal-content { background: #1e293b; color: white; margin: 10% auto; padding: 25px; border-radius: 20px; width: 85%; max-width: 450px; border: 2px solid var(--gold); }
         
-        /* CARDS */
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 12px; padding: 15px; }
-        .product-card { background: white; color: #1e293b; padding: 12px; border-radius: 12px; text-align: center; }
-        .btn-beli { background: var(--primary); color: white; border: none; padding: 8px; border-radius: 6px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 8px; }
-
-        /* GATE FORMS */
-        .gate-container { display: flex; align-items: center; justify-content: center; min-height: 80vh; padding: 20px; }
-        .gate-card { background: #1e293b; padding: 30px; border-radius: 20px; width: 100%; max-width: 380px; text-align: center; border: 1px solid #334155; }
-        input, textarea, select { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box; }
-        .btn-big { width: 100%; padding: 15px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; }
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header h2 {
+            font-size: 1.3rem;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h3 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .section p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .highlight {
+            background-color: #e8f4fc;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+            margin: 20px 0;
+        }
+        
+        .skills-list, .mission-list {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        
+        .skills-list li, .mission-list li {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .skills-list li:before, .mission-list li:before {
+            content: "✓";
+            color: #27ae60;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        .contact-item {
+            margin: 0 20px;
+            text-align: center;
+        }
+        
+        .contact-item i {
+            font-size: 1.5rem;
+            color: #3498db;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 25px;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+            }
+            
+            .contact-item {
+                margin: 10px 0;
+            }
+        }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="gelap">
-
-<nav id="main-navbar" class="navbar" style="display: none;">
-    <a href="#" class="nav-logo">GIBRAN STORE</a>
-    <div class="admin-nav-text" onclick="openModal('modal-admin')">ADMIN CONTROL</div>
-</nav>
-
-<div id="store-header" class="store-desc" style="display: none;">
-    <h2>Selamat Datang</h2>
-    <p>Penyedia jajanan dan kebutuhan harian terlengkap di area Anda. Kualitas terjamin, harga bersahabat!</p>
-</div>
-
-<div id="sub-nav" class="bottom-nav" style="display: none;">
-    <a onclick="location.reload()">KATALOG</a>
-    <a onclick="openModal('modal-history')">RIWAYAT</a>
-    <a onclick="openModal('modal-settings')">PENGATURAN</a>
-</div>
-
-<div id="modal-admin" class="modal">
-    <div class="modal-content">
-        <h3 style="color:var(--gold);">🛠️ ADMIN CONTROL</h3>
-        <p style="font-size:0.8rem;">Email: <strong>mmgibran941@gmail.com</strong></p>
-        <p style="font-size:0.8rem;">WhatsApp: <strong>+62 851-2333-2018</strong></p>
-        <a href="mailto:mmgibran941@gmail.com" style="display:block; background:var(--primary); color:white; padding:10px; text-align:center; border-radius:8px; text-decoration:none; margin-bottom:10px;">Kirim Email</a>
-        <a href="https://wa.me/6285123332018" style="display:block; background:var(--success); color:white; padding:10px; text-align:center; border-radius:8px; text-decoration:none;">Chat WhatsApp</a>
-        <button class="btn-big" style="background:var(--slate); margin-top:15px;" onclick="closeModal('modal-admin')">TUTUP</button>
-    </div>
-</div>
-
-<div id="reg-screen" class="gate-container">
-    <div class="gate-card">
-        <h2 style="color:var(--gold);">DAFTAR MEMBER</h2>
-        <form id="form-register">
-            <input type="date" name="tanggal" id="reg-date" required>
-            <input type="text" name="nama" placeholder="Nama Lengkap" required>
-            <input type="number" name="whatsapp" placeholder="WhatsApp" required>
-            <textarea name="alamat" placeholder="Alamat Lengkap" required></textarea>
-            <input type="hidden" name="sheetTarget" value="register.html">
-            <button type="submit" id="btn-submit-reg" class="btn-big" style="background:var(--gold); color:black;">DAFTAR SEKARANG</button>
-        </form>
-        <button id="btn-to-login" class="btn-big" style="display:none; background:var(--primary); color:white;" onclick="showLogin()">SUDAH DAFTAR? LOGIN</button>
-    </div>
-</div>
-
-<div id="login-screen" class="gate-container" style="display:none;">
-    <div class="gate-card">
-        <h2 style="color:var(--primary);">MASUK TOKO</h2>
-        <form id="form-login">
-            <input type="text" id="l-nama" name="nama" placeholder="Nama Anda" required>
-            <input type="number" id="l-wa" name="whatsapp" placeholder="Nomor WhatsApp" required>
-            <input type="text" id="l-rumah" name="no_rumah" placeholder="Nomor Rumah (Blok/No)" required>
-            <input type="hidden" name="sheetTarget" value="User">
-            <button type="submit" id="btn-submit-login" class="btn-big" style="background:var(--primary); color:white;">MASUK KE KATALOG</button>
-        </form>
-    </div>
-</div>
-
-<div id="shop-content" style="display:none;">
-    <div class="product-grid">
-        <script>
-            const items = [
-                {n: "Peye Kacang (Kecil)", p: "Rp5.000"}, {n: "Peye Kacang (Besar)", p: "Rp10.000"},
-                {n: "Slondok", p: "Rp20.000"}, {n: "Opak", p: "Rp20.000"},
-                {n: "Kacang", p: "Rp2.000"}, {n: "Kripik Pedes", p: "Rp15.000"},
-                {n: "Kue Sus Kering", p: "Rp15.000"}, {n: "Reginang (isi 3)", p: "Rp5.000"},
-                {n: "Aqua Galon", p: "Rp22.000"}
-            ];
-            document.write(items.map(i => `
-                <div class="product-card">
-                    <h4 style="font-size:0.9rem; margin:5px 0;">${i.n}</h4>
-                    <p style="color:var(--primary); font-size:0.85rem; font-weight:bold;">${i.p}</p>
-                    <button class="btn-beli" onclick="startPay('${i.n}', '${i.p}')">Beli</button>
+<body>
+    <div class="container">
+        <!-- Header dengan foto dan nama -->
+        <div class="header">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                 alt="Foto Profil Gibran" class="profile-img">
+            <h1>Gibran</h1>
+            <h2>Mahasiswa Hubungan Masyarakat (Humas) - LP3I Kramat Raya</h2>
+        </div>
+        
+        <!-- Konten Deskripsi -->
+        <div class="content">
+            <!-- Tentang Saya -->
+            <div class="section">
+                <h3>Tentang Saya</h3>
+                <p>Perkenalkan, nama saya Gibran. Saya merupakan mahasiswa Hubungan Masyarakat (Humas) di LP3I Kramat Raya. Saya memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring, dengan masa kerja selama satu bulan. Setelah itu saya belum bekerja lagi dan sedang fokus mengembangkan diri, keterampilan, serta portofolio pribadi.</p>
+                
+                <div class="highlight">
+                    <p>Saya adalah pribadi yang disiplin, cepat beradaptasi, serta mau belajar hal baru. Dalam keseharian, saya senang melakukan aktivitas positif, salah satunya bermain futsal yang menjadi hobi saya sejak lama.</p>
                 </div>
-            `).join(''));
-        </script>
+                
+                <p>Dengan latar belakang Humas dan pengalaman di lapangan, saya siap berkontribusi dalam pekerjaan atau proyek yang membutuhkan komunikasi, kedisiplinan, dan kemampuan analisis dasar.</p>
+            </div>
+            
+            <!-- Keahlian -->
+            <div class="section">
+                <h3>Keahlian</h3>
+                <ul class="skills-list">
+                    <li><strong>Bermain Gitar</strong> — Mampu memainkan beberapa genre musik, memahami chord dasar hingga intermediate, serta dapat mengiringi lagu acoustic dengan baik.</li>
+                    <li><strong>Futsal</strong> — Memiliki kemampuan kontrol bola yang baik, cepat dalam pengambilan keputusan, dan mampu bekerja sama dalam tim sebagai pemain bertahan maupun penyerang.</li>
+                </ul>
+            </div>
+            
+            <!-- Pengalaman Kerja -->
+            <div class="section">
+                <h3>Pengalaman Kerja</h3>
+                <p><strong>BGI</strong> (nama perusahaan belum disebutkan lengkap)</p>
+                <p>Pernah bekerja di BGI dan bertanggung jawab dalam beberapa tugas operasional seperti membantu proses pekerjaan sehari-hari, mendukung kegiatan tim, dan menjalankan instruksi sesuai standar perusahaan. Pengalaman ini membuat saya lebih matang dalam bekerja secara profesional, memahami manajemen waktu, serta menjaga kualitas hasil kerja.</p>
+            </div>
+            
+            <!-- Visi -->
+            <div class="section">
+                <h3>Visi</h3>
+                <p>Menjadi individu yang mampu berkontribusi secara maksimal, bekerja dengan penuh tanggung jawab, serta dapat berkolaborasi dengan baik dalam tim untuk mencapai tujuan perusahaan.</p>
+            </div>
+            
+            <!-- Misi -->
+            <div class="section">
+                <h3>Misi</h3>
+                <ul class="mission-list">
+                    <li>Membangun hubungan kerja yang positif dan profesional demi mendukung perkembangan perusahaan.</li>
+                    <li>Mengembangkan pengetahuan dan keterampilan agar dapat memberikan hasil kerja yang kompeten.</li>
+                    <li>Berperan aktif dalam setiap tugas yang diberikan untuk meningkatkan efisiensi dan kualitas kerja tim.</li>
+                    <li>Menjaga integritas, disiplin, dan komitmen dalam setiap proses pekerjaan.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Info Kontak -->
+        <div class="contact-info">
+            <div class="contact-item">
+                <i class="fas fa-graduation-cap"></i>
+                <div>Mahasiswa Humas</div>
+                <div>LP3I Kramat Raya</div>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>Jakarta, Indonesia</div>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-briefcase"></i>
+                <div>Pengalaman Monitoring</div>
+                <div>1 Bulan</div>
+            </div>
+        </div>
     </div>
-</div>
-
-<div id="modal-history" class="modal"><div class="modal-content"><h3 style="color:var(--gold);">RIWAYAT</h3><div id="history-list"></div><button class="btn-big" onclick="closeModal('modal-history')">TUTUP</button></div></div>
-<div id="modal-settings" class="modal"><div class="modal-content"><h3>PENGATURAN</h3><select onchange="document.body.className = this.value"><option value="gelap">Mode Gelap</option><option value="terang">Mode Terang</option></select><button class="btn-big" onclick="closeModal('modal-settings')" style="margin-top:10px;">SIMPAN</button></div></div>
-
-<div id="pay-screen" class="gate-container" style="display:none;">
-    <div class="gate-card" style="border: 2px solid var(--gold);">
-        <h3>KONFIRMASI</h3>
-        <p id="item-info"></p>
-        <form id="form-order">
-            <input type="hidden" name="sheetTarget" value="Order"><input type="hidden" name="Nama" id="o-nama"><input type="hidden" name="No HP" id="o-hp"><input type="hidden" name="Total" id="o-total"><input type="hidden" name="Alamat" id="o-alamat"><input type="hidden" name="Tanggal" id="o-tgl">
-            <button type="submit" id="btn-pay" class="btn-big" style="background:var(--success); color:white;">BELI SEKARANG</button>
-            <button type="button" onclick="location.reload()" style="background:none; color:gray; border:none; margin-top:10px; cursor:pointer;">Batal</button>
-        </form>
-    </div>
-</div>
-
-<script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwS6CvxXW8lmHPZvPR0-S1XzV3pyODxKOvcDpW1--PgvdqwHLcJz9s3gMDJe9rgvuXnng/exec';
-    let user = { n: "", w: "", a: "" };
-    document.getElementById('reg-date').valueAsDate = new Date();
-
-    function openModal(id) { document.getElementById(id).style.display='block'; }
-    function closeModal(id) { document.getElementById(id).style.display='none'; }
-    function showLogin() { document.getElementById('reg-screen').style.display='none'; document.getElementById('login-screen').style.display='flex'; }
-
-    async function postData(f) { return fetch(SCRIPT_URL, { method: 'POST', body: new FormData(f), mode: 'no-cors' }); }
-
-    document.getElementById('form-register').onsubmit = async e => {
-        e.preventDefault();
-        document.getElementById('btn-submit-reg').innerText = "Processing...";
-        await postData(e.target);
-        alert('Registrasi Berhasil!');
-        document.getElementById('form-register').style.display='none';
-        document.getElementById('btn-to-login').style.display='block';
-    };
-
-    document.getElementById('form-login').onsubmit = async e => {
-        e.preventDefault();
-        document.getElementById('btn-submit-login').innerText = "Verifikasi...";
-        user = { n: document.getElementById('l-nama').value, w: document.getElementById('l-wa').value, a: document.getElementById('l-rumah').value };
-        await postData(e.target);
-        document.getElementById('login-screen').style.display='none';
-        document.getElementById('main-navbar').style.display='flex';
-        document.getElementById('store-header').style.display='block';
-        document.getElementById('sub-nav').style.display='flex';
-        document.getElementById('shop-content').style.display='block';
-    };
-
-    function startPay(n, p) {
-        document.getElementById('shop-content').style.display='none';
-        document.getElementById('main-navbar').style.display='none';
-        document.getElementById('store-header').style.display='none';
-        document.getElementById('sub-nav').style.display='none';
-        document.getElementById('pay-screen').style.display='flex';
-        document.getElementById('item-info').innerText = n + " (" + p + ")";
-        document.getElementById('o-nama').value = user.n;
-        document.getElementById('o-hp').value = "'" + user.w;
-        document.getElementById('o-total').value = p + " [" + n + "]";
-        document.getElementById('o-alamat').value = user.a;
-        document.getElementById('o-tgl').value = new Date().toLocaleString('id-ID');
-    }
-
-    document.getElementById('form-order').onsubmit = async e => {
-        e.preventDefault();
-        document.getElementById('btn-pay').innerText = "Sending...";
-        await postData(e.target);
-        alert('Terima kasih! Pesanan Anda sedang diproses.');
-        location.reload();
-    };
-</script>
 </body>
 </html>
