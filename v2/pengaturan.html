@@ -3,86 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pengaturan Sistem - Gibran</title>
+    <title>Sistem Pengaturan - Gibran</title>
     <style>
-        :root { --bg: #000; --card: #111; --text: #fff; --accent: #ff9800; --border: #333; }
-        .light-mode { --bg: #f4f4f4; --card: #fff; --text: #000; --accent: #e67e22; --border: #ddd; }
-        body { background: var(--bg); color: var(--text); font-family: sans-serif; margin: 0; padding: 20px; transition: 0.3s; }
-        .container { max-width: 800px; margin: auto; }
-        .card { background: var(--card); padding: 20px; border-radius: 15px; border: 1px solid var(--border); margin-bottom: 20px; }
-        h2 { border-left: 5px solid var(--accent); padding-left: 15px; font-size: 18px; }
-        .btn { padding: 12px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; width: 100%; margin: 5px 0; }
-        .btn-accent { background: var(--accent); color: #000; }
-        .btn-dark { background: #333; color: #fff; width: auto; }
-        #tracker-info { font-family: monospace; background: #000; color: #0f0; padding: 15px; border-radius: 8px; font-size: 12px; margin-top: 10px; }
-        .device-preview { display: flex; gap: 10px; margin-bottom: 10px; }
-        .btn-dev { flex: 1; padding: 10px; background: #222; color: #fff; border: 1px solid #444; cursor: pointer; border-radius: 5px; }
-        .btn-dev.active { background: var(--accent); color: #000; }
-        #preview-box { width: 100%; height: 200px; border: 2px dashed var(--accent); display: flex; align-items: center; justify-content: center; background: #1a1a1a; margin-top: 10px; transition: 0.5s; }
+        /* Variabel Dasar */
+        :root {
+            --bg-color: #000000;
+            --card-bg: #111111;
+            --text-color: #ffffff;
+            --accent-color: #ff9800;
+        }
+
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-color); 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0; padding: 0; transition: 0.3s;
+        }
+
+        .header {
+            padding: 20px; border-bottom: 1px solid #333; display: flex; align-items: center; gap: 15px;
+        }
+
+        .container { max-width: 600px; margin: auto; padding: 20px; }
+
+        .setting-group { margin-bottom: 30px; }
+        .setting-group h3 { font-size: 14px; color: var(--accent-color); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
+
+        /* Item List ala HP */
+        .setting-item {
+            background: var(--card-bg);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #222;
+            transition: 0.2s;
+        }
+        .setting-item:first-child { border-radius: 12px 12px 0 0; }
+        .setting-item:last-child { border-radius: 0 0 12px 12px; border-bottom: none; }
+
+        .item-info b { display: block; font-size: 16px; }
+        .item-info span { font-size: 12px; color: #888; }
+
+        /* Toggle Switch ala iPhone/HP */
+        .switch {
+            position: relative; display: inline-block; width: 50px; height: 26px;
+        }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #333; transition: .4s; border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px;
+            background-color: white; transition: .4s; border-radius: 50%;
+        }
+        input:checked + .slider { background-color: var(--accent-color); }
+        input:checked + .slider:before { transform: translateX(24px); }
+
+        .btn-save {
+            background: var(--accent-color); color: #000; border: none; padding: 15px;
+            width: 100%; border-radius: 12px; font-weight: bold; margin-top: 20px; cursor: pointer;
+        }
+
+        /* Tracker Box */
+        #tracker-info {
+            background: #000; color: #0f0; font-family: monospace; padding: 15px; border-radius: 12px;
+            font-size: 12px; border: 1px solid #222; margin-top: 10px;
+        }
     </style>
 </head>
 <body>
+
+<div class="header">
+    <button onclick="window.location.href='index.html'" style="background:none; border:none; color:var(--accent-color); font-size: 20px; cursor:pointer;">❮</button>
+    <h2 style="margin:0; font-size: 18px;">Pengaturan Website</h2>
+</div>
+
 <div class="container">
-    <div style="display: flex; justify-content: space-between;">
-        <button class="btn-dark" onclick="window.location.href='index.html'">🏠 Home</button>
-        <button class="btn-dark" onclick="toggleTheme()" id="themeBtn">🌙 Mode Gelap</button>
-    </div>
-
-    <h1 style="text-align: center;">PENGATURAN</h1>
-
-    <div class="card">
-        <h2>Logo & Foto Profil</h2>
-        <div style="display: flex; align-items: center; gap: 20px;">
-            <img id="prof-img" src="https://via.placeholder.com/80" style="width:80px; height:80px; border-radius:50%; border:2px solid var(--accent);">
-            <input type="file" accept="image/*" onchange="changePhoto(event)">
+    <div class="setting-group">
+        <h3>Tampilan & Tema</h3>
+        <div class="setting-item">
+            <div class="item-info">
+                <b>Mode Terang</b>
+                <span>Ubah tema website menjadi cerah</span>
+            </div>
+            <label class="switch">
+                <input type="checkbox" id="themeToggle" onchange="applySettings()">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="setting-item">
+            <div class="item-info">
+                <b>Warna Aksen Oranye</b>
+                <span>Gunakan warna oranye sebagai tema utama</span>
+            </div>
+            <label class="switch">
+                <input type="checkbox" id="accentToggle" checked onchange="applySettings()">
+                <span class="slider"></span>
+            </label>
         </div>
     </div>
 
-    <div class="card">
-        <h2>Sistem: Pelacak Pengunjung</h2>
-        <div id="tracker-info">Mendeteksi lokasi...</div>
-        <button class="btn btn-accent" onclick="trackUser()">Refresh Lokasi</button>
-    </div>
-
-    <div class="card">
-        <h2>Simulator Perangkat</h2>
-        <div class="device-preview">
-            <button class="btn-dev" onclick="setV('375px', 'HP')">HP</button>
-            <button class="btn-dev" onclick="setV('600px', 'iPad')">iPad</button>
-            <button class="btn-dev active" onclick="setV('100%', 'Desktop')">Desktop</button>
+    <div class="setting-group">
+        <h3>Identitas Profil</h3>
+        <div class="setting-item">
+            <div class="item-info">
+                <b>Foto Profil Baru</b>
+                <span>Pilih foto untuk halaman depan</span>
+            </div>
+            <input type="file" id="photoInput" accept="image/*" onchange="savePhoto()" style="width: 100px; font-size: 10px;">
         </div>
-        <div id="preview-box">Preview: Desktop</div>
     </div>
 
-    <button class="btn btn-accent" onclick="window.location.href='dashboard.html'">Masuk ke Dashboard Utama ⮕</button>
+    <div class="setting-group">
+        <h3>Sistem & Lokasi</h3>
+        <div class="setting-item">
+            <div class="item-info">
+                <b>Lacak Pengunjung</b>
+                <span>Deteksi lokasi akses website</span>
+            </div>
+            <button onclick="trackUser()" style="background:#222; color:#fff; border:none; padding:5px 10px; border-radius:5px;">Cek</button>
+        </div>
+        <div id="tracker-info">Klik tombol cek untuk melacak...</div>
+    </div>
+
+    <div class="setting-group">
+        <h3>Mode Perangkat (Visual)</h3>
+        <select id="deviceView" class="btn-save" style="background:#222; color:#fff; margin-top:0;" onchange="applySettings()">
+            <option value="desktop">Mode Desktop (Default)</option>
+            <option value="mobile">Mode Handphone (Kecil)</option>
+            <option value="tablet">Mode iPad (Sedang)</option>
+        </select>
+    </div>
+
+    <button class="btn-save" onclick="alert('Pengaturan Tersimpan!')">SIMPAN PERUBAHAN</button>
 </div>
 
 <script>
-    function toggleTheme() {
-        document.body.classList.toggle('light-mode');
-        document.getElementById('themeBtn').innerText = document.body.classList.contains('light-mode') ? "☀️ Mode Terang" : "🌙 Mode Gelap";
+    // FUNGSI UTAMA: TERAPKAN PENGATURAN
+    function applySettings() {
+        const isLight = document.getElementById('themeToggle').checked;
+        const isOrange = document.getElementById('accentToggle').checked;
+        const device = document.getElementById('deviceView').value;
+
+        // Simpan ke LocalStorage
+        const settings = {
+            lightMode: isLight,
+            accentOrange: isOrange,
+            viewMode: device
+        };
+        localStorage.setItem('webSettings', JSON.stringify(settings));
+
+        // Terapkan ke halaman ini langsung
+        document.body.style.filter = isLight ? 'invert(0.9) hue-rotate(180deg)' : 'none';
+        
+        // Kirim sinyal ke index.html (lewat storage event)
+        console.log("Settings updated:", settings);
     }
 
-    function changePhoto(e) {
+    // SIMPAN FOTO KE MEMORI
+    function savePhoto() {
+        const file = document.getElementById('photoInput').files[0];
         const reader = new FileReader();
-        reader.onload = () => { document.getElementById('prof-img').src = reader.result; };
-        reader.readAsDataURL(e.target.files[0]);
+        reader.onload = function() {
+            localStorage.setItem('gibran_photo', reader.result);
+            alert("Foto Profil Berhasil Diganti!");
+        }
+        reader.readAsDataURL(file);
     }
 
+    // PELACAKAN LOKASI
     function trackUser() {
-        fetch('https://ipapi.co/json/').then(res => res.json()).then(data => {
-            document.getElementById('tracker-info').innerHTML = `IP: ${data.ip}<br>Lokasi: ${data.city}, ${data.country_name}<br>Koordinat: ${data.latitude}, ${data.longitude}`;
-        });
+        const info = document.getElementById('tracker-info');
+        info.innerHTML = "Tracing...";
+        fetch('https://ipapi.co/json/')
+            .then(res => res.json())
+            .then(data => {
+                info.innerHTML = `LOKASI: ${data.city}, ${data.country_name}<br>IP: ${data.ip}<br>ISP: ${data.org}`;
+            });
     }
 
-    function setV(w, label) {
-        const box = document.getElementById('preview-box');
-        box.style.width = w; box.style.margin = "auto";
-        box.innerText = "Preview: " + label;
-        document.querySelectorAll('.btn-dev').forEach(b => b.classList.toggle('active', b.innerText === label));
+    // LOAD SETTINGS SAAT BUKA
+    window.onload = function() {
+        const saved = JSON.parse(localStorage.getItem('webSettings'));
+        if(saved) {
+            document.getElementById('themeToggle').checked = saved.lightMode;
+            document.getElementById('accentToggle').checked = saved.accentOrange;
+            document.getElementById('deviceView').value = saved.viewMode;
+            applySettings();
+        }
     }
-
-    window.onload = trackUser;
 </script>
+
 </body>
 </html>
