@@ -1,1 +1,137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Sosial Gibran | Instagram Official</title>
+    <meta name="description" content="Kunjungi Instagram Resmi M. Gibran @mgibran4184">
+    
+    <style>
+        :root { 
+            --bg: #000; 
+            --card: #111; 
+            --text: #fff; 
+            --insta: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
+            --border: #333; 
+        }
 
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+        }
+
+        .container { 
+            max-width: 400px; 
+            width: 100%; 
+            text-align: center; 
+        }
+
+        .card { 
+            background: var(--card); 
+            padding: 40px; 
+            border-radius: 30px; 
+            border: 1px solid var(--border); 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7); 
+        }
+        
+        /* Logo Instagram Gaya Bulat Modern */
+        .ig-logo-wrapper {
+            width: 100px; 
+            height: 100px; 
+            background: var(--insta);
+            border-radius: 50%; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            margin: 0 auto 20px;
+            transition: 0.4s;
+            text-decoration: none;
+        }
+
+        .ig-logo-wrapper:hover { 
+            transform: scale(1.1) rotate(5deg); 
+            box-shadow: 0 0 25px rgba(225, 48, 108, 0.6); 
+        }
+
+        .ig-icon {
+            font-size: 50px;
+            color: white;
+        }
+        
+        .username { 
+            font-size: 24px; 
+            font-weight: bold; 
+            margin-bottom: 5px; 
+            letter-spacing: 1px;
+        }
+
+        .label { 
+            color: #888; 
+            font-size: 14px; 
+            margin-bottom: 30px; 
+            text-transform: uppercase;
+        }
+        
+        .btn-visit { 
+            display: block; 
+            background: var(--insta); 
+            color: #fff; 
+            padding: 18px; 
+            border-radius: 15px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            transition: 0.3s; 
+            font-size: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .btn-visit:hover { 
+            opacity: 0.9; 
+            letter-spacing: 1px;
+        }
+        
+        .btn-back { 
+            display: inline-block; 
+            margin-top: 30px; 
+            color: #555; 
+            text-decoration: none; 
+            font-size: 14px; 
+            transition: 0.3s;
+            border-bottom: 1px solid transparent;
+        }
+
+        .btn-back:hover {
+            color: #ff9800;
+            border-bottom: 1px solid #ff9800;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <a href="https://www.instagram.com/mgibran4184" target="_blank" class="ig-logo-wrapper">
+            <span class="ig-icon">📸</span>
+        </a>
+        
+        <div class="username">@mgibran4184</div>
+        <div class="label">Instagram Profil Gibran</div>
+        
+        <a href="https://www.instagram.com/mgibran4184" target="_blank" class="btn-visit">
+            KUNJUNGI INSTAGRAM
+        </a>
+        
+        <br>
+        <a href="pengaturan.html" class="btn-back">⬅ KEMBALI KE PENGATURAN</a>
+    </div>
+</div>
+
+</body>
+</html>
