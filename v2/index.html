@@ -4,80 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portofolio Gibran v2</title>
-    
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-
     <style>
-        * { box-sizing: border-box; }
-        body { 
-            background-color: #000; 
-            color: #fff; 
-            font-family: 'Segoe UI', Arial, sans-serif; 
-            margin: 0; 
-            padding: 20px; 
-            line-height: 1.6; 
-        }
-        .main-wrapper { 
-            max-width: 800px; 
-            margin: auto; 
-            background: #111; 
-            padding: 35px; 
-            border-radius: 20px; 
-            border: 1px solid #333; 
-        }
-        
-        .full-text-description { 
-            text-align: left; 
-            color: #ececec; 
-            white-space: pre-line; 
-            margin-bottom: 40px; 
-        }
-        .header-section {
-            color: #ff9800; 
-            text-transform: uppercase; 
-            letter-spacing: 2px; 
-            font-weight: bold; 
-            margin-top: 25px; 
-            display: block; 
-            border-bottom: 1px solid #333; 
-            padding-bottom: 5px;
-        }
-        
-        .login-container { 
-            background: #1a1a1a; 
-            padding: 30px; 
-            border-radius: 15px; 
-            border: 1px solid #444; 
-            margin-top: 40px; 
-            text-align: center; 
-        }
-        .google-button-flex { 
-            display: flex; 
-            justify-content: center; 
-            margin-top: 20px; 
-        }
-        
-        .success-banner { 
-            color: #4caf50; 
-            font-weight: bold; 
-            margin-top: 20px; 
-            display: none; 
-            padding: 15px;
-            border: 2px solid #4caf50;
-            border-radius: 8px;
-            background: rgba(76, 175, 80, 0.1);
-        }
+        body { background: #000; color: #fff; font-family: sans-serif; margin: 0; padding: 20px; line-height: 1.6; }
+        .wrapper { max-width: 800px; margin: auto; background: #111; padding: 30px; border-radius: 20px; border: 1px solid #333; }
+        .full-description { text-align: left; white-space: pre-line; color: #ddd; margin-bottom: 30px; }
+        .header-section { color: #ff9800; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #333; display: block; margin-top: 20px; }
+        .login-box { background: #1a1a1a; padding: 25px; border-radius: 15px; text-align: center; border: 1px solid #444; }
     </style>
 </head>
 <body>
 
-    <div class="main-wrapper">
-        
-        <div id="landing-page">
-            <h1 style="text-align: center; margin-bottom: 10px;">PROFIL PRIBADI</h1>
-            <p style="text-align: center; color: #888; letter-spacing: 5px;">PUBLIC RELATIONS</p>
-            
-            <div class="full-text-description">
+<div class="wrapper">
+    <h1>PROFIL PRIBADI</h1>
+    <div class="full-description">
 Perkenalkan, nama saya Gibran. Saya merupakan mahasiswa Hubungan Masyarakat (Humas) di LP3I Kramat Raya. Saya memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring, dengan masa kerja selama satu bulan. Setelah itu saya belum bekerja lagi dan sedang fokus mengembangkan diri, keterampilan, serta portofolio pribadi.
 
 Saya adalah pribadi yang disiplin, cepat beradaptasi, serta mau belajar hal baru. Dalam keseharian, saya senang melakukan aktivitas positif, salah satunya bermain futsal yang menjadi hobi saya sejak lama.
@@ -98,62 +38,25 @@ Menjadi individu yang mampu berkontribusi secara maksimal, bekerja dengan penuh 
 
 <span class="header-section">Misi</span>
 Membangun hubungan kerja yang positif dan profesional demi mendukung perkembangan perusahaan.
-
 Mengembangkan pengetahuan dan keterampilan agar dapat memberikan hasil kerja yang kompeten.
-
 Berperan aktif dalam setiap tugas yang diberikan untuk meningkatkan efisiensi dan kualitas kerja tim.
-
 Menjaga integritas, disiplin, dan komitmen dalam setiap proses pekerjaan.
-            </div>
-
-            <div class="login-container">
-                <h2 style="margin-top: 0;">Login Melalui Akun Google</h2>
-                <p style="color: #aaa;">Klik tombol di bawah untuk masuk ke daftar.</p>
-                
-                <div class="google-button-flex">
-                    <div id="g_id_onload"
-                        data-client_id="594310366887-36qn9gvajo1335snmlrta7tdh9lgofre.apps.googleusercontent.com"
-                        data-callback="handleCredentialResponse">
-                    </div>
-                    <div class="g_id_signin" data-type="standard"></div>
-                </div>
-
-                <div id="success-status" class="success-banner">
-                    ✅ LOGIN BERHASIL!<br>Data Anda (Nama & Email) sudah terkirim ke Google Sheets "daftar".
-                </div>
-            </div>
-        </div>
-
     </div>
 
-    <script>
-        function handleCredentialResponse(response) {
-            // Decode Profil User dari Google Login
-            const responsePayload = JSON.parse(atob(response.credential.split('.')[1]));
-            
-            // LINK SCRIPT LO YANG SUDAH JADI
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbwAJNFRiwXPnaZUzhrBOfxz-4V75772gZNvP8FNwXoH740UY-8ndAh6VvCOEv0po6NLWg/exec';
+    <div class="login-box">
+        <h3>Login Google untuk Masuk Dashboard</h3>
+        <div id="g_id_onload" 
+             data-client_id="594310366887-36qn9gvajo1335snmlrta7tdh9lgofre.apps.googleusercontent.com" 
+             data-callback="handleLogin"></div>
+        <div style="display:flex; justify-content:center; margin-top:15px;" class="g_id_signin" data-type="standard"></div>
+    </div>
+</div>
 
-            // Proses kirim data ke Google Sheets
-            fetch(scriptURL, {
-                method: 'POST',
-                mode: 'no-cors', 
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    name: responsePayload.name,
-                    email: responsePayload.email,
-                    tanggal: new Date().toLocaleString('id-ID')
-                })
-            })
-            .then(() => {
-                // Munculkan notifikasi sukses
-                document.getElementById('success-status').style.display = 'block';
-                alert("Halo " + responsePayload.name + ", data lo udah masuk ke Sheets!");
-            })
-            .catch(error => {
-                alert("Waduh, gagal kirim ke Sheets. Cek koneksi atau script lo!");
-            });
-        }
-    </script>
+<script>
+    function handleLogin(response) {
+        // Setelah login sukses, langsung lempar ke dashboard.html
+        window.location.href = "dashboard.html";
+    }
+</script>
 </body>
 </html>
