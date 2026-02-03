@@ -7,67 +7,94 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         :root { --primary: #38bdf8; --bg: #0f172a; --card: #1e293b; --text: #f8fafc; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; justify-content: center; }
-        .container { max-width: 600px; width: 100%; background: var(--card); padding: 30px; border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
-        .banner { width: 100%; padding: 20px 0; background: linear-gradient(135deg, #0ea5e9, #6366f1); border-radius: 15px; margin-bottom: 25px; }
-        #clock { font-size: 2.5em; font-weight: bold; }
-        .form-box { background: #0f172a; padding: 20px; border-radius: 15px; margin-top: 25px; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #334155; background: #1e293b; color: white; box-sizing: border-box; }
-        .btn-ig { display: block; background: #E1306C; color: white; text-decoration: none; padding: 12px; border-radius: 8px; font-weight: bold; margin-bottom: 20px; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
+        .container { max-width: 500px; width: 90%; background: var(--card); padding: 40px; border-radius: 25px; text-align: center; box-shadow: 0 15px 50px rgba(0,0,0,0.6); border: 1px solid #334155; }
+        
+        /* Animasi Transisi */
+        #login-box, #dashboard-box { transition: all 0.5s ease; }
+        #dashboard-box { display: none; }
+
+        .banner { width: 100%; padding: 25px 0; background: linear-gradient(135deg, #0ea5e9, #6366f1); border-radius: 20px; margin-bottom: 30px; }
+        #clock { font-size: 3em; font-weight: bold; text-shadow: 2px 2px 10px rgba(0,0,0,0.3); }
+        
+        .welcome-text { font-size: 1.2em; color: var(--primary); font-weight: 600; margin-bottom: 10px; }
+        .empty-dash { border: 2px dashed #475569; padding: 60px 20px; border-radius: 15px; color: #94a3b8; margin: 20px 0; }
+        
+        .btn-logout { background: #ef4444; color: white; border: none; padding: 12px 25px; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn-logout:hover { background: #dc2626; transform: scale(1.05); }
+        
+        .loading-dots:after { content: ' .'; animation: dots 1s steps(5, end) infinite;}
+        @keyframes dots { 0%, 20% { color: rgba(0,0,0,0); text-shadow: .2em 0 0 rgba(0,0,0,0), .4em 0 0 rgba(0,0,0,0); } 40% { color: var(--primary); text-shadow: .2em 0 0 rgba(0,0,0,0), .4em 0 0 rgba(0,0,0,0); } 60% { text-shadow: .2em 0 0 var(--primary), .4em 0 0 rgba(0,0,0,0); } 80%, 100% { text-shadow: .2em 0 0 var(--primary), .4em 0 0 var(--primary); } }
     </style>
 </head>
-<body onload="setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString('id-ID') }, 1000)">
+<body>
 
-<div class="container">
+<div id="login-box" class="container">
+    <div class="banner">
+        <h2 style="margin:0;">GIBRAN PORTFOLIO</h2>
+        <p style="opacity: 0.9; font-size: 14px;">Secure Dashboard Access</p>
+    </div>
+    
+    <p class="welcome-text">Silakan Masuk</p>
+    <p style="font-size: 14px; color: #94a3b8; margin-bottom: 30px;">Gunakan akun Google untuk verifikasi data ke sheet <b>daftar</b></p>
+
+    <div style="display: flex; justify-content: center;">
+        <div id="g_id_onload"
+             data-client_id="594310366887-8b30jrckuekb2do01g1b9kl29lh3l9j6.apps.googleusercontent.com"
+             data-context="signin"
+             data-ux_mode="popup"
+             data-callback="handleCredentialResponse"
+             data-auto_prompt="false">
+        </div>
+        <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="filled_blue" data-size="large" data-text="signin_with"></div>
+    </div>
+    <p id="status" style="margin-top: 20px; font-size: 13px; min-height: 20px;"></p>
+</div>
+
+<div id="dashboard-box" class="container">
     <div class="banner">
         <div id="clock">00:00:00</div>
-        <div style="font-size: 14px;">Dashboard M Muhammad Gibran</div>
+        <p style="margin: 5px 0 0 0; font-weight: bold;">SIT DASHBOARD AKTIF</p>
     </div>
 
-    <div style="text-align: left; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
-        <h3 style="margin-top:0; color:var(--primary);">Tentang Saya</h3>
-        <p style="font-size: 14px; line-height: 1.6;">Mahasiswa Humas LP3I Kramat Raya. Ahli Desain Grafis & Video Editing.</p>
+    <div class="empty-dash">
+        <p>👋 Halo! Kamu berhasil masuk.</p>
+        <p style="font-size: 12px; margin-top: 10px;">Data login kamu telah dikirim ke Google Sheet (Sheet: daftar).</p>
+        <p style="font-size: 14px; color: var(--primary); margin-top: 20px;">[ Konten Dashboard Kosongan ]</p>
     </div>
 
-    <a href="https://www.instagram.com/mgibran4184" target="_blank" class="btn-ig">Instagram @mgibran4184</a>
-
-    <div class="form-box">
-        <h3>Daftar & Login</h3>
-        <input type="text" id="nama_user" placeholder="Nama Lengkap">
-        <input type="text" id="hp_user" placeholder="Nomor HP">
-
-        <div style="display: flex; justify-content: center; margin-top: 15px;">
-            <div id="g_id_onload"
-                 data-client_id="594310366887-8b30jrckuekb2do01g1b9kl29lh3l9j6.apps.googleusercontent.com"
-                 data-context="signin"
-                 data-ux_mode="popup"
-                 data-callback="onSignIn"
-                 data-auto_prompt="false">
-            </div>
-            <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="filled_blue"></div>
-        </div>
-    </div>
+    <button class="btn-logout" onclick="location.reload()">LOGOUT</button>
 </div>
 
 <script>
-    function onSignIn(response) {
-        const nama = document.getElementById('nama_user').value;
-        const hp = document.getElementById('hp_user').value;
-        const scriptURL = "https://script.google.com/macros/s/AKfycbxKEOo-zMfL_P_LPSuWi6pb2Hn552FITOY9AUNc3QilSFdeps-A97TXljweDllEy7iCLQ/exec";
+    // Jalankan Jam
+    setInterval(() => {
+        const clockEl = document.getElementById('clock');
+        if(clockEl) clockEl.innerText = new Date().toLocaleTimeString('id-ID');
+    }, 1000);
 
-        if(!nama || !hp) {
-            alert("Isi Nama dan HP dulu bosku!");
-            return;
-        }
+    // Fungsi Saat Google Berhasil Login
+    function handleCredentialResponse(response) {
+        const statusEl = document.getElementById('status');
+        statusEl.className = "loading-dots";
+        statusEl.innerText = "Mengirim data ke Sheet daftar";
 
-        // Kirim data ke Google Sheets
-        fetch(scriptURL + "?nama=" + encodeURIComponent(nama) + "&hp=" + encodeURIComponent(hp))
-        .then(res => res.text())
-        .then(data => {
-            alert("Mantap! Data berhasil masuk ke Sheet.");
-            window.location.reload();
+        // LINK APPS SCRIPT BARU KAMU
+        const scriptURL = "https://script.google.com/macros/s/AKfycbwCZnpxtHpRv3NyX3xA1YkAlQcUO9KE-Ilf0Uz_5dB2vxLcK57lKxa_A7drSlEY4J6hWg/exec";
+
+        // Kirim sinyal ke Apps Script (nama & hp otomatis)
+        fetch(scriptURL + "?nama=User_Google&hp=Aktif")
+        .then(() => {
+            // Pindah ke Halaman Dashboard
+            document.getElementById('login-box').style.display = 'none';
+            document.getElementById('dashboard-box').style.display = 'block';
         })
-        .catch(err => alert("Gagal kirim: " + err));
+        .catch(err => {
+            console.error("Gagal lapor ke sheet:", err);
+            // Tetap masuk dashboard walau fetch gagal
+            document.getElementById('login-box').style.display = 'none';
+            document.getElementById('dashboard-box').style.display = 'block';
+        });
     }
 </script>
 
