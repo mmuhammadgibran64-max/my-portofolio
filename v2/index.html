@@ -6,17 +6,17 @@
     <title>Portofolio Gibran v2</title>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
-        body { background: #000; color: #fff; font-family: sans-serif; margin: 0; padding: 20px; line-height: 1.6; }
-        .wrapper { max-width: 800px; margin: auto; background: #111; padding: 30px; border-radius: 20px; border: 1px solid #333; }
-        .full-description { text-align: left; white-space: pre-line; color: #ddd; margin-bottom: 30px; }
-        .header-section { color: #ff9800; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #333; display: block; margin-top: 20px; }
-        .login-box { background: #1a1a1a; padding: 25px; border-radius: 15px; text-align: center; border: 1px solid #444; }
+        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; line-height: 1.6; }
+        .wrapper { max-width: 800px; margin: auto; background: #111; padding: 35px; border-radius: 20px; border: 1px solid #333; }
+        .full-description { text-align: left; white-space: pre-line; color: #ececec; margin-bottom: 35px; }
+        .header-section { color: #ff9800; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #333; display: block; margin-top: 25px; padding-bottom: 5px; }
+        .login-box { background: #1a1a1a; padding: 30px; border-radius: 15px; text-align: center; border: 1px solid #444; margin-top: 40px; }
     </style>
 </head>
 <body>
 
 <div class="wrapper">
-    <h1>PROFIL PRIBADI</h1>
+    <h1 style="text-align: center;">PROFIL PRIBADI</h1>
     <div class="full-description">
 Perkenalkan, nama saya Gibran. Saya merupakan mahasiswa Hubungan Masyarakat (Humas) di LP3I Kramat Raya. Saya memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring, dengan masa kerja selama satu bulan. Setelah itu saya belum bekerja lagi dan sedang fokus mengembangkan diri, keterampilan, serta portofolio pribadi.
 
@@ -44,7 +44,7 @@ Menjaga integritas, disiplin, dan komitmen dalam setiap proses pekerjaan.
     </div>
 
     <div class="login-box">
-        <h3>Login Google untuk Masuk Dashboard</h3>
+        <h3>Login Google untuk Kelola Dashboard</h3>
         <div id="g_id_onload" 
              data-client_id="594310366887-36qn9gvajo1335snmlrta7tdh9lgofre.apps.googleusercontent.com" 
              data-callback="handleLogin"></div>
@@ -54,8 +54,17 @@ Menjaga integritas, disiplin, dan komitmen dalam setiap proses pekerjaan.
 
 <script>
     function handleLogin(response) {
-        // Setelah login sukses, langsung lempar ke dashboard.html
-        window.location.href = "dashboard.html";
+        // Link Apps Script lo tadi (masukin lagi di sini biar data tetep masuk sheet)
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwAJNFRiwXPnaZUzhrBOfxz-4V75772gZNvP8FNwXoH740UY-8ndAh6VvCOEv0po6NLWg/exec';
+        const payload = JSON.parse(atob(response.credential.split('.')[1]));
+
+        fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: JSON.stringify({ name: payload.name, email: payload.email, tanggal: new Date().toLocaleString() })
+        }).then(() => {
+            window.location.href = "dashboard.html"; // Pindah ke Dashboard setelah login
+        });
     }
 </script>
 </body>
