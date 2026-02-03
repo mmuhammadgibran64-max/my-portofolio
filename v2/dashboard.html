@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Utama - Gibran</title>
+    <title>Dashboard Kosongan - Gibran</title>
     <style>
         body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; }
         .container { max-width: 900px; margin: auto; }
@@ -15,78 +15,97 @@
         .btn { padding: 12px 20px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; margin-top: 10px; }
         .btn-orange { background: #ff9800; color: #000; }
         .btn-gray { background: #333; color: white; border: 1px solid #555; }
+        .btn-orange:hover { background: #e68a00; }
         input, textarea, select { width: 100%; padding: 12px; margin-top: 8px; margin-bottom: 15px; background: #000; border: 1px solid #444; color: #fff; border-radius: 8px; box-sizing: border-box; }
-        .inbox-item { background: #1a1a1a; padding: 15px; border-radius: 10px; border: 1px solid #333; margin-top: 10px; }
+        .placeholder-text { color: #666; font-style: italic; text-align: center; }
     </style>
 </head>
 <body>
     <div class="container">
         <button class="btn" style="background: transparent; color: #888; border: 1px solid #333; width: auto;" onclick="window.location.href='index.html'">🏠 Balik ke Website Utama</button>
+        
         <div id="clock">00:00:00</div>
+        <h1 style="text-align: center; color: #ff9800;">[ Dashboard Kosongan - Siap Diisi ]</h1>
 
-        <h2>Analitik Proyek</h2>
         <div class="stats-grid">
-            <div class="stat-card"><h4>Total Visitors</h4><p>1,240</p></div>
-            <div class="stat-card"><h4>Top Project</h4><p style="font-size:14px">Futsal Highlight</p></div>
-            <div class="stat-card"><h4>Pesan Masuk</h4><p>3</p></div>
+            <div class="stat-card"><h4>Total Visitors</h4><p id="visitorCount">0</p></div>
+            <div class="stat-card"><h4>Proyek Aktif</h4><p id="activeProjects">0</p></div>
+            <div class="stat-card"><h4>Pesan Baru</h4><p id="messageCount">0</p></div>
         </div>
 
         <div class="card">
-            <h2>1. Upload Proyek Baru</h2>
+            <h2>🚀 Upload Konten Baru</h2>
+            <input type="text" id="projTitle" placeholder="Judul Proyek/Konten">
             <input type="file" id="fileInput">
-            <label>Status Proyek:</label>
-            <select id="projStatus"><option value="Publish">🚀 Publish</option><option value="Draft">📁 Draft</option></select>
-            <button class="btn btn-orange" onclick="uploadData()">Upload & Simpan ke Galeri</button>
+            <label>Kategori/Status:</label>
+            <select id="projStatus">
+                <option value="Publish">🚀 Publish</option>
+                <option value="Draft">📁 Draft</option>
+                <option value="Arsip">📦 Arsip</option>
+            </select>
+            <button class="btn btn-orange" onclick="uploadData()">Simpan ke Database</button>
         </div>
 
         <div class="card">
-            <h2>2. Skill & Experience Editor</h2>
-            <textarea placeholder="Update Skill (Contoh: Gitar, Futsal, PR)..."></textarea>
-            <button class="btn btn-orange">Update CV</button>
+            <h2>✍️ Update Informasi Bio</h2>
+            <textarea rows="4" placeholder="Tuliskan skill atau pengalaman baru di sini..."></textarea>
+            <button class="btn btn-orange">Perbarui Profil</button>
         </div>
 
         <div class="card">
-            <h2>3. Contact / Inbox</h2>
-            <div class="inbox-item">
-                <strong>Andi - Client</strong><br>
-                <small>"Gibran, bisa bantu PR untuk brand saya?"</small>
+            <h2>📥 Pesan & Aktivitas Terbaru</h2>
+            <div id="activityLog" class="placeholder-text">
+                Belum ada aktivitas atau pesan masuk.
             </div>
         </div>
 
-        <div class="card">
-            <h2>4. Settings</h2>
-            <input type="text" placeholder="Ganti Judul Website">
-            <input type="text" placeholder="URL Foto Profil">
-            <button class="btn btn-orange">Simpan Pengaturan</button>
-        </div>
-
-        <button class="btn btn-gray" onclick="window.location.href='terpisah.html'">Buka Dashboard Galeri Terpisah ⮕</button>
+        <button class="btn btn-gray" onclick="window.location.href='terpisah.html'">Lihat Galeri Hasil Upload ⮕</button>
     </div>
 
     <script>
-        setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000);
+        // Update Jam Real-time
+        setInterval(() => { 
+            document.getElementById('clock').innerText = new Date().toLocaleTimeString(); 
+        }, 1000);
 
+        // Fungsi Upload Data
         function uploadData() {
+            const title = document.getElementById('projTitle').value;
             const input = document.getElementById('fileInput');
             const status = document.getElementById('projStatus').value;
-            if (!input.files[0]) return alert("Pilih file dulu, Bran!");
+
+            if (!title) return alert("Isi judulnya dulu, Bran!");
+            if (!input.files[0]) return alert("Pilih filenya jangan lupa!");
 
             const file = input.files[0];
             const reader = new FileReader();
+
             reader.onload = function(e) {
                 let storage = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
-                storage.push({
-                    name: file.name,
+                
+                const newData = {
+                    id: Date.now(),
+                    title: title,
+                    fileName: file.name,
                     size: (file.size / 1024).toFixed(1) + " KB",
                     status: status,
                     content: e.target.result,
                     time: new Date().toLocaleString()
-                });
+                };
+
+                storage.push(newData);
                 localStorage.setItem('gibran_gallery', JSON.stringify(storage));
-                alert("Sip! Berhasil dikirim ke Galeri Terpisah.");
-                window.location.href = 'terpisah.html';
+                
+                alert("Mantap! Data '" + title + "' sudah tersimpan.");
+                window.location.reload(); // Refresh untuk update counter (opsional)
             };
             reader.readAsDataURL(file);
+        }
+
+        // Script sederhana untuk hitung data di localStorage
+        window.onload = function() {
+            let storage = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
+            document.getElementById('activeProjects').innerText = storage.length;
         }
     </script>
 </body>
