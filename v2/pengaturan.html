@@ -5,194 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pengaturan Sistem - Gibran</title>
     <style>
-        :root {
-            --bg-color: #000000;
-            --card-bg: #111111;
-            --text-color: #ffffff;
-            --accent-color: #ff9800;
-            --border-color: #333333;
-        }
-
-        .light-mode {
-            --bg-color: #f0f0f0;
-            --card-bg: #ffffff;
-            --text-color: #000000;
-            --accent-color: #e67e22;
-            --border-color: #dddddd;
-        }
-
-        body { 
-            background-color: var(--bg-color); 
-            color: var(--text-color); 
-            font-family: 'Segoe UI', sans-serif; 
-            margin: 0; padding: 20px; 
-            transition: 0.3s;
-        }
-
-        .container { max-width: 900px; margin: auto; }
-        
-        .card { 
-            background-color: var(--card-bg); 
-            padding: 25px; 
-            border-radius: 15px; 
-            border: 1px solid var(--border-color); 
-            margin-bottom: 20px; 
-        }
-
-        h2 { border-left: 5px solid var(--accent-color); padding-left: 15px; text-transform: uppercase; font-size: 18px; }
-
-        .btn { 
-            padding: 12px 20px; border-radius: 8px; border: none; cursor: pointer; 
-            font-weight: bold; transition: 0.3s; margin: 5px 0; width: 100%;
-        }
-
-        .btn-accent { background-color: var(--accent-color); color: #000; }
-        .btn-mode { background-color: #555; color: #fff; width: auto; }
-
-        /* Simulator Tampilan */
-        .device-preview {
-            display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;
-        }
-        .btn-device { background: #333; color: #fff; padding: 10px; flex: 1; min-width: 80px; border: 1px solid #555; cursor: pointer; border-radius: 5px; }
-        .btn-device.active { background: var(--accent-color); color: #000; }
-
-        #preview-frame {
-            width: 100%; height: 300px; border: 2px dashed var(--accent-color); 
-            margin-top: 15px; display: flex; align-items: center; justify-content: center;
-            overflow: hidden; transition: 0.5s; background: #222;
-        }
-
-        /* Foto Profil */
-        .profile-upload { display: flex; align-items: center; gap: 20px; }
-        #profile-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent-color); }
-
-        /* Tracker */
-        #tracker-info { font-family: monospace; font-size: 13px; color: #00ff00; background: #000; padding: 15px; border-radius: 8px; }
+        :root { --bg: #000; --card: #111; --text: #fff; --accent: #ff9800; --border: #333; }
+        .light-mode { --bg: #f4f4f4; --card: #fff; --text: #000; --accent: #e67e22; --border: #ddd; }
+        body { background: var(--bg); color: var(--text); font-family: sans-serif; margin: 0; padding: 20px; transition: 0.3s; }
+        .container { max-width: 800px; margin: auto; }
+        .card { background: var(--card); padding: 20px; border-radius: 15px; border: 1px solid var(--border); margin-bottom: 20px; }
+        h2 { border-left: 5px solid var(--accent); padding-left: 15px; font-size: 18px; }
+        .btn { padding: 12px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; width: 100%; margin: 5px 0; }
+        .btn-accent { background: var(--accent); color: #000; }
+        .btn-dark { background: #333; color: #fff; width: auto; }
+        #tracker-info { font-family: monospace; background: #000; color: #0f0; padding: 15px; border-radius: 8px; font-size: 12px; margin-top: 10px; }
+        .device-preview { display: flex; gap: 10px; margin-bottom: 10px; }
+        .btn-dev { flex: 1; padding: 10px; background: #222; color: #fff; border: 1px solid #444; cursor: pointer; border-radius: 5px; }
+        .btn-dev.active { background: var(--accent); color: #000; }
+        #preview-box { width: 100%; height: 200px; border: 2px dashed var(--accent); display: flex; align-items: center; justify-content: center; background: #1a1a1a; margin-top: 10px; transition: 0.5s; }
     </style>
 </head>
 <body>
-
 <div class="container">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-        <button class="btn btn-mode" onclick="window.location.href='dashboard.html'">⬅ Back to Dashboard</button>
-        <button class="btn btn-mode" onclick="toggleTheme()" id="theme-btn">🌙 Mode Gelap</button>
+    <div style="display: flex; justify-content: space-between;">
+        <button class="btn-dark" onclick="window.location.href='index.html'">🏠 Home</button>
+        <button class="btn-dark" onclick="toggleTheme()" id="themeBtn">🌙 Mode Gelap</button>
     </div>
 
-    <h1 style="text-align: center;">PENGATURAN SISTEM</h1>
+    <h1 style="text-align: center;">PENGATURAN</h1>
 
     <div class="card">
         <h2>Logo & Foto Profil</h2>
-        <div class="profile-upload">
-            <img id="profile-img" src="https://via.placeholder.com/80" alt="Profile">
-            <div style="flex: 1;">
-                <input type="file" id="upload-photo" accept="image/*" onchange="previewPhoto(event)">
-                <p style="font-size: 12px; color: #888;">Ganti foto profil atau logo website kamu di sini.</p>
-            </div>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <img id="prof-img" src="https://via.placeholder.com/80" style="width:80px; height:80px; border-radius:50%; border:2px solid var(--accent);">
+            <input type="file" accept="image/*" onchange="changePhoto(event)">
         </div>
     </div>
 
     <div class="card">
-        <h2>Sistem Website: Pelacak Pengunjung</h2>
-        <p style="font-size: 13px;">Data ini melacak lokasi orang yang sedang membuka website kamu.</p>
-        <div id="tracker-info">
-            Memuat data pelacakan...
-        </div>
-        <button class="btn btn-accent" style="margin-top:10px;" onclick="trackUser()">Refresh Data Lokasi</button>
+        <h2>Sistem: Pelacak Pengunjung</h2>
+        <div id="tracker-info">Mendeteksi lokasi...</div>
+        <button class="btn btn-accent" onclick="trackUser()">Refresh Lokasi</button>
     </div>
 
     <div class="card">
-        <h2>Simulasi Tampilan Perangkat</h2>
-        <p style="font-size: 13px;">Cek bagaimana website kamu terlihat di perangkat berbeda:</p>
+        <h2>Simulator Perangkat</h2>
         <div class="device-preview">
-            <button class="btn-device" onclick="resizePreview('375px', 'HP')">HP</button>
-            <button class="btn-device" onclick="resizePreview('768px', 'iPad')">iPad</button>
-            <button class="btn-device active" onclick="resizePreview('100%;', 'Desktop')">Desktop</button>
+            <button class="btn-dev" onclick="setV('375px', 'HP')">HP</button>
+            <button class="btn-dev" onclick="setV('600px', 'iPad')">iPad</button>
+            <button class="btn-dev active" onclick="setV('100%', 'Desktop')">Desktop</button>
         </div>
-        <div id="preview-frame">
-            <div id="preview-text">Tampilan: Desktop (100%)</div>
-        </div>
+        <div id="preview-box">Preview: Desktop</div>
     </div>
 
-    <div class="card">
-        <h2>Otomatisasi Sistem</h2>
-        <label>Maintenance Mode:</label>
-        <select class="btn" style="background: #222; color: #fff; text-align: left;">
-            <option>Non-Aktif (Website Jalan)</option>
-            <option>Aktif (Website Sedang Diperbaiki)</option>
-        </select>
-        <button class="btn btn-accent">Simpan Semua Perubahan</button>
-    </div>
-
-    <button class="btn btn-mode" style="width:100%;" onclick="window.location.href='index.html'">🏠 Balik ke Website Utama</button>
+    <button class="btn btn-accent" onclick="window.location.href='dashboard.html'">Masuk ke Dashboard Utama ⮕</button>
 </div>
 
 <script>
-    // 1. TEMA GELAP/TERANG
     function toggleTheme() {
-        const body = document.body;
-        const btn = document.getElementById('theme-btn');
-        body.classList.toggle('light-mode');
-        if (body.classList.contains('light-mode')) {
-            btn.innerText = "☀️ Mode Terang";
-        } else {
-            btn.innerText = "🌙 Mode Gelap";
-        }
+        document.body.classList.toggle('light-mode');
+        document.getElementById('themeBtn').innerText = document.body.classList.contains('light-mode') ? "☀️ Mode Terang" : "🌙 Mode Gelap";
     }
 
-    // 2. PREVIEW FOTO PROFIL
-    function previewPhoto(event) {
+    function changePhoto(e) {
         const reader = new FileReader();
-        reader.onload = function() {
-            const output = document.getElementById('profile-img');
-            output.src = reader.result;
-            // Simpan ke LocalStorage agar tidak hilang saat refresh
-            localStorage.setItem('gibran_profile_photo', reader.result);
-        };
-        reader.readAsDataURL(event.target.files[0]);
+        reader.onload = () => { document.getElementById('prof-img').src = reader.result; };
+        reader.readAsDataURL(e.target.files[0]);
     }
 
-    // 3. TRACKER LOKASI (Menggunakan ipapi.co)
     function trackUser() {
-        const info = document.getElementById('tracker-info');
-        info.innerHTML = "Melacak Lokasi...";
-        
-        fetch('https://ipapi.co/json/')
-            .then(res => res.json())
-            .then(data => {
-                info.innerHTML = `
-                    🌐 IP ADDRESS: ${data.ip}<br>
-                    📍 LOKASI: ${data.city}, ${data.region}, ${data.country_name}<br>
-                    🏢 PROVIDER: ${data.org}<br>
-                    🗺️ KOORDINAT: ${data.latitude}, ${data.longitude}<br>
-                    🕒 TIMEZONE: ${data.timezone}
-                `;
-            })
-            .catch(err => {
-                info.innerHTML = "Gagal melacak lokasi. Pastikan tidak ada AdBlock.";
-            });
-    }
-
-    // 4. SIMULATOR PERANGKAT
-    function resizePreview(width, label) {
-        const frame = document.getElementById('preview-frame');
-        const text = document.getElementById('preview-text');
-        frame.style.width = width;
-        frame.style.margin = "15px auto";
-        text.innerText = "Tampilan: " + label + " (" + width + ")";
-        
-        // Update active button
-        document.querySelectorAll('.btn-device').forEach(btn => {
-            btn.classList.toggle('active', btn.innerText === label);
+        fetch('https://ipapi.co/json/').then(res => res.json()).then(data => {
+            document.getElementById('tracker-info').innerHTML = `IP: ${data.ip}<br>Lokasi: ${data.city}, ${data.country_name}<br>Koordinat: ${data.latitude}, ${data.longitude}`;
         });
     }
 
-    // Load Data saat Startup
-    window.onload = function() {
-        trackUser();
-        const savedPhoto = localStorage.getItem('gibran_profile_photo');
-        if (savedPhoto) document.getElementById('profile-img').src = savedPhoto;
-    };
-</script>
+    function setV(w, label) {
+        const box = document.getElementById('preview-box');
+        box.style.width = w; box.style.margin = "auto";
+        box.innerText = "Preview: " + label;
+        document.querySelectorAll('.btn-dev').forEach(b => b.classList.toggle('active', b.innerText === label));
+    }
 
+    window.onload = trackUser;
+</script>
 </body>
 </html>
