@@ -3,126 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M. Muhammad Gibran - Portofolio v2</title>
-
+    <title>Portofolio Gibran v2</title>
     <style>
-        /* RESET & DASAR */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background-color: #000; 
-            color: #ffffff; 
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-            text-align: center; 
-            padding: 60px 20px;
-        }
-
-        /* HEADER */
-        .identity-text { 
-            color: #888; 
-            letter-spacing: 4px; 
-            font-size: 14px; 
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-        .main-name { 
-            font-size: 32px; 
-            font-weight: bold; 
-            margin-bottom: 40px; 
-        }
-
-        /* NAVIGASI MENU (FOKUS UTAMA) */
-        .navigation-group { 
-            display: flex; 
-            gap: 15px; 
-            justify-content: center; 
-            align-items: center; 
-            flex-wrap: wrap; 
-            margin-bottom: 30px;
-        }
-
-        /* STYLE TOMBOL BIASA */
-        .btn-menu { 
-            padding: 12px 25px; 
-            border-radius: 12px; 
-            border: 1px solid #333; 
-            background: #1a1a1a; 
-            color: white; 
-            font-weight: bold; 
-            cursor: pointer; 
-            transition: all 0.3s ease;
-            text-decoration: none;
-            font-size: 15px;
-        }
-        .btn-menu:hover { 
-            background: #222; 
-            border-color: #555;
-            transform: translateY(-2px);
-        }
-
-        /* STYLE KHUSUS TOMBOL TOKO ONLINE (MENYALA) */
-        .btn-shop { 
-            background: linear-gradient(135deg, #ff9800, #f44336); 
-            border: none; 
-            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4); 
-        }
-        .btn-shop:hover { 
-            box-shadow: 0 6px 20px rgba(255, 152, 0, 0.6);
-            transform: translateY(-3px) scale(1.02);
-        }
-
-        /* AREA KONTEN */
-        .content-section { 
-            display: none; 
-            max-width: 700px; 
-            margin: 40px auto; 
-            padding: 30px; 
-            background: #111; 
-            border-radius: 20px; 
-            border: 1px solid #222; 
-            line-height: 1.6;
-        }
+        * { box-sizing: border-box; }
+        body { background-color: #000; color: #fff; font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 20px; }
+        .wrapper { max-width: 850px; margin: auto; background: #111; padding: 35px; border-radius: 20px; border: 1px solid #333; }
+        
+        /* Gaya Teks Deskripsi */
+        .full-description { text-align: left; line-height: 1.8; color: #ececec; margin-bottom: 40px; }
+        .section-title { color: #ff9800; border-bottom: 1px solid #444; padding-bottom: 5px; margin-top: 30px; text-transform: uppercase; letter-spacing: 1px; }
+        
+        /* Form Pendaftaran */
+        .reg-box { background: #1a1a1a; padding: 25px; border-radius: 15px; border: 1px solid #444; margin-top: 40px; }
+        input { padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #555; background: #000; color: #fff; width: 100%; font-size: 16px; }
+        .btn-action { padding: 15px 30px; border-radius: 10px; border: none; background: linear-gradient(135deg, #ff9800, #f44336); color: white; cursor: pointer; font-weight: bold; font-size: 16px; width: 100%; transition: 0.3s; }
+        
+        /* Dashboard Area */
+        .hidden { display: none; }
+        .banner { width: 100%; height: 200px; background: #222; border-radius: 15px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; border: 1px dashed #555; position: relative; overflow: hidden; }
+        #clock { font-size: 32px; font-weight: bold; color: #ff9800; margin: 20px 0; font-family: monospace; }
+        .skill-item { background: #1a1a1a; padding: 20px; margin: 15px 0; border-radius: 12px; border-left: 6px solid #f44336; text-align: left; }
     </style>
 </head>
 <body>
 
-    <div class="identity-text">Public Relations</div>
-    <div class="main-name">M. MUHAMMAD GIBRAN</div>
+    <div class="wrapper" id="main-content">
+        
+        <div id="intro-section">
+            <h3 style="color: #888; letter-spacing: 4px; text-align: center;">PUBLIC RELATIONS</h3>
+            <h1 style="text-align: center;">PROFIL PRIBADI</h1>
+            <hr style="border: 0.5px solid #333; margin: 20px 0;">
 
-    <div class="navigation-group">
-        <button class="btn-menu" onclick="showSection('dashboard')">Dashboard</button>
+            <div class="full-description">
+                Perkenalkan, nama saya Gibran. Saya merupakan mahasiswa Hubungan Masyarakat (Humas) di LP3I Kramat Raya. Saya memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring, dengan masa kerja selama satu bulan. Setelah itu saya belum bekerja lagi dan sedang fokus mengembangkan diri, keterampilan, serta portofolio pribadi.
+                <br><br>
+                Saya adalah pribadi yang disiplin, cepat beradaptasi, serta mau belajar hal baru. Dalam keseharian, saya senang melakukan aktivitas positif, salah satunya bermain futsal yang menjadi hobi saya sejak lama.
+                <br><br>
+                Dengan latar belakang Humas dan pengalaman di lapangan, saya siap berkontribusi dalam pekerjaan atau proyek yang membutuhkan komunikasi, kedisiplinan, dan kemampuan analisis dasar.
 
-        <button class="btn-menu" onclick="showSection('settings')">Pengaturan</button>
+                <h2 class="section-title">Keahlian</h2>
+                <strong>Bermain Gitar</strong> — Mampu memainkan beberapa genre musik, memahami chord dasar hingga intermediate, serta dapat mengiringi lagu acoustic dengan baik.
+                <br><br>
+                <strong>Futsal</strong> — Memiliki kemampuan kontrol bola yang baik, cepat dalam pengambilan keputusan, dan mampu bekerja sama dalam tim sebagai pemain bertahan maupun penyerang.
 
-        <a href="shop/index.html" class="btn-menu btn-shop">
-            🛒 Toko Online
-        </a>
-    </div>
+                <h2 class="section-title">Pengalaman Kerja</h2>
+                <strong>BGI (nama perusahaan belum disebutkan lengkap)</strong><br>
+                Pernah bekerja di BGI dan bertanggung jawab dalam beberapa tugas operasional seperti membantu proses pekerjaan sehari-hari, mendukung kegiatan tim, dan menjalankan instruksi sesuai standar perusahaan. Pengalaman ini membuat saya lebih matang dalam bekerja secara profesional, memahami manajemen waktu, serta menjaga kualitas hasil kerja.
 
-    <div id="dashboard" class="content-section" style="display: block;">
-        <h2 style="color: #ff9800; margin-bottom: 15px;">Dashboard</h2>
-        <p>Selamat datang di versi update v2 portofolio Anda. Gunakan menu di atas untuk navigasi cepat.</p>
-    </div>
+                <h2 class="section-title">Visi</h2>
+                Menjadi individu yang mampu berkontribusi secara maksimal, bekerja dengan penuh tanggung jawab, serta dapat berkolaborasi dengan baik dalam tim untuk mencapai tujuan perusahaan.
 
-    <div id="settings" class="content-section">
-        <h2 style="color: #ff9800; margin-bottom: 15px;">Pengaturan</h2>
-        <p>Di sini Anda bisa mengatur preferensi profil dan tampilan portofolio Anda.</p>
+                <h2 class="section-title">Misi</h2>
+                1. Membangun hubungan kerja yang positif dan profesional demi mendukung perkembangan perusahaan.<br>
+                2. Mengembangkan pengetahuan dan keterampilan agar dapat memberikan hasil kerja yang kompeten.<br>
+                3. Berperan aktif dalam setiap tugas yang diberikan untuk meningkatkan efisiensi dan kualitas kerja tim.<br>
+                4. Menjaga integritas, disiplin, dan komitmen dalam setiap proses pekerjaan.
+            </div>
+
+            <div class="reg-box">
+                <h2 style="margin-top: 0;">Daftar Akun</h2>
+                <p style="color: #aaa; font-size: 14px;">Masukkan data untuk masuk ke Dashboard</p>
+                <input type="text" id="nameInput" placeholder="Nama Lengkap">
+                <input type="tel" id="phoneInput" placeholder="Nomor Handphone Aktif">
+                <button class="btn-action" onclick="registerUser()">Daftar & Masuk Dashboard</button>
+            </div>
+        </div>
+
+        <div id="dashboard-section" class="hidden">
+            <div class="banner">
+                <h2 style="color: #444;">FOTO & BANNER</h2>
+            </div>
+
+            <div id="clock">00:00:00</div>
+            
+            <h1 id="displayName" style="margin-bottom: 5px;">M. MUHAMMAD GIBRAN</h1>
+            <p style="color: #ff9800; font-weight: bold; margin-bottom: 30px;">Public Relations | Content Creator</p>
+
+            <h2 class="section-title" style="text-align: center;">Pekerjaan / Skill Utama</h2>
+
+            <div class="skill-item">
+                <h3>Desain Grafis</h3>
+                <p>Membuat desain visual seperti poster, banner, logo, dan konten media sosial yang menarik dan profesional.</p>
+            </div>
+
+            <div class="skill-item">
+                <h3>Content Creator</h3>
+                <p>Mampu membuat ide, konsep, dan produksi konten untuk platform digital (IG, TikTok, YouTube, dll.).</p>
+            </div>
+
+            <div class="skill-item">
+                <h3>Video Editing (Adobe Premiere Pro)</h3>
+                <p>Mengedit video dengan teknik cutting, color grading, efek sederhana, audio mixing, dan final export berkualitas tinggi.</p>
+            </div>
+
+            <div class="skill-item">
+                <h3>Animasi Dasar</h3>
+                <p>Mampu membuat animasi sederhana untuk kebutuhan konten, intro video, dan motion graphic ringan.</p>
+            </div>
+
+            <div class="skill-item">
+                <h3>Fotografi</h3>
+                <p>Mengambil foto dengan komposisi yang baik, mengatur pencahayaan, dan memahami teknik dasar fotografi untuk hasil maksimal.</p>
+            </div>
+            
+            <br>
+            <a href="shop/index.html" style="text-decoration: none;">
+                <button class="btn-action">🛒 Masuk ke Toko Online</button>
+            </a>
+        </div>
+
     </div>
 
     <script>
-        function showSection(sectionId) {
-            // Sembunyikan semua konten dulu
-            const sections = document.querySelectorAll('.content-section');
-            sections.forEach(sec => {
-                sec.style.display = 'none';
-            });
+        // Jam Bergerak
+        function runClock() {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString();
+        }
+        setInterval(runClock, 1000);
 
-            // Munculkan konten yang dipilih
-            const target = document.getElementById(sectionId);
-            if (target) {
-                target.style.display = 'block';
+        // Fungsi Daftar
+        function registerUser() {
+            const user = document.getElementById('nameInput').value;
+            const phone = document.getElementById('phoneInput').value;
+
+            if (user && phone) {
+                document.getElementById('displayName').innerText = user.toUpperCase();
+                document.getElementById('intro-section').classList.add('hidden');
+                document.getElementById('dashboard-section').classList.remove('hidden');
+                window.scrollTo(0, 0);
+            } else {
+                alert("Mohon isi Nama dan Nomor HP dulu!");
             }
         }
     </script>
-
 </body>
 </html>
