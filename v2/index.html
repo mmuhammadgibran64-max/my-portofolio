@@ -3,73 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Profesional - M Gibran</title>
+    <title>Dashboard M Gibran - Connected</title>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         :root { --primary: #38bdf8; --bg: #0f172a; --card: #1e293b; --text: #f8fafc; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; justify-content: center; }
-        .container { max-width: 700px; width: 100%; background: var(--card); padding: 35px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
+        .container { max-width: 600px; width: 100%; background: var(--card); padding: 30px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); text-align: center; }
         
-        /* Banner & Jam */
-        .banner { width: 100%; padding: 25px 0; background: linear-gradient(135deg, #0ea5e9, #6366f1); border-radius: 15px; margin-bottom: 25px; }
-        #clock { font-size: 2.5em; font-weight: bold; letter-spacing: 2px; }
-
-        .profile-img { width: 90px; height: 90px; border-radius: 50%; border: 3px solid var(--primary); margin-bottom: 10px; object-fit: cover; }
-        
-        /* Deskripsi Section */
-        .content-box { text-align: left; background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #334155; }
-        h2 { color: var(--primary); font-size: 18px; margin-top: 0; border-bottom: 1px solid #334155; padding-bottom: 8px; }
-        p { font-size: 14px; line-height: 1.6; color: #cbd5e1; }
-
-        /* Skill Grid */
-        .skill-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-        .skill-item { background: #0f172a; padding: 12px; border-radius: 8px; font-size: 13px; border-left: 3px solid var(--primary); }
+        /* Banner & Jam Bergerak */
+        .banner { width: 100%; padding: 20px 0; background: linear-gradient(135deg, #0ea5e9, #6366f1); border-radius: 15px; margin-bottom: 25px; }
+        #clock { font-size: 2.5em; font-weight: bold; text-shadow: 2px 2px 5px rgba(0,0,0,0.3); }
 
         /* Form Pendaftaran */
-        .reg-form { background: #0f172a; padding: 20px; border-radius: 15px; margin-top: 25px; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #334155; background: #1e293b; color: white; box-sizing: border-box; }
+        .form-box { background: #0f172a; padding: 20px; border-radius: 12px; margin-top: 25px; border: 1px solid #334155; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: 1px solid #334155; background: #1e293b; color: white; box-sizing: border-box; }
         
         .btn-ig { display: block; background: #E1306C; color: white; text-decoration: none; padding: 12px; border-radius: 8px; font-weight: bold; margin: 20px 0; }
-        .google-btn { display: flex; justify-content: center; margin-top: 15px; }
+        .google-btn-wrapper { display: flex; justify-content: center; margin-top: 15px; }
+        
+        .description-text { text-align: left; font-size: 14px; line-height: 1.6; color: #cbd5e1; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 10px; margin-bottom: 20px; }
     </style>
 </head>
-<body onload="startTime()">
+<body onload="startClock()">
 
 <div class="container">
     <div class="banner">
         <div id="clock">00:00:00</div>
-        <div style="font-size: 14px; opacity: 0.9;">Dashboard M Gibran</div>
+        <div style="font-size: 14px; margin-top: 5px;">Dashboard Aktif</div>
     </div>
 
-    <img src="https://via.placeholder.com/90" class="profile-img">
-    <h1 style="margin:0;">M Muhammad Gibran</h1>
-    <p style="color:var(--primary); font-weight:bold; margin-top:5px;">Humas | Desain Grafis | Content Creator</p>
+    <h1>M Muhammad Gibran</h1>
+    <p style="color: var(--primary); font-weight: bold;">Desain Grafis | Video Editor | Humas</p>
 
-    <div class="content-box">
-        <h2>Tentang Saya</h2>
-        <p>Mahasiswa Humas LP3I Kramat Raya dengan pengalaman di bidang Monitoring. Disiplin, cepat beradaptasi, dan memiliki keahlian teknis dalam pengolahan video serta desain visual profesional.</p>
-    </div>
-
-    <div class="skill-grid">
-        <div class="skill-item"><b>Desain:</b> Poster, Banner, Logo</div>
-        <div class="skill-item"><b>Video:</b> Adobe Premiere Pro</div>
-        <div class="skill-item"><b>Kreator:</b> Ide & Produksi Konten</div>
-        <div class="skill-item"><b>Lainnya:</b> Fotografi & Animasi</div>
+    <div class="description-text">
+        Mahasiswa Humas LP3I Kramat Raya dengan pengalaman Monitoring di Gatot Subroto. Ahli dalam Desain Grafis, Content Creator, dan Video Editing menggunakan Adobe Premiere Pro.
     </div>
 
     <a href="https://www.instagram.com/mgibran4184" target="_blank" class="btn-ig">Follow Instagram @mgibran4184</a>
 
-    <div class="reg-form">
-        <h2 style="text-align:center; border:none;">Daftar & Masuk Dashboard</h2>
-        <input type="text" id="user-name" placeholder="Nama Lengkap">
-        <input type="text" id="user-hp" placeholder="Nomor Handphone Aktif">
+    <div class="form-box">
+        <h3 style="margin-top: 0;">Pendaftaran Akun (SIT)</h3>
+        <p style="font-size: 12px; color: #94a3b8;">Data akan disimpan otomatis ke Google Sheets</p>
         
-        <div class="google-btn">
+        <input type="text" id="nama" name="nama" placeholder="Nama Lengkap" required>
+        <input type="text" id="hp" name="hp" placeholder="Nomor Handphone Aktif" required>
+
+        <div class="google-btn-wrapper">
             <div id="g_id_onload"
-                 data-client_id="594310366887-36qn9gvajo1335snmlrta7tdh9lgofre.apps.googleusercontent.com"
+                 data-client_id="594310366887-kgpa7pmkfo1loe4q6m1to9mr8huvqouv.apps.googleusercontent.com"
                  data-context="signin"
                  data-ux_mode="redirect"
-                 data-login_uri="https://script.google.com/macros/s/AKfycbyK7QOFMM7j4ui9WDkOhPwXcjwxmix_qgnkzeDSFSuX_yoyjGW1CBhUXPtb99Ksr-33QQ/exec"
+                 data-login_uri="https://script.google.com/macros/s/AKfycbwKhVyPMa_jwREa0F4MKhZwqLlLqDyVQBmYoUkSndObaKkXwdfdwEyzwkuhv8PTu0LPkA/exec"
                  data-auto_prompt="false">
             </div>
             <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="filled_blue" data-text="signin_with" data-size="large"></div>
@@ -78,7 +62,7 @@
 </div>
 
 <script>
-    function startTime() {
+    function startClock() {
         setInterval(() => {
             const now = new Date();
             document.getElementById('clock').innerText = now.toLocaleTimeString('id-ID');
