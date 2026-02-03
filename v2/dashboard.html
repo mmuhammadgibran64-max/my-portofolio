@@ -3,23 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Gibran</title>
+    <title>Dashboard Gibran - 2 Pages Only</title>
     <style>
-        body { background: #000; color: #fff; font-family: sans-serif; margin: 0; padding: 20px; }
-        .container { max-width: 900px; margin: auto; }
+        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; }
+        .container { max-width: 1000px; margin: auto; }
         .hidden { display: none; }
         
-        /* Jam Digital */
-        #clock { font-size: 40px; font-weight: bold; color: #ff9800; text-align: center; margin-bottom: 30px; font-family: monospace; }
-        
+        /* Jam & Header */
+        #clock { font-size: 35px; font-weight: bold; color: #ff9800; text-align: center; margin-bottom: 25px; font-family: monospace; }
+        h2 { border-left: 5px solid #ff9800; padding-left: 15px; text-transform: uppercase; font-size: 18px; margin-top: 30px; }
+
+        /* Analitik / Stats */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        .stat-card { background: #1a1a1a; padding: 20px; border-radius: 12px; border: 1px solid #333; text-align: center; }
+        .stat-card h4 { margin: 0; color: #888; font-size: 13px; }
+        .stat-card p { margin: 10px 0 0; font-size: 22px; font-weight: bold; color: #ff9800; }
+
+        /* Card Style */
         .card { background: #111; padding: 25px; border-radius: 15px; border: 1px solid #333; margin-bottom: 20px; }
-        .btn { padding: 12px 20px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; margin: 5px; }
-        .btn-orange { background: #ff9800; color: #000; }
-        .btn-red { background: #d32f2f; color: #fff; }
-        .btn-green { background: #388e3c; color: #fff; text-decoration: none; display: inline-block; }
         
-        .file-row { display: flex; justify-content: space-between; align-items: center; background: #222; padding: 15px; margin: 10px 0; border-radius: 10px; border-left: 5px solid #ff9800; }
-        input[type="file"] { margin-bottom: 15px; }
+        /* Form Inputs */
+        input, textarea, select { width: 100%; padding: 12px; margin-top: 8px; margin-bottom: 15px; background: #000; border: 1px solid #444; color: #fff; border-radius: 8px; font-size: 14px; }
+        
+        /* Buttons */
+        .btn { padding: 12px 20px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; display: inline-block; text-align: center; }
+        .btn-orange { background: #ff9800; color: #000; width: 100%; margin-top: 10px; }
+        .btn-nav { background: #333; color: white; border: 1px solid #555; width: 100%; margin-top: 20px; font-size: 16px; }
+        .btn-red { background: #d32f2f; color: white; font-size: 12px; }
+        .btn-green { background: #388e3c; color: white; font-size: 12px; text-decoration: none; }
+
+        /* Inbox Style */
+        .inbox-item { background: #1a1a1a; padding: 15px; border-radius: 10px; margin-bottom: 10px; border: 1px solid #333; text-align: left; }
+        
+        /* Tags */
+        .tag { padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; text-transform: uppercase; }
+        .tag-publish { background: #2e7d32; color: #fff; }
+        .tag-draft { background: #555; color: #fff; }
     </style>
 </head>
 <body>
@@ -27,22 +46,56 @@
 <div class="container">
     <div id="clock">00:00:00</div>
 
-    <div id="main-dash">
-        <h2 style="text-align: center;">DASHBOARD UTAMA</h2>
-        <div class="card">
-            <h3>Upload Foto / Video</h3>
-            <input type="file" id="fileInput" accept="image/*,video/*">
-            <button class="btn btn-orange" onclick="uploadData()">Upload Sekarang</button>
+    <div id="page-main">
+        <h2 style="margin-top:0;">Analitik & Statistik</h2>
+        <div class="stats-grid">
+            <div class="stat-card"><h4>Total Visitors</h4><p>1,240</p></div>
+            <div class="stat-card"><h4>Top Project</h4><p style="font-size:14px;">Video BGI</p></div>
+            <div class="stat-card"><h4>Inbox</h4><p>3</p></div>
         </div>
-        <button class="btn" style="background:#333; color:white;" onclick="switchTab('list-dash')">Buka Galeri Terpisah</button>
+
+        <h2>Upload Proyek</h2>
+        <div class="card">
+            <input type="file" id="fileInput" accept="image/*,video/*">
+            <select id="projStatus">
+                <option value="Publish">🚀 Publish</option>
+                <option value="Draft">📁 Draft</option>
+            </select>
+            <button class="btn btn-orange" onclick="uploadData()">Upload ke Galeri</button>
+        </div>
+
+        <h2>Skill & CV Editor</h2>
+        <div class="card">
+            <textarea placeholder="Update Skills..."></textarea>
+            <textarea placeholder="Update Pengalaman Kerja..."></textarea>
+            <button class="btn btn-orange">Simpan Perubahan</button>
+        </div>
+
+        <h2>Inbox / Pesan</h2>
+        <div class="card">
+            <div class="inbox-item">
+                <strong>Andi Wijaya</strong> <small>10:30 AM</small>
+                <p style="margin:5px 0; color:#ccc;">"Bisa editing video durasi 10 menit?"</p>
+            </div>
+        </div>
+
+        <h2>General Settings</h2>
+        <div class="card">
+            <input type="text" placeholder="Ganti Judul Website (SEO)">
+            <input type="text" placeholder="URL Foto Profil Baru">
+            <button class="btn btn-orange">Update Settings</button>
+        </div>
+
+        <button class="btn btn-nav" onclick="gantiTab('page-galeri')">Buka Dashboard Galeri Terpisah ⮕</button>
     </div>
 
-    <div id="list-dash" class="hidden">
-        <h2 style="text-align: center;">DASHBOARD DATA TERPISAH</h2>
-        <div class="card" id="gallery">
-            <p id="no-data">Belum ada file di penyimpanan.</p>
+    <div id="page-galeri" class="hidden">
+        <h2 style="text-align:center;">DASHBOARD DATA TERPISAH (GALERI)</h2>
+        <div class="card" id="galleryList">
+            <p id="no-data" style="text-align:center; color:#666;">Belum ada file yang di-upload.</p>
         </div>
-        <button class="btn" style="background:#333; color:white;" onclick="switchTab('main-dash')">Kembali ke Dashboard Utama</button>
+        
+        <button class="btn btn-nav" onclick="gantiTab('page-main')">⬅ Kembali ke Dashboard Utama</button>
     </div>
 </div>
 
@@ -52,31 +105,35 @@
         document.getElementById('clock').innerText = new Date().toLocaleTimeString();
     }, 1000);
 
-    // Navigasi Tab
-    function switchTab(id) {
-        document.getElementById('main-dash').classList.toggle('hidden', id !== 'main-dash');
-        document.getElementById('list-dash').classList.toggle('hidden', id !== 'list-dash');
+    // Navigasi 2 Halaman
+    function gantiTab(id) {
+        document.getElementById('page-main').classList.toggle('hidden', id !== 'page-main');
+        document.getElementById('page-galeri').classList.toggle('hidden', id !== 'page-galeri');
+        window.scrollTo(0,0);
     }
 
-    // Fungsi Upload ke Penyimpanan Sendiri
+    // Fungsi Upload
     function uploadData() {
         const input = document.getElementById('fileInput');
-        const gallery = document.getElementById('gallery');
+        const status = document.getElementById('projStatus').value;
+        const gallery = document.getElementById('galleryList');
         const noData = document.getElementById('no-data');
 
         if (!input.files[0]) return alert("Pilih file dulu!");
 
         const file = input.files[0];
-        const fileURL = URL.createObjectURL(file); // Link ke penyimpanan lokal sementara
+        const fileURL = URL.createObjectURL(file);
+        const tagClass = status === 'Publish' ? 'tag-publish' : 'tag-draft';
 
         if (noData) noData.remove();
 
-        const row = document.createElement('div');
-        row.className = 'file-row';
-        row.innerHTML = `
-            <div>
-                <strong>${file.name}</strong><br>
-                <small>${(file.size / 1024).toFixed(1)} KB</small>
+        const item = document.createElement('div');
+        item.style.cssText = "display:flex; justify-content:space-between; align-items:center; background:#1a1a1a; padding:15px; margin:10px 0; border-radius:10px; border:1px solid #333;";
+        item.innerHTML = `
+            <div style="text-align: left;">
+                <span class="tag ${tagClass}">${status}</span><br>
+                <strong style="display:block; margin-top:5px;">${file.name}</strong>
+                <small style="color:#888;">${(file.size / 1024).toFixed(1)} KB</small>
             </div>
             <div>
                 <a href="${fileURL}" download="${file.name}" class="btn btn-green">Download</a>
@@ -84,8 +141,8 @@
             </div>
         `;
 
-        gallery.appendChild(row);
-        alert("Berhasil! Cek di Dashboard Terpisah.");
+        gallery.appendChild(item);
+        alert("Berhasil! File masuk ke Dashboard Terpisah.");
         input.value = "";
     }
 </script>
