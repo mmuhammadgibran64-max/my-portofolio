@@ -1,65 +1,28 @@
-<div id="toko" class="section-shop" style="
-    background-color: #121212; 
-    color: #ffffff; 
-    padding: 30px; 
-    border-radius: 20px; 
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    border: 1px solid #333;
-    max-width: 900px;
-    margin: 20px auto;
+<div class="shop-navigation" style="
+    text-align: center; 
+    padding: 20px; 
+    background: #111; 
+    border-bottom: 1px solid #333;
 ">
-    
-    <div class="shop-header" style="text-align: center; margin-bottom: 30px;">
-        <h1 style="color: #ff9800; margin-bottom: 5px;">🛒 Gibran Store</h1>
-        <p style="color: #888; font-size: 14px;">Katalog Produk & Jasa Eksklusif</p>
-        <hr style="border: 0; border-top: 1px solid #333; width: 50%; margin: 15px auto;">
-    </div>
+    <h3 style="color: #888; margin-bottom: 15px; font-family: sans-serif;">PUBLIC RELATIONS</h3>
 
-    <div class="product-grid" style="
-        display: grid; 
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-        gap: 20px;
-    ">
+    <div style="display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap;">
         
-        <div class="card" style="background: #1e1e1e; padding: 20px; border-radius: 15px; text-align: center; border: 1px solid #444; transition: 0.3s;">
-            <div style="font-size: 50px; margin-bottom: 10px;">🎸</div>
-            <h3 style="margin: 10px 0;">Jasa Musisi</h3>
-            <p style="font-size: 12px; color: #aaa; margin-bottom: 15px;">Live Performance & Session Player</p>
-            <p style="color: #ff9800; font-weight: bold; font-size: 18px;">Rp 500.000+</p>
-            <button style="width: 100%; padding: 10px; margin-top: 15px; border-radius: 8px; border: none; background: #333; color: white; cursor: pointer; font-weight: bold;">Tanya Stok</button>
-        </div>
+        <a href="../index.html" style="text-decoration: none;">
+            <button style="background: #333; color: white; border: 1px solid #444; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: bold;">
+                Dashboard
+            </button>
+        </a>
 
-        <div class="card" style="background: #1e1e1e; padding: 20px; border-radius: 15px; text-align: center; border: 1px solid #444; transition: 0.3s;">
-            <div style="font-size: 50px; margin-bottom: 10px;">📢</div>
-            <h3 style="margin: 10px 0;">Konsultasi PR</h3>
-            <p style="font-size: 12px; color: #aaa; margin-bottom: 15px;">Strategi Humas & Branding</p>
-            <p style="color: #ff9800; font-weight: bold; font-size: 18px;">Rp 300.000</p>
-            <button style="width: 100%; padding: 10px; margin-top: 15px; border-radius: 8px; border: none; background: #333; color: white; cursor: pointer; font-weight: bold;">Tanya Stok</button>
-        </div>
+        <a href="../index.html?section=settings" style="text-decoration: none;">
+            <button style="background: #333; color: white; border: 1px solid #444; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: bold;">
+                Pengaturan
+            </button>
+        </a>
 
-        <div class="card" style="background: #1e1e1e; padding: 20px; border-radius: 15px; text-align: center; border: 1px solid #444; transition: 0.3s;">
-            <div style="font-size: 50px; margin-bottom: 10px;">📹</div>
-            <h3 style="margin: 10px 0;">Video Content</h3>
-            <p style="font-size: 12px; color: #aaa; margin-bottom: 15px;">Editing & Creative Production</p>
-            <p style="color: #ff9800; font-weight: bold; font-size: 18px;">Rp 250.000</p>
-            <button style="width: 100%; padding: 10px; margin-top: 15px; border-radius: 8px; border: none; background: #333; color: white; cursor: pointer; font-weight: bold;">Tanya Stok</button>
-        </div>
-
-    </div>
-
-    <div style="margin-top: 40px; text-align: center;">
-        <p style="color: #555; font-size: 12px;">© 2026 Gibran Store. Fitur Checkout Segera Hadir.</p>
-        <button onclick="showSection('dashboard')" style="background: none; border: 1px solid #444; color: #888; padding: 5px 15px; border-radius: 20px; font-size: 12px; cursor: pointer; margin-top: 10px;">
-            ← Kembali ke Dashboard
+        <button style="background: linear-gradient(135deg, #ff9800, #f44336); color: white; border: none; padding: 12px 25px; border-radius: 10px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4); display: flex; align-items: center; gap: 8px;">
+            🛒 Toko Online
         </button>
+
     </div>
-
 </div>
-
-<style>
-    .card:hover {
-        border-color: #ff9800 !important;
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(255, 152, 0, 0.1);
-    }
-</style>
