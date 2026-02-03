@@ -3,116 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio V2 - M Gibran</title>
+    <title>Portfolio & Dashboard - M Gibran</title>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
-        * { box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0f172a;
-            color: #f8fafc;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .container {
-            background: #1e293b;
-            max-width: 450px;
-            width: 100%;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-            text-align: center;
-            border: 1px solid #334155;
-        }
-        .profile-img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 3px solid #38bdf8;
-            margin-bottom: 20px;
-        }
-        h1 { margin: 10px 0; font-size: 24px; color: #38bdf8; }
-        .description {
-            font-size: 15px;
-            color: #94a3b8;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-        .btn-ig {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            color: white;
-            text-decoration: none;
-            padding: 12px;
-            border-radius: 10px;
-            font-weight: bold;
-            margin-bottom: 25px;
-            transition: transform 0.2s;
-        }
-        .btn-ig:hover { transform: scale(1.05); }
-        .divider {
-            margin: 20px 0;
-            border-top: 1px solid #334155;
-            position: relative;
-        }
-        .divider span {
-            position: absolute;
-            top: -10px;
-            background: #1e293b;
-            padding: 0 10px;
-            font-size: 12px;
-            color: #64748b;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .google-btn-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
+        :root { --primary: #38bdf8; --bg: #0f172a; --card: #1e293b; --text: #f8fafc; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .container { max-width: 600px; width: 100%; background: var(--card); padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        
+        /* Dashboard Header */
+        .banner { width: 100%; height: 120px; background: linear-gradient(135deg, #0ea5e9, #6366f1); border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 20px; }
+        #clock { font-size: 1.8em; font-weight: bold; letter-spacing: 2px; }
+        
+        .section { margin-bottom: 25px; border-bottom: 1px solid #334155; padding-bottom: 15px; }
+        h2 { color: var(--primary); font-size: 20px; margin-bottom: 10px; }
+        
+        /* Form Pendaftaran */
+        .form-group { margin-bottom: 15px; text-align: left; }
+        input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box; }
+        
+        .btn-ig { display: block; text-align: center; background: #E1306C; color: white; text-decoration: none; padding: 12px; border-radius: 8px; font-weight: bold; margin-bottom: 20px; }
+        .google-box { display: flex; justify-content: center; margin-top: 15px; }
     </style>
 </head>
-<body>
+<body onload="updateClock()">
 
-    <div class="container">
-        <img src="https://via.placeholder.com/100" alt="M Gibran" class="profile-img">
+<div class="container">
+    <div class="banner">
+        <div id="clock">00:00:00</div>
+        <div style="font-size: 12px; opacity: 0.8;">Waktu Real-time</div>
+    </div>
+
+    <div class="section">
+        <h2>Profil Profesional</h2>
+        <p style="font-size: 14px; color: #94a3b8;">
+            Nama saya <b>Gibran</b>, mahasiswa Humas LP3I Kramat Raya. Ahli di bidang Desain Grafis, Video Editing (Premiere Pro), dan Content Creator.
+        </p>
+    </div>
+
+    <a href="https://www.instagram.com/mgibran4184" target="_blank" class="btn-ig">Follow Instagram @mgibran4184</a>
+
+    <div class="section">
+        <h2>Daftar Akun Dashboard</h2>
+        <div class="form-group">
+            <input type="text" id="nama" placeholder="Nama Lengkap">
+        </div>
+        <div class="form-group">
+            <input type="text" id="hp" placeholder="Nomor HP Aktif">
+        </div>
         
-        <h1>M Muhammad Gibran</h1>
-        <div class="description">
-            Selamat datang di Portofolio V2 saya. Ini adalah halaman update terbaru untuk akses dashboard dan pengelolaan data melalui Google Sheets.
-        </div>
-
-        <a href="https://www.instagram.com/mgibran4184" target="_blank" class="btn-ig">
-            Follow Instagram @mgibran4184
-        </a>
-
-        <div class="divider"><span>LOGIN DASHBOARD</span></div>
-
-        <div id="g_id_onload"
-             data-client_id="594310366887-36qn9gvajo1335snmlrta7tdh9lgofre.apps.googleusercontent.com"
-             data-context="signin"
-             data-ux_mode="redirect"
-             data-login_uri="https://script.google.com/macros/s/AKfycbyK7QOFMM7j4ui9WDkOhPwXcjwxmix_qgnkzeDSFSuX_yoyjGW1CBhUXPtb99Ksr-33QQ/exec"
-             data-auto_prompt="false">
-        </div>
-
-        <div class="google-btn-container">
-            <div class="g_id_signin"
-                 data-type="standard"
-                 data-shape="pill"
-                 data-theme="filled_blue"
-                 data-text="signin_with"
-                 data-size="large"
-                 data-logo_alignment="left">
+        <p style="font-size: 12px; color: #64748b; text-align: center;">Setelah isi data, login dengan Google di bawah:</p>
+        
+        <div class="google-box">
+            <div id="g_id_onload"
+                 data-client_id="594310366887-36qn9gvajo1335snmlrta7tdh9lgofre.apps.googleusercontent.com"
+                 data-context="signin"
+                 data-ux_mode="redirect"
+                 data-login_uri="https://script.google.com/macros/s/AKfycbyK7QOFMM7j4ui9WDkOhPwXcjwxmix_qgnkzeDSFSuX_yoyjGW1CBhUXPtb99Ksr-33QQ/exec"
+                 data-auto_prompt="false">
             </div>
+            <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="filled_blue" data-text="signin_with" data-size="large"></div>
         </div>
     </div>
+</div>
+
+<script>
+    function updateClock() {
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString('id-ID');
+        }, 1000);
+    }
+</script>
 
 </body>
 </html>
