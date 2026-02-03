@@ -8,75 +8,86 @@
         body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; }
         .container { max-width: 900px; margin: auto; }
         #clock { font-size: 35px; font-weight: bold; color: #ff9800; text-align: center; margin-bottom: 25px; font-family: monospace; }
-        .card { background: #111; padding: 20px; border-radius: 15px; border: 1px solid #333; margin-bottom: 20px; }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 20px; }
-        .stat-box { background: #1a1a1a; padding: 15px; border-radius: 10px; text-align: center; border: 1px solid #333; }
-        .btn { padding: 12px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; }
-        .btn-orange { background: #ff9800; color: #000; margin-top: 10px; }
-        .btn-nav { background: #333; color: #fff; margin-top: 20px; border: 1px solid #555; }
-        input, textarea, select { width: 100%; padding: 10px; margin-top: 8px; margin-bottom: 10px; background: #000; border: 1px solid #444; color: #fff; border-radius: 8px; }
+        .card { background: #111; padding: 25px; border-radius: 15px; border: 1px solid #333; margin-bottom: 20px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        .stat-card { background: #1a1a1a; padding: 20px; border-radius: 12px; border: 1px solid #333; text-align: center; }
+        .stat-card p { margin-top: 10px; font-size: 22px; font-weight: bold; color: #ff9800; }
+        .btn { padding: 12px 20px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; margin-top: 10px; }
+        .btn-orange { background: #ff9800; color: #000; }
+        .btn-gray { background: #333; color: white; border: 1px solid #555; }
+        input, textarea, select { width: 100%; padding: 12px; margin-top: 8px; margin-bottom: 15px; background: #000; border: 1px solid #444; color: #fff; border-radius: 8px; box-sizing: border-box; }
+        .inbox-item { background: #1a1a1a; padding: 15px; border-radius: 10px; border: 1px solid #333; margin-top: 10px; }
     </style>
 </head>
 <body>
+    <div class="container">
+        <button class="btn" style="background: transparent; color: #888; border: 1px solid #333; width: auto;" onclick="window.location.href='index.html'">🏠 Balik ke Website Utama</button>
+        <div id="clock">00:00:00</div>
 
-<div class="container">
-    <div id="clock">00:00:00</div>
+        <h2>Analitik Proyek</h2>
+        <div class="stats-grid">
+            <div class="stat-card"><h4>Total Visitors</h4><p>1,240</p></div>
+            <div class="stat-card"><h4>Top Project</h4><p style="font-size:14px">Futsal Highlight</p></div>
+            <div class="stat-card"><h4>Pesan Masuk</h4><p>3</p></div>
+        </div>
 
-    <h2>Analitik</h2>
-    <div class="stats-grid">
-        <div class="stat-box"><h4>Visitors</h4><p style="color:#ff9800">1,240</p></div>
-        <div class="stat-box"><h4>Top Project</h4><p style="font-size:12px">Video BGI</p></div>
-        <div class="stat-box"><h4>Inbox</h4><p style="color:#ff9800">3</p></div>
+        <div class="card">
+            <h2>1. Upload Proyek Baru</h2>
+            <input type="file" id="fileInput">
+            <label>Status Proyek:</label>
+            <select id="projStatus"><option value="Publish">🚀 Publish</option><option value="Draft">📁 Draft</option></select>
+            <button class="btn btn-orange" onclick="uploadData()">Upload & Simpan ke Galeri</button>
+        </div>
+
+        <div class="card">
+            <h2>2. Skill & Experience Editor</h2>
+            <textarea placeholder="Update Skill (Contoh: Gitar, Futsal, PR)..."></textarea>
+            <button class="btn btn-orange">Update CV</button>
+        </div>
+
+        <div class="card">
+            <h2>3. Contact / Inbox</h2>
+            <div class="inbox-item">
+                <strong>Andi - Client</strong><br>
+                <small>"Gibran, bisa bantu PR untuk brand saya?"</small>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>4. Settings</h2>
+            <input type="text" placeholder="Ganti Judul Website">
+            <input type="text" placeholder="URL Foto Profil">
+            <button class="btn btn-orange">Simpan Pengaturan</button>
+        </div>
+
+        <button class="btn btn-gray" onclick="window.location.href='terpisah.html'">Buka Dashboard Galeri Terpisah ⮕</button>
     </div>
 
-    <div class="card">
-        <h3>1. Upload Proyek</h3>
-        <input type="file" id="fileInput">
-        <select id="projStatus"><option value="Publish">🚀 Publish</option><option value="Draft">📁 Draft</option></select>
-        <button class="btn btn-orange" onclick="uploadData()">Simpan ke Dashboard Terpisah</button>
-    </div>
+    <script>
+        setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000);
 
-    <div class="card">
-        <h3>2. Skill & CV Editor</h3>
-        <textarea placeholder="Update Skill..."></textarea>
-        <button class="btn btn-orange">Update CV</button>
-    </div>
+        function uploadData() {
+            const input = document.getElementById('fileInput');
+            const status = document.getElementById('projStatus').value;
+            if (!input.files[0]) return alert("Pilih file dulu, Bran!");
 
-    <div class="card">
-        <h3>3. Settings</h3>
-        <input type="text" placeholder="Ganti Judul Website">
-        <button class="btn btn-orange">Simpan Settings</button>
-    </div>
-
-    <button class="btn btn-nav" onclick="window.location.href='terpisah.html'">Buka Dashboard Terpisah (Galeri) ⮕</button>
-</div>
-
-<script>
-    setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000);
-
-    function uploadData() {
-        const input = document.getElementById('fileInput');
-        const status = document.getElementById('projStatus').value;
-        if (!input.files[0]) return alert("Pilih file dulu!");
-
-        const file = input.files[0];
-        const reader = new FileReader();
-        
-        reader.onload = function(e) {
-            let storage = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
-            storage.push({
-                name: file.name,
-                size: (file.size / 1024).toFixed(1) + " KB",
-                status: status,
-                content: e.target.result,
-                time: new Date().toLocaleString()
-            });
-            localStorage.setItem('gibran_gallery', JSON.stringify(storage));
-            alert("Berhasil dikirim ke Dashboard Terpisah!");
-            window.location.href = 'terpisah.html';
-        };
-        reader.readAsDataURL(file);
-    }
-</script>
+            const file = input.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                let storage = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
+                storage.push({
+                    name: file.name,
+                    size: (file.size / 1024).toFixed(1) + " KB",
+                    status: status,
+                    content: e.target.result,
+                    time: new Date().toLocaleString()
+                });
+                localStorage.setItem('gibran_gallery', JSON.stringify(storage));
+                alert("Sip! Berhasil dikirim ke Galeri Terpisah.");
+                window.location.href = 'terpisah.html';
+            };
+            reader.readAsDataURL(file);
+        }
+    </script>
 </body>
 </html>
