@@ -3,67 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Login</title>
+    <title>Update V2 - Login Dashboard</title>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f2f5;
         }
-        .container {
+        .update-card {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 350px;
             text-align: center;
-            padding: 40px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            width: 350px;
+            border: 1px solid #334155;
         }
+        .badge {
+            background: #38bdf8;
+            color: #0f172a;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        h2 { margin: 20px 0 10px; font-size: 24px; }
         .btn-ig {
-            display: block;
-            padding: 12px;
-            margin-bottom: 25px;
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #f43f5e;
             color: white;
             text-decoration: none;
+            padding: 12px;
             border-radius: 8px;
-            font-weight: bold;
-            transition: transform 0.2s;
+            font-weight: 600;
+            margin-bottom: 25px;
+            transition: opacity 0.2s;
         }
-        .btn-ig:hover {
-            transform: scale(1.02);
-        }
+        .btn-ig:hover { opacity: 0.9; }
         .divider {
-            margin: 20px 0;
-            border-top: 1px solid #eee;
+            height: 1px;
+            background: #334155;
+            margin: 25px 0;
             position: relative;
         }
-        .divider span {
+        .divider::after {
+            content: "GOOGLE AUTH";
             position: absolute;
             top: -10px;
-            background: white;
-            padding: 0 10px;
             left: 50%;
             transform: translateX(-50%);
-            color: #888;
-            font-size: 12px;
+            background: #1e293b;
+            padding: 0 10px;
+            font-size: 10px;
+            color: #94a3b8;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h2>Selamat Datang</h2>
-        
+    <div class="update-card">
+        <span class="badge">Update V2</span>
+        <h2>Login Akses</h2>
+        <p style="color: #94a3b8; font-size: 14px; margin-bottom: 25px;">Khusus akses pengelolaan data</p>
+
         <a href="https://www.instagram.com/mgibran4184" target="_blank" class="btn-ig">
             Follow Instagram
         </a>
 
-        <div class="divider"><span>LOGIN DASHBOARD</span></div>
+        <div class="divider"></div>
 
         <div id="g_id_onload"
              data-client_id="594310366887-36qn9gvajo1335snmlrta7tdh9lgofre.apps.googleusercontent.com"
@@ -76,10 +94,11 @@
         <div class="g_id_signin"
              data-type="standard"
              data-shape="rectangular"
-             data-theme="outline"
-             data-text="signin_with"
+             data-theme="filled_blue"
+             data-text="continue_with"
              data-size="large"
-             data-logo_alignment="left">
+             data-logo_alignment="left"
+             data-width="300">
         </div>
     </div>
 
