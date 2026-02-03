@@ -3,109 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Kosongan - Gibran</title>
+    <title>Dashboard Utama - Gibran</title>
     <style>
         body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; }
         .container { max-width: 900px; margin: auto; }
-        #clock { font-size: 35px; font-weight: bold; color: #ff9800; text-align: center; margin-bottom: 25px; font-family: monospace; }
+        
+        /* Jam & Label Dashboard */
+        #clock { font-size: 35px; font-weight: bold; color: #ff9800; text-align: center; margin-bottom: 5px; font-family: monospace; }
+        .status-label { text-align: center; color: #ff9800; font-weight: bold; margin-bottom: 25px; letter-spacing: 1px; }
+        
+        /* Card & UI Elements */
         .card { background: #111; padding: 25px; border-radius: 15px; border: 1px solid #333; margin-bottom: 20px; }
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .stat-card { background: #1a1a1a; padding: 20px; border-radius: 12px; border: 1px solid #333; text-align: center; }
         .stat-card p { margin-top: 10px; font-size: 22px; font-weight: bold; color: #ff9800; }
+        
+        /* Buttons */
         .btn { padding: 12px 20px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; margin-top: 10px; }
         .btn-orange { background: #ff9800; color: #000; }
-        .btn-gray { background: #333; color: white; border: 1px solid #555; }
         .btn-orange:hover { background: #e68a00; }
+        .btn-gray { background: #333; color: white; border: 1px solid #555; }
+        .btn-back { background: transparent; color: #888; border: 1px solid #333; width: auto; margin-bottom: 20px; }
+        
+        /* Form Inputs */
         input, textarea, select { width: 100%; padding: 12px; margin-top: 8px; margin-bottom: 15px; background: #000; border: 1px solid #444; color: #fff; border-radius: 8px; box-sizing: border-box; }
-        .placeholder-text { color: #666; font-style: italic; text-align: center; }
+        .inbox-item { background: #1a1a1a; padding: 15px; border-radius: 10px; border: 1px solid #333; margin-top: 10px; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <button class="btn" style="background: transparent; color: #888; border: 1px solid #333; width: auto;" onclick="window.location.href='index.html'">🏠 Balik ke Website Utama</button>
-        
-        <div id="clock">00:00:00</div>
-        <h1 style="text-align: center; color: #ff9800;">[ Dashboard Kosongan - Siap Diisi ]</h1>
 
+    <div class="container">
+        <button class="btn btn-back" onclick="window.location.href='index.html'">🏠 Balik ke Website Utama (Index)</button>
+
+        <div id="clock">00:00:00</div>
+        <div class="status-label">[ Dashboard Kosongan - Siap Diisi ]</div>
+
+        <h2>Analitik Proyek</h2>
         <div class="stats-grid">
-            <div class="stat-card"><h4>Total Visitors</h4><p id="visitorCount">0</p></div>
-            <div class="stat-card"><h4>Proyek Aktif</h4><p id="activeProjects">0</p></div>
-            <div class="stat-card"><h4>Pesan Baru</h4><p id="messageCount">0</p></div>
+            <div class="stat-card"><h4>Total Visitors</h4><p id="v-count">1,240</p></div>
+            <div class="stat-card"><h4>Top Project</h4><p style="font-size:14px">Futsal Highlight</p></div>
+            <div class="stat-card"><h4>Pesan Masuk</h4><p>3</p></div>
         </div>
 
         <div class="card">
-            <h2>🚀 Upload Konten Baru</h2>
-            <input type="text" id="projTitle" placeholder="Judul Proyek/Konten">
+            <h2>1. Upload Proyek Baru</h2>
             <input type="file" id="fileInput">
-            <label>Kategori/Status:</label>
+            <label>Status Proyek:</label>
             <select id="projStatus">
                 <option value="Publish">🚀 Publish</option>
                 <option value="Draft">📁 Draft</option>
-                <option value="Arsip">📦 Arsip</option>
             </select>
-            <button class="btn btn-orange" onclick="uploadData()">Simpan ke Database</button>
+            <button class="btn btn-orange" onclick="uploadData()">Upload & Simpan ke Galeri</button>
         </div>
 
         <div class="card">
-            <h2>✍️ Update Informasi Bio</h2>
-            <textarea rows="4" placeholder="Tuliskan skill atau pengalaman baru di sini..."></textarea>
-            <button class="btn btn-orange">Perbarui Profil</button>
+            <h2>2. Skill & Experience Editor</h2>
+            <textarea id="skillUpdate" placeholder="Update Skill (Contoh: Gitar, Futsal, PR)..."></textarea>
+            <button class="btn btn-orange" onclick="saveSkills()">Update CV</button>
         </div>
 
         <div class="card">
-            <h2>📥 Pesan & Aktivitas Terbaru</h2>
-            <div id="activityLog" class="placeholder-text">
-                Belum ada aktivitas atau pesan masuk.
+            <h2>3. Contact / Inbox</h2>
+            <div class="inbox-item">
+                <strong>Andi - Client</strong><br>
+                <small>"Gibran, bisa bantu PR untuk brand saya?"</small>
             </div>
         </div>
 
-        <button class="btn btn-gray" onclick="window.location.href='terpisah.html'">Lihat Galeri Hasil Upload ⮕</button>
+        <div class="card">
+            <h2>4. Settings (Koneksi ke Index)</h2>
+            <input type="text" id="siteTitle" placeholder="Ganti Judul Website">
+            <input type="text" id="profilePic" placeholder="URL Foto Profil (Link Gambar)">
+            <button class="btn btn-orange" onclick="saveSettings()">Simpan Pengaturan</button>
+        </div>
+
+        <button class="btn btn-gray" onclick="window.location.href='terpisah.html'">Buka Dashboard Galeri Terpisah ⮕</button>
     </div>
 
     <script>
-        // Update Jam Real-time
+        // 1. Fungsi Jam Digital
         setInterval(() => { 
             document.getElementById('clock').innerText = new Date().toLocaleTimeString(); 
         }, 1000);
 
-        // Fungsi Upload Data
+        // 2. Fungsi Upload Proyek ke LocalStorage
         function uploadData() {
-            const title = document.getElementById('projTitle').value;
             const input = document.getElementById('fileInput');
             const status = document.getElementById('projStatus').value;
-
-            if (!title) return alert("Isi judulnya dulu, Bran!");
-            if (!input.files[0]) return alert("Pilih filenya jangan lupa!");
+            if (!input.files[0]) return alert("Pilih file dulu, Bran!");
 
             const file = input.files[0];
             const reader = new FileReader();
-
             reader.onload = function(e) {
                 let storage = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
-                
-                const newData = {
-                    id: Date.now(),
-                    title: title,
-                    fileName: file.name,
+                storage.push({
+                    name: file.name,
                     size: (file.size / 1024).toFixed(1) + " KB",
                     status: status,
                     content: e.target.result,
                     time: new Date().toLocaleString()
-                };
-
-                storage.push(newData);
+                });
                 localStorage.setItem('gibran_gallery', JSON.stringify(storage));
-                
-                alert("Mantap! Data '" + title + "' sudah tersimpan.");
-                window.location.reload(); // Refresh untuk update counter (opsional)
+                alert("Sip! Berhasil dikirim ke Galeri Terpisah.");
+                window.location.href = 'terpisah.html';
             };
             reader.readAsDataURL(file);
         }
 
-        // Script sederhana untuk hitung data di localStorage
-        window.onload = function() {
-            let storage = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
-            document.getElementById('activeProjects').innerText = storage.length;
+        // 3. Fungsi Simpan Pengaturan (Link Set Dashboard ke Index)
+        function saveSettings() {
+            const title = document.getElementById('siteTitle').value;
+            const pic = document.getElementById('profilePic').value;
+
+            const config = {
+                title: title,
+                profilePic: pic
+            };
+
+            localStorage.setItem('gibran_config', JSON.stringify(config));
+            alert("Mantap! Pengaturan disimpan. Cek perubahan di index.html");
+        }
+
+        // 4. Fungsi Simpan Skills
+        function saveSkills() {
+            const skills = document.getElementById('skillUpdate').value;
+            localStorage.setItem('gibran_skills', skills);
+            alert("Skill berhasil diperbarui!");
         }
     </script>
 </body>
