@@ -3,61 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pengaturan - Gibran v.1.1.3</title>
+    <title>Pengaturan Sistem - Gibran</title>
     <style>
-        body { font-family: sans-serif; background: #020617; color: white; padding: 20px; }
-        .card { background: #1e293b; padding: 20px; border-radius: 15px; border: 1px solid #334155; max-width: 400px; margin: auto; }
-        .row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #334155; }
-        .status-on { color: #10b981; font-weight: bold; }
-        .status-off { color: #ef4444; font-weight: bold; }
-        .footer { text-align: center; font-size: 11px; color: #64748b; margin-top: 20px; }
+        :root {
+            --bg-color: #000000;
+            --card-bg: #111111;
+            --text-color: #ffffff;
+            --accent-color: #ff9800;
+            --border-color: #333333;
+        }
+
+        .light-mode {
+            --bg-color: #f0f0f0;
+            --card-bg: #ffffff;
+            --text-color: #000000;
+            --accent-color: #e67e22;
+            --border-color: #dddddd;
+        }
+
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-color); 
+            font-family: 'Segoe UI', sans-serif; 
+            margin: 0; padding: 20px; 
+            transition: 0.3s;
+        }
+
+        .container { max-width: 900px; margin: auto; }
+        
+        .card { 
+            background-color: var(--card-bg); 
+            padding: 25px; 
+            border-radius: 15px; 
+            border: 1px solid var(--border-color); 
+            margin-bottom: 20px; 
+        }
+
+        h2 { border-left: 5px solid var(--accent-color); padding-left: 15px; text-transform: uppercase; font-size: 18px; }
+
+        .btn { 
+            padding: 12px 20px; border-radius: 8px; border: none; cursor: pointer; 
+            font-weight: bold; transition: 0.3s; margin: 5px 0; width: 100%;
+        }
+
+        .btn-accent { background-color: var(--accent-color); color: #000; }
+        .btn-mode { background-color: #555; color: #fff; width: auto; }
+
+        /* Simulator Tampilan */
+        .device-preview {
+            display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;
+        }
+        .btn-device { background: #333; color: #fff; padding: 10px; flex: 1; min-width: 80px; border: 1px solid #555; cursor: pointer; border-radius: 5px; }
+        .btn-device.active { background: var(--accent-color); color: #000; }
+
+        #preview-frame {
+            width: 100%; height: 300px; border: 2px dashed var(--accent-color); 
+            margin-top: 15px; display: flex; align-items: center; justify-content: center;
+            overflow: hidden; transition: 0.5s; background: #222;
+        }
+
+        /* Foto Profil */
+        .profile-upload { display: flex; align-items: center; gap: 20px; }
+        #profile-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent-color); }
+
+        /* Tracker */
+        #tracker-info { font-family: monospace; font-size: 13px; color: #00ff00; background: #000; padding: 15px; border-radius: 8px; }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h3 style="text-align:center; color:#fbbf24;">SYSTEM SETTINGS</h3>
-    
-    <div class="row">
-        <span>Foto Profil</span>
-        <img src="https://via.placeholder.com/50" style="border-radius: 50%; border: 2px solid #fbbf24;">
+<div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <button class="btn btn-mode" onclick="window.location.href='dashboard.html'">⬅ Back to Dashboard</button>
+        <button class="btn btn-mode" onclick="toggleTheme()" id="theme-btn">🌙 Mode Gelap</button>
     </div>
 
-    <div class="row">
-        <span>Koneksi Wifi</span>
-        <label><input type="checkbox" checked> <span class="status-on">Connected</span></label>
+    <h1 style="text-align: center;">PENGATURAN SISTEM</h1>
+
+    <div class="card">
+        <h2>Logo & Foto Profil</h2>
+        <div class="profile-upload">
+            <img id="profile-img" src="https://via.placeholder.com/80" alt="Profile">
+            <div style="flex: 1;">
+                <input type="file" id="upload-photo" accept="image/*" onchange="previewPhoto(event)">
+                <p style="font-size: 12px; color: #888;">Ganti foto profil atau logo website kamu di sini.</p>
+            </div>
+        </div>
     </div>
 
-    <div class="row">
-        <span>Akses Aplikasi</span>
-        <span id="stat" class="status-on">Memeriksa...</span>
+    <div class="card">
+        <h2>Sistem Website: Pelacak Pengunjung</h2>
+        <p style="font-size: 13px;">Data ini melacak lokasi orang yang sedang membuka website kamu.</p>
+        <div id="tracker-info">
+            Memuat data pelacakan...
+        </div>
+        <button class="btn btn-accent" style="margin-top:10px;" onclick="trackUser()">Refresh Data Lokasi</button>
     </div>
 
-    <div class="row">
-        <span>Keamanan</span>
-        <span class="status-on">SSL Aktif</span>
+    <div class="card">
+        <h2>Simulasi Tampilan Perangkat</h2>
+        <p style="font-size: 13px;">Cek bagaimana website kamu terlihat di perangkat berbeda:</p>
+        <div class="device-preview">
+            <button class="btn-device" onclick="resizePreview('375px', 'HP')">HP</button>
+            <button class="btn-device" onclick="resizePreview('768px', 'iPad')">iPad</button>
+            <button class="btn-device active" onclick="resizePreview('100%;', 'Desktop')">Desktop</button>
+        </div>
+        <div id="preview-frame">
+            <div id="preview-text">Tampilan: Desktop (100%)</div>
+        </div>
     </div>
 
-    <button onclick="location.href='index.html'" style="width:100%; padding:10px; background:#475569; color:white; border:none; border-radius:10px; cursor:pointer;">Kembali</button>
-
-    <div class="footer">
-        Versi: 1.1.3 (Beta)<br>
-        Portofolio Online Gibran
+    <div class="card">
+        <h2>Otomatisasi Sistem</h2>
+        <label>Maintenance Mode:</label>
+        <select class="btn" style="background: #222; color: #fff; text-align: left;">
+            <option>Non-Aktif (Website Jalan)</option>
+            <option>Aktif (Website Sedang Diperbaiki)</option>
+        </select>
+        <button class="btn btn-accent">Simpan Semua Perubahan</button>
     </div>
+
+    <button class="btn btn-mode" style="width:100%;" onclick="window.location.href='index.html'">🏠 Balik ke Website Utama</button>
 </div>
 
 <script>
-    function updateStatus() {
-        const stat = document.getElementById('stat');
-        if(navigator.onLine) {
-            stat.innerText = "ONLINE"; stat.className = "status-on";
+    // 1. TEMA GELAP/TERANG
+    function toggleTheme() {
+        const body = document.body;
+        const btn = document.getElementById('theme-btn');
+        body.classList.toggle('light-mode');
+        if (body.classList.contains('light-mode')) {
+            btn.innerText = "☀️ Mode Terang";
         } else {
-            stat.innerText = "OFFLINE"; stat.className = "status-off";
+            btn.innerText = "🌙 Mode Gelap";
         }
     }
-    updateStatus();
-    window.addEventListener('online', updateStatus);
-    window.addEventListener('offline', updateStatus);
+
+    // 2. PREVIEW FOTO PROFIL
+    function previewPhoto(event) {
+        const reader = new FileReader();
+        reader.onload = function() {
+            const output = document.getElementById('profile-img');
+            output.src = reader.result;
+            // Simpan ke LocalStorage agar tidak hilang saat refresh
+            localStorage.setItem('gibran_profile_photo', reader.result);
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    // 3. TRACKER LOKASI (Menggunakan ipapi.co)
+    function trackUser() {
+        const info = document.getElementById('tracker-info');
+        info.innerHTML = "Melacak Lokasi...";
+        
+        fetch('https://ipapi.co/json/')
+            .then(res => res.json())
+            .then(data => {
+                info.innerHTML = `
+                    🌐 IP ADDRESS: ${data.ip}<br>
+                    📍 LOKASI: ${data.city}, ${data.region}, ${data.country_name}<br>
+                    🏢 PROVIDER: ${data.org}<br>
+                    🗺️ KOORDINAT: ${data.latitude}, ${data.longitude}<br>
+                    🕒 TIMEZONE: ${data.timezone}
+                `;
+            })
+            .catch(err => {
+                info.innerHTML = "Gagal melacak lokasi. Pastikan tidak ada AdBlock.";
+            });
+    }
+
+    // 4. SIMULATOR PERANGKAT
+    function resizePreview(width, label) {
+        const frame = document.getElementById('preview-frame');
+        const text = document.getElementById('preview-text');
+        frame.style.width = width;
+        frame.style.margin = "15px auto";
+        text.innerText = "Tampilan: " + label + " (" + width + ")";
+        
+        // Update active button
+        document.querySelectorAll('.btn-device').forEach(btn => {
+            btn.classList.toggle('active', btn.innerText === label);
+        });
+    }
+
+    // Load Data saat Startup
+    window.onload = function() {
+        trackUser();
+        const savedPhoto = localStorage.getItem('gibran_profile_photo');
+        if (savedPhoto) document.getElementById('profile-img').src = savedPhoto;
+    };
 </script>
 
 </body>
