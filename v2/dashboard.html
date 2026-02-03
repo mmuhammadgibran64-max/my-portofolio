@@ -16,8 +16,7 @@
         .btn { padding: 12px 20px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; }
         .btn-orange { background: #ff9800; color: #000; width: 100%; margin-top: 10px; }
         .btn-gray { background: #333; color: white; border: 1px solid #555; width: 100%; margin-top: 20px; }
-        .btn-red { background: #d32f2f; color: white; padding: 5px 10px; font-size: 12px; }
-        .btn-green { background: #388e3c; color: white; padding: 5px 10px; font-size: 12px; text-decoration: none; border-radius: 5px; }
+        .btn-red { background: #d32f2f; color: white; padding: 5px 10px; font-size: 11px; border-radius: 4px; border:none; cursor:pointer; }
         input, textarea, select { width: 100%; padding: 12px; margin-top: 8px; margin-bottom: 15px; background: #000; border: 1px solid #444; color: #fff; border-radius: 8px; }
         .file-item { display: flex; justify-content: space-between; align-items: center; background: #1a1a1a; padding: 15px; margin-bottom: 10px; border-radius: 10px; border: 1px solid #444; }
     </style>
@@ -31,80 +30,100 @@
 
     <div id="page-main">
         <div class="stats-grid">
-            <div class="stat-card"><h4>Total Visitors</h4><p>1,240</p></div>
-            <div class="stat-card"><h4>Pesan Masuk</h4><p>3</p></div>
+            <div class="stat-card"><h4>Visitors</h4><p>1,240</p></div>
+            <div class="stat-card"><h4>Inbox</h4><p>3</p></div>
         </div>
 
         <div class="card">
             <h2>Upload Proyek Baru</h2>
             <input type="file" id="fileInput">
-            <label>Status:</label>
             <select id="projStatus"><option value="Publish">🚀 Publish</option><option value="Draft">📁 Draft</option></select>
-            <button class="btn btn-orange" onclick="uploadData()">Upload & Kirim ke Galeri</button>
-        </div>
-
-        <div class="card">
-            <h2>Skill & CV Editor</h2>
-            <textarea placeholder="Update Skill Baru..."></textarea>
-            <button class="btn btn-orange">Simpan Perubahan CV</button>
+            <button class="btn btn-orange" onclick="uploadData()">Upload & Simpan ke Galeri</button>
         </div>
 
         <button class="btn btn-gray" onclick="gantiTab('page-galeri')">Buka Dashboard Galeri Terpisah ⮕</button>
     </div>
 
     <div id="page-galeri" class="hidden">
-        <h2 style="text-align:center;">DASHBOARD DATA TERPISAH (GALERI)</h2>
+        <h2 style="text-align:center;">DASHBOARD DATA TERPISAH</h2>
         <div class="card" id="galleryContainer">
-            <p id="no-data" style="text-align:center; color:#555;">Belum ada file di penyimpanan.</p>
-        </div>
-        <button class="btn btn-gray" onclick="gantiTab('page-main')">⬅ Kembali ke Dashboard Utama</button>
+            </div>
+        <button class="btn btn-gray" onclick="gantiTab('page-main')">⬅ Kembali ke Utama</button>
     </div>
 </div>
 
 <script>
+    // 1. Jam Digital
     setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000);
 
+    // 2. Navigasi
     function gantiTab(id) {
         document.getElementById('page-main').classList.toggle('hidden', id !== 'page-main');
         document.getElementById('page-galeri').classList.toggle('hidden', id !== 'page-galeri');
+        if(id === 'page-galeri') loadGallery(); // Refresh data pas buka galeri
     }
 
-    // FUNGSI UPLOAD YANG BENERAN JALAN
+    // 3. Fungsi Simpan (Upload)
     function uploadData() {
         const input = document.getElementById('fileInput');
         const status = document.getElementById('projStatus').value;
-        const container = document.getElementById('galleryContainer');
-        const noData = document.getElementById('no-data');
 
-        if (!input.files[0]) {
-            alert("Pilih filenya dulu dong, Bran!");
+        if (!input.files[0]) return alert("Pilih file dulu Bran!");
+
+        const file = input.files[0];
+        
+        // Simpan metadata file ke LocalStorage (karena file asli kegedean buat LocalStorage, kita simpan namanya dulu)
+        let storage = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
+        storage.push({
+            name: file.name,
+            size: (file.size / 1024).toFixed(1) + " KB",
+            status: status,
+            time: new Date().toLocaleString()
+        });
+
+        localStorage.setItem('gibran_gallery', JSON.stringify(storage));
+        
+        alert("Berhasil! Data tersimpan di memori browser.");
+        input.value = "";
+        gantiTab('page-galeri');
+    }
+
+    // 4. Fungsi Nampilin Data di Galeri Terpisah
+    function loadGallery() {
+        const container = document.getElementById('galleryContainer');
+        const storage = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
+        
+        if (storage.length === 0) {
+            container.innerHTML = '<p style="text-align:center; color:#555;">Belum ada file.</p>';
             return;
         }
 
-        const file = input.files[0];
-        const fileURL = URL.createObjectURL(file); // Link lokal sementara
-
-        if (noData) noData.remove();
-
-        // Buat elemen baru di Galeri
-        const div = document.createElement('div');
-        div.className = 'file-item';
-        div.innerHTML = `
-            <div style="text-align: left;">
-                <span style="color:${status === 'Publish' ? '#4caf50' : '#888'}; font-size:10px; font-weight:bold;">[${status.toUpperCase()}]</span><br>
-                <strong>${file.name}</strong><br>
-                <small style="color:#666;">${(file.size / 1024).toFixed(1)} KB</small>
-            </div>
-            <div>
-                <a href="${fileURL}" download="${file.name}" class="btn-green">Download</a>
-                <button class="btn-red" onclick="this.parentElement.parentElement.remove()">Hapus</button>
-            </div>
-        `;
-
-        container.appendChild(div);
-        alert("Sip! Proyek berhasil di-upload ke Dashboard Terpisah.");
-        input.value = ""; // Reset input
+        container.innerHTML = ""; // Bersihin gallery sebelum load ulang
+        storage.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = 'file-item';
+            div.innerHTML = `
+                <div style="text-align:left;">
+                    <span style="color:#ff9800; font-size:10px;">[${item.status}]</span><br>
+                    <strong>${item.name}</strong><br>
+                    <small style="color:#666;">${item.size} | ${item.time}</small>
+                </div>
+                <button class="btn-red" onclick="hapusFile(${index})">Hapus</button>
+            `;
+            container.appendChild(div);
+        });
     }
+
+    // 5. Fungsi Hapus
+    function hapusFile(index) {
+        let storage = JSON.parse(localStorage.getItem('gibran_gallery'));
+        storage.splice(index, 1);
+        localStorage.setItem('gibran_gallery', JSON.stringify(storage));
+        loadGallery();
+    }
+
+    // Load data pas pertama kali buka
+    window.onload = loadGallery;
 </script>
 </body>
 </html>
