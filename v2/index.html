@@ -3,113 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gibran - Portfolio & Dashboard</title>
+    <title>Login Gibran - Google Sheets System</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
-        /* CSS Dashboard & Utama digabung */
-        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; }
-        .container { max-width: 900px; margin: auto; }
-        #clock { font-size: 35px; font-weight: bold; color: #ff9800; text-align: center; margin-bottom: 5px; font-family: monospace; }
-        .placeholder-tag { text-align: center; color: #ff9800; font-weight: bold; margin-bottom: 25px; letter-spacing: 2px; }
-        
-        .card { background: #111; padding: 25px; border-radius: 15px; border: 1px solid #333; margin-bottom: 20px; }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px; }
-        .stat-card { background: #1a1a1a; padding: 20px; border-radius: 12px; border: 1px solid #333; text-align: center; }
-        .stat-card p { margin-top: 10px; font-size: 22px; font-weight: bold; color: #ff9800; }
-        
-        .btn { padding: 12px 20px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; margin-top: 10px; }
-        .btn-orange { background: #ff9800; color: #000; }
-        .btn-gray { background: #333; color: white; border: 1px solid #555; }
-        
-        input, textarea, select { width: 100%; padding: 12px; margin-top: 8px; margin-bottom: 15px; background: #000; border: 1px solid #444; color: #fff; border-radius: 8px; box-sizing: border-box; }
-        .inbox-item { background: #1a1a1a; padding: 15px; border-radius: 10px; border: 1px solid #333; margin-top: 10px; }
-        
-        /* Navigasi Simpel */
-        nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-        .logo { font-weight: bold; color: #ff9800; font-size: 20px; }
+        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .login-box { background: #111; padding: 40px; border-radius: 20px; border: 1px solid #333; text-align: center; width: 320px; box-shadow: 0 0 20px rgba(255,152,0,0.1); }
+        h1 { color: #ff9800; font-size: 24px; margin-bottom: 5px; letter-spacing: 1px; }
+        .tagline { color: #555; font-size: 12px; margin-bottom: 30px; }
+        #profile-display { display: none; margin-top: 20px; animation: fadeIn 0.5s; }
+        .avatar { width: 80px; height: 80px; border-radius: 50%; border: 2px solid #ff9800; margin-bottom: 15px; }
+        .btn-dash { display: block; background: #ff9800; color: #000; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: 20px; transition: 0.3s; }
+        .btn-dash:hover { background: #fff; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <nav>
-            <div class="logo">GIBRAN.PROJECT</div>
-            <div style="color: #666; font-size: 12px;">Admin Mode Active</div>
-        </nav>
+    <div class="login-box">
+        <h1>GIBRAN PROJECT</h1>
+        <div class="tagline">[ Dashboard Kosongan - Siap Diisi ]</div>
 
-        <div id="clock">00:00:00</div>
-        <div class="placeholder-tag">[ Dashboard Kosongan - Siap Diisi ]</div>
+        <div id="g_id_onload"
+             data-client_id="855325615712-87p02m78v3l50h688d0111111111.apps.googleusercontent.com" 
+             data-callback="onSignIn">
+        </div>
+        <div class="g_id_signin" data-type="standard" data-theme="filled_black"></div>
 
-        <section id="dashboard">
-            <h2>Analitik Proyek</h2>
-            <div class="stats-grid">
-                <div class="stat-card"><h4>Total Visitors</h4><p>1,240</p></div>
-                <div class="stat-card"><h4>Top Project</h4><p style="font-size:14px">Futsal Highlight</p></div>
-                <div class="stat-card"><h4>Pesan Masuk</h4><p>3</p></div>
-            </div>
-
-            <div class="card">
-                <h2>1. Upload Proyek Baru</h2>
-                <input type="file" id="fileInput">
-                <label>Status Proyek:</label>
-                <select id="projStatus">
-                    <option value="Publish">🚀 Publish</option>
-                    <option value="Draft">📁 Draft</option>
-                </select>
-                <button class="btn btn-orange" onclick="uploadData()">Upload & Simpan ke Galeri</button>
-            </div>
-
-            <div class="card">
-                <h2>2. Skill & Experience Editor</h2>
-                <textarea placeholder="Update Skill (Contoh: Gitar, Futsal, PR)..."></textarea>
-                <button class="btn btn-orange">Update CV</button>
-            </div>
-
-            <div class="card">
-                <h2>3. Contact / Inbox</h2>
-                <div class="inbox-item">
-                    <strong>Andi - Client</strong><br>
-                    <small>"Gibran, bisa bantu PR untuk brand saya?"</small>
-                </div>
-            </div>
-
-            <div class="card">
-                <h2>4. Settings</h2>
-                <input type="text" placeholder="Ganti Judul Website">
-                <input type="text" placeholder="URL Foto Profil">
-                <button class="btn btn-orange">Simpan Pengaturan</button>
-            </div>
-
-            <button class="btn btn-gray" onclick="window.location.href='terpisah.html'">Buka Dashboard Galeri Terpisah ⮕</button>
-        </section>
+        <div id="profile-display">
+            <img id="user-pic" src="" class="avatar">
+            <h3 id="user-name" style="margin: 0;"></h3>
+            <p id="user-email" style="font-size: 12px; color: #888; margin: 5px 0;"></p>
+            <a href="dashboard.html" class="btn-dash">MASUK DASHBOARD ⮕</a>
+        </div>
     </div>
 
     <script>
-        // Jam Digital
-        setInterval(() => { 
-            document.getElementById('clock').innerText = new Date().toLocaleTimeString(); 
-        }, 1000);
+        // Link Script Google yang kamu kasih
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxZQcztqoemekPikgBZkUsRcL4toTHVLxTZmO298X4MeF5MkgswCfN4ioRVx_QvrZaVSw/exec';
 
-        // Fungsi Simpan ke LocalStorage
-        function uploadData() {
-            const input = document.getElementById('fileInput');
-            const status = document.getElementById('projStatus').value;
-            if (!input.files[0]) return alert("Pilih file dulu, Bran!");
+        function onSignIn(response) {
+            // Decode Token JWT dari Google
+            const base64Url = response.credential.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const data = JSON.parse(window.atob(base64));
 
-            const file = input.files[0];
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                let storage = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
-                storage.push({
-                    name: file.name,
-                    size: (file.size / 1024).toFixed(1) + " KB",
-                    status: status,
-                    content: e.target.result,
-                    time: new Date().toLocaleString()
-                });
-                localStorage.setItem('gibran_gallery', JSON.stringify(storage));
-                alert("Sip! Berhasil disimpan di index.");
-            };
-            reader.readAsDataURL(file);
+            // Tampilkan info user di layar
+            document.querySelector(".g_id_signin").style.display = "none";
+            document.getElementById("profile-display").style.display = "block";
+            document.getElementById("user-pic").src = data.picture;
+            document.getElementById("user-name").innerText = data.name;
+            document.getElementById("user-email").innerText = data.email;
+
+            // KIRIM DATA KE GOOGLE SHEET
+            fetch(scriptURL, {
+                method: 'POST',
+                mode: 'no-cors', // Penting agar tidak kena CORS error
+                cache: 'no-cache',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    nama: data.name,
+                    email: data.email,
+                    foto: data.picture,
+                    waktu: new Date().toLocaleString()
+                })
+            })
+            .then(() => console.log("Mantap, data sudah masuk ke Google Sheet!"))
+            .catch(error => console.error('Error:', error));
         }
     </script>
 </body>
