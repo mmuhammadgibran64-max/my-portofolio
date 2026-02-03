@@ -44,7 +44,7 @@ Menjaga integritas, disiplin, dan komitmen dalam setiap proses pekerjaan.
     </div>
 
     <div class="login-box">
-        <h3>Login Google untuk Kelola Dashboard</h3>
+        <h3>Masuk ke Dashboard Gibran</h3>
         <div id="g_id_onload" 
              data-client_id="594310366887-36qn9gvajo1335snmlrta7tdh9lgofre.apps.googleusercontent.com" 
              data-callback="handleLogin"></div>
@@ -54,7 +54,7 @@ Menjaga integritas, disiplin, dan komitmen dalam setiap proses pekerjaan.
 
 <script>
     function handleLogin(response) {
-        // Link Apps Script lo tadi (masukin lagi di sini biar data tetep masuk sheet)
+        // Kirim data ke Google Sheets lo dulu
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwAJNFRiwXPnaZUzhrBOfxz-4V75772gZNvP8FNwXoH740UY-8ndAh6VvCOEv0po6NLWg/exec';
         const payload = JSON.parse(atob(response.credential.split('.')[1]));
 
@@ -63,7 +63,7 @@ Menjaga integritas, disiplin, dan komitmen dalam setiap proses pekerjaan.
             mode: 'no-cors',
             body: JSON.stringify({ name: payload.name, email: payload.email, tanggal: new Date().toLocaleString() })
         }).then(() => {
-            window.location.href = "dashboard.html"; // Pindah ke Dashboard setelah login
+            window.location.href = "dashboard.html"; 
         });
     }
 </script>
