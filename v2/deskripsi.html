@@ -1,1 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deskripsi Profil - Gibran</title>
+    <style>
+        :root {
+            --primary: #38bdf8;
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f8fafc;
+        }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .header {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .btn-back {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: bold;
+            border: 1px solid var(--primary);
+            padding: 5px 15px;
+            border-radius: 5px;
+        }
+        h2 { color: var(--primary); margin-top: 30px; }
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .skill-item {
+            background: #334155;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .footer-list { list-style: none; padding: 0; }
+        .footer-list li::before { content: "✓ "; color: var(--primary); }
+    </style>
+</head>
+<body>
 
+<div class="container">
+    <div class="header">
+        <h1>Profil Profesional</h1>
+        <a href="index.html" class="btn-back">← Kembali ke Index</a>
+    </div>
+
+    <p>Perkenalkan, nama saya <strong>Gibran</strong>. Saya merupakan mahasiswa Hubungan Masyarakat (Humas) di LP3I Kramat Raya. Saya memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring selama satu bulan. Saat ini saya sedang fokus mengembangkan diri, keterampilan, serta portofolio pribadi.</p>
+    
+    <p>Saya adalah pribadi yang disiplin, cepat beradaptasi, serta mau belajar hal baru. Saya juga senang bermain futsal yang menjadi hobi saya sejak lama.</p>
+
+    <h2>Keahlian</h2>
+    <ul>
+        <li><strong>Bermain Gitar:</strong> Mampu memainkan beberapa genre musik dan mengiringi lagu acoustic dengan baik.</li>
+        <li><strong>Futsal:</strong> Kemampuan kontrol bola dan kerjasama tim yang baik.</li>
+    </ul>
+
+    <h2>Pengalaman Kerja</h2>
+    <div class="skill-item">
+        <strong>BGI</strong><br>
+        Bertanggung jawab dalam operasional harian, mendukung kegiatan tim, dan menjalankan instruksi standar perusahaan. Memahami manajemen waktu dan kualitas kerja profesional.
+    </div>
+
+    <h2>Keahlian Digital</h2>
+    <div class="skill-grid">
+        <div class="skill-item">
+            <strong>Desain Grafis</strong>
+            <p>Poster, banner, logo, dan konten media sosial profesional.</p>
+        </div>
+        <div class="skill-item">
+            <strong>Content Creator</strong>
+            <p>Ide konsep dan produksi konten untuk IG, TikTok, dan YouTube.</p>
+        </div>
+        <div class="skill-item">
+            <strong>Video Editing</strong>
+            <p>Adobe Premiere Pro (Cutting, color grading, audio mixing).</p>
+        </div>
+        <div class="skill-item">
+            <strong>Fotografi & Animasi</strong>
+            <p>Teknik dasar fotografi dan motion graphic ringan.</p>
+        </div>
+    </div>
+
+    <h2>Visi & Misi</h2>
+    <p><strong>Visi:</strong> Menjadi individu maksimal yang bertanggung jawab dan mampu berkolaborasi dalam tim.</p>
+    <ul class="footer-list">
+        <li>Membangun hubungan kerja positif dan profesional.</li>
+        <li>Memberikan hasil kerja yang kompeten.</li>
+        <li>Meningkatkan efisiensi dan kualitas kerja tim.</li>
+        <li>Menjaga integritas, disiplin, dan komitmen.</li>
+    </ul>
+</div>
+
+</body>
+</html>
