@@ -3,116 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard M Gibran - SIT</title>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <title>Gibran - Portfolio & Dashboard</title>
     <style>
-        :root { --primary: #38bdf8; --bg: #0f172a; --card: #1e293b; --text: #f8fafc; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
+        /* CSS Dashboard & Utama digabung */
+        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: auto; }
+        #clock { font-size: 35px; font-weight: bold; color: #ff9800; text-align: center; margin-bottom: 5px; font-family: monospace; }
+        .placeholder-tag { text-align: center; color: #ff9800; font-weight: bold; margin-bottom: 25px; letter-spacing: 2px; }
         
-        .container { max-width: 500px; width: 90%; background: var(--card); padding: 40px; border-radius: 25px; text-align: center; box-shadow: 0 15px 50px rgba(0,0,0,0.6); border: 1px solid #334155; }
+        .card { background: #111; padding: 25px; border-radius: 15px; border: 1px solid #333; margin-bottom: 20px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        .stat-card { background: #1a1a1a; padding: 20px; border-radius: 12px; border: 1px solid #333; text-align: center; }
+        .stat-card p { margin-top: 10px; font-size: 22px; font-weight: bold; color: #ff9800; }
         
-        /* Navigasi Halaman */
-        #login-box { display: block; }
-        #dashboard-box { display: none; }
-
-        .banner { width: 100%; padding: 25px 0; background: linear-gradient(135deg, #0ea5e9, #6366f1); border-radius: 20px; margin-bottom: 30px; }
-        #clock { font-size: 3em; font-weight: bold; text-shadow: 2px 2px 10px rgba(0,0,0,0.3); }
+        .btn { padding: 12px 20px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; margin-top: 10px; }
+        .btn-orange { background: #ff9800; color: #000; }
+        .btn-gray { background: #333; color: white; border: 1px solid #555; }
         
-        .welcome-text { font-size: 1.2em; color: var(--primary); font-weight: 600; margin-bottom: 10px; }
-        .empty-dash { border: 2px dashed #475569; padding: 60px 20px; border-radius: 15px; color: #94a3b8; margin: 20px 0; }
+        input, textarea, select { width: 100%; padding: 12px; margin-top: 8px; margin-bottom: 15px; background: #000; border: 1px solid #444; color: #fff; border-radius: 8px; box-sizing: border-box; }
+        .inbox-item { background: #1a1a1a; padding: 15px; border-radius: 10px; border: 1px solid #333; margin-top: 10px; }
         
-        .btn-logout { background: #ef4444; color: white; border: none; padding: 12px 25px; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .btn-logout:hover { background: #dc2626; transform: scale(1.05); }
+        /* Navigasi Simpel */
+        nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .logo { font-weight: bold; color: #ff9800; font-size: 20px; }
     </style>
 </head>
 <body>
 
-<div id="login-box" class="container">
-    <div class="banner">
-        <h2 style="margin:0;">GIBRAN PORTFOLIO</h2>
-        <p style="opacity: 0.9; font-size: 14px;">Dashboard Access</p>
-    </div>
-    
-    <p class="welcome-text">Selamat Datang</p>
-    <p style="font-size: 14px; color: #94a3b8; margin-bottom: 30px;">Klik tombol di bawah untuk masuk dan mencatat data ke sheet <b>daftar</b></p>
+    <div class="container">
+        <nav>
+            <div class="logo">GIBRAN.PROJECT</div>
+            <div style="color: #666; font-size: 12px;">Admin Mode Active</div>
+        </nav>
 
-    <div style="display: flex; justify-content: center;">
-        <div id="g_id_onload"
-             data-client_id="594310366887-8b30jrckuekb2do01g1b9kl29lh3l9j6.apps.googleusercontent.com"
-             data-context="signin"
-             data-ux_mode="popup"
-             data-callback="handleCredentialResponse"
-             data-auto_prompt="false">
-        </div>
-        <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="filled_blue" data-size="large" data-text="signin_with"></div>
-    </div>
-    <p id="status" style="margin-top: 20px; font-size: 13px; color: #38bdf8;"></p>
-</div>
-
-<div id="dashboard-box" class="container">
-    <div class="banner">
         <div id="clock">00:00:00</div>
-        <p style="margin: 5px 0 0 0; font-weight: bold;">SIT DASHBOARD AKTIF</p>
+        <div class="placeholder-tag">[ Dashboard Kosongan - Siap Diisi ]</div>
+
+        <section id="dashboard">
+            <h2>Analitik Proyek</h2>
+            <div class="stats-grid">
+                <div class="stat-card"><h4>Total Visitors</h4><p>1,240</p></div>
+                <div class="stat-card"><h4>Top Project</h4><p style="font-size:14px">Futsal Highlight</p></div>
+                <div class="stat-card"><h4>Pesan Masuk</h4><p>3</p></div>
+            </div>
+
+            <div class="card">
+                <h2>1. Upload Proyek Baru</h2>
+                <input type="file" id="fileInput">
+                <label>Status Proyek:</label>
+                <select id="projStatus">
+                    <option value="Publish">🚀 Publish</option>
+                    <option value="Draft">📁 Draft</option>
+                </select>
+                <button class="btn btn-orange" onclick="uploadData()">Upload & Simpan ke Galeri</button>
+            </div>
+
+            <div class="card">
+                <h2>2. Skill & Experience Editor</h2>
+                <textarea placeholder="Update Skill (Contoh: Gitar, Futsal, PR)..."></textarea>
+                <button class="btn btn-orange">Update CV</button>
+            </div>
+
+            <div class="card">
+                <h2>3. Contact / Inbox</h2>
+                <div class="inbox-item">
+                    <strong>Andi - Client</strong><br>
+                    <small>"Gibran, bisa bantu PR untuk brand saya?"</small>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>4. Settings</h2>
+                <input type="text" placeholder="Ganti Judul Website">
+                <input type="text" placeholder="URL Foto Profil">
+                <button class="btn btn-orange">Simpan Pengaturan</button>
+            </div>
+
+            <button class="btn btn-gray" onclick="window.location.href='terpisah.html'">Buka Dashboard Galeri Terpisah ⮕</button>
+        </section>
     </div>
 
-    <div class="empty-dash">
-        <p id="user-greeting">👋 Halo!</p>
-        <p style="font-size: 12px; margin-top: 10px;">Data login kamu (Nama & Email) sudah otomatis masuk ke Google Sheet "daftar".</p>
-        <hr style="border: 0; border-top: 1px solid #334155; margin: 20px 0;">
-        <p style="font-size: 14px; color: var(--primary);">[ Dashboard Kosongan - Siap Diisi ]</p>
-    </div>
+    <script>
+        // Jam Digital
+        setInterval(() => { 
+            document.getElementById('clock').innerText = new Date().toLocaleTimeString(); 
+        }, 1000);
 
-    <button class="btn-logout" onclick="location.reload()">LOGOUT</button>
-</div>
+        // Fungsi Simpan ke LocalStorage
+        function uploadData() {
+            const input = document.getElementById('fileInput');
+            const status = document.getElementById('projStatus').value;
+            if (!input.files[0]) return alert("Pilih file dulu, Bran!");
 
-<script>
-    // 1. FUNGSI JAM DIGITAL
-    setInterval(() => {
-        const clockEl = document.getElementById('clock');
-        if(clockEl) {
-            clockEl.innerText = new Date().toLocaleTimeString('id-ID');
+            const file = input.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                let storage = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
+                storage.push({
+                    name: file.name,
+                    size: (file.size / 1024).toFixed(1) + " KB",
+                    status: status,
+                    content: e.target.result,
+                    time: new Date().toLocaleString()
+                });
+                localStorage.setItem('gibran_gallery', JSON.stringify(storage));
+                alert("Sip! Berhasil disimpan di index.");
+            };
+            reader.readAsDataURL(file);
         }
-    }, 1000);
-
-    // 2. FUNGSI DECODE DATA GOOGLE (Mengambil Nama & Email)
-    function parseJwt(token) {
-        var base64Url = token.split('.')[1];
-        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-        return JSON.parse(jsonPayload);
-    };
-
-    // 3. FUNGSI HANDLE LOGIN
-    function handleCredentialResponse(response) {
-        const statusEl = document.getElementById('status');
-        statusEl.innerText = "Mencatat profil Anda ke Sheet...";
-
-        // Bongkar data profil asli
-        const responsePayload = parseJwt(response.credential);
-        const namaAsli = responsePayload.name;
-        const emailAsli = responsePayload.email;
-
-        // LINK APPS SCRIPT ANDA
-        const scriptURL = "https://script.google.com/macros/s/AKfycbwCZnpxtHpRv3NyX3xA1YkAlQcUO9KE-Ilf0Uz_5dB2vxLcK57lKxa_A7drSlEY4J6hWg/exec";
-
-        // Kirim Nama & Email ke Google Sheets
-        fetch(scriptURL + "?nama=" + encodeURIComponent(namaAsli) + "&hp=" + encodeURIComponent(emailAsli))
-        .then(() => {
-            // Berhasil: Pindah ke Dashboard
-            document.getElementById('login-box').style.display = 'none';
-            document.getElementById('dashboard-box').style.display = 'block';
-            document.getElementById('user-greeting').innerHTML = "👋 Halo, <b>" + namaAsli + "</b>!";
-        })
-        .catch(err => {
-            // Tetap masuk dashboard walau fetch gagal (masalah jaringan)
-            console.error("Gagal lapor:", err);
-            document.getElementById('login-box').style.display = 'none';
-            document.getElementById('dashboard-box').style.display = 'block';
-        });
-    }
-</script>
-
+    </script>
 </body>
 </html>
