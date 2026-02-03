@@ -3,55 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio Resmi M. Gibran | Mahasiswa Humas LP3I</title>
+    <title>Portofolio V2 - M Gibran</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
-        :root { --accent: #ff9800; --bg: #000; --card: #111; --text: #ececec; }
-        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; line-height: 1.6; }
-        .wrapper { max-width: 800px; margin: auto; background: var(--card); padding: 40px; border-radius: 25px; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        h1 { text-align: center; color: #fff; font-size: 28px; text-transform: uppercase; margin-bottom: 30px; }
-        .full-description { text-align: left; white-space: pre-line; margin-bottom: 30px; border-bottom: 1px solid #222; padding-bottom: 20px; }
-        .header-section { color: var(--accent); font-weight: bold; text-transform: uppercase; display: block; margin-top: 25px; border-left: 4px solid var(--accent); padding-left: 10px; margin-bottom: 10px; }
-        .btn-main { display: block; width: 100%; text-align: center; padding: 18px; border-radius: 15px; text-decoration: none; font-weight: bold; margin-top: 15px; transition: 0.3s; box-sizing: border-box; font-size: 16px; background: #1a1a1a; color: var(--accent); border: 1px solid var(--accent); }
-        .btn-main:hover { background: var(--accent); color: #000; }
-        #sosmed-container { margin-top: 30px; padding: 20px; border: 1px dashed #444; border-radius: 15px; text-align: center; }
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            background: #1e293b;
+            max-width: 450px;
+            width: 100%;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            text-align: center;
+            border: 1px solid #334155;
+        }
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid #38bdf8;
+            margin-bottom: 20px;
+        }
+        h1 { margin: 10px 0; font-size: 24px; color: #38bdf8; }
+        .description {
+            font-size: 15px;
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .btn-ig {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            transition: transform 0.2s;
+        }
+        .btn-ig:hover { transform: scale(1.05); }
+        .divider {
+            margin: 20px 0;
+            border-top: 1px solid #334155;
+            position: relative;
+        }
+        .divider span {
+            position: absolute;
+            top: -10px;
+            background: #1e293b;
+            padding: 0 10px;
+            font-size: 12px;
+            color: #64748b;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .google-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
 
-<div class="wrapper">
-    <h1>PROFIL PRIBADI</h1>
-    
-    <div class="full-description">
-Perkenalkan, nama saya Gibran. Saya merupakan mahasiswa Hubungan Masyarakat (Humas) di LP3I Kramat Raya. Saya memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring, dengan masa kerja selama satu bulan. Setelah itu saya belum bekerja lagi dan sedang fokus mengembangkan diri.
+    <div class="container">
+        <img src="https://via.placeholder.com/100" alt="M Gibran" class="profile-img">
+        
+        <h1>M Muhammad Gibran</h1>
+        <div class="description">
+            Selamat datang di Portofolio V2 saya. Ini adalah halaman update terbaru untuk akses dashboard dan pengelolaan data melalui Google Sheets.
+        </div>
 
-Saya adalah pribadi yang disiplin, cepat beradaptasi, serta mau belajar hal baru. Dalam keseharian, saya senang bermain futsal.
+        <a href="https://www.instagram.com/mgibran4184" target="_blank" class="btn-ig">
+            Follow Instagram @mgibran4184
+        </a>
 
-<span class="header-section">Keahlian</span>
-Bermain Gitar & Futsal.
+        <div class="divider"><span>LOGIN DASHBOARD</span></div>
 
-<span class="header-section">Pengalaman Kerja</span>
-Monitoring - Gatot Subroto (1 Bulan)
-Operasional - BGI
+        <div id="g_id_onload"
+             data-client_id="594310366887-36qn9gvajo1335snmlrta7tdh9lgofre.apps.googleusercontent.com"
+             data-context="signin"
+             data-ux_mode="redirect"
+             data-login_uri="https://script.google.com/macros/s/AKfycbyK7QOFMM7j4ui9WDkOhPwXcjwxmix_qgnkzeDSFSuX_yoyjGW1CBhUXPtb99Ksr-33QQ/exec"
+             data-auto_prompt="false">
+        </div>
+
+        <div class="google-btn-container">
+            <div class="g_id_signin"
+                 data-type="standard"
+                 data-shape="pill"
+                 data-theme="filled_blue"
+                 data-text="signin_with"
+                 data-size="large"
+                 data-logo_alignment="left">
+            </div>
+        </div>
     </div>
-
-    <a href="pengaturan.html" class="btn-main">⚙️ BUKA PENGATURAN SISTEM</a>
-
-    <div id="sosmed-container">
-        <p style="color: #666;">Memuat Sosial Media...</p>
-    </div>
-</div>
-
-<script>
-    fetch('sosial-media.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('sosmed-container').innerHTML = data;
-        })
-        .catch(err => {
-            document.getElementById('sosmed-container').innerHTML = 
-            "<p>Cek file sosial-media.html Anda</p>";
-        });
-</script>
 
 </body>
 </html>
