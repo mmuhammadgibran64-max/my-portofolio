@@ -3,68 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pendaftaran Google</title>
+    <title>Dashboard Login</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f4f4f4;
+            background-color: #f0f2f5;
         }
         .container {
             text-align: center;
-            padding: 30px;
+            padding: 40px;
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            width: 300px;
-        }
-        .btn {
-            display: block;
-            padding: 12px;
-            margin: 10px 0;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: 0.3s;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 350px;
         }
         .btn-ig {
-            background-color: #E1306C;
+            display: block;
+            padding: 12px;
+            margin-bottom: 25px;
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
             color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: transform 0.2s;
         }
         .btn-ig:hover {
-            background-color: #c13584;
+            transform: scale(1.02);
         }
-        .btn-google {
-            background-color: #4285F4;
-            color: white;
+        .divider {
+            margin: 20px 0;
+            border-top: 1px solid #eee;
+            position: relative;
         }
-        .btn-google:hover {
-            background-color: #357ae8;
-        }
-        p {
-            font-size: 14px;
-            color: #666;
+        .divider span {
+            position: absolute;
+            top: -10px;
+            background: white;
+            padding: 0 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #888;
+            font-size: 12px;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h2>Menu Pendaftaran</h2>
+        <h2>Selamat Datang</h2>
         
-        <a href="https://www.instagram.com/mgibran4184" target="_blank" class="btn btn-ig">
-            Instagram M Gibran 4184
+        <a href="https://www.instagram.com/mgibran4184" target="_blank" class="btn-ig">
+            Follow Instagram
         </a>
 
-        <a href="https://script.google.com/macros/s/AKfycbyK7QOFMM7j4ui9WDkOhPwXcjwxmix_qgnkzeDSFSuX_yoyjGW1CBhUXPtb99Ksr-33QQ/exec" target="_blank" class="btn btn-google">
-            Daftar Pakai Google
-        </a>
+        <div class="divider"><span>LOGIN DASHBOARD</span></div>
 
-        <p>Client ID: 594310366887-36qn9gvajo1335snmlrta7tdh9lgofre.apps.googleusercontent.com</p>
+        <div id="g_id_onload"
+             data-client_id="594310366887-36qn9gvajo1335snmlrta7tdh9lgofre.apps.googleusercontent.com"
+             data-context="signin"
+             data-ux_mode="redirect"
+             data-login_uri="https://script.google.com/macros/s/AKfycbyK7QOFMM7j4ui9WDkOhPwXcjwxmix_qgnkzeDSFSuX_yoyjGW1CBhUXPtb99Ksr-33QQ/exec"
+             data-auto_prompt="false">
+        </div>
+
+        <div class="g_id_signin"
+             data-type="standard"
+             data-shape="rectangular"
+             data-theme="outline"
+             data-text="signin_with"
+             data-size="large"
+             data-logo_alignment="left">
+        </div>
     </div>
 
 </body>
