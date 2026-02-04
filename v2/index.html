@@ -3,73 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Gibran - Google Sheets System</title>
+    <title>Portofolio Resmi M. Gibran | Mahasiswa Humas LP3I</title>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
     <style>
-        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .login-box { background: #111; padding: 40px; border-radius: 20px; border: 1px solid #333; text-align: center; width: 320px; box-shadow: 0 0 20px rgba(255,152,0,0.1); }
-        h1 { color: #ff9800; font-size: 24px; margin-bottom: 5px; letter-spacing: 1px; }
-        .tagline { color: #555; font-size: 12px; margin-bottom: 30px; }
-        #profile-display { display: none; margin-top: 20px; animation: fadeIn 0.5s; }
-        .avatar { width: 80px; height: 80px; border-radius: 50%; border: 2px solid #ff9800; margin-bottom: 15px; }
-        .btn-dash { display: block; background: #ff9800; color: #000; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: 20px; transition: 0.3s; }
-        .btn-dash:hover { background: #fff; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        :root { --accent: #ff9800; --bg: #000; --card: #111; --text: #ececec; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; line-height: 1.6; }
+        .wrapper { max-width: 800px; margin: auto; background: var(--card); padding: 40px; border-radius: 25px; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h1 { text-align: center; color: #fff; font-size: 28px; text-transform: uppercase; margin-bottom: 30px; }
+        
+        /* Deskripsi Asli Gibran */
+        .full-description { text-align: left; white-space: pre-line; margin-bottom: 30px; border-bottom: 1px solid #222; padding-bottom: 20px; font-size: 16px; }
+        .header-section { color: var(--accent); font-weight: bold; text-transform: uppercase; display: block; margin-top: 25px; border-left: 4px solid var(--accent); padding-left: 10px; margin-bottom: 10px; }
+        
+        /* Area panggil file sosial-media.html */
+        #konten-sosmed-gibran { margin-top: 20px; padding: 15px; border: 1px dashed #444; border-radius: 15px; min-height: 50px; }
+
+        /* Box Login */
+        .login-box { background: #080808; padding: 30px; border-radius: 20px; text-align: center; border: 1px solid #222; margin-top: 40px; }
+        h3 { margin-bottom: 20px; color: var(--accent); }
     </style>
 </head>
 <body>
 
-    <div class="login-box">
-        <h1>GIBRAN PROJECT</h1>
-        <div class="tagline">[ Dashboard Kosongan - Siap Diisi ]</div>
+<div class="wrapper">
+    <h1>PROFIL PRIBADI</h1>
+    
+    <div class="full-description">
+Perkenalkan, nama saya Gibran. Saya merupakan mahasiswa Hubungan Masyarakat (Humas) di LP3I Kramat Raya. Saya memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring, dengan masa kerja selama satu bulan. Setelah itu saya belum bekerja lagi dan sedang fokus mengembangkan diri, keterampilan, serta portofolio pribadi.
 
-        <div id="g_id_onload"
-             data-client_id="855325615712-87p02m78v3l50h688d0111111111.apps.googleusercontent.com" 
-             data-callback="onSignIn">
-        </div>
-        <div class="g_id_signin" data-type="standard" data-theme="filled_black"></div>
+Saya adalah pribadi yang disiplin, cepat beradaptasi, serta mau belajar hal baru. Dalam keseharian, saya senang melakukan aktivitas positif, salah satunya bermain futsal yang menjadi hobi saya sejak lama.
 
-        <div id="profile-display">
-            <img id="user-pic" src="" class="avatar">
-            <h3 id="user-name" style="margin: 0;"></h3>
-            <p id="user-email" style="font-size: 12px; color: #888; margin: 5px 0;"></p>
-            <a href="dashboard.html" class="btn-dash">MASUK DASHBOARD ⮕</a>
-        </div>
+<span class="header-section">Keahlian</span>
+Bermain Gitar — Mampu memainkan beberapa genre musik.
+Futsal — Memiliki kemampuan kontrol bola yang baik.
+
+<span class="header-section">Pengalaman Kerja</span>
+Monitoring - Gatot Subroto (1 Bulan)
+Operasional - BGI
     </div>
 
-    <script>
-        // Link Script Google yang kamu kasih
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbxZQcztqoemekPikgBZkUsRcL4toTHVLxTZmO298X4MeF5MkgswCfN4ioRVx_QvrZaVSw/exec';
+    <div id="konten-sosmed-gibran">
+        <p style="text-align:center; color:#666;">Memuat Sosial Media...</p>
+    </div>
 
-        function onSignIn(response) {
-            // Decode Token JWT dari Google
-            const base64Url = response.credential.split('.')[1];
-            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            const data = JSON.parse(window.atob(base64));
+    <div class="login-box">
+        <h3>Daftar Pengunjung (Google Login)</h3>
+        <div id="g_id_onload" 
+             data-client_id="594310366887-dsrs8pdnrdrhneg3h15saj7btp08oh67.apps.googleusercontent.com" 
+             data-callback="handleLogin"></div>
+        <div style="display:flex; justify-content:center;" class="g_id_signin" data-type="standard"></div>
+    </div>
+</div>
 
-            // Tampilkan info user di layar
-            document.querySelector(".g_id_signin").style.display = "none";
-            document.getElementById("profile-display").style.display = "block";
-            document.getElementById("user-pic").src = data.picture;
-            document.getElementById("user-name").innerText = data.name;
-            document.getElementById("user-email").innerText = data.email;
+<script>
+    // FUNGSI PANGGIL FILE SOSMED KE INDEX
+    fetch('sosial-media.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('konten-sosmed-gibran').innerHTML = data;
+        })
+        .catch(err => {
+            console.log("File sosial-media.html belum ada di folder v2, Bran.");
+        });
 
-            // KIRIM DATA KE GOOGLE SHEET
-            fetch(scriptURL, {
-                method: 'POST',
-                mode: 'no-cors', // Penting agar tidak kena CORS error
-                cache: 'no-cache',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    nama: data.name,
-                    email: data.email,
-                    foto: data.picture,
-                    waktu: new Date().toLocaleString()
-                })
-            })
-            .then(() => console.log("Mantap, data sudah masuk ke Google Sheet!"))
-            .catch(error => console.error('Error:', error));
-        }
-    </script>
+    // FUNGSI LOGIN
+    function handleLogin(response) {
+        console.log("Login sukses dengan ID baru!");
+        // Arahkan ke dashboard kalau mau: window.location.href = "dashboard.html";
+    }
+</script>
+
 </body>
 </html>
