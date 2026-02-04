@@ -3,62 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Storage Center | M. Gibran</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <title>Dashboard | Internal System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        :root { --bg: #0a0a0a; --card: #161616; --accent: #ff9800; --text: #eee; }
-        body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; padding: 20px; }
-        .container { max-width: 800px; margin: auto; }
-        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 20px; margin-bottom: 30px; }
-        
-        .storage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; }
-        .file-card { background: var(--card); border: 1px solid #222; border-radius: 15px; padding: 20px; text-align: center; transition: 0.3s; }
-        .file-card:hover { border-color: var(--accent); transform: translateY(-5px); }
-        .file-card i { font-size: 40px; color: var(--accent); margin-bottom: 10px; }
-        
-        .back-btn { color: #888; text-decoration: none; font-size: 14px; display: flex; align-items: center; gap: 8px; }
-        .back-btn:hover { color: var(--accent); }
+        :root {
+            --bg: #000000;
+            --accent: #ff9800;
+            --text: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Biar tombolnya pas di tengah layar yang kosong */
+        }
+
+        /* TOMBOL BACK / KELUAR */
+        .btn-exit {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-exit:hover {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 0 20px rgba(255, 152, 0, 0.4);
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="header">
-        <div>
-            <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> Kembali ke Dashboard Utama</a>
-            <h1 style="margin: 10px 0 0 0;">Storage & Logs</h1>
-        </div>
-        <i class="fas fa-database" style="font-size: 30px; color: #333;"></i>
-    </div>
-
-    <h3 style="margin-bottom: 20px;">Hasil Upload & Aktivitas</h3>
-    
-    <div class="storage-grid">
-        <div class="file-card">
-            <i class="fas fa-file-image"></i>
-            <p style="font-size: 12px; margin: 0;">Foto_Profil.jpg</p>
-            <span style="font-size: 10px; color: #555;">Uploaded 2m ago</span>
-        </div>
-
-        <div class="file-card">
-            <i class="fas fa-file-video"></i>
-            <p style="font-size: 12px; margin: 0;">Video_Futsal.mp4</p>
-            <span style="font-size: 10px; color: #555;">Uploaded 1h ago</span>
-        </div>
-
-        <div class="file-card">
-            <i class="fas fa-user-shield"></i>
-            <p style="font-size: 12px; margin: 0;">Log_Absen_Muka</p>
-            <span style="font-size: 10px; color: var(--accent);">Gibran - Verified</span>
-        </div>
-    </div>
-
-    <div style="margin-top: 50px; padding: 20px; background: #111; border-radius: 10px; font-size: 13px; border: 1px solid #222;">
-        <p style="color: #666;"><i class="fas fa-info-circle"></i> Catatan: Ini adalah dashboard penyimpanan terpisah untuk memantau semua file dan data masuk.</p>
-    </div>
-</div>
+    <a href="index.html" class="btn-exit">
+        <i class="fas fa-arrow-left"></i> KELUAR DARI DASHBOARD
+    </a>
 
 </body>
 </html>
