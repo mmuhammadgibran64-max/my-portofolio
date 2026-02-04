@@ -3,65 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Galeri - Gibran</title>
+    <title>Storage Center | M. Gibran</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; }
+        :root { --bg: #0a0a0a; --card: #161616; --accent: #ff9800; --danger: #ff4444; --success: #28a745; }
+        body { background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; padding: 20px; }
         .container { max-width: 800px; margin: auto; }
-        .card { background: #111; padding: 25px; border-radius: 15px; border: 1px solid #333; margin-top: 20px; }
-        .file-item { display: flex; justify-content: space-between; align-items: center; background: #1a1a1a; padding: 15px; margin-bottom: 10px; border-radius: 10px; border: 1px solid #444; }
-        .btn { padding: 10px 15px; border-radius: 6px; border: none; cursor: pointer; font-weight: bold; text-decoration: none; font-size: 12px; }
-        .btn-green { background: #2e7d32; color: white; margin-right: 5px; }
-        .btn-red { background: #d32f2f; color: white; }
-        .btn-back { background: #333; color: white; display: block; width: 100%; margin-top: 20px; text-align: center; border: 1px solid #555; }
+        .file-item { background: var(--card); padding: 20px; border-radius: 15px; border: 1px solid #222; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .btn-action { padding: 10px 15px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; color: #fff; text-decoration: none; margin-left: 5px; }
+        .btn-download { background: var(--success); }
+        .btn-delete { background: var(--danger); }
+        .back-link { color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 20px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <button class="btn" style="background: transparent; color: #888; border: 1px solid #333; width: auto;" onclick="window.location.href='index.html'">🏠 Balik ke Website Utama</button>
-        
-        <h1 style="text-align: center; margin-top: 20px;">DASHBOARD TERPISAH</h1>
-        <p style="text-align: center; color: #888;">Kelola File & Proyek Terupload</p>
+        <a href="dashboard.html" class="back-link"><i class="fas fa-arrow-left"></i> Kembali ke Dashboard Utama</a>
+        <h1><i class="fas fa-database"></i> Storage Penyimpanan</h1>
+        <p style="color:#666">Kelola semua file foto dan video yang sudah di-upload.</p>
 
-        <div class="card" id="galleryContainer">
+        <div id="file-list">
+            <div class="file-item">
+                <div>
+                    <i class="fas fa-file-image" style="color:var(--accent)"></i> 
+                    <span>Hasil_Absen_01.jpg</span>
+                </div>
+                <div>
+                    <button class="btn-action btn-download" onclick="alert('Mendownload...')"><i class="fas fa-download"></i></button>
+                    <button class="btn-action btn-delete" onclick="this.parentElement.parentElement.remove()"><i class="fas fa-trash"></i></button>
+                </div>
             </div>
 
-        <button class="btn btn-back" onclick="window.location.href='dashboard.html'">⬅ Kembali ke Dashboard Utama</button>
+            <div class="file-item">
+                <div>
+                    <i class="fas fa-file-video" style="color:var(--accent)"></i> 
+                    <span>Video_Kegiatan_BGI.mp4</span>
+                </div>
+                <div>
+                    <button class="btn-action btn-download" onclick="alert('Mendownload...')"><i class="fas fa-download"></i></button>
+                    <button class="btn-action btn-delete" onclick="this.parentElement.parentElement.remove()"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <script>
-        function loadGallery() {
-            const container = document.getElementById('galleryContainer');
-            const storage = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
-            if (storage.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color:#555;">Belum ada data proyek.</p>';
-                return;
-            }
-            container.innerHTML = "";
-            storage.forEach((item, index) => {
-                const div = document.createElement('div');
-                div.className = 'file-item';
-                div.innerHTML = `
-                    <div style="text-align:left;">
-                        <span style="color:#ff9800; font-size:10px; font-weight:bold;">[${item.status}]</span><br>
-                        <strong>${item.name}</strong><br>
-                        <small style="color:#666;">${item.size} | ${item.time}</small>
-                    </div>
-                    <div>
-                        <a href="${item.content}" download="${item.name}" class="btn btn-green">Download</a>
-                        <button class="btn btn-red" onclick="hapusFile(${index})">Hapus</button>
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function hapusFile(index) {
-            let storage = JSON.parse(localStorage.getItem('gibran_gallery'));
-            storage.splice(index, 1);
-            localStorage.setItem('gibran_gallery', JSON.stringify(storage));
-            loadGallery();
-        }
-        window.onload = loadGallery;
-    </script>
 </body>
 </html>
