@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portofolio M. Gibran | Mahasiswa Humas LP3I</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -28,7 +29,7 @@
 
         .container { max-width: 800px; margin: auto; padding: 40px 20px; }
 
-        /* HERO SECTION (DESKRIPSI LUAR) */
+        /* HERO SECTION */
         .hero-section {
             background: var(--card);
             border: 1px solid var(--border);
@@ -40,32 +41,28 @@
         .full-desc { font-size: 15px; color: #ccc; white-space: pre-line; }
         
         .section-title {
-            color: var(--accent);
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 12px;
-            margin-top: 25px;
-            display: block;
-            border-left: 3px solid var(--accent);
-            padding-left: 10px;
-            margin-bottom: 10px;
+            color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 12px;
+            margin-top: 25px; display: block; border-left: 3px solid var(--accent);
+            padding-left: 10px; margin-bottom: 10px;
         }
 
         /* SKILLS SECTION */
         .skill-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px; margin-top: 20px;
         }
         .skill-card {
-            background: #111;
-            padding: 15px;
-            border-radius: 15px;
-            border: 1px solid #222;
+            background: #111; padding: 15px; border-radius: 15px; border: 1px solid #222;
         }
         .skill-card h4 { margin: 0 0 5px 0; color: var(--accent); font-size: 14px; }
         .skill-card p { margin: 0; font-size: 12px; color: #888; }
+
+        /* LOGIN BOX */
+        .login-section {
+            background: #0a0a0a; border: 1px solid var(--border);
+            border-radius: 25px; padding: 30px; text-align: center; margin-top: 40px;
+        }
+        .login-section h3 { margin-top: 0; color: var(--accent); font-size: 18px; }
 
         footer { text-align: center; color: var(--text-dim); font-size: 12px; margin-top: 60px; padding-bottom: 30px; }
     </style>
@@ -84,15 +81,15 @@ Saya adalah pribadi yang disiplin, cepat beradaptasi, serta mau belajar hal baru
 Dengan latar belakang Humas dan pengalaman di lapangan, saya siap berkontribusi dalam pekerjaan atau proyek yang membutuhkan komunikasi, kedisiplinan, dan kemampuan analisis dasar.
 
 <span class="section-title">Keahlian Personal</span>
-<b>Bermain Gitar</b> — Mampu memainkan chord dasar hingga intermediate, serta dapat mengiringi lagu acoustic dengan baik.
-<b>Futsal</b> — Memiliki kemampuan kontrol bola yang baik, cepat dalam pengambilan keputusan, dan mampu bekerja sama dalam tim.
+<b>Bermain Gitar</b> — Mampu memainkan chord dasar hingga intermediate.
+<b>Futsal</b> — Memiliki kemampuan kontrol bola yang baik dan cepat dalam pengambilan keputusan.
 
 <span class="section-title">Pengalaman Kerja</span>
 <b>BGI (Operasional)</b>
-Bertanggung jawab dalam beberapa tugas operasional seperti membantu proses pekerjaan sehari-hari, mendukung kegiatan tim, dan menjalankan instruksi sesuai standar perusahaan. Pengalaman ini membuat saya lebih matang dalam bekerja secara profesional.
+Bertanggung jawab dalam tugas operasional, mendukung kegiatan tim, dan menjalankan instruksi sesuai standar perusahaan.
 
 <span class="section-title">Visi & Misi</span>
-Menjadi individu yang mampu berkontribusi secara maksimal dan profesional. Membangun hubungan kerja yang positif serta terus mengembangkan pengetahuan untuk memberikan hasil kompeten bagi tim.
+Menjadi individu yang maksimal dalam berkontribusi dan profesional guna mencapai tujuan tim secara kompeten.
         </div>
     </section>
 
@@ -116,10 +113,53 @@ Menjadi individu yang mampu berkontribusi secara maksimal dan profesional. Memba
         </div>
     </div>
 
+    <section class="login-section">
+        <h3><i class="fas fa-sign-in-alt"></i> Akses Dashboard</h3>
+        <p style="font-size: 12px; color: var(--text-dim); margin-bottom: 20px;">
+            Daftar/Login dengan Google untuk masuk ke sistem.
+        </p>
+        
+        <div id="g_id_onload" 
+             data-client_id="594310366887-dsrs8pdnrdrhneg3h15saj7btp08oh67.apps.googleusercontent.com" 
+             data-callback="handleLogin"></div>
+        <div style="display:flex; justify-content:center;" class="g_id_signin" data-type="standard"></div>
+    </section>
+
     <footer>
-        &copy; 2026 M. Gibran. Mahasiswa Humas LP3I Kramat Raya.
+        &copy; 2026 M. Gibran. Connected to Google Cloud Platform.
     </footer>
 </div>
+
+<script>
+    // FUNGSI LOGIN & KIRIM KE GOOGLE SHEETS
+    function handleLogin(response) {
+        // Bongkar data akun Google
+        const responsePayload = JSON.parse(atob(response.credential.split('.')[1]));
+        const namaUser = responsePayload.name;
+        const emailUser = responsePayload.email;
+        
+        console.log("Mengirim data " + namaUser + " ke Sheet...");
+
+        // LINK GOOGLE APPS SCRIPT LO (SHEET: daftar)
+        const urlSheets = "https://script.google.com/macros/s/AKfycbx4FDV5UVR4LHyWNbXtWFna8IDN6p2Yylh1zp_F113096sAwi7mFOE1DNu6faRKYBmJeg/exec";
+
+        fetch(urlSheets, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: JSON.stringify({
+                name: namaUser,
+                email: emailUser
+            })
+        }).then(() => {
+            alert("Terima kasih " + namaUser + "! Data kamu sudah masuk di sheet daftar.");
+            // Pindah ke dashboard setelah login
+            window.location.href = "dashboard.html";
+        }).catch(err => {
+            console.error("Gagal kirim data:", err);
+            window.location.href = "dashboard.html"; // Tetap masuk meski gagal kirim
+        });
+    }
+</script>
 
 </body>
 </html>
