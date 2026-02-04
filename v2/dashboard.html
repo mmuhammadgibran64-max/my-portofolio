@@ -3,57 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | Internal System</title>
+    <title>Dashboard System | M. Gibran</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
     <style>
-        :root {
-            --bg: #000000;
-            --accent: #ff9800;
-            --text: #ffffff;
-        }
+        :root { --bg: #0a0a0a; --card: #141414; --accent: #ff9800; --text: #fff; --danger: #ff4444; --success: #28a745; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; }
+        .wrapper { max-width: 900px; margin: auto; }
+        
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid #222; padding-bottom: 10px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .panel { background: var(--card); border: 1px solid #222; padding: 20px; border-radius: 20px; }
+        
+        /* CCTV & SCAN */
+        #video-feed { width: 100%; background: #000; border-radius: 10px; transform: scaleX(-1); border: 1px solid #333; }
+        .status-box { font-size: 12px; margin: 10px 0; color: var(--accent); }
 
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; /* Biar tombolnya pas di tengah layar yang kosong */
-        }
+        /* UPLOAD & BUTTONS */
+        .upload-area { border: 2px dashed #333; padding: 20px; text-align: center; border-radius: 15px; margin-bottom: 15px; cursor: pointer; }
+        .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+        .btn { flex: 1; padding: 12px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; font-size: 14px; }
+        
+        .btn-scan { background: var(--accent); color: #000; }
+        .btn-storage { background: #333; color: #fff; }
+        .btn-download { background: var(--success); color: #fff; }
+        .btn-delete { background: var(--danger); color: #fff; }
+        .btn-back { background: transparent; border: 1px solid #444; color: #888; margin-top: 40px; width: 200px; margin-left: auto; margin-right: auto; }
 
-        /* TOMBOL BACK / KELUAR */
-        .btn-exit {
-            background: transparent;
-            color: var(--accent);
-            border: 2px solid var(--accent);
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 16px;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn-exit:hover {
-            background: var(--accent);
-            color: #000;
-            box-shadow: 0 0 20px rgba(255, 152, 0, 0.4);
-            transform: scale(1.05);
-        }
+        footer { text-align: center; margin-top: 50px; font-size: 12px; color: #444; }
     </style>
 </head>
 <body>
 
-    <a href="index.html" class="btn-exit">
-        <i class="fas fa-arrow-left"></i> KELUAR DARI DASHBOARD
+<div class="wrapper">
+    <div class="header">
+        <h2>Dashboard v1</h2>
+        <div id="jam" style="font-weight: bold; color: var(--accent);">00:00:00</div>
+    </div>
+
+    <div class="grid">
+        <div class="panel">
+            <h3><i class="fas fa-video"></i> CCTV & Face Absen</h3>
+            <video id="video-feed" autoplay playsinline></video>
+            <div id="status-scan" class="status-box">Status: Kamera Standby...</div>
+            <button class="btn btn-scan" onclick="startScan()">
+                <i class="fas fa-fingerprint"></i> SCAN & ABSEN
+            </button>
+        </div>
+
+        <div class="panel">
+            <h3><i class="fas fa-folder-open"></i> Media Manager</h3>
+            <div class="upload-area" onclick="document.getElementById('file-in').click()">
+                <i class="fas fa-cloud-upload-alt" style="font-size: 30px;"></i>
+                <p>Pilih Foto / Video</p>
+                <input type="file" id="file-in" hidden onchange="updateFileName()">
+            </div>
+            <div id="file-name" class="status-box">Belum ada file dipilih.</div>
+            
+            <a href="dashboard-terpisah.html" class="btn btn-storage">
+                <i class="fas fa-database"></i> BUKA STORAGE
+            </a>
+
+            <div class="btn-row">
+                <button class="btn btn-download" onclick="alert('Mulai Download...')">
+                    <i class="fas fa-download"></i> DOWNLOAD
+                </button>
+                <button class="btn btn-delete" onclick="confirm('Hapus semua file?')">
+                    <i class="fas fa-trash"></i> HAPUS
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <a href="index.html" class="btn btn-back">
+        <i class="fas fa-arrow-left"></i> KEMBALI KE INDEX
     </a>
+
+    <footer>&copy; 2026 M. Gibran - System Terintegrasi</footer>
+</div>
+
+<script>
+    // JAM BERGERAK
+    setInterval(() => {
+        document.getElementById('jam').innerText = new Date().toLocaleTimeString();
+    }, 1000);
+
+    // AKTIFKAN CCTV
+    const video = document.getElementById('video-feed');
+    navigator.mediaDevices?.getUserMedia({ video: true }).then(s => video.srcObject = s);
+
+    // SIMULASI SCAN
+    function startScan() {
+        const s = document.getElementById('status-scan');
+        s.innerText = "Scanning Wajah...";
+        setTimeout(() => { s.innerText = "✅ Wajah Terverifikasi!"; }, 2000);
+    }
+
+    // UPDATE NAMA FILE
+    function updateFileName() {
+        const input = document.getElementById('file-in');
+        document.getElementById('file-name').innerText = "File siap: " + input.files[0].name;
+    }
+</script>
 
 </body>
 </html>
