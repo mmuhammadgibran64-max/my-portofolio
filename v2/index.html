@@ -3,89 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio Resmi M. Gibran | Mahasiswa Humas LP3I</title>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <title>Portofolio M. Gibran | Mahasiswa Humas LP3I</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        :root { --accent: #ff9800; --bg: #000; --card: #111; --text: #ececec; }
-        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; line-height: 1.6; }
-        .wrapper { max-width: 800px; margin: auto; background: var(--card); padding: 40px; border-radius: 25px; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        h1 { text-align: center; color: #fff; font-size: 28px; text-transform: uppercase; margin-bottom: 30px; }
-        
-        /* Deskripsi Asli Gibran */
-        .full-description { text-align: left; white-space: pre-line; margin-bottom: 30px; border-bottom: 1px solid #222; padding-bottom: 20px; font-size: 16px; }
-        .header-section { color: var(--accent); font-weight: bold; text-transform: uppercase; display: block; margin-top: 25px; border-left: 4px solid var(--accent); padding-left: 10px; margin-bottom: 10px; }
-        
-        /* Area panggil file sosial-media.html */
-        #konten-sosmed-gibran { margin-top: 20px; padding: 15px; border: 1px dashed #444; border-radius: 15px; min-height: 50px; }
+        :root {
+            --bg: #050505;
+            --card: #0f0f0f;
+            --accent: #ff9800;
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+            --border: #222;
+        }
 
-        /* Box Login */
-        .login-box { background: #080808; padding: 30px; border-radius: 20px; text-align: center; border: 1px solid #222; margin-top: 40px; }
-        h3 { margin-bottom: 20px; color: var(--accent); }
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container { max-width: 800px; margin: auto; padding: 40px 20px; }
+
+        /* HERO SECTION (DESKRIPSI LUAR) */
+        .hero-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        h1 { font-size: 28px; margin-top: 0; color: var(--accent); }
+        .full-desc { font-size: 15px; color: #ccc; white-space: pre-line; }
+        
+        .section-title {
+            color: var(--accent);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 12px;
+            margin-top: 25px;
+            display: block;
+            border-left: 3px solid var(--accent);
+            padding-left: 10px;
+        }
+
+        /* DAFTAR AKUN SECTION */
+        .registration-box {
+            background: #0a0a0a;
+            border: 1px solid var(--accent);
+            border-radius: 25px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-size: 13px; margin-bottom: 8px; color: var(--text-dim); }
+        input {
+            width: 100%;
+            padding: 12px;
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 10px;
+            color: #fff;
+            box-sizing: border-box;
+        }
+        input:focus { border-color: var(--accent); outline: none; }
+
+        .btn-submit {
+            background: var(--accent);
+            color: #000;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(255, 152, 0, 0.4); }
+
+        /* SKILLS SECTION */
+        .skill-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .skill-card {
+            background: #111;
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px solid #222;
+        }
+        .skill-card h4 { margin: 0 0 5px 0; color: var(--accent); font-size: 14px; }
+        .skill-card p { margin: 0; font-size: 12px; color: #888; }
+
+        footer { text-align: center; color: var(--text-dim); font-size: 12px; margin-top: 50px; }
     </style>
 </head>
 <body>
 
-<div class="wrapper">
-    <h1>PROFIL PRIBADI</h1>
-    
-    <div class="full-description">
+<div class="container">
+    <section class="hero-section">
+        <h1>Halo, Saya Gibran</h1>
+        <div class="full-desc">
 Perkenalkan, nama saya Gibran. Saya merupakan mahasiswa Hubungan Masyarakat (Humas) di LP3I Kramat Raya. Saya memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring, dengan masa kerja selama satu bulan. Setelah itu saya belum bekerja lagi dan sedang fokus mengembangkan diri, keterampilan, serta portofolio pribadi.
 
 Saya adalah pribadi yang disiplin, cepat beradaptasi, serta mau belajar hal baru. Dalam keseharian, saya senang melakukan aktivitas positif, salah satunya bermain futsal yang menjadi hobi saya sejak lama.
 
-<span class="header-section">Keahlian</span>
-Bermain Gitar — Mampu memainkan beberapa genre musik.
-Futsal — Memiliki kemampuan kontrol bola yang baik.
+Dengan latar belakang Humas dan pengalaman di lapangan, saya siap berkontribusi dalam pekerjaan atau proyek yang membutuhkan komunikasi, kedisiplinan, dan kemampuan analisis dasar.
 
-<span class="header-section">Pengalaman Kerja</span>
-Monitoring - Gatot Subroto (1 Bulan)
-Operasional - BGI
+<span class="section-title">Keahlian</span>
+<b>Bermain Gitar</b> — Mampu memainkan chord dasar hingga intermediate, serta dapat mengiringi lagu acoustic dengan baik.
+<b>Futsal</b> — Memiliki kemampuan kontrol bola yang baik dan mampu bekerja sama dalam tim.
+
+<span class="section-title">Pengalaman Kerja</span>
+<b>BGI (Operasional)</b>
+Bertanggung jawab dalam tugas operasional, mendukung kegiatan tim, dan menjalankan instruksi sesuai standar perusahaan untuk menjaga kualitas hasil kerja.
+
+<span class="section-title">Visi & Misi</span>
+Menjadi individu yang maksimal dalam berkontribusi dan profesional. Membangun hubungan kerja positif serta mengembangkan keterampilan demi efisiensi tim.
+        </div>
+    </section>
+
+    <section class="registration-box">
+        <h2 style="margin-top:0; font-size: 20px;"><i class="fas fa-user-plus"></i> Daftar Akun</h2>
+        <p style="font-size: 12px; color: var(--text-dim);">Silakan daftar untuk mengakses Dashboard Internal.</p>
+        
+        <form id="registerForm">
+            <div class="form-group">
+                <label>Nama Lengkap</label>
+                <input type="text" id="reg-nama" placeholder="Masukkan nama Anda" required>
+            </div>
+            <div class="form-group">
+                <label>Nomor Handphone (Aktif)</label>
+                <input type="tel" id="reg-hp" placeholder="Contoh: 0812xxxx" required>
+            </div>
+            <button type="button" class="btn-submit" onclick="prosesDaftar()">
+                DAFTAR & MASUK DASHBOARD <i class="fas fa-arrow-right"></i>
+            </button>
+        </form>
+    </section>
+
+    <h3 style="font-size: 18px;">Skill Utama (Creative)</h3>
+    <div class="skill-grid">
+        <div class="skill-card">
+            <h4>Desain Grafis</h4>
+            <p>Poster, banner, logo, dan konten media sosial profesional.</p>
+        </div>
+        <div class="skill-card">
+            <h4>Content Creator</h4>
+            <p>Konsep dan produksi konten (IG, TikTok, YouTube).</p>
+        </div>
+        <div class="skill-card">
+            <h4>Video Editing</h4>
+            <p>Adobe Premiere Pro: Cutting, grading, & audio mixing.</p>
+        </div>
+        <div class="skill-card">
+            <h4>Animasi Dasar</h4>
+            <p>Motion graphic ringan dan intro video.</p>
+        </div>
     </div>
 
-    <div id="konten-sosmed-gibran">
-        <p style="text-align:center; color:#666;">Memuat Sosial Media...</p>
-    </div>
-
-    <div class="login-box">
-        <h3>Daftar Pengunjung (Google Login)</h3>
-        <div id="g_id_onload" 
-             data-client_id="594310366887-dsrs8pdnrdrhneg3h15saj7btp08oh67.apps.googleusercontent.com" 
-             data-callback="handleLogin"></div>
-        <div style="display:flex; justify-content:center;" class="g_id_signin" data-type="standard"></div>
-    </div>
+    <footer>
+        &copy; 2026 M. Gibran. All Rights Reserved.
+    </footer>
 </div>
 
 <script>
-    // 1. Manggil file sosial-media.html
-    fetch('sosial-media.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('konten-sosmed-gibran').innerHTML = data;
-        })
-        .catch(err => console.log("File sosmed belum ada."));
+    function prosesDaftar() {
+        const nama = document.getElementById('reg-nama').value;
+        const hp = document.getElementById('reg-hp').value;
 
-    // 2. Fungsi Login & Kirim Nama Asli ke Sheets
-    function handleLogin(response) {
-        const responsePayload = JSON.parse(atob(response.credential.split('.')[1]));
-        const namaUser = responsePayload.name;
-        const emailUser = responsePayload.email;
-        
-        // Link Apps Script lo yang baru
-        const urlSheets = "https://script.google.com/macros/s/AKfycbx4FDV5UVR4LHyWNbXtWFna8IDN6p2Yylh1zp_F113096sAwi7mFOE1DNu6faRKYBmJeg/exec";
-
-        fetch(urlSheets, {
-            method: 'POST',
-            mode: 'no-cors',
-            body: JSON.stringify({
-                name: namaUser,
-                email: emailUser
-            })
-        }).then(() => {
-            alert("Halo " + namaUser + "! Data kamu sudah masuk ke Sheets Gibran.");
-            // Pindah ke dashboard
+        if(nama && hp) {
+            // Simpan data sebentar di browser agar bisa dipanggil di Dashboard
+            localStorage.setItem('userNama', nama);
+            localStorage.setItem('userHP', hp);
+            
+            alert("Pendaftaran Berhasil! Selamat datang, " + nama);
+            // Pindah ke Dashboard
             window.location.href = "dashboard.html";
-        }).catch(err => console.error("Gagal:", err));
+        } else {
+            alert("Harap isi semua kolom!");
+        }
     }
 </script>
 
