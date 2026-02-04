@@ -57,20 +57,35 @@ Operasional - BGI
 </div>
 
 <script>
-    // FUNGSI PANGGIL FILE SOSMED KE INDEX
+    // 1. Manggil file sosial-media.html
     fetch('sosial-media.html')
         .then(response => response.text())
         .then(data => {
             document.getElementById('konten-sosmed-gibran').innerHTML = data;
         })
-        .catch(err => {
-            console.log("File sosial-media.html belum ada di folder v2, Bran.");
-        });
+        .catch(err => console.log("File sosmed belum ada."));
 
-    // FUNGSI LOGIN
+    // 2. Fungsi Login & Kirim Nama Asli ke Sheets
     function handleLogin(response) {
-        console.log("Login sukses dengan ID baru!");
-        // Arahkan ke dashboard kalau mau: window.location.href = "dashboard.html";
+        const responsePayload = JSON.parse(atob(response.credential.split('.')[1]));
+        const namaUser = responsePayload.name;
+        const emailUser = responsePayload.email;
+        
+        // Link Apps Script lo yang baru
+        const urlSheets = "https://script.google.com/macros/s/AKfycbx4FDV5UVR4LHyWNbXtWFna8IDN6p2Yylh1zp_F113096sAwi7mFOE1DNu6faRKYBmJeg/exec";
+
+        fetch(urlSheets, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: JSON.stringify({
+                name: namaUser,
+                email: emailUser
+            })
+        }).then(() => {
+            alert("Halo " + namaUser + "! Data kamu sudah masuk ke Sheets Gibran.");
+            // Pindah ke dashboard
+            window.location.href = "dashboard.html";
+        }).catch(err => console.error("Gagal:", err));
     }
 </script>
 
