@@ -3,72 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Storage Center | M. Gibran</title>
+    <title>Gudang Storage | M. Gibran</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --bg: #0a0a0a; --card: #161616; --accent: #ff9800; --danger: #ff4444; --success: #28a745; }
-        body { background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; padding: 20px; }
+        body { background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; padding: 20px; margin: 0; }
         .container { max-width: 800px; margin: auto; }
-        .header-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .header-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid #222; padding-bottom: 15px; }
         
-        .file-list-container { display: flex; flex-direction: column; gap: 15px; }
         .file-item { 
             background: var(--card); padding: 15px; border-radius: 15px; 
-            border: 1px solid #222; display: flex; justify-content: space-between; align-items: center; 
+            border: 1px solid #222; display: flex; justify-content: space-between; 
+            align-items: center; margin-bottom: 15px; 
         }
-        .file-info { display: flex; align-items: center; gap: 15px; overflow: hidden; }
-        .file-info i { font-size: 24px; color: var(--accent); }
-        .file-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; font-size: 14px; }
+        .file-info { display: flex; align-items: center; gap: 15px; }
+        .file-info i { font-size: 20px; color: var(--accent); }
+        .file-details b { font-size: 14px; display: block; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .file-details small { font-size: 10px; color: #666; }
 
-        .btn-action { padding: 10px; border-radius: 8px; border: none; cursor: pointer; color: #fff; text-decoration: none; font-size: 14px; }
-        .btn-download { background: var(--success); margin-right: 5px; }
+        .btn-action { padding: 10px; border-radius: 8px; color: #fff; text-decoration: none; margin-left: 5px; cursor: pointer; border:none; display: inline-flex; align-items: center; }
+        .btn-download { background: var(--success); }
         .btn-delete { background: var(--danger); }
-        .back-link { color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 8px; margin-bottom: 20px; font-weight: bold; }
-        
-        .empty-state { text-align: center; padding: 50px; color: #555; border: 2px dashed #222; border-radius: 20px; }
+        .empty-state { text-align: center; padding: 60px; color: #444; border: 2px dashed #222; border-radius: 20px; }
+        .back-btn { color: var(--accent); text-decoration: none; font-size: 14px; display: block; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <a href="dashboard.html" class="back-link"><i class="fas fa-arrow-left"></i> KEMBALI KE DASHBOARD</a>
+    <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> Kembali ke Dashboard Utama</a>
     
     <div class="header-area">
-        <h1><i class="fas fa-database"></i> Storage System</h1>
-        <button onclick="hapusSemua()" style="background:none; border:1px solid #444; color:#888; padding:5px 10px; border-radius:5px; cursor:pointer; font-size:11px;">Hapus Semua</button>
+        <h2 style="margin:0;">Gudang File</h2>
+        <button onclick="hapusSemua()" style="background:none; border:1px solid #444; color:#888; cursor:pointer; padding: 5px 10px; border-radius: 5px;">Hapus Semua</button>
     </div>
-    
-    <p style="color:#666; font-size: 13px; margin-bottom: 30px;">
-        File disimpan di memori perangkat ini. Kapasitas tersedia: ~5GB.
-    </p>
 
-    <div id="storage-list" class="file-list-container">
-        </div>
+    <div id="list-gudang"></div>
 </div>
 
 <script>
-    // FUNGSI LOAD FILE DARI MEMORI HP (LocalStorage)
-    function loadFiles() {
-        const listContainer = document.getElementById('storage-list');
-        const savedFiles = JSON.parse(localStorage.getItem('gibran_files')) || [];
+    // FUNGSI UTAMA: MEMBACA DATA DARI DASHBOARD UTAMA
+    function tampilkanFile() {
+        const wadah = document.getElementById('list-gudang');
+        
+        // AMBIL DATA (Kuncinya harus sama: 'gibran_files')
+        const dataSimpanan = localStorage.getItem('gibran_files');
+        const listFile = JSON.parse(dataSimpanan) || [];
 
-        if (savedFiles.length === 0) {
-            listContainer.innerHTML = `
+        if (listFile.length === 0) {
+            wadah.innerHTML = `
                 <div class="empty-state">
                     <i class="fas fa-folder-open" style="font-size: 40px; margin-bottom:10px;"></i>
-                    <p>Belum ada file yang di-upload.</p>
+                    <p>Gudang Kosong.<br>Belum ada file yang diupload.</p>
                 </div>`;
             return;
         }
 
-        listContainer.innerHTML = '';
-        savedFiles.forEach((file, index) => {
-            const item = document.createElement('div');
-            item.className = 'file-item';
-            item.innerHTML = `
+        wadah.innerHTML = ''; // Kosongkan loading
+        listFile.forEach((file, index) => {
+            const kotak = document.createElement('div');
+            kotak.className = 'file-item';
+            kotak.innerHTML = `
                 <div class="file-info">
-                    <i class="fas ${file.type.includes('video') ? 'fa-file-video' : 'fa-file-image'}"></i>
-                    <div class="file-name">${file.name}</div>
+                    <i class="fas fa-image"></i>
+                    <div class="file-details">
+                        <b>${file.name}</b>
+                        <small>${file.date}</small>
+                    </div>
                 </div>
                 <div>
                     <a href="${file.data}" download="${file.name}" class="btn-action btn-download">
@@ -79,28 +80,30 @@
                     </button>
                 </div>
             `;
-            listContainer.appendChild(item);
+            wadah.appendChild(kotak);
         });
     }
 
-    // FUNGSI HAPUS SATU FILE
-    function hapusSatu(index) {
-        let savedFiles = JSON.parse(localStorage.getItem('gibran_files')) || [];
-        savedFiles.splice(index, 1);
-        localStorage.setItem('gibran_files', JSON.stringify(savedFiles));
-        loadFiles(); // Refresh tampilan
+    // FUNGSI HAPUS SATU
+    function hapusSatu(i) {
+        if(confirm("Hapus file ini?")) {
+            let files = JSON.parse(localStorage.getItem('gibran_files'));
+            files.splice(i, 1);
+            localStorage.setItem('gibran_files', JSON.stringify(files));
+            tampilkanFile(); // Refresh tampilan
+        }
     }
 
     // FUNGSI HAPUS SEMUA
     function hapusSemua() {
-        if(confirm("Hapus seluruh isi storage di perangkat ini?")) {
+        if(confirm("Kosongkan seluruh gudang?")) {
             localStorage.removeItem('gibran_files');
-            loadFiles();
+            tampilkanFile();
         }
     }
 
-    // Jalankan saat halaman dibuka
-    window.onload = loadFiles;
+    // JALANKAN OTOMATIS SAAT HALAMAN DIBUKA
+    window.onload = tampilkanFile;
 </script>
 
 </body>
