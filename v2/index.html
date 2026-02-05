@@ -22,11 +22,65 @@
 
 <div class="container">
     <div id="intro-section" class="login-box">
-        <h1>Halo, Saya Gibran</h1>
-        <p>Silakan masukkan nomor HP dan login untuk masuk ke dashboard.</p>
-        <input type="tel" id="user-phone" placeholder="Nomor Handphone (Contoh: 0812...)">
-        <center><div id="buttonDiv"></div></center>
+        <div class="container">
+    <div id="intro-section">
+        <div style="text-align: center;">
+            <h1>Halo, Saya Gibran</h1>
+            <p style="line-height: 1.6;">Perkenalkan, nama saya <b>Gibran</b>. Saya merupakan mahasiswa Hubungan Masyarakat (Humas) di LP3I Kramat Raya. Saya memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring...</p>
+        </div>
+
+        <h3>Keahlian</h3>
+        <ul>
+            <li><b>Bermain Gitar</b> — Mampu memainkan chord dasar hingga intermediate.</li>
+            <li><b>Futsal</b> — Memiliki kemampuan kontrol bola dan kerja sama tim.</li>
+        </ul>
+
+        <h3>Pengalaman Kerja</h3>
+        <p><b>BGI</b> - Bertanggung jawab dalam tugas operasional dan manajemen waktu.</p>
+
+        <h3>Visi & Misi</h3>
+        <p><b>Visi:</b> Menjadi individu yang mampu berkontribusi maksimal.</p>
+        <p><b>Misi:</b> Membangun hubungan positif dan meningkatkan kualitas kerja tim.</p>
+
+        <hr>
+        <div style="background: #eef2f7; padding: 20px; border-radius: 10px; text-align: center;">
+            <h3>Daftar Akun</h3>
+            <input type="text" id="user-full-name" placeholder="Nama Lengkap" style="width: 80%; padding: 10px; margin-bottom: 10px;">
+            <input type="tel" id="user-phone" placeholder="Nomor Handphone Aktif" style="width: 80%; padding: 10px; margin-bottom: 15px;">
+            <center><div id="buttonDiv"></div></center>
+        </div>
     </div>
+
+    <div id="dashboard" style="display: none;">
+        <div class="banner" style="background: #1a73e8; color: white; padding: 40px; border-radius: 10px; position: relative;">
+            <div id="clock" style="position: absolute; top: 10px; right: 20px; font-weight: bold;">00:00:00</div>
+            <img id="user-img" src="" style="width: 80px; border-radius: 50%; border: 3px solid white;">
+            <h2 id="display-name"></h2>
+            <p id="display-phone-val"></p>
+        </div>
+
+        <div style="margin-top: 20px; text-align: left;">
+            <h3>Pekerjaan / Skill Utama</h3>
+            <p>🎨 <b>Desain Grafis:</b> Membuat desain visual poster, logo, dan konten medsos.</p>
+            <p>📱 <b>Content Creator:</b> Ide & produksi konten digital (IG, TikTok, YT).</p>
+            <p>🎬 <b>Video Editing:</b> Adobe Premiere Pro (Cutting, Color Grading).</p>
+            <p>🎞️ <b>Animasi Dasar:</b> Motion graphic ringan & intro video.</p>
+        </div>
+
+        <div style="border: 2px dashed #ccc; padding: 15px; margin-top: 20px;">
+            <h4>📤 Upload File Portofolio</h4>
+            <input type="file" id="file-input" multiple>
+            <button onclick="handleFileUpload()" style="margin-top: 10px; background: #1a73e8; color: white; border: none; padding: 10px; width: 100%; cursor: pointer;">Simpan ke Dashboard</button>
+        </div>
+
+        <table style="width: 100%; margin-top: 20px; border-collapse: collapse;">
+            <thead><tr style="background: #eee;"><th>Nama File</th><th>Aksi</th></tr></thead>
+            <tbody id="file-display-area"></tbody>
+        </table>
+
+        <button onclick="location.reload()" style="background: red; color: white; border: none; padding: 10px; margin-top: 20px; border-radius: 5px;">Keluar</button>
+    </div>
+</div>
 
     <div id="dashboard">
         <div style="text-align: center;">
@@ -109,3 +163,4 @@
 
 </body>
 </html>
+
