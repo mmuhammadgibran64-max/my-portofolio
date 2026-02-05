@@ -53,15 +53,42 @@
     </div>
 
     <div id="dashboard">
-        <div class="banner">
-            <div id="clock">00:00:00</div>
+        <div id="dashboard" style="display:none; padding: 20px; font-family: sans-serif;">
+    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+        <img id="user-img" src="" width="60" style="border-radius: 50%;">
+        <div>
+            <h2 id="user-name" style="margin: 0;"></h2>
+            <p id="display-phone" style="margin: 0; color: gray;"></p>
         </div>
-        <div class="user-header">
-            <img id="user-img" src="" class="profile-pic">
-            <h2 id="user-name" style="margin-bottom: 5px;">Nama Pengguna</h2>
-            <div class="job-title">Desain Grafis</div>
-            <p id="display-phone" style="color: #666; font-size: 14px;"></p>
-        </div>
+    </div>
+
+    <hr>
+
+    <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+        <h3>📤 Upload File Baru</h3>
+        <p style="font-size: 0.8em; color: #666;">Pilih Foto, Video, atau Dokumen lainnya.</p>
+        <input type="file" id="file-input" multiple style="margin-bottom: 10px;">
+        <br>
+        <button onclick="handleFileUpload()" style="padding: 10px 20px; cursor: pointer; background-color: #007bff; color: white; border: none; border-radius: 5px;">
+            Simpan ke Dashboard
+        </button>
+    </div>
+
+    <div id="file-manager">
+        <h3>📂 Daftar File Saya</h3>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+            <thead>
+                <tr style="background: #eee; text-align: left;">
+                    <th style="padding: 10px; border: 1px solid #ddd;">Nama File</th>
+                    <th style="padding: 10px; border: 1px solid #ddd;">Tipe</th>
+                    <th style="padding: 10px; border: 1px solid #ddd;">Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="file-display-area">
+                </tbody>
+        </table>
+    </div>
+</div>
 
         <button class="logout-btn" onclick="location.reload()">Keluar / Logout</button>
     </div>
@@ -123,3 +150,4 @@
 
 </body>
 </html>
+
