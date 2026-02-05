@@ -3,118 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio Gibran - Official</title>
+    <title>Gibran Portfolio v2</title>
     <style>
-        /* Gaya dasar agar tampilan bersih dan modern */
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f0f2f5; /* Warna latar belakang abu muda */
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-
-        /* Kartu utama putih */
-        .main-card {
-            background: #ffffff;
-            width: 100%;
-            max-width: 550px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            padding: 30px;
-            text-align: center;
-            box-sizing: border-box;
-        }
-
-        h1 {
-            color: #1c1e21;
-            margin-top: 0;
-            font-size: 24px;
-        }
-
-        /* Bagian Deskripsi Saya */
-        .deskripsi-saya {
-            color: #4b4f56;
-            font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 25px;
-            padding: 0 10px;
-        }
-
-        /* Tombol Google */
-        .google-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: #ffffff;
-            border: 1px solid #dadce0;
-            color: #3c4043;
-            padding: 10px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 500;
-            margin-bottom: 30px;
-            transition: background 0.2s;
-        }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; margin: 0; display: flex; justify-content: center; padding: 20px; }
+        .card { background: white; width: 100%; max-width: 500px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); padding: 25px; text-align: center; }
+        .deskripsi { color: #555; font-size: 15px; margin-bottom: 20px; }
         
-        .google-btn:hover {
-            background: #f8f9fa;
+        .google-btn { 
+            display: inline-flex; align-items: center; gap: 10px; background: white; 
+            border: 1px solid #dadce0; padding: 10px 20px; border-radius: 8px; 
+            text-decoration: none; color: #3c4043; font-weight: 500; margin-bottom: 25px;
         }
 
-        .google-btn img {
-            width: 18px;
-            margin-right: 10px;
-        }
-
-        /* Container untuk file luar (dashboard & icon) */
-        /* Dibuat tanpa garis dan padding agar menyatu mulus */
-        .content-frame {
-            width: 100%;
-            margin-bottom: 15px;
-            border: none;
-            overflow: hidden;
-        }
-
-        iframe {
-            width: 100%;
-            border: none;
-            display: block;
-        }
-
-        footer {
-            margin-top: 25px;
-            font-size: 12px;
-            color: #90949c;
-        }
+        /* Area Frame - TANPA GARIS ABU-ABU */
+        .frame-area { width: 100%; border: none; overflow: hidden; margin-top: 10px; }
+        iframe { width: 100%; border: none; display: block; }
     </style>
 </head>
 <body>
 
-    <div class="main-card">
-        <h1>Portofolio Gibran</h1>
-        
-        <div class="deskripsi-saya">
-            Selamat datang di halaman pribadi saya. Di sini Anda bisa melihat dashboard file saya dan terhubung langsung melalui media sosial yang tersedia di bawah.
+    <div class="card">
+        <h2>Portofolio Gibran</h2>
+        <div class="deskripsi">
+            Ini adalah dashboard pribadi saya. Semua data di bawah ini terhubung otomatis.
         </div>
 
         <a href="#" class="google-btn">
-            <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" alt="Google Logo">
+            <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" width="18">
             Login dengan Google
         </a>
 
-        <div class="content-frame">
-            <iframe src="dashboard.html" height="280"></iframe>
+        <div class="frame-area">
+            <iframe src="dashboard.html" height="250"></iframe>
         </div>
 
-        <div class="content-frame">
-            <iframe src="icon.html" height="60"></iframe>
+        <div class="frame-area">
+            <iframe src="icon.html" height="50"></iframe>
         </div>
-
-        <footer>
-            Gibran Portfolio v2 &copy; 2026
-        </footer>
     </div>
 
 </body>
