@@ -56,16 +56,75 @@
 </div>
 
 <script>
+   <script>
+    // 1. Fungsi Jam Bergerak (Milik Gibran)
     function updateClock() {
         const now = new Date();
-        document.getElementById('clock').innerText = now.getHours().toString().padStart(2, '0') + ":" + 
-            now.getMinutes().toString().padStart(2, '0') + ":" + now.getSeconds().toString().padStart(2, '0');
+        const timeString = now.getHours().toString().padStart(2, '0') + ":" + 
+                           now.getMinutes().toString().padStart(2, '0') + ":" + 
+                           now.getSeconds().toString().padStart(2, '0');
+        
+        const clockElement = document.getElementById('clock');
+        if (clockElement) {
+            clockElement.innerText = timeString;
+        }
     }
     setInterval(updateClock, 1000);
-    updateClock();
+
+    // 2. Konfigurasi URL Google Sheets (Tab: inidaftar)
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzFD4hcYzwMVzax1rK0VXdbkUlISJ-gdrFLVOL9TKg4HgAoI0t_EieGRPLjUrwipPyEzQ/exec";
+
+    // 3. Inisialisasi Google Login
+    window.onload = function () {
+        google.accounts.id.initialize({
+            client_id: "594310366887-dsrs8pdnrdrhneg3h15saj7btp08oh67.apps.googleusercontent.com", 
+            callback: handleCredentialResponse
+        });
+        
+        google.accounts.id.renderButton(
+            document.getElementById("buttonDiv"),
+            { theme: "outline", size: "large", width: 280 }
+        );
+        
+        updateClock(); // Jalankan jam langsung saat loading
+    };
+
+    // 4. Fungsi Callback Login & Kirim ke Sheet "inidaftar"
+    function handleCredentialResponse(response) {
+        const payload = decodeJwtResponse(response.credential);
+        
+        // Kirim data ke Spreadsheet
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                name: payload.name,
+                email: payload.email,
+                picture: payload.picture,
+                sheetName: "inidaftar" 
+            })
+        });
+
+        // Transisi Tampilan ke Dashboard
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        
+        // Isi Data User
+        document.getElementById('user-name').innerText = payload.name;
+        document.getElementById('user-img').src = payload.picture;
+    }
+
+    // 5. Fungsi Decode Token Google
+    function decodeJwtResponse(token) {
+        let base64Url = token.split('.')[1];
+        let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        let jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        return JSON.parse(jsonPayload);
+    }
 </script>
 
 </body>
 </html>
-
-
