@@ -23,59 +23,84 @@
 <body>
     <div class="container">
         <div class="header">
-            <h2 style="margin:0;">Dashboard Utama</h2>
+            <h2 style="margin:0;">System Dashboard</h2>
             <div id="clock">00:00:00</div>
         </div>
 
         <div class="panel">
-            <h3><i class="fas fa-video"></i> Surveillance</h3>
+            <h3><i class="fas fa-video"></i> CCTV & Face ID</h3>
             <video id="video-feed" autoplay playsinline></video>
-            <button class="btn btn-accent" onclick="alert('✅ Absen Berhasil!')">SCAN WAJAH</button>
+            <button class="btn btn-accent" onclick="alert('✅ Absen Berhasil!')">SCAN & ABSEN</button>
         </div>
 
         <div class="panel">
-            <h3><i class="fas fa-cloud-upload-alt"></i> Upload Media</h3>
+            <h3><i class="fas fa-cloud-upload-alt"></i> Upload Ke Gudang</h3>
             <div class="upload-box" onclick="document.getElementById('fin').click()">
                 <i class="fas fa-folder-plus" style="font-size: 40px; color: #333; margin-bottom: 15px;"></i>
-                <p id="label-upload" style="margin:0; color: #888;">Pilih Foto/Video untuk disimpan</p>
-                <input type="file" id="fin" hidden onchange="simpanKeStorage(this)">
+                <p id="label-upload" style="margin:0; color: #888;">Klik untuk pilih Foto</p>
+                <input type="file" id="fin" accept="image/*" hidden onchange="simpanKeStorage(this)">
             </div>
             <div id="status-upload"></div>
-
-            <a href="dashboard-terpisah.html" class="btn btn-outline">
-                <i class="fas fa-database"></i> BUKA DASHBOARD TERPISAH (GUDANG)
-            </a>
+            <a href="dashboard-terpisah.html" class="btn btn-outline">BUKA GUDANG STORAGE</a>
         </div>
 
         <a href="index.html" style="color:#555; text-decoration:none; font-size:12px; display:block; text-align:center;">Kembali ke Depan</a>
     </div>
 
     <script>
-        // Mesin Jam
+        // 1. Jalankan Jam
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000);
         
-        // Mesin Kamera
+        // 2. Jalankan Kamera
         const v = document.getElementById('video-feed');
         if (navigator.mediaDevices) { navigator.mediaDevices.getUserMedia({ video: true }).then(s => v.srcObject = s); }
 
-        // Mesin Simpan File
+        // 3. Mesin Simpan dengan Kompresi (Agar Tidak Penuh)
         function simpanKeStorage(input) {
             const file = input.files[0];
             const status = document.getElementById('status-upload');
+            const label = document.getElementById('label-upload');
+            
             if (file) {
-                status.innerHTML = "⏳ Memproses file...";
+                status.innerHTML = "⏳ Mengompres & Menyimpan...";
+                label.innerText = "Processing...";
+                
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    let saved = JSON.parse(localStorage.getItem('gibran_files')) || [];
-                    saved.push({ 
-                        name: file.name, 
-                        type: file.type, 
-                        data: e.target.result, 
-                        date: new Date().toLocaleString() 
-                    });
-                    localStorage.setItem('gibran_files', JSON.stringify(saved));
-                    status.innerHTML = "✅ Berhasil Disimpan!";
-                    alert("Mantap! Cek di Dashboard Terpisah sekarang.");
+                    const img = new Image();
+                    img.src = e.target.result;
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        
+                        // Perkecil ukuran ke lebar 800px (Irit Memori)
+                        const maxWidth = 800;
+                        const scale = maxWidth / img.width;
+                        canvas.width = maxWidth;
+                        canvas.height = img.height * scale;
+
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        
+                        // Kompres kualitas ke 0.5 (50%)
+                        const compressedData = canvas.toDataURL('image/jpeg', 0.5);
+
+                        try {
+                            let saved = JSON.parse(localStorage.getItem('gibran_files')) || [];
+                            saved.push({ 
+                                name: file.name, 
+                                data: compressedData, 
+                                date: new Date().toLocaleString() 
+                            });
+                            localStorage.setItem('gibran_files', JSON.stringify(saved));
+                            
+                            status.innerHTML = "✅ Berhasil Disimpan!";
+                            label.innerText = "Selesai! Klik untuk tambah lagi.";
+                            alert("Mantap! File sudah masuk gudang.");
+                        } catch (err) {
+                            alert("Gudang masih penuh! Pergi ke GUDANG STORAGE lalu klik HAPUS SEMUA dulu.");
+                            status.innerHTML = "❌ Memori Browser Penuh.";
+                        }
+                    };
                 };
                 reader.readAsDataURL(file);
             }
