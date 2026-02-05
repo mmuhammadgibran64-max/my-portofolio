@@ -135,6 +135,79 @@
     setInterval(updateClock, 1000);
     updateClock(); // Jalankan langsung saat load
 </script>
+<script>
+    // 1. URL Web App Google Sheets Gibran (Jembatan ke Sheet "daftar")
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzFD4hcYzwMVzax1rK0VXdbkUlISJ-gdrFLVOL9TKg4HgAoI0t_EieGRPLjUrwipPyEzQ/exec";
 
+    // 2. Fungsi Jam Bergerak (Real-time Clock)
+    function startClock() {
+        setInterval(() => {
+            const now = new Date();
+            const options = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            document.getElementById('clock').innerText = now.toLocaleTimeString('id-ID', options);
+        }, 1000);
+    }
+
+    // 3. Inisialisasi Google Login saat Halaman Dimuat
+    window.onload = function () {
+        google.accounts.id.initialize({
+            client_id: "594310366887-dsrs8pdnrdrhneg3h15saj7btp08oh67.apps.googleusercontent.com", 
+            callback: handleCredentialResponse
+        });
+        
+        // Render tombol Google di elemen dengan id "buttonDiv"
+        google.accounts.id.renderButton(
+            document.getElementById("buttonDiv"),
+            { theme: "outline", size: "large", width: 280 }
+        );
+    };
+
+    // 4. Fungsi Callback: Dijalankan setelah user klik & login Google
+    function handleCredentialResponse(response) {
+        // Decode data user (Nama, Email, Foto)
+        const payload = decodeJwtResponse(response.credential);
+        
+        // KIRIM DATA KE GOOGLE SHEETS
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors', // Penting agar tidak terblokir CORS
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                name: payload.name,
+                email: payload.email,
+                picture: payload.picture,
+                action: "daftar" // Penanda untuk script di Sheets
+            })
+        }).then(() => {
+            console.log("Data berhasil dikirim ke tab 'daftar'");
+        });
+
+        // UPDATE TAMPILAN DASHBOARD
+        // Menyembunyikan layar login dan menampilkan isi dashboard
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        
+        // Memasukkan data user ke elemen HTML
+        document.getElementById('user-name').innerText = payload.name;
+        document.getElementById('user-email').innerText = payload.email;
+        document.getElementById('user-img').src = payload.picture;
+        
+        // Mulai menjalankan jam bergerak
+        startClock();
+    }
+
+    // 5. Fungsi Helper: Mengubah Token Google menjadi Data Terbaca
+    function decodeJwtResponse(token) {
+        let base64Url = token.split('.')[1];
+        let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        let jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        return JSON.parse(jsonPayload);
+    }
+</script>
+
+</body>
+</html>
 </body>
 </html>
