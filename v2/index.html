@@ -3,44 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gibran Portfolio v2</title>
+    <title>Portofolio & Dashboard Gibran</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; margin: 0; display: flex; justify-content: center; padding: 20px; }
-        .card { background: white; width: 100%; max-width: 500px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); padding: 25px; text-align: center; }
-        .deskripsi { color: #555; font-size: 15px; margin-bottom: 20px; }
+        :root {
+            --primary: #2563eb;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            margin: 0;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        header { text-align: center; margin-bottom: 40px; }
+        h1, h2, h3 { color: var(--primary); }
         
-        .google-btn { 
-            display: inline-flex; align-items: center; gap: 10px; background: white; 
-            border: 1px solid #dadce0; padding: 10px 20px; border-radius: 8px; 
-            text-decoration: none; color: #3c4043; font-weight: 500; margin-bottom: 25px;
+        /* Bagian Deskripsi */
+        .section { margin-bottom: 30px; padding: 20px; background: #f1f5f9; border-radius: 10px; }
+        .skill-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: left; }
+        
+        /* Form Daftar */
+        .form-box {
+            background: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .btn {
+            background: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
         }
 
-        /* Area Frame - TANPA GARIS ABU-ABU */
-        .frame-area { width: 100%; border: none; overflow: hidden; margin-top: 10px; }
-        iframe { width: 100%; border: none; display: block; }
+        /* Dashboard (Hidden by default) */
+        #dashboard {
+            display: none;
+            text-align: center;
+        }
+        .banner {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(to right, #2563eb, #7c3aed);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        #clock { font-size: 2em; font-weight: bold; margin: 20px 0; color: #ef4444; }
+        .profile-img { width: 120px; height: 120px; border-radius: 50%; border: 5px solid var(--primary); }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <h2>Portofolio Gibran</h2>
-        <div class="deskripsi">
-            Ini adalah dashboard pribadi saya. Semua data di bawah ini terhubung otomatis.
+<div class="container" id="profile-page">
+    <header>
+        <h1>Profil Profesional</h1>
+        <p>Mahasiswa Hubungan Masyarakat | LP3I Kramat Raya</p>
+    </header>
+
+    <div class="section">
+        <h2>Tentang Saya</h2>
+        <p>Perkenalkan, nama saya <b>Gibran</b>. Saya merupakan mahasiswa Hubungan Masyarakat (Humas) di LP3I Kramat Raya. Saya memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring, dengan masa kerja selama satu bulan. Setelah itu saya belum bekerja lagi dan sedang fokus mengembangkan diri, keterampilan, serta portofolio pribadi.</p>
+        <p>Saya adalah pribadi yang disiplin, cepat beradaptasi, serta mau belajar hal baru. Dalam keseharian, saya senang melakukan aktivitas positif, salah satunya bermain futsal yang menjadi hobi saya sejak lama.</p>
+    </div>
+
+    <div class="section">
+        <h2>Keahlian</h2>
+        <ul>
+            <li><b>Bermain Gitar:</b> Mampu memainkan beberapa genre musik, memahami chord dasar hingga intermediate.</li>
+            <li><b>Futsal:</b> Kemampuan kontrol bola baik dan mampu bekerja sama dalam tim sebagai pemain bertahan/penyerang.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Visi & Misi</h2>
+        <p><b>Visi:</b> Menjadi individu yang mampu berkontribusi maksimal dan berkolaborasi baik dalam tim.</p>
+        <p><b>Misi:</b> Membangun hubungan kerja positif, mengembangkan skill kompeten, dan menjaga integritas.</p>
+    </div>
+
+    <div class="form-box">
+        <h3>Daftar Akun</h3>
+        <input type="text" id="regName" placeholder="Masukkan Nama Lengkap">
+        <input type="number" id="regPhone" placeholder="Nomor Handphone Aktif">
+        <button class="btn" onclick="goToDashboard()">Daftar & Masuk Dashboard</button>
+    </div>
+</div>
+
+<div class="container" id="dashboard">
+    <div class="banner">GIBRAN OFFICIAL BANNER</div>
+    <div id="clock">00:00:00</div>
+    
+    <img src="https://via.placeholder.com/120" alt="Foto Gibran" class="profile-img">
+    <h2 id="displayName">Nama Pengguna</h2>
+    <p><b>Pekerjaan / Skill Utama:</b></p>
+    
+    <div class="skill-grid">
+        <div class="section">
+            <h4>Desain Grafis</h4>
+            <p>Poster, banner, logo, dan konten media sosial profesional.</p>
         </div>
-
-        <a href="#" class="google-btn">
-            <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" width="18">
-            Login dengan Google
-        </a>
-
-        <div class="frame-area">
-            <iframe src="dashboard.html" height="250"></iframe>
+        <div class="section">
+            <h4>Content Creator</h4>
+            <p>Ide, konsep, dan produksi konten (IG, TikTok, YouTube).</p>
         </div>
-
-        <div class="frame-area">
-            <iframe src="icon.html" height="50"></iframe>
+        <div class="section">
+            <h4>Video Editing</h4>
+            <p>Adobe Premiere Pro (Cutting, Color Grading, Mixing).</p>
+        </div>
+        <div class="section">
+            <h4>Animasi Dasar</h4>
+            <p>Motion graphic ringan dan intro video.</p>
         </div>
     </div>
+    
+    <button class="btn" style="background: #64748b;" onclick="location.reload()">Keluar</button>
+</div>
+
+<script>
+    // Fungsi Jam Bergerak
+    function updateClock() {
+        const now = new Date();
+        const timeStr = now.getHours().toString().padStart(2, '0') + ":" + 
+                        now.getMinutes().toString().padStart(2, '0') + ":" + 
+                        now.getSeconds().toString().padStart(2, '0');
+        document.getElementById('clock').innerText = timeStr;
+    }
+    setInterval(updateClock, 1000);
+
+    // Fungsi Pindah ke Dashboard
+    function goToDashboard() {
+        const name = document.getElementById('regName').value;
+        const phone = document.getElementById('regPhone').value;
+
+        if(name === "" || phone === "") {
+            alert("Harap isi Nama dan Nomor HP!");
+            return;
+        }
+
+        document.getElementById('profile-page').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        document.getElementById('displayName').innerText = name;
+        window.scrollTo(0,0);
+    }
+</script>
 
 </body>
 </html>
