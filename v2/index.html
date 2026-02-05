@@ -3,112 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Google - Gibran</title>
+    <title>Profil & Daftar - Gibran</title>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f2f5;
-        }
-        .login-box {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            text-align: center;
-            width: 320px;
-        }
-        #clock {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #1a73e8;
-            background: #e8f0fe;
-            padding: 10px;
-            border-radius: 50px;
-        }
-        h2 { margin-bottom: 5px; color: #333; }
-        p { color: #666; font-size: 14px; margin-bottom: 30px; }
-        #dashboard { display: none; }
-        .profile-pic { width: 80px; height: 80px; border-radius: 50%; margin-top: 15px; border: 3px solid #1a73e8; }
+        :root { --primary: #1a73e8; --dark: #202124; --bg: #f8f9fa; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; color: var(--dark); line-height: 1.6; }
+        .container { max-width: 800px; margin: 20px auto; padding: 20px; }
+        
+        /* Deskripsi Luar Aplikasi */
+        .intro-card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        .intro-card h1 { color: var(--primary); margin-top: 0; }
+        .section-title { border-left: 4px solid var(--primary); padding-left: 10px; margin-top: 20px; color: var(--primary); }
+        
+        /* Box Daftar */
+        .login-box { background: #fff; padding: 30px; border-radius: 15px; border: 2px solid #e0e0e0; text-align: center; margin-bottom: 40px; }
+        input[type="tel"] { width: 80%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; }
+
+        /* Dashboard (Hidden by default) */
+        #dashboard { display: none; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .banner { width: 100%; height: 150px; background: linear-gradient(135deg, #1e3c72, #2a5298); position: relative; }
+        .user-header { text-align: center; margin-top: -60px; padding-bottom: 20px; }
+        .profile-pic { width: 120px; height: 120px; border-radius: 50%; border: 5px solid white; background: #eee; object-fit: cover; }
+        #clock { font-size: 20px; font-weight: bold; color: white; position: absolute; top: 10px; right: 20px; background: rgba(0,0,0,0.3); padding: 5px 15px; border-radius: 20px; }
+        
+        .skill-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
+        .skill-item { background: #f1f3f4; padding: 15px; border-radius: 10px; font-size: 14px; border-bottom: 3px solid var(--primary); }
+        .skill-item b { color: var(--primary); display: block; margin-bottom: 5px; }
     </style>
 </head>
 <body>
 
-    <div class="login-box">
-        <div id="clock">00:00:00</div>
-
-        <div id="login-screen">
-            <h2>Daftar Sekarang</h2>
-            <p>Data akan otomatis masuk ke sheet:<br><b>daftar sekarang</b></p>
-            <center><div id="buttonDiv"></div></center>
+<div class="container">
+    <div id="intro-section">
+        <div class="intro-card">
+            <h1>Halo, Saya Gibran</h1>
+            <p>Perkenalkan, nama saya <b>Gibran</b>. Saya merupakan mahasiswa Hubungan Masyarakat (Humas) di LP3I Kramat Raya. Saya memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring dan di BGI pada bagian operasional.</p>
+            <p>Saya adalah pribadi yang disiplin, cepat beradaptasi, serta mau belajar hal baru. Dalam keseharian, saya senang bermain futsal dan gitar.</p>
+            
+            <h3 class="section-title">Visi & Misi</h3>
+            <p><b>Visi:</b> Menjadi individu yang mampu berkontribusi maksimal dan profesional.<br>
+               <b>Misi:</b> Membangun hubungan positif, mengembangkan skill kompeten, dan menjaga integritas.</p>
         </div>
 
-        <div id="dashboard">
-            <h3 style="color: #28a745;">Berhasil Terdaftar!</h3>
-            <img id="user-img" src="" class="profile-pic">
-            <h4 id="user-name"></h4>
-            <p>Silakan cek Google Sheets Anda.</p>
-            <button onclick="location.reload()" style="cursor:pointer; padding: 5px 15px;">Keluar</button>
+        <div class="login-box" id="login-screen">
+            <h3>Daftar Akun</h3>
+            <p>Masukkan nomor WhatsApp aktif sebelum klik tombol Google</p>
+            <input type="tel" id="user-phone" placeholder="Contoh: 08123456789" required>
+            <center><div id="buttonDiv" style="margin-top: 15px;"></div></center>
         </div>
     </div>
 
-<script>
-    // 1. FUNGSI JAM BERGERAK
-    function updateClock() {
-        const now = new Date();
-        document.getElementById('clock').innerText = 
-            now.getHours().toString().padStart(2, '0') + ":" + 
-            now.getMinutes().toString().padStart(2, '0') + ":" + 
-            now.getSeconds().toString().padStart(2, '0');
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
+    <div id="dashboard">
+        <div class="banner">
+            <div id="clock">00:00:00</div>
+        </div>
+        <div class="user-header">
+            <img id="user-img" src="" class="profile-pic">
+            <h2 id="user-name">Nama Pengguna</h2>
+            <p id="display-phone" style="color: #666;"></p>
+        </div>
 
-    // 2. KONFIGURASI (URL SCRIPT BARU & CLIENT ID GIBRAN)
+        <div style="padding: 0 20px;"><h3 class="section-title">Pekerjaan / Skill Utama</h3></div>
+        <div class="skill-grid">
+            <div class="skill-item"><b>Desain Grafis</b>Membuat poster, banner, logo, dan konten medsos profesional.</div>
+            <div class="skill-item"><b>Content Creator</b>Ide, konsep, dan produksi konten IG, TikTok, YouTube.</div>
+            <div class="skill-item"><b>Video Editing</b>Adobe Premiere Pro: Cutting, grading, & mixing audio.</div>
+            <div class="skill-item"><b>Animasi Dasar</b>Motion graphic ringan dan intro video sederhana.</div>
+            <div class="skill-item"><b>Fotografi</b>Teknik pencahayaan dan komposisi foto profesional.</div>
+            <div class="skill-item"><b>Musik & Olahraga</b>Gitar (Intermediate) & Futsal (Team Player).</div>
+        </div>
+        <center><button onclick="location.reload()" style="margin-bottom: 20px; padding: 10px 20px; cursor: pointer;">Keluar</button></center>
+    </div>
+</div>
+
+<script>
+    // --- KONFIGURASI ---
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwV7qFXFk3lRV35_7PfRBidKZBXKdewPP2pc6e9kgTLqeboiRx2qvrd-90SBxPP4sMzlQ/exec";
     const CLIENT_ID = "594310366887-6fs1f5df1k98k979q652v4606t8ud2kj.apps.googleusercontent.com";
 
-    // 3. INISIALISASI TOMBOL GOOGLE
+    // --- JAM BERGERAK ---
+    function updateClock() {
+        const now = new Date();
+        document.getElementById('clock').innerText = now.toLocaleTimeString('id-ID');
+    }
+    setInterval(updateClock, 1000);
+
+    // --- GOOGLE LOGIN ---
     window.onload = function () {
         google.accounts.id.initialize({
             client_id: CLIENT_ID,
             callback: handleCredentialResponse
         });
-        google.accounts.id.renderButton(
-            document.getElementById("buttonDiv"),
-            { theme: "filled_blue", size: "large", shape: "pill", width: 250 }
-        );
+        google.accounts.id.renderButton(document.getElementById("buttonDiv"), { theme: "filled_blue", size: "large", shape: "pill" });
     };
 
-    // 4. PROSES KIRIM DATA
     function handleCredentialResponse(response) {
-        // Decode data dari Google
+        const phone = document.getElementById('user-phone').value;
+        if (!phone) {
+            alert("Harap masukkan nomor handphone terlebih dahulu!");
+            return;
+        }
+
         const payload = JSON.parse(atob(response.credential.split('.')[1]));
         
-        // Kirim ke Google Sheets (Tab: daftar sekarang)
+        // KIRIM KE SHEET "daftar sekarang"
         fetch(SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 name: payload.name,
                 email: payload.email,
+                phone: phone,
                 picture: payload.picture,
                 sheetName: "daftar sekarang"
             })
         });
 
-        // Ubah tampilan ke Dashboard sukses
-        document.getElementById('login-screen').style.display = 'none';
+        // PINDAH KE DASHBOARD
+        document.getElementById('intro-section').style.display = 'none';
         document.getElementById('dashboard').style.display = 'block';
         document.getElementById('user-name').innerText = payload.name;
         document.getElementById('user-img').src = payload.picture;
+        document.getElementById('display-phone').innerText = "WA Aktif: " + phone;
+        updateClock();
     }
 </script>
 
