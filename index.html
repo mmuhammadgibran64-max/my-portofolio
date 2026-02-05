@@ -3,49 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Sedang Maintenance</title>
+    <title>Portofolio Gibran - Mahasiswa Humas</title>
     <style>
+        :root {
+            --primary: #2563eb;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
         body {
-            margin: 0; padding: 0;
-            background: #020617; /* Hitam Pekat */
-            color: #1e293b;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex; align-items: center; justify-content: center;
-            height: 100vh; overflow: hidden;
+            background-color: var(--light);
+            margin: 0;
+            color: var(--dark);
+            line-height: 1.6;
         }
-        .maintenance-box {
-            text-align: center;
-            padding: 50px;
-            border: 1px solid #0f172a;
-            border-radius: 15px;
-            background: #020617;
-        }
-        h1 {
-            color: #334155;
-            font-size: 1.5rem;
-            letter-spacing: 10px;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-        }
-        .line {
-            width: 50px; height: 2px;
-            background: #2563eb;
+        .container {
+            max-width: 800px;
             margin: 20px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
-        p {
-            color: #475569;
-            font-size: 0.9rem;
-            letter-spacing: 2px;
+        header { text-align: center; margin-bottom: 30px; }
+        h1, h2, h3 { color: var(--primary); margin-top: 0; }
+        
+        /* Bagian Deskripsi */
+        .section { margin-bottom: 25px; padding: 20px; background: #f1f5f9; border-radius: 10px; text-align: left; }
+        
+        /* Dashboard Styles */
+        .banner {
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(to right, #2563eb, #7c3aed);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
         }
+        #clock { font-size: 2.2em; font-weight: bold; margin: 15px 0; color: #ef4444; text-align: center; }
+        .profile-img { width: 120px; height: 120px; border-radius: 50%; border: 5px solid var(--primary); display: block; margin: 0 auto 15px auto; }
+        
+        .skill-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            gap: 15px; 
+            margin-top: 20px;
+        }
+        .skill-item { background: white; padding: 15px; border-radius: 8px; border-left: 5px solid var(--primary); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .skill-item h4 { margin: 0 0 5px 0; color: var(--primary); }
     </style>
 </head>
 <body>
 
-<div class="maintenance-box">
-    <h1>MAINTENANCE</h1>
-    <div class="line"></div>
-    <p>ASSET DIGITAL M. GIBRAN SEDANG DIPERBARUI</p>
+<div class="container">
+    <header>
+        <div class="banner">GIBRAN OFFICIAL PORTFOLIO</div>
+        <h1>Muhamad Gibran</h1>
+        <p>Mahasiswa Hubungan Masyarakat (Humas) | LP3I Kramat Raya</p>
+    </header>
+
+    <div id="clock">00:00:00</div>
+
+    <img src="https://via.placeholder.com/120" alt="Foto Gibran" class="profile-img">
+
+    <div class="section">
+        <h2>Perkenalkan</h2>
+        <p>Nama saya <b>Gibran</b>. Saya merupakan mahasiswa Hubungan Masyarakat (Humas) di LP3I Kramat Raya. Saya memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring, dengan masa kerja selama satu bulan. Setelah itu saya belum bekerja lagi dan sedang fokus mengembangkan diri, keterampilan, serta portofolio pribadi.</p>
+        <p>Saya adalah pribadi yang disiplin, cepat beradaptasi, serta mau belajar hal baru. Dalam keseharian, saya senang melakukan aktivitas positif, salah satunya bermain futsal yang menjadi hobi saya sejak lama.</p>
+    </div>
+
+    <div class="section">
+        <h2>Pengalaman Kerja (BGI)</h2>
+        <p>Pernah bertanggung jawab dalam beberapa tugas operasional seperti membantu proses pekerjaan sehari-hari, mendukung kegiatan tim, dan menjalankan instruksi sesuai standar perusahaan. Pengalaman ini membuat saya lebih matang dalam bekerja secara profesional dan memahami manajemen waktu.</p>
+    </div>
+
+    <div class="section">
+        <h2>Visi & Misi</h2>
+        <p><b>Visi:</b> Menjadi individu yang mampu berkontribusi maksimal, bertanggung jawab, serta dapat berkolaborasi baik dalam tim.</p>
+        <p><b>Misi:</b> Membangun hubungan profesional, mengembangkan skill kompeten, berperan aktif dalam tugas, serta menjaga integritas dan disiplin.</p>
+    </div>
+
+    <div class="section" style="background: #e2e8f0;">
+        <h2 style="text-align: center;">Pekerjaan / Skill Utama</h2>
+        <div class="skill-grid">
+            <div class="skill-item">
+                <h4>Desain Grafis</h4>
+                <p>Membuat poster, banner, logo, dan konten media sosial profesional.</p>
+            </div>
+            <div class="skill-item">
+                <h4>Content Creator</h4>
+                <p>Ide, konsep, dan produksi konten untuk IG, TikTok, dan YouTube.</p>
+            </div>
+            <div class="skill-item">
+                <h4>Video Editing</h4>
+                <p>Adobe Premiere Pro (Cutting, Color Grading, Audio Mixing).</p>
+            </div>
+            <div class="skill-item">
+                <h4>Animasi Dasar</h4>
+                <p>Pembuatan animasi sederhana untuk konten dan motion graphic ringan.</p>
+            </div>
+            <div class="skill-item">
+                <h4>Bermain Gitar</h4>
+                <p>Memahami chord dasar hingga intermediate untuk acoustic.</p>
+            </div>
+            <div class="skill-item">
+                <h4>Futsal</h4>
+                <p>Kemampuan kontrol bola dan kerjasama tim yang solid.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer style="text-align: center; font-size: 12px; color: #94a3b8; margin-top: 20px;">
+        Gibran Portfolio &copy; 2026
+    </footer>
 </div>
+
+<script>
+    // Fungsi Jam Bergerak
+    function updateClock() {
+        const now = new Date();
+        const timeStr = now.getHours().toString().padStart(2, '0') + ":" + 
+                        now.getMinutes().toString().padStart(2, '0') + ":" + 
+                        now.getSeconds().toString().padStart(2, '0');
+        document.getElementById('clock').innerText = timeStr;
+    }
+    setInterval(updateClock, 1000);
+    updateClock(); // Jalankan langsung saat load
+</script>
 
 </body>
 </html>
