@@ -3,214 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil & Daftar - Gibran</title>
+    <title>Profil & Dashboard - Gibran</title>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
-        :root { --primary: #1a73e8; --dark: #202124; --bg: #f8f9fa; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; color: var(--dark); line-height: 1.6; }
-        .container { max-width: 800px; margin: 20px auto; padding: 20px; }
-        
-        /* Deskripsi Luar Aplikasi */
-        .intro-card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        .intro-card h1 { color: var(--primary); margin-top: 0; }
-        .section-title { border-left: 4px solid var(--primary); padding-left: 10px; margin-top: 20px; color: var(--primary); font-weight: bold; }
-        
-        /* Box Daftar */
-        .login-box { background: #fff; padding: 30px; border-radius: 15px; border: 2px solid #e0e0e0; text-align: center; margin-bottom: 40px; }
-        input[type="tel"] { width: 80%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; outline-color: var(--primary); }
-
-        /* Dashboard (SETELAH LOGIN - SUDAH DIHAPUS SEMUA ISINYA) */
-        #dashboard { display: none; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); padding-bottom: 30px; text-align: center; }
-        .banner { width: 100%; height: 160px; background: linear-gradient(135deg, #1a73e8, #0d47a1); position: relative; }
-        #clock { font-size: 22px; font-weight: bold; color: white; position: absolute; top: 15px; right: 20px; background: rgba(0,0,0,0.2); padding: 5px 15px; border-radius: 20px; }
-        
-        .user-header { margin-top: -60px; }
-        .profile-pic { width: 120px; height: 120px; border-radius: 50%; border: 5px solid white; background: #fff; object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .job-title { color: var(--primary); font-weight: bold; font-size: 18px; margin-top: 10px; }
-        .logout-btn { margin-top: 30px; padding: 10px 25px; background: #f44336; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        body { font-family: sans-serif; background: #f4f4f4; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .login-box { text-align: center; padding: 40px; }
+        #dashboard { display: none; } /* Ini rahasianya supaya tidak muncul barengan */
+        input[type="tel"] { width: 80%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
+        .upload-section { margin-top: 20px; padding: 15px; border: 2px dashed #1a73e8; border-radius: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; }
+        .btn-simpan { background: #1a73e8; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold; }
+        .logout-btn { background: #f44336; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 20px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div id="intro-section">
-        <div class="intro-card">
-            <h1>Halo, Saya Gibran</h1>
-            <p>Perkenalkan, nama saya <b>Gibran</b>. Saya merupakan mahasiswa Hubungan Masyarakat (Humas) di LP3I Kramat Raya. Saya memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring dan di BGI pada bagian operasional.</p>
-            <p>Saya adalah pribadi yang disiplin, cepat beradaptasi, serta mau belajar hal baru. Dalam keseharian, saya senang bermain futsal dan gitar.</p>
-            
-            <h3 class="section-title">Visi & Misi</h3>
-            <p><b>Visi:</b> Menjadi individu yang mampu berkontribusi maksimal dan profesional.<br>
-               <b>Misi:</b> Membangun hubungan positif, mengembangkan skill kompeten, dan menjaga integritas.</p>
+    <div id="intro-section" class="login-box">
+        <h1>Halo, Saya Gibran</h1>
+        <p>Silakan masukkan nomor HP dan login untuk masuk ke dashboard.</p>
+        <input type="tel" id="user-phone" placeholder="Nomor Handphone (Contoh: 0812...)">
+        <center><div id="buttonDiv"></div></center>
+    </div>
+
+    <div id="dashboard">
+        <div style="text-align: center;">
+            <img id="user-img" src="" style="width: 100px; border-radius: 50%;">
+            <h2 id="user-name"></h2>
+            <p id="display-phone"></p>
+        </div>
+        
+        <div class="upload-section">
+            <h3>📤 Upload File Baru</h3>
+            <input type="file" id="file-input" multiple>
+            <p style="font-size: 12px; color: gray;">Pilih Foto, Video, atau Dokumen lainnya.</p>
+            <button class="btn-simpan" onclick="handleFileUpload()">Simpan ke Dashboard</button>
         </div>
 
-        <div class="login-box" id="login-screen">
-            <h3>Pendaftaran Akun</h3>
-            <p>Masukkan nomor HP aktif untuk melihat profil profesional saya.</p>
-            <input type="tel" id="user-phone" placeholder="Nomor Handphone (Contoh: 0812...)" required>
-            <center><div id="buttonDiv" style="margin-top: 15px;"></div></center>
-        </div>
-    </div>
-
-  
-    <div id="dashboard" style="display: none; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); padding-bottom: 30px; text-align: center;">
-    
-    <div class="banner" style="width: 100%; height: 160px; background: linear-gradient(135deg, #1a73e8, #0d47a1); position: relative;">
-        <div id="clock" style="font-size: 22px; font-weight: bold; color: white; position: absolute; top: 15px; right: 20px; background: rgba(0,0,0,0.2); padding: 5px 15px; border-radius: 20px;">00:00:00</div>
-    </div>
-
-    <div class="user-header" style="margin-top: -60px;">
-        <img id="user-img" src="" class="profile-pic" style="width: 120px; height: 120px; border-radius: 50%; border: 5px solid white; background: #fff; object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-        <h2 id="user-name" style="margin-top: 10px; color: #202124;">Nama User</h2>
-        <div id="display-phone" style="color: #1a73e8; font-weight: bold; font-size: 18px; margin-top: 10px;">Kontak: -</div>
-    </div>
-
-    <hr style="margin: 20px 40px; border: 0.5px solid #eee;">
-
-    <div style="padding: 0 30px; text-align: left;">
-        <h3 style="color: #1a73e8; margin-bottom: 10px;">📤 Upload File Baru</h3>
-        <div style="background: #f8f9fa; padding: 15px; border-radius: 12px; border: 2px dashed #ccc;">
-            <input type="file" id="file-input" multiple style="width: 100%; margin-bottom: 10px;">
-            <button onclick="handleFileUpload()" style="width: 100%; padding: 10px; background: #1a73e8; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">SIMPAN KE DASHBOARD</button>
-        </div>
-
-        <h3 style="margin-top: 20px;">📂 Daftar File Terupload</h3>
-        <div style="max-height: 250px; overflow-y: auto;">
-            <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
-                <thead style="background: #eee;">
-                    <tr>
-                        <th style="padding: 10px; text-align: left;">Nama File</th>
-                        <th style="padding: 10px; text-align: center;">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody id="file-display-area">
-                    </tbody>
-            </table>
-        </div>
-    </div>
-
-    <button class="logout-btn" onclick="location.reload()" style="margin-top: 30px; padding: 10px 25px; background: #f44336; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">LOGOUT / KELUAR</button>
-</div>
-    <hr>
-
-    <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-        <h3>📤 Upload File Baru</h3>
-        <p style="font-size: 0.8em; color: #666;">Pilih Foto, Video, atau Dokumen lainnya.</p>
-        <input type="file" id="file-input" multiple style="margin-bottom: 10px;">
-        <br>
-        <button onclick="handleFileUpload()" style="padding: 10px 20px; cursor: pointer; background-color: #007bff; color: white; border: none; border-radius: 5px;">
-            Simpan ke Dashboard
-        </button>
-    </div>
-
-    <div id="file-manager">
         <h3>📂 Daftar File Saya</h3>
-        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+        <table>
             <thead>
-                <tr style="background: #eee; text-align: left;">
-                    <th style="padding: 10px; border: 1px solid #ddd;">Nama File</th>
-                    <th style="padding: 10px; border: 1px solid #ddd;">Tipe</th>
-                    <th style="padding: 10px; border: 1px solid #ddd;">Aksi</th>
+                <tr style="background: #eee;">
+                    <th>Nama File</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
-            <tbody id="file-display-area">
-                </tbody>
+            <tbody id="file-display-area"></tbody>
         </table>
-    </div>
-</div>
 
         <button class="logout-btn" onclick="location.reload()">Keluar / Logout</button>
     </div>
 </div>
 
 <script>
-    // --- KONFIGURASI ---
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwV7qFXFk3lRV35_7PfRBidKZBXKdewPP2pc6e9kgTLqeboiRx2qvrd-90SBxPP4sMzlQ/exec";
-    const CLIENT_ID = "594310366887-6fs1f5df1k98k979q652v4606t8ud2kj.apps.googleusercontent.com";
-
-    // --- JAM BERGERAK ---
-    function updateClock() {
-        const now = new Date();
-        const options = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
-        document.getElementById('clock').innerText = now.toLocaleTimeString('id-ID', options);
-    }
-    setInterval(updateClock, 1000);
-
-    // --- GOOGLE LOGIN ---
+    // Konfigurasi Google Login
     window.onload = function () {
         google.accounts.id.initialize({
-            client_id: CLIENT_ID,
+            client_id: "594310366887-6fs1f5df1k98k979q652v4606t8ud2kj.apps.googleusercontent.com",
             callback: handleCredentialResponse
         });
-        google.accounts.id.renderButton(document.getElementById("buttonDiv"), { theme: "filled_blue", size: "large", shape: "pill" });
+        google.accounts.id.renderButton(document.getElementById("buttonDiv"), { theme: "outline", size: "large" });
     };
 
+    // Fungsi saat Login Berhasil
     function handleCredentialResponse(response) {
         const phone = document.getElementById('user-phone').value;
-        if (!phone) {
-            alert("Harap masukkan nomor handphone terlebih dahulu!");
-            return;
-        }
+        if (!phone) { alert("Isi nomor HP dulu!"); return; }
 
         const payload = JSON.parse(atob(response.credential.split('.')[1]));
         
-        // KIRIM KE SHEET "daftar sekarang"
-        fetch(SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            body: JSON.stringify({
-                name: payload.name,
-                email: payload.email,
-                phone: phone,
-                picture: payload.picture,
-                sheetName: "daftar sekarang"
-            })
-        });
-
-        // TAMPILKAN DASHBOARD BERSIH
+        // SEMBUNYIKAN LOGIN, MUNCULKAN DASHBOARD
         document.getElementById('intro-section').style.display = 'none';
         document.getElementById('dashboard').style.display = 'block';
+
+        // Isi data profil
         document.getElementById('user-name').innerText = payload.name;
         document.getElementById('user-img').src = payload.picture;
         document.getElementById('display-phone').innerText = "Kontak: " + phone;
-        updateClock();
     }
-// ... kode script yang sudah ada (seperti handleCredentialResponse) ...
 
-    // TARUH DI SINI (Masih di dalam tag <script>)
+    // Fungsi Upload File
     function handleFileUpload() {
         const input = document.getElementById('file-input');
         const area = document.getElementById('file-display-area');
 
-        if (input.files.length === 0) {
-            alert("Pilih filenya dulu, Gibran!");
-            return;
-        }
+        if (input.files.length === 0) { alert("Pilih filenya dulu!"); return; }
 
         Array.from(input.files).forEach(file => {
             const url = URL.createObjectURL(file);
             const row = document.createElement('tr');
-            row.style.borderBottom = "1px solid #eee";
-            
             row.innerHTML = `
-                <td style="padding: 10px;">${file.name}</td>
-                <td style="padding: 10px; text-align: center;">
-                    <a href="${url}" download="${file.name}">
-                        <button style="background: #28a745; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">Unduh</button>
-                    </a>
-                    <button onclick="this.closest('tr').remove()" style="background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; margin-left: 5px;">Hapus</button>
+                <td>${file.name}</td>
+                <td>
+                    <a href="${url}" download="${file.name}"><button style="background: green; color: white; border: none; padding: 5px; border-radius: 3px; cursor: pointer;">Unduh</button></a>
+                    <button onclick="this.closest('tr').remove()" style="background: red; color: white; border: none; padding: 5px; border-radius: 3px; cursor: pointer;">Hapus</button>
                 </td>
             `;
             area.appendChild(row);
         });
-        input.value = ""; 
+        input.value = "";
     }
-    // AKHIR DARI SCRIPT
 </script>
-
-</body> </html></script>
 
 </body>
 </html>
-
-
