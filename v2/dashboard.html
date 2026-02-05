@@ -3,108 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Utama | M. Gibran</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Gibran Private Cloud</title>
     <style>
-        :root { --bg: #050505; --card: #111; --accent: #ff9800; --text: #fff; --border: #222; }
-        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; }
-        .container { max-width: 800px; margin: auto; }
-        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 15px; margin-bottom: 30px; }
-        #clock { font-size: 18px; font-weight: bold; color: var(--accent); }
-        .panel { background: var(--card); padding: 25px; border-radius: 20px; border: 1px solid var(--border); margin-bottom: 25px; }
-        #video-feed { width: 100%; border-radius: 15px; background: #000; transform: scaleX(-1); border: 1px solid #333; margin-bottom: 10px; }
-        .btn { width: 100%; padding: 15px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; display: block; text-align: center; text-decoration: none; font-size: 14px; transition: 0.3s; }
-        .btn-accent { background: var(--accent); color: #000; }
-        .btn-outline { background: #222; color: #fff; border: 1px solid #444; margin-top: 20px; }
-        .upload-box { border: 2px dashed #444; padding: 40px 20px; text-align: center; border-radius: 15px; cursor: pointer; }
-        #status-upload { font-size: 13px; color: var(--accent); margin-top: 15px; text-align: center; font-weight: 600; }
+        :root { --primary: #3448c5; --success: #28a745; --bg: #f4f7f6; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); margin: 0; padding: 20px; }
+        .container { max-width: 500px; margin: auto; }
+        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; margin-bottom: 20px; position: relative; overflow: hidden; }
+        .hidden { display: none; }
+        
+        /* Dashboard 1 Styling */
+        .banner { width: 100%; height: 80px; background: var(--primary); margin: -30px -30px 20px -30px; width: calc(100% + 60px); }
+        .profile-pic { width: 100px; height: 100px; border-radius: 50%; border: 5px solid white; margin-top: -50px; object-fit: cover; background: #ddd; }
+        
+        /* Buttons */
+        .btn { background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; cursor: pointer; width: 100%; font-weight: bold; font-size: 16px; margin-top: 10px; transition: 0.3s; }
+        .btn-green { background: var(--success); }
+        .btn:active { transform: scale(0.98); }
+        
+        /* Upload Area */
+        .upload-box { border: 2px dashed #ccc; padding: 30px; border-radius: 15px; margin: 20px 0; background: #fafafa; cursor: pointer; }
+        .upload-box:hover { border-color: var(--primary); }
+        progress { width: 100%; height: 20px; border-radius: 10px; display: none; margin-top: 10px; }
+        #status-text { font-weight: bold; color: var(--primary); margin-top: 10px; font-size: 14px; }
+
+        /* Dashboard 2 Area */
+        #file-preview-area img, #file-preview-area video { width: 100%; border-radius: 10px; margin-top: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h2 style="margin:0;">System Dashboard</h2>
-            <div id="clock">00:00:00</div>
+
+<div class="container">
+
+    <div id="dash-1" class="card">
+        <div class="banner"></div>
+        <img class="profile-pic" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Gibran" alt="Gibran Profile">
+        <h2>Gibran Cloud</h2>
+        <p style="color: #666; margin-top: -10px;">Mahasiswa Humas LP3I</p>
+        
+        <hr style="border: 0.5px solid #eee; margin: 20px 0;">
+        
+        <div class="upload-box" onclick="document.getElementById('file-input').click()">
+            <input type="file" id="file-input" hidden onchange="updateLabel()">
+            <div style="font-size: 40px;">🎬</div>
+            <p id="file-label">Klik untuk pilih Foto/Video</p>
         </div>
 
-        <div class="panel">
-            <h3><i class="fas fa-video"></i> CCTV & Face ID</h3>
-            <video id="video-feed" autoplay playsinline></video>
-            <button class="btn btn-accent" onclick="alert('✅ Absen Berhasil!')">SCAN & ABSEN</button>
-        </div>
+        <progress id="upload-progress" value="0" max="100"></progress>
+        <p id="status-text"></p>
 
-        <div class="panel">
-            <h3><i class="fas fa-cloud-upload-alt"></i> Upload Ke Gudang</h3>
-            <div class="upload-box" onclick="document.getElementById('fin').click()">
-                <i class="fas fa-folder-plus" style="font-size: 40px; color: #333; margin-bottom: 15px;"></i>
-                <p id="label-upload" style="margin:0; color: #888;">Klik untuk pilih Foto</p>
-                <input type="file" id="fin" accept="image/*" hidden onchange="simpanKeStorage(this)">
-            </div>
-            <div id="status-upload"></div>
-            <a href="dashboard-terpisah.html" class="btn btn-outline">BUKA GUDANG STORAGE</a>
-        </div>
-
-        <a href="index.html" style="color:#555; text-decoration:none; font-size:12px; display:block; text-align:center;">Kembali ke Depan</a>
+        <button class="btn btn-green" onclick="uploadSekarang()">Simpan ke Cloud 🚀</button>
+        <button class="btn" style="background: #888;" onclick="gantiDashboard(2)">Lihat Hasil Upload 📂</button>
     </div>
 
-    <script>
-        // 1. Jalankan Jam
-        setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000);
+    <div id="dash-2" class="card hidden">
+        <h2 style="color: var(--primary);">Dashboard 2: File Saya</h2>
+        <p>File ini sudah tersimpan permanen di cloud kamu.</p>
+        <hr style="border: 0.5px solid #eee;">
         
-        // 2. Jalankan Kamera
-        const v = document.getElementById('video-feed');
-        if (navigator.mediaDevices) { navigator.mediaDevices.getUserMedia({ video: true }).then(s => v.srcObject = s); }
+        <div id="file-preview-area">
+            <p style="color: #999; padding: 20px;">Belum ada file yang diunggah.</p>
+        </div>
 
-        // 3. Mesin Simpan dengan Kompresi (Agar Tidak Penuh)
-        function simpanKeStorage(input) {
-            const file = input.files[0];
-            const status = document.getElementById('status-upload');
-            const label = document.getElementById('label-upload');
-            
-            if (file) {
-                status.innerHTML = "⏳ Mengompres & Menyimpan...";
-                label.innerText = "Processing...";
+        <button class="btn" onclick="gantiDashboard(1)">⬅ Kembali ke Dashboard 1</button>
+    </div>
+
+</div>
+
+<script>
+    // DATA CLOUDINARY GIBRAN
+    const CLOUD_NAME = "dumqnwl9g"; 
+    const UPLOAD_PRESET = "gibran_preset"; // Preset kamu sudah terpasang!
+
+    function gantiDashboard(no) {
+        document.getElementById('dash-1').classList.toggle('hidden', no === 2);
+        document.getElementById('dash-2').classList.toggle('hidden', no === 1);
+    }
+
+    function updateLabel() {
+        const file = document.getElementById('file-input').files[0];
+        if (file) document.getElementById('file-label').innerText = "Siap Upload: " + file.name;
+    }
+
+    async function uploadSekarang() {
+        const fileInput = document.getElementById('file-input');
+        const file = fileInput.files[0];
+        const status = document.getElementById('status-text');
+        const progress = document.getElementById('upload-progress');
+
+        if (!file) return alert("Pilih file dulu, Gibran!");
+
+        status.innerText = "Mengunggah ke Cloudinary...";
+        progress.style.display = "block";
+
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", UPLOAD_PRESET);
+
+        try {
+            const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/upload`, {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (data.secure_url) {
+                status.innerText = "✅ Berhasil Disimpan!";
+                progress.style.display = "none";
                 
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = new Image();
-                    img.src = e.target.result;
-                    img.onload = function() {
-                        const canvas = document.createElement('canvas');
-                        const ctx = canvas.getContext('2d');
-                        
-                        // Perkecil ukuran ke lebar 800px (Irit Memori)
-                        const maxWidth = 800;
-                        const scale = maxWidth / img.width;
-                        canvas.width = maxWidth;
-                        canvas.height = img.height * scale;
-
-                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                        
-                        // Kompres kualitas ke 0.5 (50%)
-                        const compressedData = canvas.toDataURL('image/jpeg', 0.5);
-
-                        try {
-                            let saved = JSON.parse(localStorage.getItem('gibran_files')) || [];
-                            saved.push({ 
-                                name: file.name, 
-                                data: compressedData, 
-                                date: new Date().toLocaleString() 
-                            });
-                            localStorage.setItem('gibran_files', JSON.stringify(saved));
-                            
-                            status.innerHTML = "✅ Berhasil Disimpan!";
-                            label.innerText = "Selesai! Klik untuk tambah lagi.";
-                            alert("Mantap! File sudah masuk gudang.");
-                        } catch (err) {
-                            alert("Gudang masih penuh! Pergi ke GUDANG STORAGE lalu klik HAPUS SEMUA dulu.");
-                            status.innerHTML = "❌ Memori Browser Penuh.";
+                // Masukkan hasil ke Dashboard 2
+                const previewArea = document.getElementById('file-preview-area');
+                const isVideo = data.resource_type === 'video';
+                
+                previewArea.innerHTML = `
+                    <div style="text-align: left; background: #f9f9f9; padding: 15px; border-radius: 10px;">
+                        <p><b>Nama:</b> ${data.original_filename}</p>
+                        ${isVideo ? 
+                            `<video controls src="${data.secure_url}"></video>` : 
+                            `<img src="${data.secure_url}">`
                         }
-                    };
-                };
-                reader.readAsDataURL(file);
+                        <a href="${data.secure_url}" target="_blank" class="btn" style="display:block; text-align:center; text-decoration:none; margin-top:15px;">Buka Link / Download</a>
+                    </div>
+                `;
+
+                // Pindah ke Dashboard 2 setelah sukses
+                setTimeout(() => gantiDashboard(2), 1000);
+            } else {
+                alert("Gagal: " + data.error.message);
             }
+        } catch (err) {
+            alert("Koneksi bermasalah!");
         }
-    </script>
+    }
+</script>
+
 </body>
 </html>
