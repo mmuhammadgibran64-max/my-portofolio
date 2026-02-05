@@ -55,8 +55,8 @@
     <iframe src="pendaftaran-google.html" class="pendaftaran-frame"></iframe>
 </div>
 
+
 <script>
-   <script>
     // 1. Fungsi Jam Bergerak (Milik Gibran)
     function updateClock() {
         const now = new Date();
@@ -71,13 +71,13 @@
     }
     setInterval(updateClock, 1000);
 
-    // 2. Konfigurasi URL Google Sheets (Tab: inidaftar)
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzFD4hcYzwMVzax1rK0VXdbkUlISJ-gdrFLVOL9TKg4HgAoI0t_EieGRPLjUrwipPyEzQ/exec";
+    // 2. Konfigurasi URL Google Sheets Terbaru (Target Tab: inidaftar)
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxNuufvcHCWXACjaJYz8cgjlH2OQGdZ5rPOQI2_w9uEOfBgv3QWu5QrBlzqm1Twb2F7og/exec";
 
-    // 3. Inisialisasi Google Login
+    // 3. Inisialisasi Google Login dengan CLIENT ID BARU
     window.onload = function () {
         google.accounts.id.initialize({
-            client_id: "594310366887-dsrs8pdnrdrhneg3h15saj7btp08oh67.apps.googleusercontent.com", 
+            client_id: "594310366887-6fs1f5df1k98k979q652v4606t8ud2kj.apps.googleusercontent.com", 
             callback: handleCredentialResponse
         });
         
@@ -104,15 +104,25 @@
                 picture: payload.picture,
                 sheetName: "inidaftar" 
             })
+        }).then(() => {
+            console.log("Data berhasil dikirim ke script.");
+        }).catch(err => {
+            console.error("Gagal mengirim data:", err);
         });
 
         // Transisi Tampilan ke Dashboard
-        document.getElementById('login-screen').style.display = 'none';
-        document.getElementById('dashboard').style.display = 'block';
+        const loginScreen = document.getElementById('login-screen');
+        const dashboard = document.getElementById('dashboard');
         
-        // Isi Data User
-        document.getElementById('user-name').innerText = payload.name;
-        document.getElementById('user-img').src = payload.picture;
+        if (loginScreen) loginScreen.style.display = 'none';
+        if (dashboard) dashboard.style.display = 'block';
+        
+        // Isi Data User ke Dashboard
+        const userName = document.getElementById('user-name');
+        const userImg = document.getElementById('user-img');
+        
+        if (userName) userName.innerText = payload.name;
+        if (userImg) userImg.src = payload.picture;
     }
 
     // 5. Fungsi Decode Token Google
@@ -128,3 +138,4 @@
 
 </body>
 </html>
+
