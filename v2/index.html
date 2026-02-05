@@ -3,139 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio Gibran - Full</title>
+    <title>Daftar Google Gibran</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
-        :root { --primary: #2563eb; --dark: #1e293b; --light: #f8fafc; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: var(--light); margin: 0; padding: 20px; display: flex; justify-content: center; }
-        .container { max-width: 800px; width: 100%; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); text-align: center; }
-        .banner { width: 100%; height: 120px; background: linear-gradient(to right, #2563eb, #7c3aed); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 22px; font-weight: bold; margin-bottom: 20px; }
-        .section { margin-bottom: 25px; padding: 20px; background: #f1f5f9; border-radius: 10px; text-align: left; }
-        #clock { font-size: 2.2em; font-weight: bold; margin: 15px 0; color: #ef4444; }
-        .profile-img { width: 120px; height: 120px; border-radius: 50%; border: 5px solid var(--primary); margin-bottom: 15px; }
-        
-        /* Iframe untuk Pendaftaran */
-        .pendaftaran-frame {
-            width: 100%;
-            height: 250px;
-            border: none;
-            margin-top: 10px;
-        }
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f4f4f4; }
+        .box { background: white; padding: 30px; border-radius: 15px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        #clock { font-size: 20px; font-weight: bold; margin-bottom: 20px; color: #1a73e8; }
+        #dashboard { display: none; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <div class="section">
-    <h2>Perkenalkan</h2>
-    <p>Nama saya <b>Gibran</b>. Saya merupakan mahasiswa <b>Hubungan Masyarakat (Humas)</b> di LP3I Kramat Raya. Dengan latar belakang komunikasi dan pengalaman kerja di bidang Monitoring (Gatot Subroto) serta operasional di BGI, saya telah mengasah kedisiplinan dan kemampuan adaptasi yang tinggi.</p>
-    
-    <p>Saat ini, saya aktif mengembangkan portofolio di bidang kreatif dan siap berkontribusi secara profesional dalam proyek komunikasi maupun produksi konten visual.</p>
-    
-    <h3>Pekerjaan / Skill Utama</h3>
-    <ul>
-        <li><b>Desain Grafis:</b> Membuat desain visual seperti poster, banner, logo, dan konten media sosial yang menarik dan profesional.</li>
-        <li><b>Content Creator:</b> Mampu membuat ide, konsep, dan produksi konten untuk platform digital (IG, TikTok, YouTube, dll.).</li>
-        <li><b>Video Editing (Adobe Premiere Pro):</b> Mengedit video dengan teknik cutting, color grading, efek sederhana, audio mixing, dan final export berkualitas tinggi.</li>
-        <li><b>Animasi Dasar:</b> Mampu membuat animasi sederhana untuk kebutuhan konten, intro video, dan motion graphic ringan.</li>
-    </ul>
+    <div class="box">
+        <div id="clock">00:00:00</div>
 
-    <h3>Keahlian Tambahan & Hobi</h3>
-    <p>Selain bidang profesional, saya juga memiliki kemahiran dalam bermain <b>Gitar</b> (akustik & chord intermediate) serta aktif dalam olahraga <b>Futsal</b> yang melatih kerja sama tim dan pengambilan keputusan cepat.</p>
-</div>
+        <div id="login-screen">
+            <h2>Daftar Sekarang</h2>
+            <div id="buttonDiv"></div>
+        </div>
 
-    <div id="clock">00:00:00</div>
-    <img src="https://via.placeholder.com/120" alt="Foto Gibran" class="profile-img">
-
- 
-    <footer style="font-size: 12px; color: #94a3b8; margin-top: 20px;">
-        Gibran Portfolio &copy; 2026
-    </footer>
-
-    <iframe src="pendaftaran-google.html" class="pendaftaran-frame"></iframe>
-</div>
-
+        <div id="dashboard">
+            <h2>Selamat Datang!</h2>
+            <img id="user-img" style="border-radius: 50%; width: 100px;">
+            <h3 id="user-name"></h3>
+            <p>Data kamu sudah dikirim ke sheet <b>inidaftar</b></p>
+        </div>
+    </div>
 
 <script>
-    // 1. Fungsi Jam Bergerak (Milik Gibran)
     function updateClock() {
         const now = new Date();
-        const timeString = now.getHours().toString().padStart(2, '0') + ":" + 
+        document.getElementById('clock').innerText = now.getHours().toString().padStart(2, '0') + ":" + 
                            now.getMinutes().toString().padStart(2, '0') + ":" + 
                            now.getSeconds().toString().padStart(2, '0');
-        
-        const clockElement = document.getElementById('clock');
-        if (clockElement) {
-            clockElement.innerText = timeString;
-        }
     }
     setInterval(updateClock, 1000);
 
-    // 2. Konfigurasi URL Google Sheets Terbaru (Target Tab: inidaftar)
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxNuufvcHCWXACjaJYz8cgjlH2OQGdZ5rPOQI2_w9uEOfBgv3QWu5QrBlzqm1Twb2F7og/exec";
 
-    // 3. Inisialisasi Google Login dengan CLIENT ID BARU
     window.onload = function () {
         google.accounts.id.initialize({
             client_id: "594310366887-6fs1f5df1k98k979q652v4606t8ud2kj.apps.googleusercontent.com", 
             callback: handleCredentialResponse
         });
-        
-        google.accounts.id.renderButton(
-            document.getElementById("buttonDiv"),
-            { theme: "outline", size: "large", width: 280 }
-        );
-        
-        updateClock(); // Jalankan jam langsung saat loading
+        google.accounts.id.renderButton(document.getElementById("buttonDiv"), { theme: "outline", size: "large" });
+        updateClock();
     };
 
-    // 4. Fungsi Callback Login & Kirim ke Sheet "inidaftar"
     function handleCredentialResponse(response) {
-        const payload = decodeJwtResponse(response.credential);
+        const payload = JSON.parse(atob(response.credential.split('.')[1]));
         
-        // Kirim data ke Spreadsheet
         fetch(SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 name: payload.name,
                 email: payload.email,
                 picture: payload.picture,
                 sheetName: "inidaftar" 
             })
-        }).then(() => {
-            console.log("Data berhasil dikirim ke script.");
-        }).catch(err => {
-            console.error("Gagal mengirim data:", err);
         });
 
-        // Transisi Tampilan ke Dashboard
-        const loginScreen = document.getElementById('login-screen');
-        const dashboard = document.getElementById('dashboard');
-        
-        if (loginScreen) loginScreen.style.display = 'none';
-        if (dashboard) dashboard.style.display = 'block';
-        
-        // Isi Data User ke Dashboard
-        const userName = document.getElementById('user-name');
-        const userImg = document.getElementById('user-img');
-        
-        if (userName) userName.innerText = payload.name;
-        if (userImg) userImg.src = payload.picture;
-    }
-
-    // 5. Fungsi Decode Token Google
-    function decodeJwtResponse(token) {
-        let base64Url = token.split('.')[1];
-        let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        let jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-        return JSON.parse(jsonPayload);
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        document.getElementById('user-name').innerText = payload.name;
+        document.getElementById('user-img').src = payload.picture;
     }
 </script>
-
 </body>
 </html>
-
