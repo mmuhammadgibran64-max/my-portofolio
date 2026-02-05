@@ -9,42 +9,99 @@
         :root { --bg: #0a0a0a; --card: #161616; --accent: #ff9800; --danger: #ff4444; --success: #28a745; }
         body { background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; padding: 20px; }
         .container { max-width: 800px; margin: auto; }
-        .file-item { background: var(--card); padding: 20px; border-radius: 15px; border: 1px solid #222; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .btn-action { padding: 10px 15px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; color: #fff; text-decoration: none; margin-left: 5px; }
-        .btn-download { background: var(--success); }
+        .header-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        
+        .file-list-container { display: flex; flex-direction: column; gap: 15px; }
+        .file-item { 
+            background: var(--card); padding: 15px; border-radius: 15px; 
+            border: 1px solid #222; display: flex; justify-content: space-between; align-items: center; 
+        }
+        .file-info { display: flex; align-items: center; gap: 15px; overflow: hidden; }
+        .file-info i { font-size: 24px; color: var(--accent); }
+        .file-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; font-size: 14px; }
+
+        .btn-action { padding: 10px; border-radius: 8px; border: none; cursor: pointer; color: #fff; text-decoration: none; font-size: 14px; }
+        .btn-download { background: var(--success); margin-right: 5px; }
         .btn-delete { background: var(--danger); }
-        .back-link { color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 20px; }
+        .back-link { color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 8px; margin-bottom: 20px; font-weight: bold; }
+        
+        .empty-state { text-align: center; padding: 50px; color: #555; border: 2px dashed #222; border-radius: 20px; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <a href="dashboard.html" class="back-link"><i class="fas fa-arrow-left"></i> Kembali ke Dashboard Utama</a>
-        <h1><i class="fas fa-database"></i> Storage Penyimpanan</h1>
-        <p style="color:#666">Kelola semua file foto dan video yang sudah di-upload.</p>
 
-        <div id="file-list">
-            <div class="file-item">
-                <div>
-                    <i class="fas fa-file-image" style="color:var(--accent)"></i> 
-                    <span>Hasil_Absen_01.jpg</span>
-                </div>
-                <div>
-                    <button class="btn-action btn-download" onclick="alert('Mendownload...')"><i class="fas fa-download"></i></button>
-                    <button class="btn-action btn-delete" onclick="this.parentElement.parentElement.remove()"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-
-            <div class="file-item">
-                <div>
-                    <i class="fas fa-file-video" style="color:var(--accent)"></i> 
-                    <span>Video_Kegiatan_BGI.mp4</span>
-                </div>
-                <div>
-                    <button class="btn-action btn-download" onclick="alert('Mendownload...')"><i class="fas fa-download"></i></button>
-                    <button class="btn-action btn-delete" onclick="this.parentElement.parentElement.remove()"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-        </div>
+<div class="container">
+    <a href="dashboard.html" class="back-link"><i class="fas fa-arrow-left"></i> KEMBALI KE DASHBOARD</a>
+    
+    <div class="header-area">
+        <h1><i class="fas fa-database"></i> Storage System</h1>
+        <button onclick="hapusSemua()" style="background:none; border:1px solid #444; color:#888; padding:5px 10px; border-radius:5px; cursor:pointer; font-size:11px;">Hapus Semua</button>
     </div>
+    
+    <p style="color:#666; font-size: 13px; margin-bottom: 30px;">
+        File disimpan di memori perangkat ini. Kapasitas tersedia: ~5GB.
+    </p>
+
+    <div id="storage-list" class="file-list-container">
+        </div>
+</div>
+
+<script>
+    // FUNGSI LOAD FILE DARI MEMORI HP (LocalStorage)
+    function loadFiles() {
+        const listContainer = document.getElementById('storage-list');
+        const savedFiles = JSON.parse(localStorage.getItem('gibran_files')) || [];
+
+        if (savedFiles.length === 0) {
+            listContainer.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-folder-open" style="font-size: 40px; margin-bottom:10px;"></i>
+                    <p>Belum ada file yang di-upload.</p>
+                </div>`;
+            return;
+        }
+
+        listContainer.innerHTML = '';
+        savedFiles.forEach((file, index) => {
+            const item = document.createElement('div');
+            item.className = 'file-item';
+            item.innerHTML = `
+                <div class="file-info">
+                    <i class="fas ${file.type.includes('video') ? 'fa-file-video' : 'fa-file-image'}"></i>
+                    <div class="file-name">${file.name}</div>
+                </div>
+                <div>
+                    <a href="${file.data}" download="${file.name}" class="btn-action btn-download">
+                        <i class="fas fa-download"></i>
+                    </a>
+                    <button onclick="hapusSatu(${index})" class="btn-action btn-delete">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `;
+            listContainer.appendChild(item);
+        });
+    }
+
+    // FUNGSI HAPUS SATU FILE
+    function hapusSatu(index) {
+        let savedFiles = JSON.parse(localStorage.getItem('gibran_files')) || [];
+        savedFiles.splice(index, 1);
+        localStorage.setItem('gibran_files', JSON.stringify(savedFiles));
+        loadFiles(); // Refresh tampilan
+    }
+
+    // FUNGSI HAPUS SEMUA
+    function hapusSemua() {
+        if(confirm("Hapus seluruh isi storage di perangkat ini?")) {
+            localStorage.removeItem('gibran_files');
+            loadFiles();
+        }
+    }
+
+    // Jalankan saat halaman dibuka
+    window.onload = loadFiles;
+</script>
+
 </body>
 </html>
