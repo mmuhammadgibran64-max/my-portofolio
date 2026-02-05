@@ -3,72 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Google Gibran</title>
+    <title>Daftar Google - Gibran</title>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f4f4f4; }
-        .box { background: white; padding: 30px; border-radius: 15px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        #clock { font-size: 20px; font-weight: bold; margin-bottom: 20px; color: #1a73e8; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+        }
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 320px;
+        }
+        #clock {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #1a73e8;
+            background: #e8f0fe;
+            padding: 10px;
+            border-radius: 50px;
+        }
+        h2 { margin-bottom: 5px; color: #333; }
+        p { color: #666; font-size: 14px; margin-bottom: 30px; }
         #dashboard { display: none; }
+        .profile-pic { width: 80px; height: 80px; border-radius: 50%; margin-top: 15px; border: 3px solid #1a73e8; }
     </style>
 </head>
 <body>
 
-    <div class="box">
+    <div class="login-box">
         <div id="clock">00:00:00</div>
 
         <div id="login-screen">
             <h2>Daftar Sekarang</h2>
-            <div id="buttonDiv"></div>
+            <p>Data akan otomatis masuk ke sheet:<br><b>daftar sekarang</b></p>
+            <center><div id="buttonDiv"></div></center>
         </div>
 
         <div id="dashboard">
-            <h2>Selamat Datang!</h2>
-            <img id="user-img" style="border-radius: 50%; width: 100px;">
-            <h3 id="user-name"></h3>
-            <p>Data kamu sudah dikirim ke sheet <b>inidaftar</b></p>
+            <h3 style="color: #28a745;">Berhasil Terdaftar!</h3>
+            <img id="user-img" src="" class="profile-pic">
+            <h4 id="user-name"></h4>
+            <p>Silakan cek Google Sheets Anda.</p>
+            <button onclick="location.reload()" style="cursor:pointer; padding: 5px 15px;">Keluar</button>
         </div>
     </div>
 
 <script>
+    // 1. FUNGSI JAM BERGERAK
     function updateClock() {
         const now = new Date();
-        document.getElementById('clock').innerText = now.getHours().toString().padStart(2, '0') + ":" + 
-                           now.getMinutes().toString().padStart(2, '0') + ":" + 
-                           now.getSeconds().toString().padStart(2, '0');
+        document.getElementById('clock').innerText = 
+            now.getHours().toString().padStart(2, '0') + ":" + 
+            now.getMinutes().toString().padStart(2, '0') + ":" + 
+            now.getSeconds().toString().padStart(2, '0');
     }
     setInterval(updateClock, 1000);
+    updateClock();
 
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxNuufvcHCWXACjaJYz8cgjlH2OQGdZ5rPOQI2_w9uEOfBgv3QWu5QrBlzqm1Twb2F7og/exec";
+    // 2. KONFIGURASI (URL SCRIPT BARU & CLIENT ID GIBRAN)
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwV7qFXFk3lRV35_7PfRBidKZBXKdewPP2pc6e9kgTLqeboiRx2qvrd-90SBxPP4sMzlQ/exec";
+    const CLIENT_ID = "594310366887-6fs1f5df1k98k979q652v4606t8ud2kj.apps.googleusercontent.com";
 
+    // 3. INISIALISASI TOMBOL GOOGLE
     window.onload = function () {
         google.accounts.id.initialize({
-            client_id: "594310366887-6fs1f5df1k98k979q652v4606t8ud2kj.apps.googleusercontent.com", 
+            client_id: CLIENT_ID,
             callback: handleCredentialResponse
         });
-        google.accounts.id.renderButton(document.getElementById("buttonDiv"), { theme: "outline", size: "large" });
-        updateClock();
+        google.accounts.id.renderButton(
+            document.getElementById("buttonDiv"),
+            { theme: "filled_blue", size: "large", shape: "pill", width: 250 }
+        );
     };
 
+    // 4. PROSES KIRIM DATA
     function handleCredentialResponse(response) {
+        // Decode data dari Google
         const payload = JSON.parse(atob(response.credential.split('.')[1]));
         
+        // Kirim ke Google Sheets (Tab: daftar sekarang)
         fetch(SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 name: payload.name,
                 email: payload.email,
                 picture: payload.picture,
-                sheetName: "inidaftar" 
+                sheetName: "daftar sekarang"
             })
         });
 
+        // Ubah tampilan ke Dashboard sukses
         document.getElementById('login-screen').style.display = 'none';
         document.getElementById('dashboard').style.display = 'block';
         document.getElementById('user-name').innerText = payload.name;
         document.getElementById('user-img').src = payload.picture;
     }
 </script>
+
 </body>
 </html>
