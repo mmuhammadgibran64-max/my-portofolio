@@ -13,39 +13,49 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f4f7f6;
+            background-color: #f0f2f5;
         }
         .login-box {
             background: white;
             padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             text-align: center;
-            max-width: 350px;
-            width: 100%;
+            max-width: 400px;
+            width: 90%;
         }
         #clock {
-            font-size: 20px;
+            font-size: 24px;
             font-weight: bold;
             margin-bottom: 20px;
-            color: #1e3c72;
+            color: #1a73e8;
+            background: #e8f0fe;
+            display: inline-block;
+            padding: 5px 20px;
+            border-radius: 50px;
         }
-        h2 { margin-bottom: 10px; color: #333; }
-        p { color: #666; font-size: 14px; margin-bottom: 30px; }
+        h2 { margin: 0 0 10px 0; color: #202124; }
+        p { color: #5f6368; font-size: 14px; margin-bottom: 30px; line-height: 1.5; }
+        .footer-text { margin-top: 20px; font-size: 12px; color: #9aa0a6; }
     </style>
 </head>
 <body>
 
     <div class="login-box">
         <div id="clock">00:00:00</div>
-        <h2>Daftar Akun</h2>
-        <p>Silakan gunakan akun Google Anda untuk mendaftar secara otomatis ke sheet <b>inidaftar</b>.</p>
         
-        <center><div id="buttonDiv"></div></center>
+        <h2>Pendaftaran Akun</h2>
+        <p>Halo Gibran! Klik tombol di bawah untuk mendaftar. Data akan otomatis masuk ke Google Sheets <b>inidaftar</b>.</p>
+        
+        <center>
+            <div id="buttonDiv"></div>
+        </center>
+
+        <div class="footer-text">Terhubung dengan Google Apps Script</div>
     </div>
 
 <script>
-    // 1. FUNGSI JAM BERGERAK (Milik Gibran)
+    // --- 1. LOGIKA JAM BERGERAK ---
     function updateClock() {
         const now = new Date();
         const timeString = now.getHours().toString().padStart(2, '0') + ":" + 
@@ -56,11 +66,13 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    // 2. KONFIGURASI URL & ID (Sudah diisi sesuai permintaanmu)
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzFD4hcYzwMVzax1rK0VXdbkUlISJ-gdrFLVOL9TKg4HgAoI0t_EieGRPLjUrwipPyEzQ/exec";
+    // --- 2. KONFIGURASI GOOGLE ---
+    // URL Web App terbaru yang kamu berikan
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxNuufvcHCWXACjaJYz8cgjlH2OQGdZ5rPOQI2_w9uEOfBgv3QWu5QrBlzqm1Twb2F7og/exec";
+    // Client ID Google milik Gibran
     const GOOGLE_CLIENT_ID = "594310366887-dsrs8pdnrdrhneg3h15saj7btp08oh67.apps.googleusercontent.com";
 
-    // 3. INISIALISASI TOMBOL GOOGLE
+    // --- 3. INISIALISASI TOMBOL ---
     window.onload = function () {
         google.accounts.id.initialize({
             client_id: GOOGLE_CLIENT_ID,
@@ -68,39 +80,39 @@
         });
         google.accounts.id.renderButton(
             document.getElementById("buttonDiv"),
-            { theme: "outline", size: "large", width: 250 }
+            { theme: "filled_blue", size: "large", width: 280, shape: "pill" }
         );
     };
 
-    // 4. PROSES KIRIM DATA KE SHEET "inidaftar"
+    // --- 4. PROSES KIRIM DATA KE SHEET "inidaftar" ---
     function handleCredentialResponse(response) {
-        // Decode Token Google
+        // Membongkar data profil Google
         const payload = decodeJwtResponse(response.credential);
         
-        console.log("Mengirim data ke inidaftar...");
+        console.log("Sedang mengirim data user...");
 
-        // Kirim data menggunakan FETCH POST
+        // Mengirim data ke Google Script
         fetch(SCRIPT_URL, {
             method: 'POST',
-            mode: 'no-cors', // Menghindari CORS blokir
+            mode: 'no-cors', // Penting agar tidak kena blokir CORS
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 name: payload.name,
                 email: payload.email,
                 picture: payload.picture,
-                sheetName: "inidaftar" // Target sheet
+                sheetName: "inidaftar" // Target nama sheet
             })
         }).then(() => {
-            alert("Pendaftaran Berhasil! Data sudah masuk ke sheet inidaftar.");
-            // Kamu bisa tambahkan redirect ke dashboard di sini jika perlu:
-            // window.location.href = "dashboard.html";
+            alert("Berhasil! Data " + payload.name + " telah masuk ke sheet inidaftar.");
+            // Jika ingin pindah halaman setelah daftar, aktifkan baris bawah ini:
+            // window.location.href = "dashboard.html"; 
         }).catch(err => {
-            console.error("Gagal mengirim:", err);
-            alert("Terjadi kesalahan teknis.");
+            console.error("Gagal mengirim data:", err);
+            alert("Waduh, ada kendala koneksi ke Sheets.");
         });
     }
 
-    // 5. DECODE TOKEN JWT GOOGLE
+    // --- 5. FUNGSI DECODE DATA GOOGLE ---
     function decodeJwtResponse(token) {
         let base64Url = token.split('.')[1];
         let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
