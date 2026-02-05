@@ -13,22 +13,21 @@
         /* Deskripsi Luar Aplikasi */
         .intro-card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
         .intro-card h1 { color: var(--primary); margin-top: 0; }
-        .section-title { border-left: 4px solid var(--primary); padding-left: 10px; margin-top: 20px; color: var(--primary); }
+        .section-title { border-left: 4px solid var(--primary); padding-left: 10px; margin-top: 20px; color: var(--primary); font-weight: bold; }
         
         /* Box Daftar */
         .login-box { background: #fff; padding: 30px; border-radius: 15px; border: 2px solid #e0e0e0; text-align: center; margin-bottom: 40px; }
-        input[type="tel"] { width: 80%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; }
+        input[type="tel"] { width: 80%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; outline-color: var(--primary); }
 
-        /* Dashboard (Hidden by default) */
-        #dashboard { display: none; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .banner { width: 100%; height: 150px; background: linear-gradient(135deg, #1e3c72, #2a5298); position: relative; }
-        .user-header { text-align: center; margin-top: -60px; padding-bottom: 20px; }
-        .profile-pic { width: 120px; height: 120px; border-radius: 50%; border: 5px solid white; background: #eee; object-fit: cover; }
-        #clock { font-size: 20px; font-weight: bold; color: white; position: absolute; top: 10px; right: 20px; background: rgba(0,0,0,0.3); padding: 5px 15px; border-radius: 20px; }
+        /* Dashboard (SETELAH LOGIN - SUDAH DIHAPUS SEMUA ISINYA) */
+        #dashboard { display: none; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); padding-bottom: 30px; text-align: center; }
+        .banner { width: 100%; height: 160px; background: linear-gradient(135deg, #1a73e8, #0d47a1); position: relative; }
+        #clock { font-size: 22px; font-weight: bold; color: white; position: absolute; top: 15px; right: 20px; background: rgba(0,0,0,0.2); padding: 5px 15px; border-radius: 20px; }
         
-        .skill-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
-        .skill-item { background: #f1f3f4; padding: 15px; border-radius: 10px; font-size: 14px; border-bottom: 3px solid var(--primary); }
-        .skill-item b { color: var(--primary); display: block; margin-bottom: 5px; }
+        .user-header { margin-top: -60px; }
+        .profile-pic { width: 120px; height: 120px; border-radius: 50%; border: 5px solid white; background: #fff; object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .job-title { color: var(--primary); font-weight: bold; font-size: 18px; margin-top: 10px; }
+        .logout-btn { margin-top: 30px; padding: 10px 25px; background: #f44336; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -46,9 +45,9 @@
         </div>
 
         <div class="login-box" id="login-screen">
-            <h3>Daftar Akun</h3>
-            <p>Masukkan nomor WhatsApp aktif sebelum klik tombol Google</p>
-            <input type="tel" id="user-phone" placeholder="Contoh: 08123456789" required>
+            <h3>Pendaftaran Akun</h3>
+            <p>Masukkan nomor HP aktif untuk melihat profil profesional saya.</p>
+            <input type="tel" id="user-phone" placeholder="Nomor Handphone (Contoh: 0812...)" required>
             <center><div id="buttonDiv" style="margin-top: 15px;"></div></center>
         </div>
     </div>
@@ -59,20 +58,12 @@
         </div>
         <div class="user-header">
             <img id="user-img" src="" class="profile-pic">
-            <h2 id="user-name">Nama Pengguna</h2>
-            <p id="display-phone" style="color: #666;"></p>
+            <h2 id="user-name" style="margin-bottom: 5px;">Nama Pengguna</h2>
+            <div class="job-title">Desain Grafis</div>
+            <p id="display-phone" style="color: #666; font-size: 14px;"></p>
         </div>
 
-        <div style="padding: 0 20px;"><h3 class="section-title">Pekerjaan / Skill Utama</h3></div>
-        <div class="skill-grid">
-            <div class="skill-item"><b>Desain Grafis</b>Membuat poster, banner, logo, dan konten medsos profesional.</div>
-            <div class="skill-item"><b>Content Creator</b>Ide, konsep, dan produksi konten IG, TikTok, YouTube.</div>
-            <div class="skill-item"><b>Video Editing</b>Adobe Premiere Pro: Cutting, grading, & mixing audio.</div>
-            <div class="skill-item"><b>Animasi Dasar</b>Motion graphic ringan dan intro video sederhana.</div>
-            <div class="skill-item"><b>Fotografi</b>Teknik pencahayaan dan komposisi foto profesional.</div>
-            <div class="skill-item"><b>Musik & Olahraga</b>Gitar (Intermediate) & Futsal (Team Player).</div>
-        </div>
-        <center><button onclick="location.reload()" style="margin-bottom: 20px; padding: 10px 20px; cursor: pointer;">Keluar</button></center>
+        <button class="logout-btn" onclick="location.reload()">Keluar / Logout</button>
     </div>
 </div>
 
@@ -84,7 +75,8 @@
     // --- JAM BERGERAK ---
     function updateClock() {
         const now = new Date();
-        document.getElementById('clock').innerText = now.toLocaleTimeString('id-ID');
+        const options = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        document.getElementById('clock').innerText = now.toLocaleTimeString('id-ID', options);
     }
     setInterval(updateClock, 1000);
 
@@ -119,12 +111,12 @@
             })
         });
 
-        // PINDAH KE DASHBOARD
+        // TAMPILKAN DASHBOARD BERSIH
         document.getElementById('intro-section').style.display = 'none';
         document.getElementById('dashboard').style.display = 'block';
         document.getElementById('user-name').innerText = payload.name;
         document.getElementById('user-img').src = payload.picture;
-        document.getElementById('display-phone').innerText = "WA Aktif: " + phone;
+        document.getElementById('display-phone').innerText = "Kontak: " + phone;
         updateClock();
     }
 </script>
