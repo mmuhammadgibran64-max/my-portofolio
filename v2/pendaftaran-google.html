@@ -3,85 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pendaftaran Google - Gibran</title>
+    <title>Daftar Google - Gibran</title>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #f4f7f6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            background-color: #f4f7f6;
         }
-        .login-card {
+        .login-box {
             background: white;
             padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             text-align: center;
-            max-width: 400px;
-            width: 90%;
+            max-width: 350px;
+            width: 100%;
         }
-        h2 { color: #1e293b; margin-bottom: 10px; }
-        p { color: #64748b; font-size: 14px; margin-bottom: 30px; }
-        
-        .footer-text {
-            margin-top: 30px;
-            font-size: 12px;
-            color: #94a3b8;
+        #clock {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #1e3c72;
         }
-        
-        /* Container Tombol Google */
-        #buttonDiv {
-            display: flex;
-            justify-content: center;
-        }
+        h2 { margin-bottom: 10px; color: #333; }
+        p { color: #666; font-size: 14px; margin-bottom: 30px; }
     </style>
 </head>
 <body>
 
-    <div class="login-card">
+    <div class="login-box">
+        <div id="clock">00:00:00</div>
         <h2>Daftar Akun</h2>
-        <p>Gunakan akun Google Anda untuk mendaftar ke sheet <b>daftar</b></p>
-
-        <div id="buttonDiv"></div>
-
-        <div class="footer-text">
-            Gibran Portfolio &copy; 2026
-        </div>
+        <p>Silakan gunakan akun Google Anda untuk mendaftar secara otomatis ke sheet <b>inidaftar</b>.</p>
+        
+        <center><div id="buttonDiv"></div></center>
     </div>
 
-    <script>
-        function handleCredentialResponse(response) {
-            // Ini adalah token yang didapat setelah login berhasil
-            console.log("Encoded JWT ID token: " + response.credential);
-            
-            // Catatan: Untuk mengirim data ke Google Sheet bernama 'daftar', 
-            // Kamu perlu menggunakan Google Apps Script sebagai perantara (API).
-            alert("Login Berhasil! Data siap dikirim ke sheet daftar.");
-        }
+<script>
+    // 1. FUNGSI JAM BERGERAK (Milik Gibran)
+    function updateClock() {
+        const now = new Date();
+        const timeString = now.getHours().toString().padStart(2, '0') + ":" + 
+                           now.getMinutes().toString().padStart(2, '0') + ":" + 
+                           now.getSeconds().toString().padStart(2, '0');
+        document.getElementById('clock').innerText = timeString;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
 
-        window.onload = function () {
-            google.accounts.id.initialize({
-                client_id: "594310366887-dsrs8pdnrdrhneg3h15saj7btp08oh67.apps.googleusercontent.com",
-                callback: handleCredentialResponse
-            });
-            
-            google.accounts.id.renderButton(
-                document.getElementById("buttonDiv"),
-                { 
-                    theme: "outline", 
-                    size: "large", 
-                    text: "signin_with", 
-                    shape: "rectangular" 
-                } 
-            );
-            
-            google.accounts.id.prompt(); // Menampilkan one-tap prompt (opsional)
-        }
-    </script>
+    // 2. KONFIGURASI URL & ID (Sudah diisi sesuai permintaanmu)
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzFD4hcYzwMVzax1rK0VXdbkUlISJ-gdrFLVOL9TKg4HgAoI0t_EieGRPLjUrwipPyEzQ/exec";
+    const GOOGLE_CLIENT_ID = "594310366887-dsrs8pdnrdrhneg3h15saj7btp08oh67.apps.googleusercontent.com";
+
+    // 3. INISIALISASI TOMBOL GOOGLE
+    window.onload = function () {
+        google.accounts.id.initialize({
+            client_id: GOOGLE_CLIENT_ID,
+            callback: handleCredentialResponse
+        });
+        google.accounts.id.renderButton(
+            document.getElementById("buttonDiv"),
+            { theme: "outline", size: "large", width: 250 }
+        );
+    };
+
+    // 4. PROSES KIRIM DATA KE SHEET "inidaftar"
+    function handleCredentialResponse(response) {
+        // Decode Token Google
+        const payload = decodeJwtResponse(response.credential);
+        
+        console.log("Mengirim data ke inidaftar...");
+
+        // Kirim data menggunakan FETCH POST
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors', // Menghindari CORS blokir
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                name: payload.name,
+                email: payload.email,
+                picture: payload.picture,
+                sheetName: "inidaftar" // Target sheet
+            })
+        }).then(() => {
+            alert("Pendaftaran Berhasil! Data sudah masuk ke sheet inidaftar.");
+            // Kamu bisa tambahkan redirect ke dashboard di sini jika perlu:
+            // window.location.href = "dashboard.html";
+        }).catch(err => {
+            console.error("Gagal mengirim:", err);
+            alert("Terjadi kesalahan teknis.");
+        });
+    }
+
+    // 5. DECODE TOKEN JWT GOOGLE
+    function decodeJwtResponse(token) {
+        let base64Url = token.split('.')[1];
+        let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        let jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        return JSON.parse(jsonPayload);
+    }
+</script>
 
 </body>
 </html>
