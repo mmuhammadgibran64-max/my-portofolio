@@ -3,76 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gibran Private Cloud</title>
+    <title>Gibran Cloud Storage v2</title>
     <style>
         :root { --primary: #3448c5; --success: #28a745; --bg: #f4f7f6; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); margin: 0; padding: 20px; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 20px; }
         .container { max-width: 500px; margin: auto; }
-        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; margin-bottom: 20px; position: relative; overflow: hidden; }
+        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; margin-bottom: 20px; }
         .hidden { display: none; }
-        
-        /* Dashboard 1 Styling */
-        .banner { width: 100%; height: 80px; background: var(--primary); margin: -30px -30px 20px -30px; width: calc(100% + 60px); }
-        .profile-pic { width: 100px; height: 100px; border-radius: 50%; border: 5px solid white; margin-top: -50px; object-fit: cover; background: #ddd; }
-        
-        /* Buttons */
-        .btn { background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; cursor: pointer; width: 100%; font-weight: bold; font-size: 16px; margin-top: 10px; transition: 0.3s; }
+        .btn { background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px; }
         .btn-green { background: var(--success); }
-        .btn:active { transform: scale(0.98); }
-        
-        /* Upload Area */
-        .upload-box { border: 2px dashed #ccc; padding: 30px; border-radius: 15px; margin: 20px 0; background: #fafafa; cursor: pointer; }
-        .upload-box:hover { border-color: var(--primary); }
+        .upload-box { border: 2px dashed #ccc; padding: 30px; border-radius: 15px; margin: 20px 0; cursor: pointer; background: #fafafa; }
+        .file-item { background: #f9f9f9; padding: 15px; border-radius: 10px; margin-bottom: 15px; text-align: left; border: 1px solid #eee; animation: slideIn 0.5s ease; }
+        #file-list img, #file-list video { width: 100%; border-radius: 10px; margin-top: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         progress { width: 100%; height: 20px; border-radius: 10px; display: none; margin-top: 10px; }
-        #status-text { font-weight: bold; color: var(--primary); margin-top: 10px; font-size: 14px; }
-
-        /* Dashboard 2 Area */
-        #file-preview-area img, #file-preview-area video { width: 100%; border-radius: 10px; margin-top: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
 
 <div class="container">
-
     <div id="dash-1" class="card">
-        <div class="banner"></div>
-        <img class="profile-pic" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Gibran" alt="Gibran Profile">
-        <h2>Gibran Cloud</h2>
-        <p style="color: #666; margin-top: -10px;">Mahasiswa Humas LP3I</p>
-        
-        <hr style="border: 0.5px solid #eee; margin: 20px 0;">
+        <h2 style="color: var(--primary);">Dashboard 1: Upload 🎬</h2>
+        <p>Halo Gibran! Pilih file untuk disimpan ke Cloud.</p>
         
         <div class="upload-box" onclick="document.getElementById('file-input').click()">
             <input type="file" id="file-input" hidden onchange="updateLabel()">
-            <div style="font-size: 40px;">🎬</div>
-            <p id="file-label">Klik untuk pilih Foto/Video</p>
+            <div style="font-size: 50px;">📤</div>
+            <p id="file-label">Klik di sini untuk pilih file</p>
         </div>
 
         <progress id="upload-progress" value="0" max="100"></progress>
-        <p id="status-text"></p>
+        <p id="status-text" style="font-weight:bold; color:var(--primary);"></p>
 
         <button class="btn btn-green" onclick="uploadSekarang()">Simpan ke Cloud 🚀</button>
-        <button class="btn" style="background: #888;" onclick="gantiDashboard(2)">Lihat Hasil Upload 📂</button>
+        <button class="btn" style="background:#888" onclick="gantiDashboard(2)">Lihat Koleksi File 📂</button>
     </div>
 
     <div id="dash-2" class="card hidden">
-        <h2 style="color: var(--primary);">Dashboard 2: File Saya</h2>
-        <p>File ini sudah tersimpan permanen di cloud kamu.</p>
-        <hr style="border: 0.5px solid #eee;">
+        <h2 style="color: var(--primary);">Dashboard 2: Hasil Simpan 📂</h2>
+        <p>File ini sudah aman di awan Cloudinary kamu.</p>
+        <hr style="border: 0.5px solid #eee; margin-bottom: 20px;">
         
-        <div id="file-preview-area">
-            <p style="color: #999; padding: 20px;">Belum ada file yang diunggah.</p>
+        <div id="file-list">
+            <p id="empty-msg" style="color: #999; padding: 20px;">Belum ada file. Silakan upload dulu di Dashboard 1.</p>
         </div>
 
-        <button class="btn" onclick="gantiDashboard(1)">⬅ Kembali ke Dashboard 1</button>
+        <button class="btn" onclick="gantiDashboard(1)">⬅ Kembali Upload Lagi</button>
     </div>
-
 </div>
 
 <script>
-    // DATA CLOUDINARY GIBRAN
     const CLOUD_NAME = "dumqnwl9g"; 
-    const UPLOAD_PRESET = "gibran_preset"; // Preset kamu sudah terpasang!
+    const UPLOAD_PRESET = "gibran_preset";
 
     function gantiDashboard(no) {
         document.getElementById('dash-1').classList.toggle('hidden', no === 2);
@@ -81,7 +63,7 @@
 
     function updateLabel() {
         const file = document.getElementById('file-input').files[0];
-        if (file) document.getElementById('file-label').innerText = "Siap Upload: " + file.name;
+        if (file) document.getElementById('file-label').innerText = "Siap: " + file.name;
     }
 
     async function uploadSekarang() {
@@ -92,7 +74,7 @@
 
         if (!file) return alert("Pilih file dulu, Gibran!");
 
-        status.innerText = "Mengunggah ke Cloudinary...";
+        status.innerText = "Sedang mengirim ke Cloud...";
         progress.style.display = "block";
 
         const formData = new FormData();
@@ -104,38 +86,48 @@
                 method: "POST",
                 body: formData
             });
-
             const data = await response.json();
 
             if (data.secure_url) {
                 status.innerText = "✅ Berhasil Disimpan!";
                 progress.style.display = "none";
                 
-                // Masukkan hasil ke Dashboard 2
-                const previewArea = document.getElementById('file-preview-area');
-                const isVideo = data.resource_type === 'video';
+                // LANGSUNG MASUKKAN KE DAFTAR DASHBOARD 2
+                tampilkanDiDashboard2(data);
                 
-                previewArea.innerHTML = `
-                    <div style="text-align: left; background: #f9f9f9; padding: 15px; border-radius: 10px;">
-                        <p><b>Nama:</b> ${data.original_filename}</p>
-                        ${isVideo ? 
-                            `<video controls src="${data.secure_url}"></video>` : 
-                            `<img src="${data.secure_url}">`
-                        }
-                        <a href="${data.secure_url}" target="_blank" class="btn" style="display:block; text-align:center; text-decoration:none; margin-top:15px;">Buka Link / Download</a>
-                    </div>
-                `;
-
-                // Pindah ke Dashboard 2 setelah sukses
-                setTimeout(() => gantiDashboard(2), 1000);
+                // OTOMATIS PINDAH KE DASHBOARD 2
+                setTimeout(() => {
+                    gantiDashboard(2);
+                    status.innerText = "";
+                    fileInput.value = "";
+                    document.getElementById('file-label').innerText = "Klik di sini untuk pilih file";
+                }, 1000);
             } else {
-                alert("Gagal: " + data.error.message);
+                alert("Error: " + data.error.message);
             }
         } catch (err) {
-            alert("Koneksi bermasalah!");
+            alert("Gagal! Pastikan koneksi internet lancar.");
         }
     }
-</script>
 
+    function tampilkanDiDashboard2(data) {
+        const list = document.getElementById('file-list');
+        const emptyMsg = document.getElementById('empty-msg');
+        
+        if (emptyMsg) emptyMsg.remove(); // Hapus pesan kosong
+
+        const isVideo = data.resource_type === 'video';
+        const newFile = document.createElement('div');
+        newFile.className = 'file-item';
+        newFile.innerHTML = `
+            <p><b>Nama File:</b> ${data.original_filename}</p>
+            ${isVideo ? `<video controls src="${data.secure_url}"></video>` : `<img src="${data.secure_url}">`}
+            <a href="${data.secure_url}" target="_blank" class="btn" style="display:block; text-align:center; text-decoration:none; margin-top:10px;">Download / Buka</a>
+        `;
+        
+        // Taruh yang baru di paling atas
+        list.insertBefore(newFile, list.firstChild);
+    }
+</script>
 </body>
 </html>
