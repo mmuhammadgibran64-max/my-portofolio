@@ -3,104 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update V2 - Login Dashboard</title>
+    <title>Pendaftaran Google - Gibran</title>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background-color: #0f172a;
-            color: #f8fafc;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f7f6;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
         }
-        .update-card {
-            background: #1e293b;
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            width: 100%;
-            max-width: 350px;
-            text-align: center;
-            border: 1px solid #334155;
-        }
-        .badge {
-            background: #38bdf8;
-            color: #0f172a;
-            padding: 4px 12px;
+        .login-card {
+            background: white;
+            padding: 40px;
             border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        h2 { color: #1e293b; margin-bottom: 10px; }
+        p { color: #64748b; font-size: 14px; margin-bottom: 30px; }
+        
+        .footer-text {
+            margin-top: 30px;
             font-size: 12px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-        h2 { margin: 20px 0 10px; font-size: 24px; }
-        .btn-ig {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: #f43f5e;
-            color: white;
-            text-decoration: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: 600;
-            margin-bottom: 25px;
-            transition: opacity 0.2s;
-        }
-        .btn-ig:hover { opacity: 0.9; }
-        .divider {
-            height: 1px;
-            background: #334155;
-            margin: 25px 0;
-            position: relative;
-        }
-        .divider::after {
-            content: "GOOGLE AUTH";
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1e293b;
-            padding: 0 10px;
-            font-size: 10px;
             color: #94a3b8;
+        }
+        
+        /* Container Tombol Google */
+        #buttonDiv {
+            display: flex;
+            justify-content: center;
         }
     </style>
 </head>
 <body>
 
-    <div class="update-card">
-        <span class="badge">Update V2</span>
-        <h2>Login Akses</h2>
-        <p style="color: #94a3b8; font-size: 14px; margin-bottom: 25px;">Khusus akses pengelolaan data</p>
+    <div class="login-card">
+        <h2>Daftar Akun</h2>
+        <p>Gunakan akun Google Anda untuk mendaftar ke sheet <b>daftar</b></p>
 
-        <a href="https://www.instagram.com/mgibran4184" target="_blank" class="btn-ig">
-            Follow Instagram
-        </a>
+        <div id="buttonDiv"></div>
 
-        <div class="divider"></div>
-
-        <div id="g_id_onload"
-             data-client_id="594310366887-36qn9gvajo1335snmlrta7tdh9lgofre.apps.googleusercontent.com"
-             data-context="signin"
-             data-ux_mode="redirect"
-             data-login_uri="https://script.google.com/macros/s/AKfycbyK7QOFMM7j4ui9WDkOhPwXcjwxmix_qgnkzeDSFSuX_yoyjGW1CBhUXPtb99Ksr-33QQ/exec"
-             data-auto_prompt="false">
-        </div>
-
-        <div class="g_id_signin"
-             data-type="standard"
-             data-shape="rectangular"
-             data-theme="filled_blue"
-             data-text="continue_with"
-             data-size="large"
-             data-logo_alignment="left"
-             data-width="300">
+        <div class="footer-text">
+            Gibran Portfolio &copy; 2026
         </div>
     </div>
+
+    <script>
+        function handleCredentialResponse(response) {
+            // Ini adalah token yang didapat setelah login berhasil
+            console.log("Encoded JWT ID token: " + response.credential);
+            
+            // Catatan: Untuk mengirim data ke Google Sheet bernama 'daftar', 
+            // Kamu perlu menggunakan Google Apps Script sebagai perantara (API).
+            alert("Login Berhasil! Data siap dikirim ke sheet daftar.");
+        }
+
+        window.onload = function () {
+            google.accounts.id.initialize({
+                client_id: "594310366887-dsrs8pdnrdrhneg3h15saj7btp08oh67.apps.googleusercontent.com",
+                callback: handleCredentialResponse
+            });
+            
+            google.accounts.id.renderButton(
+                document.getElementById("buttonDiv"),
+                { 
+                    theme: "outline", 
+                    size: "large", 
+                    text: "signin_with", 
+                    shape: "rectangular" 
+                } 
+            );
+            
+            google.accounts.id.prompt(); // Menampilkan one-tap prompt (opsional)
+        }
+    </script>
 
 </body>
 </html>
