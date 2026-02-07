@@ -3,108 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Settings - Gibran System</title>
+    <title>Pengaturan | Gibran System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --bg: #000; --card: #111; --text: #fff; --accent: #ff9800; --border: #333; }
-        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; }
-        .container { max-width: 600px; margin: auto; }
-        .card { background: var(--card); padding: 20px; border-radius: 15px; border: 1px solid var(--border); margin-bottom: 20px; }
-        h2 { border-left: 5px solid var(--accent); padding-left: 15px; font-size: 16px; text-transform: uppercase; margin-bottom: 20px; }
+        body { background: #050505; color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; }
+        .container { max-width: 400px; margin: auto; }
+        .header { display: flex; align-items: center; gap: 15px; margin-bottom: 30px; border-bottom: 1px solid #222; padding-bottom: 15px; }
+        .header h2 { margin: 0; font-size: 20px; color: #ff9800; }
         
-        input, textarea, select { 
-            width: 100%; padding: 12px; margin: 10px 0; background: #000; 
-            border: 1px solid var(--border); color: #fff; border-radius: 8px; box-sizing: border-box;
-        }
-        
-        .btn { padding: 12px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; }
-        .btn-orange { background: var(--accent); color: #000; }
-        .btn-dark { background: #222; color: #fff; border: 1px solid var(--border); }
+        .card { background: #111; border: 1px solid #222; padding: 15px; border-radius: 15px; margin-bottom: 15px; }
+        .card label { font-size: 10px; color: #ff9800; text-transform: uppercase; font-weight: bold; display: block; margin-bottom: 5px; }
+        .card p { margin: 0; font-size: 14px; }
 
-        /* Status Badge */
-        .badge-locked { background: #d32f2f; color: #fff; padding: 2px 8px; border-radius: 5px; font-size: 10px; float: right; }
-        
-        .waze-box { background: #00d2ff; color: #000; padding: 15px; border-radius: 10px; margin-top: 10px; font-weight: bold; }
+        #camera-box { width: 100%; height: 200px; background: #000; border-radius: 12px; margin-top: 10px; display: none; border: 2px solid #ff9800; }
+        video { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+
+        .btn-blue { background: #0088ff; color: white; border: none; width: 100%; padding: 15px; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .btn-back { background: #222; color: #888; border: none; width: 100%; padding: 10px; border-radius: 12px; margin-top: 20px; cursor: pointer; }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <button class="btn btn-dark" style="width: auto;" onclick="window.location.href='index.html'">⬅ Kembali</button>
-    <h1 style="text-align: center; color: var(--accent);">PENGATURAN SISTEM</h1>
-
-    <div class="card">
-        <h2>Update Bio & Cerita Hidup</h2>
-        <textarea id="bioInput" rows="4" placeholder="Tulis pencapaian atau cerita hidup terbaru kamu di sini..."></textarea>
-        <button class="btn btn-orange" onclick="saveBio()">Simpan Bio</button>
-    </div>
-
-    <div class="card">
-        <h2>Mau Kemana? (Waze Tracker)</h2>
-        <p style="font-size: 12px; color: #888;">Nanya ke pengunjung mau ke mana, lalu buka rute Waze.</p>
-        <input type="text" id="destination" placeholder="Masukkan Alamat Tujuan...">
-        <button class="btn btn-dark" style="background: #33b5e5;" onclick="goWaze()">Buka Waze & Lacak Tujuan</button>
-        <div id="wazeStatus" style="font-size: 11px; margin-top: 5px; color: #00d2ff;"></div>
-    </div>
-
-    <div class="card">
-        <span class="badge-locked">🔒 TERKUNCI</span>
-        <h2>Daftar Admin Baru</h2>
-        <p style="font-size: 12px; color: #888;">User baru harus daftar, tapi tidak bisa masuk sebelum disetujui Gibran.</p>
-        <input type="text" placeholder="Username Baru">
-        <input type="password" placeholder="Password Baru">
-        <button class="btn btn-dark" onclick="alert('Pendaftaran Terkirim! Menunggu Persetujuan Admin Gibran (Status: Locked)')">Daftar Admin</button>
-    </div>
-
-    <div class="card">
-        <h2>Mode Perangkat & Tema</h2>
-        <div style="display: flex; gap: 10px;">
-            <button class="btn btn-dark" onclick="alert('Tema Terang Aktif')">☀️ Terang</button>
-            <button class="btn btn-dark" onclick="alert('Tema Gelap Aktif')">🌙 Gelap</button>
+    <div class="container">
+        <div class="header">
+            <i class="fas fa-cog fa-spin" style="font-size: 24px; color: #ff9800;"></i>
+            <h2>PENGATURAN SYSTEM</h2>
         </div>
-        <select>
-            <option>Tampilan Default</option>
-            <option>Tampilan HP (Kecil)</option>
-            <option>Tampilan iPad (Sedang)</option>
-        </select>
+
+        <div class="card">
+            <label>Versi Aplikasi</label>
+            <p>v3.4.5 <span style="color:#ff9800; font-size: 10px;">BETA</span></p>
+        </div>
+
+        <div class="card">
+            <label>Fitur Keamanan</label>
+            <p>Absen Wajah Real-Time</p>
+            <button onclick="mulaiAbsen()" id="btn-cam" style="background:#ff9800; border:none; padding:8px 15px; border-radius:8px; font-size:11px; font-weight:bold; margin-top:10px; cursor:pointer;">BUKA KAMERA</button>
+            <div id="camera-box"><video id="video" autoplay playsinline></video></div>
+        </div>
+
+        <div class="card">
+            <label>Jadwal Update</label>
+            <p>Saptu - Minggu (Maintenance)</p>
+        </div>
+
+        <button class="btn-blue" onclick="window.location.href='https://mmuhammadgibran64-max.github.io/my-portofolio/'">
+            <i class="fas fa-shopping-cart"></i> MASUK TOKO ONLINE
+        </button>
+
+        <button class="btn-back" onclick="window.location.href='dashboard.html'">KEMBALI KE DASHBOARD</button>
     </div>
 
-    <button class="btn btn-orange" onclick="window.location.href='dashboard.html'">Buka Dashboard Utama ⮕</button>
-</div>
-
-<script>
-    // SIMPAN BIO KE LOCALSTORAGE
-    function saveBio() {
-        const bio = document.getElementById('bioInput').value;
-        localStorage.setItem('gibran_bio', bio);
-        alert('Bio Berhasil Diperbarui!');
-    }
-
-    // WAZE TRACKER
-    function goWaze() {
-        const dest = document.getElementById('destination').value;
-        const status = document.getElementById('wazeStatus');
-        
-        if (!dest) return alert('Masukkan alamat dulu, Bran!');
-        
-        // Simpan data tujuan supaya lo tahu dia mau kemana
-        localStorage.setItem('last_target_destination', dest);
-        status.innerHTML = "Tujuan Terlacak: " + dest;
-        
-        // Buka Waze dengan alamat tersebut
-        setTimeout(() => {
-            window.location.href = "https://waze.com/ul?q=" + encodeURIComponent(dest) + "&navigate=yes";
-        }, 1500);
-    }
-
-    // LOAD DATA SAAT BUKA
-    window.onload = function() {
-        const savedBio = localStorage.getItem('gibran_bio');
-        if (savedBio) document.getElementById('bioInput').value = savedBio;
-        
-        const lastDest = localStorage.getItem('last_target_destination');
-        if (lastDest) document.getElementById('wazeStatus').innerHTML = "Terakhir melacak ke: " + lastDest;
-    };
-</script>
-
+    <script>
+        let streamData = null;
+        async function mulaiAbsen() {
+            try {
+                streamData = await navigator.mediaDevices.getUserMedia({ video: true });
+                document.getElementById('video').srcObject = streamData;
+                document.getElementById('camera-box').style.display = 'block';
+                document.getElementById('btn-cam').innerText = "WAJAH TERDETEKSI ✅";
+                document.getElementById('btn-cam').style.background = "#00ff88";
+            } catch (err) { alert("Izin kamera ditolak!"); }
+        }
+    </script>
 </body>
 </html>
