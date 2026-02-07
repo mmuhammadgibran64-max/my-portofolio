@@ -3,161 +3,301 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Gibran | Dual System</title>
+    <title>Dashboard Gibran | Professional Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Gaya Dasar */
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-        }
+        :root { --bg: #050505; --card: #111; --accent: #ff9800; --blue: #00d2ff; --green: #00ff88; --text: #ddd; --border: #222; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 600px; margin: auto; padding: 20px; }
+        
+        /* NAVIGASI & HEADER */
+        .top-nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: rgba(5,5,5,0.95); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(5px); }
+        .btn-logout { color: #ff4444; text-decoration: none; font-weight: bold; font-size: 12px; border: 1px solid #421111; padding: 6px 12px; border-radius: 8px; transition: 0.3s; }
+        .btn-logout:hover { background: #421111; color: #fff; }
+        #clock { color: var(--accent); font-weight: bold; font-family: monospace; font-size: 14px; }
 
-        /* Navigasi Atas */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #333;
-            margin-bottom: 30px;
-        }
+        .banner { width: 100%; height: 160px; background: linear-gradient(135deg, #1a1a1a, #000); border-radius: 20px; margin-top: 20px; border: 1px solid var(--border); overflow: hidden; position: relative; }
+        .banner img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
+        .profile-pic { width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--bg); background: #222; margin-top: -50px; margin-left: 20px; position: relative; object-fit: cover; z-index: 2; }
+        
+        /* IDENTITAS */
+        .intro { padding: 10px 10px; margin-bottom: 20px; }
+        .intro h1 { margin: 0; font-size: 26px; color: var(--accent); letter-spacing: 1px; }
+        .intro p.sub { color: #888; margin: 5px 0 15px; font-size: 14px; font-weight: 500; }
+        
+        /* KOTAK KONTEN (Card Style) */
+        .card-box { background: var(--card); padding: 20px; border-radius: 20px; border: 1px solid var(--border); margin-bottom: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.5); }
+        .card-box h3 { margin-top: 0; color: var(--accent); font-size: 16px; border-bottom: 1px solid #333; padding-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .card-box p { font-size: 13px; text-align: justify; color: #ccc; margin-bottom: 10px; }
+        
+        /* LIST SKILL */
+        .skill-item { margin-bottom: 15px; border-bottom: 1px solid #1a1a1a; padding-bottom: 10px; }
+        .skill-item:last-child { border-bottom: none; }
+        .skill-item b { color: #fff; display: block; font-size: 14px; margin-bottom: 4px; }
+        .skill-item span { font-size: 12px; color: #888; display: block; }
 
-        .time {
-            color: orange;
-            font-weight: bold;
-            font-size: 1.1em;
-        }
+        /* VISI MISI */
+        .visi-misi b { color: var(--blue); display: block; margin-top: 10px; }
+        .visi-misi ul { margin: 5px 0 0 20px; padding: 0; font-size: 13px; color: #ccc; }
+        .visi-misi li { margin-bottom: 5px; }
 
-        .logout-btn {
-            background: transparent;
-            color: #ff4444;
-            border: 1px solid #ff4444;
-            padding: 6px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-        }
+        /* UPLOAD PANELS */
+        .upload-area { margin-top: 30px; }
+        .upload-panel-1 { background: #1a150e; border: 2px dashed var(--accent); padding: 20px; border-radius: 15px; text-align: center; margin-bottom: 15px; }
+        .btn-up-1 { background: var(--accent); color: #000; width: 100%; padding: 12px; border-radius: 10px; font-weight: bold; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 14px; transition: 0.3s; }
+        
+        .upload-panel-2 { background: #0a151a; border: 2px dashed var(--blue); padding: 20px; border-radius: 15px; text-align: center; margin-bottom: 15px; }
+        .btn-up-2 { background: var(--blue); color: #000; width: 100%; padding: 12px; border-radius: 10px; font-weight: bold; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 14px; transition: 0.3s; }
+        
+        .btn-up-1:hover, .btn-up-2:hover { transform: translateY(-2px); opacity: 0.9; }
 
-        .logout-btn:hover {
-            background: #ff4444;
-            color: white;
-        }
-
-        /* Kontainer List File */
-        .file-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        /* Kartu File */
-        .file-card {
-            background-color: #161616;
-            border-radius: 15px;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            border: 1px solid #222;
-        }
-
-        .thumbnail {
-            width: 80px;
-            height: 60px;
-            background: #333;
-            border-radius: 8px;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-
-        .thumbnail img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .file-info {
-            flex-grow: 1;
-        }
-
-        .file-info h3 {
-            margin: 0;
-            color: orange;
-            font-size: 1.1em;
-        }
-
-        .file-info p {
-            margin: 5px 0;
-            font-size: 0.85em;
-            color: #888;
-        }
-
-        /* Tombol Aksi */
-        .btn-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 12px;
-        }
-
-        .btn {
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            border: none;
-            text-transform: uppercase;
-            text-decoration: none;
-            color: white;
-            text-align: center;
-        }
-
-        .btn-buka { background-color: #444; }
-        .btn-download { background-color: #007bff; }
-        .btn-hapus { background-color: #dc3545; }
-
-        .btn:hover { opacity: 0.8; }
+        /* GALLERY & ACTIONS */
+        .gallery-title { font-weight: bold; color: #666; font-size: 14px; margin: 30px 0 15px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #222; padding-bottom: 5px; }
+        .gallery-item { background: #161616; border-radius: 15px; padding: 12px; margin-bottom: 12px; display: flex; gap: 15px; align-items: center; border: 1px solid #2a2a2a; }
+        .gallery-item img { width: 60px; height: 60px; border-radius: 10px; object-fit: cover; background: #000; }
+        .item-details { flex: 1; overflow: hidden; }
+        .item-name { font-weight: bold; font-size: 13px; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .item-meta { font-size: 11px; color: #666; margin-top: 3px; }
+        
+        .action-btns { display: flex; gap: 8px; margin-top: 8px; }
+        .btn-action { flex: 1; padding: 7px; border-radius: 6px; font-size: 11px; font-weight: bold; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .dl-btn { background: #0a291a; color: var(--green); border: 1px solid #145233; }
+        .del-btn { background: #290a0a; color: #ff4444; border: 1px solid #521414; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <div class="time">4:27:14 PM</div>
-        <button class="logout-btn">LOGOUT</button>
+    <div class="top-nav">
+        <div id="clock">00:00:00</div>
+        <a href="index.html" class="btn-logout"><i class="fas fa-sign-out-alt"></i> LOGOUT</a>
     </div>
 
-    <div class="file-list">
-        <div class="file-card">
-            <div class="thumbnail"><img src="https://via.placeholder.com/80" alt="thumb"></div>
-            <div class="file-info">
-                <h3>2025-09-18 (2).png</h3>
-                <p>🕒 2/7/2026, 1:47:41 PM • System</p>
-                <div class="btn-group">
-                    <button class="btn btn-buka">BUKA</button>
-                    <a href="#" class="btn btn-download">DOWNLOAD</a>
-                    <button class="btn btn-hapus">HAPUS</button>
-                </div>
+    <div class="container">
+        <div class="banner">
+            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600" alt="Cover">
+        </div>
+        <img src="https://ui-avatars.com/api/?name=Gibran&background=ff9800&color=000&size=128" class="profile-pic">
+        
+        <div class="intro">
+            <h1 id="display-nama">Gibran</h1>
+            <p class="sub">Humas LP3I | Video Editor | Graphic Designer</p>
+        </div>
+
+        <div class="card-box">
+            <h3><i class="fas fa-user"></i> Tentang Saya</h3>
+            <p>
+                Perkenalkan, nama saya Gibran. Saya merupakan mahasiswa Hubungan Masyarakat (Humas) di LP3I Kramat Raya. Saya memiliki pengalaman bekerja di Gatot Subroto pada bagian Monitoring selama satu bulan. Saat ini saya fokus mengembangkan diri, keterampilan, serta portofolio pribadi.
+            </p>
+            <p>
+                Saya pribadi yang disiplin, cepat beradaptasi, serta mau belajar hal baru. Dalam keseharian, saya senang melakukan aktivitas positif, salah satunya bermain futsal.
+            </p>
+        </div>
+
+        <div class="card-box">
+            <h3><i class="fas fa-laptop-code"></i> Keahlian Utama</h3>
+            <div class="skill-item">
+                <b>Desain Grafis</b>
+                <span>Membuat desain visual seperti poster, banner, logo, dan konten media sosial yang menarik dan profesional.</span>
+            </div>
+            <div class="skill-item">
+                <b>Content Creator</b>
+                <span>Mampu membuat ide, konsep, dan produksi konten untuk platform digital (IG, TikTok, YouTube).</span>
+            </div>
+            <div class="skill-item">
+                <b>Video Editing (Premiere Pro)</b>
+                <span>Teknik cutting, color grading, efek sederhana, audio mixing, dan final export berkualitas tinggi.</span>
+            </div>
+            <div class="skill-item">
+                <b>Animasi Dasar</b>
+                <span>Mampu membuat animasi sederhana untuk kebutuhan konten, intro video, dan motion graphic ringan.</span>
             </div>
         </div>
 
-        <div class="file-card">
-            <div class="thumbnail"><img src="https://via.placeholder.com/80" alt="thumb"></div>
-            <div class="file-info">
-                <h3>Gibran_File_1770445754002.jpg</h3>
-                <p>🕒 2/7/2026, 1:47:11 PM • System</p>
-                <div class="btn-group">
-                    <button class="btn btn-buka">BUKA</button>
-                    <a href="#" class="btn btn-download">DOWNLOAD</a>
-                    <button class="btn btn-hapus">HAPUS</button>
-                </div>
+        <div class="card-box">
+            <h3><i class="fas fa-star"></i> Keahlian Lain</h3>
+            <div class="skill-item">
+                <b>Bermain Gitar</b>
+                <span>Mampu memainkan beberapa genre musik, memahami chord dasar hingga intermediate (Acoustic).</span>
+            </div>
+            <div class="skill-item">
+                <b>Futsal</b>
+                <span>Kemampuan kontrol bola baik, cepat mengambil keputusan, bisa sebagai pemain bertahan maupun penyerang.</span>
             </div>
         </div>
+
+        <div class="card-box">
+            <h3><i class="fas fa-briefcase"></i> Pengalaman Kerja</h3>
+            <p><b>BGI</b><br>
+            Bertanggung jawab dalam tugas operasional, membantu proses pekerjaan sehari-hari, mendukung kegiatan tim, dan menjalankan instruksi sesuai standar perusahaan. Pengalaman ini melatih profesionalisme dan manajemen waktu.</p>
+            
+            <h3 style="margin-top:20px;"><i class="fas fa-eye"></i> Visi & Misi</h3>
+            <div class="visi-misi">
+                <b>Visi</b>
+                <p>Menjadi individu yang berkontribusi maksimal, bertanggung jawab, dan berkolaborasi baik dalam tim untuk mencapai tujuan perusahaan.</p>
+                <b>Misi</b>
+                <ul>
+                    <li>Membangun hubungan kerja positif & profesional.</li>
+                    <li>Mengembangkan skill untuk hasil kerja kompeten.</li>
+                    <li>Berperan aktif meningkatkan efisiensi tim.</li>
+                    <li>Menjaga integritas & disiplin kerja.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="upload-area">
+            <div class="upload-panel-1">
+                <h4 style="margin:0 0 10px 0; color:var(--accent);">GIBRAN SYSTEM</h4>
+                <input type="file" id="fileInput1" hidden onchange="prosesUpload(this, 'System')">
+                <button class="btn-up-1" onclick="document.getElementById('fileInput1').click()">
+                    <i class="fas fa-camera"></i> UPLOAD FOTO/SYSTEM
+                </button>
+            </div>
+
+            <div class="upload-panel-2">
+                <h4 style="margin:0 0 10px 0; color:var(--blue);">SIMPAN FILE & DOKUMEN</h4>
+                <input type="file" id="fileInput2" hidden onchange="prosesUpload(this, 'File Simpan')">
+                <button class="btn-up-2" onclick="document.getElementById('fileInput2').click()">
+                    <i class="fas fa-folder-open"></i> UPLOAD ARSIP FILE
+                </button>
+            </div>
+            <div id="status" style="text-align:center; font-size:12px; font-weight:bold; color:#fff;">Status: Siap Upload</div>
+        </div>
+
+        <div class="gallery-title">Riwayat File & Download</div>
+        <div id="gallery"></div>
     </div>
 
+    <script>
+        // --- KONFIGURASI SYSTEM ---
+        const CLOUD_NAME = "dumqnwl9g"; 
+        const UPLOAD_PRESET = "cloud simpan"; 
+        const URL_SHEETS = "https://script.google.com/macros/s/AKfycbzeisUeZYTsQM0qjbvhuda9wkG9wBDb99x4q4AdqGzVeRUY0Gu68P61NpCmuOQomXki0Q/exec";
+
+        window.onload = function() {
+            document.getElementById('display-nama').innerText = localStorage.getItem('user_name') || "Gibran";
+            setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000);
+            muatGaleri();
+        };
+
+        async function prosesUpload(input, sumber) {
+            const file = input.files[0];
+            const statusDiv = document.getElementById('status');
+            if (!file) return;
+
+            statusDiv.innerHTML = "⏳ Mengunggah ke " + sumber + "...";
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', UPLOAD_PRESET);
+
+            try {
+                const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`, {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    statusDiv.innerHTML = "✅ Berhasil Disimpan!";
+                    let koleksi = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
+                    
+                    let preview = data.secure_url;
+                    if (data.resource_type !== "image") {
+                        preview = "https://cdn-icons-png.flaticon.com/512/2965/2965335.png"; 
+                    }
+
+                    koleksi.unshift({
+                        id: Date.now(),
+                        url: data.secure_url,
+                        preview: preview,
+                        nama: file.name,
+                        sumber: sumber,
+                        tgl: new Date().toLocaleString()
+                    });
+
+                    localStorage.setItem('gibran_gallery', JSON.stringify(koleksi));
+                    
+                    // Lapor Sheets
+                    fetch(URL_SHEETS, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        body: JSON.stringify({
+                            nama: localStorage.getItem('user_name'),
+                            aktivitas: "Upload " + sumber,
+                            detail: data.secure_url
+                        })
+                    });
+
+                    muatGaleri();
+                } else {
+                    statusDiv.innerHTML = "❌ Gagal: " + data.error.message;
+                }
+            } catch (err) {
+                statusDiv.innerHTML = "❌ Error Koneksi.";
+            }
+        }
+
+        function muatGaleri() {
+            const container = document.getElementById('gallery');
+            const koleksi = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
+            
+            if (koleksi.length === 0) {
+                container.innerHTML = "<p style='text-align:center; color:#444; font-size:12px; padding:20px;'>Belum ada file tersimpan.</p>";
+                return;
+            }
+
+            container.innerHTML = koleksi.map(item => `
+                <div class="gallery-item">
+                    <img src="${item.preview}">
+                    <div class="item-details">
+                        <div class="item-name" style="color:${item.sumber === 'File Simpan' ? '#00d2ff' : '#ff9800'}">
+                            ${item.nama}
+                        </div>
+                        <div class="item-meta">
+                            ${item.tgl} • ${item.sumber || 'System'}
+                        </div>
+                        <div class="action-btns">
+                            <button class="btn-action dl-btn" onclick="downloadFile('${item.url}', '${item.nama}')">
+                                <i class="fas fa-download"></i> DOWNLOAD
+                            </button>
+                            <button class="btn-action del-btn" onclick="hapus('${item.id}')">
+                                <i class="fas fa-trash"></i> HAPUS
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function downloadFile(url, namaFile) {
+            try {
+                const btn = event.currentTarget;
+                const oriText = btn.innerHTML;
+                btn.innerHTML = "<i class='fas fa-spinner fa-spin'></i>";
+                
+                const response = await fetch(url);
+                const blob = await response.blob();
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = namaFile || "Gibran_File_" + Date.now();
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                btn.innerHTML = oriText;
+            } catch (error) {
+                window.open(url, '_blank');
+            }
+        }
+
+        function hapus(id) {
+            if(confirm("Hapus file ini?")) {
+                let koleksi = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
+                koleksi = koleksi.filter(i => i.id != id);
+                localStorage.setItem('gibran_gallery', JSON.stringify(koleksi));
+                muatGaleri();
+            }
+        }
+    </script>
 </body>
 </html>
+
