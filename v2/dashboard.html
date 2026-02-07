@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Gibran | Dual System</title>
+    <title>Dashboard Gibran | System & File Manager</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --bg: #050505; --card: #111; --accent: #ff9800; --blue: #00d2ff; --text: #fff; --border: #222; }
+        :root { --bg: #050505; --card: #111; --accent: #ff9800; --blue: #00d2ff; --green: #00ff88; --text: #fff; --border: #222; }
         body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
         .container { max-width: 600px; margin: auto; padding: 20px; }
         
@@ -15,7 +15,7 @@
         .btn-logout { color: #ff4444; text-decoration: none; font-weight: bold; font-size: 12px; border: 1px solid #421111; padding: 5px 12px; border-radius: 8px; }
         #clock { color: var(--accent); font-weight: bold; font-family: monospace; }
 
-        /* PROFIL (TETAP ADA) */
+        /* PROFIL */
         .banner { width: 100%; height: 140px; background: linear-gradient(45deg, #1a1a1a, #000); border-radius: 20px; margin-top: 10px; border: 1px solid var(--border); overflow: hidden; }
         .banner img { width: 100%; height: 100%; object-fit: cover; opacity: 0.4; }
         .profile-pic { width: 90px; height: 90px; border-radius: 50%; border: 4px solid var(--bg); background: #222; margin-top: -45px; margin-left: 20px; position: relative; object-fit: cover; }
@@ -25,7 +25,7 @@
         .intro p.sub { color: #888; margin: 5px 0 15px; font-size: 13px; }
         .desc-box { background: #0a0a0a; padding: 15px; border-radius: 15px; font-size: 13px; line-height: 1.5; color: #bbb; border: 1px solid #1a1a1a; text-align: justify; }
 
-        /* SKILLS (TETAP ADA) */
+        /* SKILLS */
         .section { background: var(--card); padding: 20px; border-radius: 20px; border: 1px solid var(--border); margin: 20px 0; }
         .section h3 { margin-top: 0; color: var(--accent); font-size: 15px; border-bottom: 1px solid #222; padding-bottom: 8px; }
         .skill-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -41,7 +41,7 @@
         .upload-panel-2 { background: #0a151a; border: 2px dashed var(--blue); padding: 20px; border-radius: 20px; text-align: center; margin-bottom: 20px; }
         .btn-upload-2 { background: var(--blue); color: #000; width: 100%; padding: 12px; border-radius: 10px; font-weight: bold; border: none; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 10px; }
 
-        #status { font-size: 12px; margin-top: 10px; color: #fff; font-weight: bold; }
+        #status { font-size: 12px; margin-top: 10px; color: #fff; font-weight: bold; text-align: center; }
 
         /* GALLERY LIST */
         .gallery-title { margin: 25px 0 10px; font-size: 14px; color: #555; font-weight: bold; border-bottom: 1px solid #222; padding-bottom: 5px; }
@@ -50,8 +50,15 @@
         .item-info { flex-grow: 1; overflow: hidden; }
         .item-name { font-size: 13px; font-weight: bold; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .item-date { font-size: 10px; color: #666; }
-        .item-actions { display: flex; gap: 5px; margin-top: 5px; }
-        .btn-sm { padding: 6px 10px; border-radius: 6px; border: none; font-size: 10px; font-weight: bold; cursor: pointer; }
+        
+        /* TOMBOL AKSI */
+        .item-actions { display: flex; gap: 8px; margin-top: 8px; }
+        .btn-sm { flex: 1; padding: 8px 10px; border-radius: 6px; border: none; font-size: 11px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .btn-download { background: #0a291a; color: var(--green); border: 1px solid #145233; }
+        .btn-download:hover { background: var(--green); color: #000; }
+        .btn-delete { background: #290a0a; color: #ff4444; border: 1px solid #521414; }
+        .btn-delete:hover { background: #ff4444; color: #fff; }
+
     </style>
 </head>
 <body>
@@ -100,16 +107,16 @@
             </button>
         </div>
 
-        <div id="status" style="text-align:center;">Sistem & Penyimpanan Ready</div>
+        <div id="status">Sistem & Penyimpanan Ready</div>
 
-        <div class="gallery-title">RIWAYAT SYSTEM & FILE</div>
+        <div class="gallery-title">RIWAYAT & DOWNLOAD MANAGER</div>
         <div id="gallery"></div>
     </div>
 
     <script>
-        // --- KONFIGURASI SAKTI ---
+        // --- KONFIGURASI ---
         const CLOUD_NAME = "dumqnwl9g"; 
-        const UPLOAD_PRESET = "cloud simpan"; // Pastikan nama ini sesuai (Unsigned)
+        const UPLOAD_PRESET = "cloud simpan"; 
         const URL_SHEETS = "https://script.google.com/macros/s/AKfycbzeisUeZYTsQM0qjbvhuda9wkG9wBDb99x4q4AdqGzVeRUY0Gu68P61NpCmuOQomXki0Q/exec";
 
         window.onload = function() {
@@ -118,7 +125,7 @@
             muatGaleri();
         };
 
-        // --- FUNGSI UPLOAD (Support 2 Tombol) ---
+        // --- FUNGSI UPLOAD ---
         async function prosesUpload(input, sumber) {
             const file = input.files[0];
             const statusDiv = document.getElementById('status');
@@ -131,26 +138,20 @@
             formData.append('upload_preset', UPLOAD_PRESET);
 
             try {
-                // Pakai mode /auto/upload biar file PDF/ZIP masuk
                 const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`, {
                     method: 'POST',
                     body: formData
                 });
-
                 const data = await response.json();
 
                 if (response.ok) {
-                    statusDiv.innerHTML = "✅ Berhasil Disimpan di " + sumber + "!";
+                    statusDiv.innerHTML = "✅ Berhasil Disimpan!";
                     
                     let koleksi = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
                     
-                    // Deteksi Ikon
                     let preview = data.secure_url;
-                    let ikon = "fas fa-image"; // Default ikon gambar
-                    
                     if (data.resource_type !== "image") {
-                        preview = "https://cdn-icons-png.flaticon.com/512/2965/2965335.png"; // Ikon File
-                        ikon = "fas fa-file-alt";
+                        preview = "https://cdn-icons-png.flaticon.com/512/2965/2965335.png"; 
                     }
 
                     koleksi.unshift({
@@ -158,8 +159,7 @@
                         url: data.secure_url,
                         preview: preview,
                         nama: file.name,
-                        tipe: data.format || 'file',
-                        sumber: sumber, // Penanda ini dari System atau Simpan File
+                        sumber: sumber,
                         tgl: new Date().toLocaleString()
                     });
 
@@ -181,11 +181,11 @@
                     statusDiv.innerHTML = "❌ Gagal: " + data.error.message;
                 }
             } catch (err) {
-                statusDiv.innerHTML = "❌ Error Koneksi Internet.";
+                statusDiv.innerHTML = "❌ Error Koneksi.";
             }
         }
 
-        // --- TAMPILAN GALERI LEBIH RAPI ---
+        // --- TAMPILAN GALERI DENGAN TOMBOL DOWNLOAD ---
         function muatGaleri() {
             const container = document.getElementById('gallery');
             const koleksi = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
@@ -203,20 +203,52 @@
                             ${item.nama}
                         </div>
                         <div class="item-date">
-                            <i class="fas fa-clock"></i> ${item.tgl} &bull; 
-                            <span style="color:#aaa">${item.sumber || 'System'}</span>
+                            ${item.tgl} • ${item.sumber || 'System'}
                         </div>
                         <div class="item-actions">
-                            <button class="btn-sm" style="background:#333; color:#fff;" onclick="window.open('${item.url}')">BUKA</button>
-                            <button class="btn-sm" style="background:#222; color:#ff4444;" onclick="hapus('${item.id}')">HAPUS</button>
+                            <button class="btn-sm btn-download" onclick="downloadFile('${item.url}', '${item.nama}')">
+                                <i class="fas fa-download"></i> DOWNLOAD
+                            </button>
+                            <button class="btn-sm btn-delete" onclick="hapus('${item.id}')">
+                                <i class="fas fa-trash"></i> HAPUS
+                            </button>
                         </div>
                     </div>
                 </div>
             `).join('');
         }
 
+        // --- FUNGSI DOWNLOAD KE FILE MANAGER (NEW) ---
+        async function downloadFile(url, namaFile) {
+            try {
+                // Memberi feedback ke user
+                const btn = event.currentTarget; // Ambil tombol yang diklik
+                const originalText = btn.innerHTML;
+                btn.innerHTML = "<i class='fas fa-spinner fa-spin'></i> LOAD...";
+                
+                // Fetch File sebagai Blob
+                const response = await fetch(url);
+                const blob = await response.blob();
+                
+                // Buat link download virtual
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = namaFile || "Gibran_File_" + Date.now();
+                document.body.appendChild(link);
+                link.click();
+                
+                // Bersihkan
+                document.body.removeChild(link);
+                btn.innerHTML = originalText;
+                
+            } catch (error) {
+                alert("Gagal download otomatis. Membuka di tab baru...");
+                window.open(url, '_blank');
+            }
+        }
+
         function hapus(id) {
-            if(confirm("Hapus file ini?")) {
+            if(confirm("Hapus file ini dari list?")) {
                 let koleksi = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
                 koleksi = koleksi.filter(i => i.id != id);
                 localStorage.setItem('gibran_gallery', JSON.stringify(koleksi));
