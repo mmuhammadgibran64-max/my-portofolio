@@ -3,97 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login System | M. Gibran</title>
+    <title>Login System | M. GIBRAN</title>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --bg: #050505; --card: #111; --accent: #ff9800; --text: #fff; }
-        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .login-card { background: var(--card); padding: 40px; border-radius: 25px; border: 1px solid #222; text-align: center; width: 100%; max-width: 350px; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; padding: 20px; }
+        .login-card { background: var(--card); padding: 40px; border-radius: 25px; border: 1px solid #222; text-align: center; width: 100%; max-width: 380px; box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
         .logo { font-size: 50px; color: var(--accent); margin-bottom: 20px; }
-        h2 { margin-bottom: 5px; font-weight: 600; }
+        h2 { margin: 0 0 10px 0; font-weight: 600; }
         p { color: #666; font-size: 14px; margin-bottom: 30px; }
-        
-        /* TOMBOL DAFTAR SEKARANG */
         .btn-daftar { 
-            background: var(--accent); 
-            color: #000; 
-            padding: 15px; 
-            border-radius: 12px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 10px;
-            text-decoration: none; 
-            font-weight: bold; 
-            cursor: pointer;
-            border: none;
-            width: 100%;
-            font-size: 16px;
-            transition: 0.3s;
+            background: var(--accent); color: #000; padding: 15px; border-radius: 12px; 
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            text-decoration: none; font-weight: bold; cursor: pointer; border: none; width: 100%; font-size: 16px; transition: 0.3s;
         }
-        .btn-daftar:hover { background: #e68a00; transform: translateY(-2px); }
-        
-        #loading { display: none; margin-top: 15px; color: var(--accent); font-size: 14px; }
+        .btn-daftar:hover { background: #fff; transform: translateY(-3px); }
+        #status-msg { margin-top: 20px; font-size: 13px; color: var(--accent); }
     </style>
 </head>
 <body>
 
     <div class="login-card">
         <div class="logo"><i class="fab fa-google"></i></div>
-        <h2>M. Gibran System</h2>
-        <p>Silakan daftar menggunakan akun Google</p>
+        <h2>GIBRAN SYSTEM</h2>
+        <p>Gunakan akun Google untuk masuk</p>
 
-        <button class="btn-daftar" onclick="mulaiLogin()">
+        <button class="btn-daftar" onclick="panggilGoogle()">
             <i class="fab fa-google"></i> DAFTAR SEKARANG
         </button>
 
-        <div id="loading">
-            <i class="fas fa-spinner fa-spin"></i> Menghubungkan ke Google...
-        </div>
+        <div id="status-msg"></div>
     </div>
 
     <script>
-        // 1. Inisialisasi Google dengan Client ID Gibran
+        // MASUKKAN URL JEMBATAN GOOGLE SHEETS LO
+        const urlJembatan = "https://script.google.com/macros/s/AKfycbzeisUeZYTsQM0qjbvhuda9wkG9wBDb99x4q4AdqGzVeRUY0Gu68P61NpCmuOQomXki0Q/exec";
+
         window.onload = function () {
             google.accounts.id.initialize({
-                client_id: "594310366887-dsrs8pdnrdrhneg3h15saj7btp08oh67.apps.googleusercontent.com",
-                callback: handleCredentialResponse
+                client_id: "594310366887-532laakg4igjvscre6smh28ad3cil1aa.apps.googleusercontent.com",
+                callback: tanganiLogin
             });
         }
 
-        // 2. Fungsi saat Tombol "Daftar Sekarang" diklik
-        function mulaiLogin() {
-            document.getElementById('loading').style.display = 'block';
-            // Memicu jendela pilihan akun Google (Pop-up)
+        function panggilGoogle() {
+            document.getElementById('status-msg').innerText = "Menghubungkan ke Google...";
             google.accounts.id.prompt(); 
         }
 
-        // 3. Fungsi saat user sudah pilih akun Google
-        function handleCredentialResponse(response) {
-            // Ambil data profil (nama, email, foto)
-            const data = decodeJwtResponse(response.credential);
+        function tanganiLogin(response) {
+            const profil = pecahToken(response.credential);
             
-            // Simpan nama user ke memori biar bisa dipanggil di Dashboard
-            localStorage.setItem('user_name', data.name);
-            localStorage.setItem('user_email', data.email);
+            // 1. Simpan ke Memori Browser
+            localStorage.setItem('user_name', profil.name);
+            
+            // 2. LAPOR KE GOOGLE SHEETS (Nyatet orang login)
+            fetch(urlJembatan, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify({
+                    nama: profil.name,
+                    aktivitas: "Login Google",
+                    detail: "Email: " + profil.email
+                })
+            });
 
-            document.getElementById('loading').innerHTML = "✅ Berhasil! Mengalihkan...";
-            
-            // Pindah ke Dashboard Utama
+            document.getElementById('status-msg').innerHTML = "✅ Berhasil! Halo, " + profil.name;
+
+            // 3. Pindah ke Dashboard
             setTimeout(() => {
                 window.location.href = "dashboard.html";
-            }, 1000);
+            }, 1200);
         }
 
-        // Fungsi pembantu untuk baca data Google
-        function decodeJwtResponse(token) {
+        function pecahToken(token) {
             let base64Url = token.split('.')[1];
             let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            let jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
-            return JSON.parse(jsonPayload);
+            return JSON.parse(window.atob(base64));
         }
     </script>
 </body>
