@@ -3,66 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Gibran | Cloud Simpan</title>
+    <title>Dashboard Gibran | Pro Management</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --bg: #050505; --card: #111; --accent: #ff9800; --text: #fff; --border: #222; }
-        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .container { width: 100%; max-width: 400px; }
-        .panel { background: var(--card); padding: 30px; border-radius: 25px; border: 1px solid var(--border); text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
-        .btn-upload { background: var(--accent); color: #000; padding: 15px; border-radius: 12px; font-weight: bold; cursor: pointer; border: none; width: 100%; font-size: 16px; margin-top: 20px; transition: 0.3s; }
-        .btn-upload:hover { background: #fff; transform: translateY(-2px); }
-        #status { margin-top: 20px; font-size: 13px; color: var(--accent); font-weight: 500; }
-        .preview-img { width: 100%; border-radius: 15px; margin-top: 15px; display: none; border: 1px solid #333; }
-        h2 { margin: 0; letter-spacing: 2px; color: var(--accent); }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; }
+        .container { max-width: 500px; margin: auto; }
+        .panel { background: var(--card); padding: 25px; border-radius: 25px; border: 1px solid var(--border); text-align: center; margin-bottom: 20px; }
+        .btn-upload { background: var(--accent); color: #000; padding: 15px; border-radius: 12px; font-weight: bold; cursor: pointer; border: none; width: 100%; font-size: 16px; transition: 0.3s; }
+        
+        /* GALLERY STYLE */
+        .gallery-title { text-align: left; margin: 20px 0 10px; font-size: 14px; color: #666; text-transform: uppercase; letter-spacing: 1px; }
+        #gallery { display: grid; grid-template-columns: 1fr; gap: 15px; }
+        .gallery-item { background: #1a1a1a; border-radius: 15px; overflow: hidden; border: 1px solid #333; }
+        .gallery-item img { width: 100%; height: auto; display: block; border-bottom: 1px solid #333; }
+        
+        /* ACTION BUTTONS */
+        .item-info { padding: 12px; text-align: left; }
+        .item-date { font-size: 11px; color: #555; margin-bottom: 8px; }
+        .actions { display: flex; gap: 10px; }
+        .btn-action { flex: 1; padding: 10px; border-radius: 8px; border: none; font-size: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; transition: 0.2s; }
+        .btn-download { background: #222; color: #fff; }
+        .btn-download:hover { background: #333; }
+        .btn-delete { background: #421111; color: #ff4444; }
+        .btn-delete:hover { background: #611a1a; }
+        
+        #status { margin-top: 15px; font-size: 12px; color: var(--accent); }
     </style>
 </head>
 <body>
 
     <div class="container">
         <div class="panel">
-            <h2>GIBRAN SYSTEM</h2>
-            <p style="color: #666; font-size: 14px;">Cloud Storage: cloud simpan</p>
+            <h2 style="color: var(--accent); margin:0;">GIBRAN SYSTEM</h2>
+            <p style="color: #444; font-size: 12px; margin-bottom: 20px;">Cloud Manager & Auto Reporting</p>
             
             <input type="file" id="fileInput" accept="image/*" hidden onchange="prosesUpload(this)">
             <button class="btn-upload" onclick="document.getElementById('fileInput').click()">
-                <i class="fas fa-cloud-upload-alt"></i> UPLOAD KE CLOUD
+                <i class="fas fa-camera"></i> UPLOAD FOTO BARU
             </button>
-
-            <div id="status">Status: Siap kirim data</div>
-            <img id="preview" class="preview-img">
+            <div id="status">Status: Standby</div>
         </div>
+
+        <div class="gallery-title">Riwayat & Management File</div>
+        <div id="gallery">
+            </div>
     </div>
 
     <script>
-        // --- DATA KONFIGURASI GIBRAN ---
         const CLOUD_NAME = "dumqnwl9g"; 
-        const UPLOAD_PRESET = "cloud simpan"; // Pakai nama preset lo
+        const UPLOAD_PRESET = "cloud simpan"; 
         const URL_SHEETS = "https://script.google.com/macros/s/AKfycbzeisUeZYTsQM0qjbvhuda9wkG9wBDb99x4q4AdqGzVeRUY0Gu68P61NpCmuOQomXki0Q/exec";
 
-        // 1. Fungsi lapor ke Google Sheets
-        function laporKeSheets(linkFoto) {
-            const nama = localStorage.getItem('user_name') || 'Gibran User';
+        window.onload = muatGaleri;
+
+        function laporKeSheets(aksi, link) {
+            const nama = localStorage.getItem('user_name') || 'User Gibran';
             fetch(URL_SHEETS, {
                 method: 'POST',
                 mode: 'no-cors',
-                body: JSON.stringify({
-                    nama: nama,
-                    aktivitas: "Upload Foto (Cloud Simpan)",
-                    detail: linkFoto
-                })
+                body: JSON.stringify({ nama: nama, aktivitas: aksi, detail: link })
             });
         }
 
-        // 2. Fungsi upload ke Cloudinary
         async function prosesUpload(input) {
             const file = input.files[0];
             const statusDiv = document.getElementById('status');
-            const imgPreview = document.getElementById('preview');
-
             if (!file) return;
 
-            statusDiv.innerHTML = "⏳ Sedang mengunggah...";
+            statusDiv.innerHTML = "⏳ Mengunggah...";
 
             const formData = new FormData();
             formData.append('file', file);
@@ -73,26 +82,74 @@
                     method: 'POST',
                     body: formData
                 });
-
                 const data = await response.json();
 
                 if (response.ok) {
-                    statusDiv.innerHTML = "✅ BERHASIL! Link tercatat di Sheets.";
-                    imgPreview.src = data.secure_url;
-                    imgPreview.style.display = "block";
+                    statusDiv.innerHTML = "✅ Berhasil!";
+                    let koleksi = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
+                    koleksi.unshift({ id: Date.now(), url: data.secure_url, tgl: new Date().toLocaleString() });
+                    localStorage.setItem('gibran_gallery', JSON.stringify(koleksi));
                     
-                    // Kirim ke Google Sheets
-                    laporKeSheets(data.secure_url);
-                    
-                    alert("Mantap Bran! Foto berhasil masuk Cloudinary.");
+                    laporKeSheets("Upload Foto", data.secure_url);
+                    muatGaleri();
                 } else {
-                    // Jika error, tampilkan pesan asli dari Cloudinary
-                    statusDiv.innerHTML = "❌ Gagal: " + (data.error ? data.error.message : "Cek Preset lo");
-                    console.error("Cloudinary Error:", data);
+                    statusDiv.innerHTML = "❌ Gagal: " + data.error.message;
                 }
             } catch (err) {
-                statusDiv.innerHTML = "❌ Masalah koneksi internet.";
-                console.error("Fetch Error:", err);
+                statusDiv.innerHTML = "❌ Error Koneksi.";
+            }
+        }
+
+        function muatGaleri() {
+            const container = document.getElementById('gallery');
+            const koleksi = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
+            
+            if (koleksi.length === 0) {
+                container.innerHTML = "<p style='color:#333; font-size:12px; text-align:center;'>Belum ada riwayat file.</p>";
+                return;
+            }
+
+            container.innerHTML = koleksi.map(item => `
+                <div class="gallery-item">
+                    <img src="${item.url}">
+                    <div class="item-info">
+                        <div class="item-date"><i class="far fa-calendar-alt"></i> ${item.tgl}</div>
+                        <div class="actions">
+                            <button class="btn-action btn-download" onclick="downloadFile('${item.url}')">
+                                <i class="fas fa-download"></i> Simpan
+                            </button>
+                            <button class="btn-action btn-delete" onclick="hapusFile(${item.id})">
+                                <i class="fas fa-trash"></i> Hapus
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function downloadFile(url) {
+            try {
+                const response = await fetch(url);
+                const blob = await response.blob();
+                const blobUrl = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = blobUrl;
+                a.download = "Gibran_File_" + Date.now() + ".jpg";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(blobUrl);
+            } catch (e) {
+                window.open(url, '_blank');
+            }
+        }
+
+        function hapusFile(id) {
+            if(confirm("Hapus file dari dashboard?")) {
+                let koleksi = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
+                koleksi = koleksi.filter(item => item.id !== id);
+                localStorage.setItem('gibran_gallery', JSON.stringify(koleksi));
+                muatGaleri();
             }
         }
     </script>
