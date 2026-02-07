@@ -297,74 +297,7 @@
                 muatGaleri();
             }
         }
-  
- <script>
-        // 1. CEK MAINTENANCE OTOMATIS (Saptu - Minggu)
-        window.onload = () => {
-            const hari = new Date().getDay(); // 0 = Minggu, 6 = Sabtu
-            
-            // Karena sekarang SABTU, sistem akan langsung eksekusi ini:
-            if (hari === 6 || hari === 0) {
-                alert("SISTEM MAINTENANCE (Jadwal: Saptu - Minggu)");
-                window.location.href = "../maintenance.html";
-                return;
-            }
-            initChart(); // Jalankan chart kalau hari kerja
-        };
-
-        // 2. FUNGSI "NYEDOT" FILE PENGATURAN.HTML
-        async function toggleSettings() {
-            // Kalau sudah ada pop-up, kita tutup (hapus)
-            const existingPanel = document.getElementById('setting-overlay');
-            if (existingPanel) {
-                existingPanel.remove();
-                return;
-            }
-
-            try {
-                // Dashboard "ngambil" isi file pengaturan.html
-                const response = await fetch('pengaturan.html');
-                const data = await response.text();
-
-                // Buat kotak pop-up di tengah layar
-                const overlay = document.createElement('div');
-                overlay.id = 'setting-overlay';
-                overlay.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:10000; display:flex; justify-content:center; align-items:center; backdrop-filter:blur(5px);";
-                
-                overlay.innerHTML = `
-                    <div style="position:relative; width:90%; max-width:400px;">
-                        <button onclick="document.getElementById('setting-overlay').remove()" style="position:absolute; top:20px; right:20px; z-index:10001; background:#ff4444; color:#fff; border:none; border-radius:50%; width:30px; height:30px; cursor:pointer; font-weight:bold;">&times;</button>
-                        ${data}
-                    </div>
-                `;
-                document.body.appendChild(overlay);
-            } catch (err) {
-                alert("Gagal memanggil file pengaturan.html! Pastikan filenya ada di satu folder.");
-            }
-        }
-
-        // 3. CHART & LOGOUT
-        function initChart() {
-            const ctx = document.getElementById('mainChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'line',
-                data: { labels: ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'], datasets: [{ label: 'USDT', data: [100, 150, 120, 180, 160, 220], borderColor: '#00ff88' }] }
-            });
-        }
-
-        function logout() {
-            if(confirm('Logout dari System v3.8.9?')) window.location.href = 'index.html';
-        }
-
-        // Klik di luar pop-up untuk menutup
-        window.onclick = function(event) {
-            const overlay = document.getElementById('setting-overlay');
-            if (event.target == overlay) {
-                overlay.remove();
-            }
-        }
-    </script>  
+    </script>
 </body>
 </html>
-
 
