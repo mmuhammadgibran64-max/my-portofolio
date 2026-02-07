@@ -20,39 +20,25 @@
         .banner img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
         .profile-pic { width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--bg); background: #222; margin-top: -50px; margin-left: 20px; position: relative; object-fit: cover; z-index: 2; cursor: pointer; }
         
-        /* IDENTITAS */
         .intro { padding: 10px 10px; margin-bottom: 20px; }
         .intro h1 { margin: 0; font-size: 26px; color: var(--accent); letter-spacing: 1px; }
         .intro p.sub { color: #888; margin: 5px 0 15px; font-size: 14px; font-weight: 500; }
         
-        /* KOTAK KONTEN */
-        .card-box { background: var(--card); padding: 20px; border-radius: 20px; border: 1px solid var(--border); margin-bottom: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.5); }
+        .card-box { background: var(--card); padding: 20px; border-radius: 20px; border: 1px solid var(--border); margin-bottom: 20px; }
         .card-box h3 { margin-top: 0; color: var(--accent); font-size: 16px; border-bottom: 1px solid #333; padding-bottom: 10px; display: flex; align-items: center; gap: 10px; }
-        .card-box p { font-size: 13px; text-align: justify; color: #ccc; margin-bottom: 10px; }
         
-        /* SKILL & GOOGLE MEET */
-        .skill-item { margin-bottom: 15px; border-bottom: 1px solid #1a1a1a; padding-bottom: 10px; }
-        .meet-link { display: flex; align-items: center; gap: 10px; background: #0a1a10; color: var(--green); padding: 10px; border-radius: 10px; text-decoration: none; font-size: 12px; margin-bottom: 8px; border: 1px solid #143d25; transition: 0.3s; }
-        .meet-link:hover { background: var(--green); color: #000; }
+        /* MEET LINKS */
+        .meet-link { display: flex; align-items: center; gap: 10px; background: #0a1a10; color: var(--green); padding: 10px; border-radius: 10px; text-decoration: none; font-size: 12px; margin-bottom: 8px; border: 1px solid #143d25; }
 
         /* CHAT BOX */
         #chat-box { height: 150px; background: #000; border-radius: 10px; padding: 10px; overflow-y: auto; font-size: 12px; border: 1px solid var(--border); margin-bottom: 10px; }
         .chat-input-area { display: flex; gap: 5px; }
         .chat-input-area input { flex: 1; background: #1a1a1a; border: 1px solid #333; color: #fff; padding: 10px; border-radius: 8px; outline: none; }
-        .chat-input-area button { background: var(--accent); border: none; padding: 0 15px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .chat-input-area button { background: var(--accent); border: none; padding: 0 15px; border-radius: 8px; cursor: pointer; }
 
-        /* UPLOAD PANELS */
-        .upload-panel-1 { background: #1a150e; border: 2px dashed var(--accent); padding: 20px; border-radius: 15px; text-align: center; margin-bottom: 15px; }
-        .upload-panel-2 { background: #0a151a; border: 2px dashed var(--blue); padding: 20px; border-radius: 15px; text-align: center; margin-bottom: 15px; }
-        .btn-up { width: 100%; padding: 12px; border-radius: 10px; font-weight: bold; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 14px; }
-
-        /* GALLERY & ACTIONS */
-        .gallery-title { font-weight: bold; color: #666; font-size: 14px; margin: 30px 0 15px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #222; padding-bottom: 5px; }
+        .btn-up { width: 100%; padding: 12px; border-radius: 10px; font-weight: bold; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 14px; margin-top: 10px; }
         .gallery-item { background: #161616; border-radius: 15px; padding: 12px; margin-bottom: 12px; display: flex; gap: 15px; align-items: center; border: 1px solid #2a2a2a; }
-        .gallery-item img { width: 60px; height: 60px; border-radius: 10px; object-fit: cover; }
-        .btn-action { flex: 1; padding: 7px; border-radius: 6px; font-size: 11px; font-weight: bold; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; }
-        .dl-btn { background: #0a291a; color: var(--green); border: 1px solid #145233; }
-        .del-btn { background: #290a0a; color: #ff4444; border: 1px solid #521414; }
+        .btn-action { flex: 1; padding: 7px; border-radius: 6px; font-size: 11px; font-weight: bold; border: none; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -63,93 +49,65 @@
     </div>
 
     <div class="container">
-        <div class="banner">
-            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600" alt="Cover">
-        </div>
-        <img src="https://ui-avatars.com/api/?name=Gibran&background=ff9800&color=000&size=128" class="profile-pic" onclick="toggleSettings()" title="Klik untuk Pengaturan">
+        <div class="banner"><img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600"></div>
+        <img src="https://ui-avatars.com/api/?name=Gibran&background=ff9800&color=000&size=128" class="profile-pic" onclick="toggleSettings()">
         
         <div class="intro">
-            <h1 id="display-nama">Gibran</h1>
+            <h1>Gibran</h1>
             <p class="sub">Humas LP3I | Video Editor | Graphic Designer</p>
         </div>
 
         <div class="card-box">
             <h3><i class="fas fa-video"></i> Google Meet Room</h3>
-            <a href="https://meet.google.com/evb-mqek-fee" target="_blank" class="meet-link"><i class="fas fa-link"></i> Meet Link 1 (evb-mqek-fee)</a>
-            <a href="https://meet.google.com/cww-jzpu-tgp" target="_blank" class="meet-link"><i class="fas fa-link"></i> Meet Link 2 (cww-jzpu-tgp)</a>
-            <a href="https://meet.google.com/muc-rsoy-emm" target="_blank" class="meet-link"><i class="fas fa-link"></i> Meet Link 3 (muc-rsoy-emm)</a>
-            <a href="https://meet.google.com/vqf-pezr-arq" target="_blank" class="meet-link"><i class="fas fa-link"></i> Meet Link 4 (vqf-pezr-arq)</a>
+            <a href="https://meet.google.com/evb-mqek-fee" target="_blank" class="meet-link">Link Meet 1</a>
+            <a href="https://meet.google.com/cww-jzpu-tgp" target="_blank" class="meet-link">Link Meet 2</a>
+            <a href="https://meet.google.com/muc-rsoy-emm" target="_blank" class="meet-link">Link Meet 3</a>
+            <a href="https://meet.google.com/vqf-pezr-arq" target="_blank" class="meet-link">Link Meet 4</a>
         </div>
 
         <div class="card-box">
             <h3><i class="fas fa-map-marker-alt"></i> Google Maps Live</h3>
-            <div style="width: 100%; height: 200px; border-radius: 15px; overflow: hidden; border: 1px solid var(--border);">
-                <iframe src="https://www.google.com/maps/@-6.1988531,106.8383494,14z?entry=ttu&g_ep=EgoyMDI2MDIwNC4wIKXMDSoASAFQAw%3D%3D" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-            </div>
+            <iframe src="https://www.google.com/maps/@-6.1988531,106.8383494,14z?entry=ttu&g_ep=EgoyMDI2MDIwNC4wIKXMDSoASAFQAw%3D%3D" width="100%" height="200" style="border:0; border-radius:15px;"></iframe>
         </div>
 
         <div class="card-box">
             <h3><i class="fas fa-comments"></i> Chat Global</h3>
-            <div id="chat-box">
-                <p style="color: #555;">[System]: Welcome to Gibran Chat v3.8.9</p>
-            </div>
+            <div id="chat-box"></div>
             <div class="chat-input-area">
-                <input type="text" id="chat-input" placeholder="Ketik pesan untuk semua orang...">
-                <button onclick="kirimPesan()"><i class="fas fa-paper-plane"></i></button>
+                <input type="text" id="chat-input" placeholder="Ketik pesan...">
+                <button onclick="kirimPesan()">Kirim</button>
             </div>
         </div>
 
-        <div class="upload-area">
-            <div class="upload-panel-1">
-                <h4 style="margin:0 0 10px 0; color:var(--accent);">GIBRAN SYSTEM</h4>
-                <input type="file" id="fileInput1" hidden onchange="prosesUpload(this, 'System')">
-                <button class="btn-up" style="background:var(--accent); color:#000;" onclick="document.getElementById('fileInput1').click()">
-                    <i class="fas fa-camera"></i> UPLOAD FOTO/SYSTEM
-                </button>
-            </div>
-
-            <div class="upload-panel-2">
-                <h4 style="margin:0 0 10px 0; color:var(--blue);">SIMPAN FILE & DOKUMEN</h4>
-                <input type="file" id="fileInput2" hidden onchange="prosesUpload(this, 'File Simpan')">
-                <button class="btn-up" style="background:var(--blue); color:#000;" onclick="document.getElementById('fileInput2').click()">
-                    <i class="fas fa-folder-open"></i> UPLOAD ARSIP FILE
-                </button>
-            </div>
-            <div id="status" style="text-align:center; font-size:12px; font-weight:bold; color:#fff; margin-bottom: 20px;">Status: Siap Upload</div>
+        <div class="card-box" style="border: 2px dashed var(--blue);">
+            <h3><i class="fas fa-folder-open"></i> Simpan Arsip File</h3>
+            <input type="file" id="fileInput2" hidden onchange="prosesUpload(this, 'File Simpan')">
+            <button class="btn-up" style="background:var(--blue); color:#000;" onclick="document.getElementById('fileInput2').click()">UPLOAD ARSIP</button>
+            <div id="status" style="text-align:center; font-size:12px; margin-top:10px;">Status: Ready</div>
         </div>
 
-        <div class="gallery-title">Riwayat File & Download</div>
+        <div style="font-weight:bold; color:#666; margin: 20px 0 10px;">Riwayat File & Download</div>
         <div id="gallery"></div>
     </div>
 
     <script>
-        // --- SATPAM MAINTENANCE (LOCK TOTAL) ---
+        // KUNCI MAINTENANCE GUE CABUT DARI SINI BIAR DASHBOARD BISA DIBUKA
         window.onload = function() {
-            // HAPUS TIGA BARIS DI BAWAH INI JIKA INGIN MEMBUKA KUNCI
-            alert("MAAF: APLIKASI SEDANG MAINTENANCE TOTAL SAMPAI SELESAI");
-            window.location.href = "../maintenance.html"; 
-            return;
-
-            // Jika tidak maintenance, jalankan normal
             document.getElementById('display-nama').innerText = localStorage.getItem('user_name') || "Gibran";
             setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000);
             muatGaleri();
         };
 
-        // --- FITUR CHAT ---
         function kirimPesan() {
             const input = document.getElementById('chat-input');
             const box = document.getElementById('chat-box');
-            if (input.value.trim() !== "") {
-                const p = document.createElement('p');
-                p.innerHTML = `<b style="color: var(--accent);">User:</b> ${input.value}`;
-                box.appendChild(p);
+            if (input.value.trim()) {
+                box.innerHTML += `<p><b style="color:var(--accent)">User:</b> ${input.value}</p>`;
                 box.scrollTop = box.scrollHeight;
                 input.value = "";
             }
         }
 
-        // --- FITUR PENGATURAN (NYEDOT FILE) ---
         async function toggleSettings() {
             const existing = document.getElementById('setting-overlay');
             if (existing) { existing.remove(); return; }
@@ -159,61 +117,44 @@
                 const overlay = document.createElement('div');
                 overlay.id = 'setting-overlay';
                 overlay.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:10000; display:flex; justify-content:center; align-items:center; backdrop-filter:blur(10px);";
-                overlay.innerHTML = `<div style="position:relative; width:90%; max-width:400px;">
-                    <button onclick="document.getElementById('setting-overlay').remove()" style="position:absolute; top:-10px; right:-10px; background:var(--danger); color:#fff; border:none; border-radius:50%; width:30px; height:30px; cursor:pointer;">×</button>
-                    ${data}</div>`;
+                overlay.innerHTML = `<div style="position:relative; width:90%; max-width:400px;"><button onclick="document.getElementById('setting-overlay').remove()" style="position:absolute; top:-10px; right:-10px; background:var(--danger); color:#fff; border:none; border-radius:50%; width:30px; height:30px; cursor:pointer;">×</button>${data}</div>`;
                 document.body.appendChild(overlay);
-            } catch (err) { alert("File pengaturan.html tidak ditemukan!"); }
+            } catch (err) { alert("File pengaturan.html tidak ada!"); }
         }
 
-        // --- KONFIGURASI CLOUDINARY & UPLOAD ---
         const CLOUD_NAME = "dumqnwl9g"; 
         const UPLOAD_PRESET = "cloud simpan"; 
 
         async function prosesUpload(input, sumber) {
             const file = input.files[0];
-            const statusDiv = document.getElementById('status');
             if (!file) return;
-            statusDiv.innerHTML = "⏳ Mengunggah...";
+            document.getElementById('status').innerText = "⏳ Mengunggah...";
             const formData = new FormData();
             formData.append('file', file);
             formData.append('upload_preset', UPLOAD_PRESET);
             try {
-                const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`, { method: 'POST', body: formData });
-                const data = await response.json();
-                if (response.ok) {
-                    statusDiv.innerHTML = "✅ Berhasil Disimpan!";
+                const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`, { method: 'POST', body: formData });
+                const data = await res.json();
+                if (res.ok) {
                     let koleksi = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
-                    koleksi.unshift({ id: Date.now(), url: data.secure_url, preview: data.resource_type === "image" ? data.secure_url : "https://cdn-icons-png.flaticon.com/512/2965/2965335.png", nama: file.name, sumber: sumber, tgl: new Date().toLocaleString() });
+                    koleksi.unshift({ id: Date.now(), url: data.secure_url, preview: data.resource_type === "image" ? data.secure_url : "https://cdn-icons-png.flaticon.com/512/2965/2965335.png", nama: file.name, tgl: new Date().toLocaleString() });
                     localStorage.setItem('gibran_gallery', JSON.stringify(koleksi));
+                    document.getElementById('status').innerText = "✅ Berhasil!";
                     muatGaleri();
                 }
-            } catch (err) { statusDiv.innerHTML = "❌ Error Upload."; }
+            } catch (e) { document.getElementById('status').innerText = "❌ Gagal!"; }
         }
 
         function muatGaleri() {
             const container = document.getElementById('gallery');
             const koleksi = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
-            container.innerHTML = koleksi.length === 0 ? "<p style='text-align:center; color:#444; font-size:12px;'>Belum ada file.</p>" : 
-            koleksi.map(item => `<div class="gallery-item">
-                <img src="${item.preview}">
+            container.innerHTML = koleksi.map(item => `<div class="gallery-item">
                 <div style="flex:1">
-                    <div style="font-size:13px; font-weight:bold; color:${item.sumber === 'File Simpan' ? '#00d2ff' : '#ff9800'}">${item.nama}</div>
+                    <div style="font-size:13px; font-weight:bold;">${item.nama}</div>
                     <div style="font-size:11px; color:#666">${item.tgl}</div>
-                    <div style="display:flex; gap:5px; margin-top:5px;">
-                        <button class="btn-action dl-btn" onclick="window.open('${item.url}')">DOWNLOAD</button>
-                        <button class="btn-action del-btn" onclick="hapus('${item.id}')">HAPUS</button>
-                    </div>
+                    <button class="btn-action" style="background:#0a291a; color:var(--green); margin-top:5px;" onclick="window.open('${item.url}')">DOWNLOAD</button>
                 </div>
             </div>`).join('');
-        }
-
-        function hapus(id) {
-            if(confirm("Hapus file?")) {
-                let koleksi = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
-                localStorage.setItem('gibran_gallery', JSON.stringify(koleksi.filter(i => i.id != id)));
-                muatGaleri();
-            }
         }
     </script>
 </body>
