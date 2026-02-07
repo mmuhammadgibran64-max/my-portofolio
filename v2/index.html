@@ -3,80 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | M. Gibran</title>
+    <title>Login System | M. Gibran</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --bg: #050505; --card: #111; --accent: #ff9800; --text: #fff; }
-        body { 
-            background: var(--bg); 
-            color: var(--text); 
-            font-family: 'Segoe UI', sans-serif; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
-            margin: 0; 
-        }
-        .login-card { 
-            background: var(--card); 
-            padding: 40px; 
-            border-radius: 25px; 
-            border: 1px solid #222; 
-            text-align: center; 
-            width: 100%; 
-            max-width: 350px; 
-        }
-        .logo { font-size: 40px; color: var(--accent); margin-bottom: 10px; }
-        h2 { margin-bottom: 30px; font-weight: 600; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .login-card { background: var(--card); padding: 40px; border-radius: 25px; border: 1px solid #222; text-align: center; width: 100%; max-width: 350px; }
+        .logo { font-size: 50px; color: var(--accent); margin-bottom: 20px; }
+        h2 { margin-bottom: 5px; font-weight: 600; }
+        p { color: #666; font-size: 14px; margin-bottom: 30px; }
         
-        .btn-google { 
-            background: #fff; 
-            color: #000; 
-            padding: 12px; 
-            border-radius: 10px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 10px; 
-            text-decoration: none; 
-            font-weight: bold; 
-            margin-bottom: 20px;
-            transition: 0.3s;
-        }
-
-        /* INI TOMBOL DAFTAR SEKARANG */
+        /* TOMBOL DAFTAR SEKARANG */
         .btn-daftar { 
             background: var(--accent); 
             color: #000; 
-            padding: 12px; 
-            border-radius: 10px; 
-            display: block; 
+            padding: 15px; 
+            border-radius: 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 10px;
             text-decoration: none; 
             font-weight: bold; 
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            font-size: 16px;
             transition: 0.3s;
         }
-        .btn-daftar:hover { background: #e68a00; }
+        .btn-daftar:hover { background: #e68a00; transform: translateY(-2px); }
         
-        p { color: #555; font-size: 13px; margin-top: 20px; }
+        #loading { display: none; margin-top: 15px; color: var(--accent); font-size: 14px; }
     </style>
 </head>
 <body>
 
     <div class="login-card">
-        <div class="logo"><i class="fab fa-google-drive"></i></div>
-        <h2>System Login</h2>
+        <div class="logo"><i class="fab fa-google"></i></div>
+        <h2>M. Gibran System</h2>
+        <p>Silakan daftar menggunakan akun Google</p>
 
-        <a href="#" class="btn-google" onclick="alert('Google Login Simulasi Berhasil!')">
-            <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" width="20">
-            Masuk dengan Google
-        </a>
+        <button class="btn-daftar" onclick="mulaiLogin()">
+            <i class="fab fa-google"></i> DAFTAR SEKARANG
+        </button>
 
-        <a href="dashboard.html" class="btn-daftar">
-            DAFTAR SEKARANG
-        </a>
-
-        <p>Gibran Cloud System &copy; 2026</p>
+        <div id="loading">
+            <i class="fas fa-spinner fa-spin"></i> Menghubungkan ke Google...
+        </div>
     </div>
 
+    <script>
+        // 1. Inisialisasi Google dengan Client ID Gibran
+        window.onload = function () {
+            google.accounts.id.initialize({
+                client_id: "594310366887-dsrs8pdnrdrhneg3h15saj7btp08oh67.apps.googleusercontent.com",
+                callback: handleCredentialResponse
+            });
+        }
+
+        // 2. Fungsi saat Tombol "Daftar Sekarang" diklik
+        function mulaiLogin() {
+            document.getElementById('loading').style.display = 'block';
+            // Memicu jendela pilihan akun Google (Pop-up)
+            google.accounts.id.prompt(); 
+        }
+
+        // 3. Fungsi saat user sudah pilih akun Google
+        function handleCredentialResponse(response) {
+            // Ambil data profil (nama, email, foto)
+            const data = decodeJwtResponse(response.credential);
+            
+            // Simpan nama user ke memori biar bisa dipanggil di Dashboard
+            localStorage.setItem('user_name', data.name);
+            localStorage.setItem('user_email', data.email);
+
+            document.getElementById('loading').innerHTML = "✅ Berhasil! Mengalihkan...";
+            
+            // Pindah ke Dashboard Utama
+            setTimeout(() => {
+                window.location.href = "dashboard.html";
+            }, 1000);
+        }
+
+        // Fungsi pembantu untuk baca data Google
+        function decodeJwtResponse(token) {
+            let base64Url = token.split('.')[1];
+            let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            let jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            return JSON.parse(jsonPayload);
+        }
+    </script>
 </body>
 </html>
