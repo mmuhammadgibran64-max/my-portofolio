@@ -3,34 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin - Download Center</title>
+    <title>Dashboard Lengkap - Admin System</title>
     <style>
+        :root {
+            --bg-color: #0a192f;
+            --sidebar-color: #ffffff;
+            --primary-blue: #2563eb;
+            --text-dark: #333;
+            --card-bg: #ffffff;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0a192f;
-            color: white;
+            font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0;
-            padding: 20px;
             display: flex;
-            justify-content: center;
+            background-color: var(--bg-color);
+            color: white;
+            min-height: 100vh;
         }
 
-        .container {
-            width: 100%;
-            max-width: 600px;
+        /* SIDEBAR (Inspirasi Foto ke-2) */
+        .sidebar {
+            width: 240px;
+            background-color: var(--sidebar-color);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            padding: 20px 0;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            height: 100vh;
         }
 
-        /* Header Jam & Judul */
-        .header-dashboard {
+        .sidebar-logo {
+            padding: 0 25px 20px;
+            font-weight: bold;
+            font-size: 22px;
+            color: var(--primary-blue);
+            border-bottom: 1px solid #eee;
+        }
+
+        .menu-item {
+            padding: 15px 25px;
+            cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 12px;
+            transition: 0.3s;
+            font-weight: 500;
+        }
+
+        .menu-item:hover {
+            background-color: #f0f4ff;
+            color: var(--primary-blue);
+        }
+
+        .menu-item.active {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+
+        /* MAIN CONTENT AREA */
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+        }
+
+        /* HEADER & JAM (Inspirasi Foto ke-1) */
+        .header-section {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
             margin-bottom: 30px;
         }
 
-        .lingkaran-jam {
-            width: 90px;
-            height: 90px;
+        .analog-clock-ui {
+            width: 100px;
+            height: 100px;
             background: white;
             border-radius: 50%;
             display: flex;
@@ -38,115 +94,210 @@
             justify-content: center;
             color: #333;
             font-weight: bold;
-            font-size: 1.3rem;
-            border: 5px solid #2563eb;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            font-size: 1.4rem;
+            border: 6px solid var(--primary-blue);
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.4);
         }
 
-        /* Kartu Putih */
-        .kartu {
-            background: white;
+        /* KARTU DASHBOARD */
+        .card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 30px;
+            color: var(--text-dark);
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .user-profile-img {
+            width: 140px;
+            height: 140px;
             border-radius: 20px;
-            padding: 25px;
-            color: #333;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            object-fit: cover;
+            border: 4px solid #f0f0f0;
         }
 
-        /* TOMBOL DOWNLOAD UTAMA */
-        .btn-download {
+        /* LIST ITEM & ICON */
+        .info-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .info-list li {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 12px;
+            gap: 15px;
+            margin-bottom: 12px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* BUTTONS */
+        .action-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .btn-action {
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid #eee;
+            background: #f9f9f9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        .btn-download-main {
             width: 100%;
-            background: #2563eb;
+            background: var(--primary-blue);
             color: white;
             border: none;
             padding: 18px;
             border-radius: 50px;
+            font-size: 18px;
             font-weight: bold;
-            font-size: 1.1rem;
-            text-decoration: none;
             cursor: pointer;
-            transition: 0.3s ease;
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
-            margin-top: 15px;
+            transition: 0.3s;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+            text-align: center;
+            text-decoration: none;
+            display: block;
         }
 
-        .btn-download:hover {
-            background: #1d4ed8;
+        .btn-download-main:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5);
+            background: #1d4ed8;
+            box-shadow: 0 12px 25px rgba(37, 99, 235, 0.5);
         }
 
-        .btn-download span {
-            font-size: 1.4rem;
-        }
-
-        /* Tombol WhatsApp Melayang */
-        .wa-float {
+        /* FLOATING CS */
+        .cs-float {
             position: fixed;
-            bottom: 25px;
-            right: 25px;
+            bottom: 30px;
+            right: 30px;
             background: #25D366;
             color: white;
-            padding: 12px 22px;
+            padding: 15px 25px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
             display: flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
             z-index: 1000;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .custom-upload {
+            cursor: pointer;
+            color: var(--primary-blue);
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="header-dashboard">
-            <div class="lingkaran-jam" id="jam-digital">00:00</div>
-            <div>
-                <h1 style="margin:0; font-size: 1.8rem;">Dashboard Saya</h1>
-                <p style="margin:0; opacity: 0.7;">Pusat Unduhan File</p>
-            </div>
-        </div>
-
-        <div class="kartu">
-            <h2 style="margin-top:0; color: #2563eb; text-align: center;">Siap Mengunduh?</h2>
-            <p style="text-align: center; color: #666;">Klik tombol di bawah ini untuk mendapatkan file terbaru kamu.</p>
-            
-            <a href="#" class="btn-download" id="link-download">
-                <span>📥</span> DOWNLOAD SEKARANG
-            </a>
-
-            <div style="margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.8rem; color: #888;">
-                <div style="text-align: center;">📁 Ukuran: 15MB</div>
-                <div style="text-align: center;">📅 Versi: 2026.01</div>
-            </div>
-        </div>
+    <div class="sidebar">
+        <div class="sidebar-logo">Admin Panel</div>
+        <div class="menu-item active">🏠 Dashboard</div>
+        <div class="menu-item">📤 Menu Unggah</div>
+        <div class="menu-item">📁 Kelola File</div>
+        <div class="menu-item">📊 Statistik</div>
+        <div class="menu-item">⚙️ Pengaturan</div>
     </div>
 
-    <a href="https://wa.me/6285123332018" target="_blank" class="wa-float">
-        <span>💬</span> Hubungi CS
+    <div class="main-content">
+        
+        <div class="header-section">
+            <div class="analog-clock-ui" id="digital-clock">00:00</div>
+            <div>
+                <h1 style="margin:0; font-size: 2.2rem;">Desain Dashboard</h1>
+                <p style="margin:0; opacity: 0.7;">Sistem Digital Bergerak Aktif</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <h2 style="margin:0; color:var(--primary-blue)">Fungist Digital</h2>
+                    <ul class="info-list">
+                        <li>🔘 Dislubat System</li>
+                        <li>🔄 Fodout Status: Normal</li>
+                        <li>📍 Lokasi: Simmoator H</li>
+                    </ul>
+                </div>
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&h=200&auto=format&fit=crop" class="user-profile-img" alt="User">
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-top:0;">Unggah File & Dokumen:</h3>
+            <div class="action-grid">
+                <div class="btn-action"><span>1️⃣</span> Hapus Data</div>
+                <div class="btn-action"><span>📅</span> Jadwal Hapus</div>
+                <div class="btn-action">
+                    <span>📁</span> 
+                    <label class="custom-upload">
+                        Pilih File <input type="file" onchange="alert('File terpilih!')">
+                    </label>
+                </div>
+                <div class="btn-action"><span>▶️</span> Llimpaun Sync</div>
+            </div>
+
+            <a href="#" class="btn-download-main" id="btnDownload">
+                📥 DOWNLOAD FILE SEKARANG
+            </a>
+        </div>
+
+    </div>
+
+    <a href="https://wa.me/6285123332018" target="_blank" class="cs-float">
+        <span>💬</span> Hubungi CS Support
     </a>
 
     <script>
-        function updateWaktu() {
-            const sekarang = new Date();
-            const jam = String(sekarang.getHours()).padStart(2, '0');
-            const menit = String(sekarang.getMinutes()).padStart(2, '0');
-            document.getElementById('jam-digital').textContent = jam + ":" + menit;
-        }
-        setInterval(updateWaktu, 1000);
-        updateWaktu();
+        function startClock() {
+            const clockElement = document.getElementById('digital-clock');
+            
+            function update() {
+                const now = new Date();
+                const h = String(now.getHours()).padStart(2, '0');
+                const m = String(now.getMinutes()).padStart(2, '0');
+                const s = String(now.getSeconds()).padStart(2, '0');
+                
+                // Menampilkan Jam:Menit sesuai desain foto
+                clockElement.textContent = `${h}:${m}`;
+                clockElement.title = `Waktu Detik: ${s}`; // Detik muncul saat kursor diarahkan
+            }
 
-        // Contoh fungsi klik download
-        document.getElementById('link-download').onclick = function() {
-            alert('Memulai proses download...');
-        };
+            setInterval(update, 1000);
+            update();
+        }
+
+        // Efek Klik Download
+        document.getElementById('btnDownload').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Menyiapkan file download... Mohon tunggu sebentar.');
+        });
+
+        startClock();
     </script>
 
 </body>
