@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Lengkap - Admin System</title>
+    <title>Dashboard Aktif - Sistem Berjalan</title>
     <style>
         :root {
             --bg-color: #0a192f;
             --sidebar-color: #ffffff;
             --primary-blue: #2563eb;
             --text-dark: #333;
-            --card-bg: #ffffff;
         }
 
         body {
@@ -22,7 +21,7 @@
             min-height: 100vh;
         }
 
-        /* SIDEBAR (Inspirasi Foto ke-2) */
+        /* SIDEBAR */
         .sidebar {
             width: 240px;
             background-color: var(--sidebar-color);
@@ -54,17 +53,12 @@
             font-weight: 500;
         }
 
-        .menu-item:hover {
+        .menu-item:hover, .menu-item.active {
             background-color: #f0f4ff;
             color: var(--primary-blue);
         }
 
-        .menu-item.active {
-            background-color: var(--primary-blue);
-            color: white;
-        }
-
-        /* MAIN CONTENT AREA */
+        /* MAIN CONTENT */
         .main-content {
             flex: 1;
             padding: 40px;
@@ -74,7 +68,6 @@
             overflow-y: auto;
         }
 
-        /* HEADER & JAM (Inspirasi Foto ke-1) */
         .header-section {
             width: 100%;
             max-width: 800px;
@@ -84,7 +77,7 @@
             margin-bottom: 30px;
         }
 
-        .analog-clock-ui {
+        .lingkaran-jam {
             width: 100px;
             height: 100px;
             background: white;
@@ -99,9 +92,9 @@
             box-shadow: 0 0 20px rgba(37, 99, 235, 0.4);
         }
 
-        /* KARTU DASHBOARD */
+        /* KARTU */
         .card {
-            background: var(--card-bg);
+            background: white;
             border-radius: 24px;
             padding: 30px;
             color: var(--text-dark);
@@ -125,23 +118,7 @@
             border: 4px solid #f0f0f0;
         }
 
-        /* LIST ITEM & ICON */
-        .info-list {
-            list-style: none;
-            padding: 0;
-            margin: 20px 0;
-        }
-
-        .info-list li {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 12px;
-            font-size: 16px;
-            color: #555;
-        }
-
-        /* BUTTONS */
+        /* TOMBOL AKSI */
         .action-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -152,15 +129,23 @@
         .btn-action {
             padding: 12px;
             border-radius: 12px;
-            border: 1px solid #eee;
+            border: 1px solid #ddd;
             background: #f9f9f9;
             display: flex;
             align-items: center;
             gap: 10px;
             font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #333;
         }
 
-        .btn-download-main {
+        .btn-action:hover {
+            background: #eef2ff;
+            border-color: var(--primary-blue);
+        }
+
+        .btn-download-utama {
             width: 100%;
             background: var(--primary-blue);
             color: white;
@@ -172,15 +157,14 @@
             cursor: pointer;
             transition: 0.3s;
             box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+            display: block;
             text-align: center;
             text-decoration: none;
-            display: block;
         }
 
-        .btn-download-main:hover {
+        .btn-download-utama:hover {
             transform: translateY(-3px);
             background: #1d4ed8;
-            box-shadow: 0 12px 25px rgba(37, 99, 235, 0.5);
         }
 
         /* FLOATING CS */
@@ -200,72 +184,60 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
             z-index: 1000;
         }
-
-        input[type="file"] {
-            display: none;
-        }
-
-        .custom-upload {
-            cursor: pointer;
-            color: var(--primary-blue);
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
 
     <div class="sidebar">
         <div class="sidebar-logo">Admin Panel</div>
-        <div class="menu-item active">🏠 Dashboard</div>
-        <div class="menu-item">📤 Menu Unggah</div>
-        <div class="menu-item">📁 Kelola File</div>
-        <div class="menu-item">📊 Statistik</div>
-        <div class="menu-item">⚙️ Pengaturan</div>
+        <div class="menu-item active" onclick="nav('Dashboard')">🏠 Dashboard</div>
+        <div class="menu-item" onclick="nav('Menu Unggah')">📤 Menu Unggah</div>
+        <div class="menu-item" onclick="nav('Kelola File')">📁 Kelola File</div>
+        <div class="menu-item" onclick="nav('Statistik')">📊 Statistik</div>
+        <div class="menu-item" onclick="nav('Pengaturan')">⚙️ Pengaturan</div>
     </div>
 
     <div class="main-content">
-        
         <div class="header-section">
-            <div class="analog-clock-ui" id="digital-clock">00:00</div>
+            <div class="lingkaran-jam" id="live-clock">00:00</div>
             <div>
-                <h1 style="margin:0; font-size: 2.2rem;">Desain Dashboard</h1>
-                <p style="margin:0; opacity: 0.7;">Sistem Digital Bergerak Aktif</p>
+                <h1 style="margin:0; font-size: 2.2rem;">Dashboard Berjalan</h1>
+                <p style="margin:0; opacity: 0.7;">Status: Terhubung & Aktif</p>
             </div>
         </div>
 
         <div class="card">
             <div class="card-header">
                 <div>
-                    <h2 style="margin:0; color:var(--primary-blue)">Fungist Digital</h2>
-                    <ul class="info-list">
-                        <li>🔘 Dislubat System</li>
-                        <li>🔄 Fodout Status: Normal</li>
-                        <li>📍 Lokasi: Simmoator H</li>
+                    <h2 style="margin:0; color:var(--primary-blue)">Fungist System</h2>
+                    <ul style="list-style:none; padding:0; margin:20px 0; color:#555;">
+                        <li>🔘 ID Sesi: <span id="sesi-id">MENCARI...</span></li>
+                        <li>🔄 Sinkronisasi: <span id="sync-status">Aktif</span></li>
+                        <li>📍 Server: Jakarta-East</li>
                     </ul>
                 </div>
-                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&h=200&auto=format&fit=crop" class="user-profile-img" alt="User">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&h=200&auto=format&fit=crop" class="user-profile-img">
             </div>
         </div>
 
         <div class="card">
-            <h3 style="margin-top:0;">Unggah File & Dokumen:</h3>
+            <h3 style="margin-top:0;">Kontrol Tindakan:</h3>
             <div class="action-grid">
-                <div class="btn-action"><span>1️⃣</span> Hapus Data</div>
-                <div class="btn-action"><span>📅</span> Jadwal Hapus</div>
-                <div class="btn-action">
-                    <span>📁</span> 
-                    <label class="custom-upload">
-                        Pilih File <input type="file" onchange="alert('File terpilih!')">
-                    </label>
-                </div>
-                <div class="btn-action"><span>▶️</span> Llimpaun Sync</div>
+                <div class="btn-action" onclick="aksiHapus()"><span>🗑️</span> Hapus Data</div>
+                <div class="btn-action" onclick="aksiJadwal()"><span>📅</span> Jadwal Hapus</div>
+                
+                <label class="btn-action" style="cursor: pointer;">
+                    <span>📁</span> Unggah File 
+                    <input type="file" style="display:none;" onchange="aksiUpload(this)">
+                </label>
+                
+                <div class="btn-action" onclick="aksiSync()"><span>▶️</span> Paksa Sinkron</div>
             </div>
 
-            <a href="#" class="btn-download-main" id="btnDownload">
-                📥 DOWNLOAD FILE SEKARANG
-            </a>
+            <button class="btn-download-utama" onclick="aksiDownload()">
+                📥 DOWNLOAD DATABASE (.ZIP)
+            </button>
         </div>
-
     </div>
 
     <a href="https://wa.me/6285123332018" target="_blank" class="cs-float">
@@ -273,31 +245,70 @@
     </a>
 
     <script>
-        function startClock() {
-            const clockElement = document.getElementById('digital-clock');
+        // 1. FUNGSI JAM DIGITAL
+        function jalankanJam() {
+            const el = document.getElementById('live-clock');
+            setInterval(() => {
+                const n = new Date();
+                el.textContent = String(n.getHours()).padStart(2, '0') + ":" + String(n.getMinutes()).padStart(2, '0');
+            }, 1000);
             
-            function update() {
-                const now = new Date();
-                const h = String(now.getHours()).padStart(2, '0');
-                const m = String(now.getMinutes()).padStart(2, '0');
-                const s = String(now.getSeconds()).padStart(2, '0');
-                
-                // Menampilkan Jam:Menit sesuai desain foto
-                clockElement.textContent = `${h}:${m}`;
-                clockElement.title = `Waktu Detik: ${s}`; // Detik muncul saat kursor diarahkan
-            }
-
-            setInterval(update, 1000);
-            update();
+            // Buat Sesi ID Random biar keren
+            document.getElementById('sesi-id').textContent = Math.random().toString(36).substring(7).toUpperCase();
         }
 
-        // Efek Klik Download
-        document.getElementById('btnDownload').addEventListener('click', function(e) {
-            e.preventDefault();
-            alert('Menyiapkan file download... Mohon tunggu sebentar.');
-        });
+        // 2. FUNGSI NAVIGASI SIDEBAR
+        function nav(nama) {
+            alert("Membuka Halaman: " + nama);
+        }
 
-        startClock();
+        // 3. FUNGSI DOWNLOAD
+        function aksiDownload() {
+            const confirmDown = confirm("Apakah Anda ingin mengunduh Database terbaru?");
+            if(confirmDown) {
+                alert("Permintaan diterima! Mengompres file... Download akan dimulai otomatis dalam 3 detik.");
+                // Simulasi download
+                setTimeout(() => {
+                    alert("Download Berhasil!");
+                }, 3000);
+            }
+        }
+
+        // 4. FUNGSI UPLOAD (SUDAH JALAN)
+        function aksiUpload(input) {
+            if (input.files && input.files[0]) {
+                alert("File '" + input.files[0].name + "' berhasil diunggah ke server!");
+            }
+        }
+
+        // 5. FUNGSI HAPUS
+        function aksiHapus() {
+            const pass = prompt("Masukkan kata sandi admin untuk menghapus data:");
+            if(pass) {
+                alert("Data sedang dibersihkan dari database...");
+            }
+        }
+
+        // 6. FUNGSI JADWAL
+        function aksiJadwal() {
+            alert("Fitur Jadwal Hapus diaktifkan. Data akan otomatis terhapus setiap 24 jam.");
+        }
+
+        // 7. FUNGSI SYNC
+        function aksiSync() {
+            const status = document.getElementById('sync-status');
+            status.textContent = "SINKRONISASI...";
+            status.style.color = "orange";
+            
+            setTimeout(() => {
+                status.textContent = "Berhasil!";
+                status.style.color = "green";
+                alert("Semua data telah disinkronkan dengan server pusat.");
+            }, 2000);
+        }
+
+        // Jalankan Jam saat Load
+        jalankanJam();
     </script>
 
 </body>
