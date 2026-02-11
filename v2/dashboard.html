@@ -1,6 +1,59 @@
-<!DOCTYPE html>
-<html lang="id">
+
 <head>
+    <style>
+        /* Bungkus semua kode kamu di dalam tag style ini */
+        .pengaturan-footer {
+            width: 100%;
+            padding: 20px 0;
+            background: #111;
+            border-top: 1px solid #333;
+            margin-top: 40px;
+        }
+
+        .pengaturan-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 15px;
+            background: #1a1a1a;
+            border-radius: 12px;
+            border: 1px solid #444;
+        }
+
+        .pengaturan-title {
+            font-size: 12px;
+            color: #ffcc00;
+            margin-bottom: 12px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .pengaturan-row {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .pengaturan-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-size: 13px;
+        }
+
+        .sosmed-inline {
+            border-left: 1px solid #333;
+            padding-left: 15px;
+            gap: 15px;
+        }
+
+        .sosmed-inline a {
+            text-decoration: none;
+            font-size: 18px;
+        }
+    </style> </head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Gibran | Professional Portfolio</title>
@@ -343,7 +396,34 @@
         updateClock();
     </script>
 
-</body> </html> ```
+<div class="pengaturan-footer">
+    <div class="pengaturan-container">
+        <div class="pengaturan-title">Pengaturan v.2.2.2</div>
+        
+        <div class="pengaturan-row">
+            <div class="pengaturan-item">
+                <span>📶 WiFi</span>
+                <div class="switch on"></div>
+            </div>
+            
+            <div class="pengaturan-item">
+                <span>📊 Data</span>
+                <div class="switch"></div>
+            </div>
+
+            <div class="pengaturan-item">
+                <span>☀️ Cahaya</span>
+                <input type="range" min="1" max="100" value="70" style="width: 50px;">
+            </div>
+
+            <div class="pengaturan-item sosmed-inline">
+                <a href="https://instagram.com/mgibran4184" target="_blank">📸</a>
+                <a href="https://wa.me/6285123332018" target="_blank">🟢</a>
+            </div>
+        </div>
+    </div>
+</div></body> </html> ```
+
 
 
 
