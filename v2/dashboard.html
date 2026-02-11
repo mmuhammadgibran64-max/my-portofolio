@@ -668,27 +668,29 @@ function tutupAplikasi() {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Otomatis Gibran</title>
+    <title>Uji Coba Terakhir Gibran</title>
 </head>
-<body style="background: #121212; color: white; font-family: sans-serif; margin: 0; padding: 20px;">
+<body style="background: #000; color: white; font-family: sans-serif; padding: 20px;">
 
-    <div style="background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 15px; max-width: 400px; margin: 0 auto;">
-        <h3 style="color: #00ff88; text-align: center; font-size: 16px;">💬 CHAT ROOM GIBRAN</h3>
+    <div style="max-width: 400px; margin: 0 auto; border: 2px solid #00ff88; padding: 20px; border-radius: 15px;">
+        <h2 style="color: #00ff88; text-align: center;">FINAL TEST CHAT</h2>
         
-        <div id="chatBox" style="height: 300px; overflow-y: auto; background: #000; padding: 10px; border-radius: 8px; border: 1px solid #333; font-size: 13px; margin-bottom: 10px; color: #eee;">
-            <div id="statusSistem" style="color: #666;">Menghubungkan...</div>
+        <div id="lampu" style="background: grey; padding: 5px; text-align: center; border-radius: 5px; font-size: 12px; margin-bottom: 10px;">
+            STATUS: MENGECEK...
         </div>
 
-        <div style="display: flex; gap: 5px;">
-            <input id="chatInput" type="text" placeholder="Ketik di sini..." style="flex: 1; background: #222; border: 1px solid #333; color: white; padding: 10px; border-radius: 5px; outline: none;">
-            <button onclick="kirimChat()" style="background: #00ff88; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; color: black;">Kirim</button>
-        </div>
+        <div id="chatBox" style="height: 200px; overflow-y: auto; background: #111; border: 1px solid #333; padding: 10px; margin-bottom: 10px;">
+            </div>
+
+        <input id="inputPesan" type="text" placeholder="Ketik di sini..." style="width: 70%; padding: 10px;">
+        <button onclick="kirim()" style="padding: 10px; background: #00ff88; border: none; font-weight: bold;">KIRIM</button>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
     <script>
+        // Pakai Config yang lo kasih tadi (PROYEK: chat-otomatis-20ee5)
         const firebaseConfig = {
             apiKey: "AIzaSyAGVgvcYQbiB47e_zKRqfL18pEgJvCP7vs",
             authDomain: "chat-otomatis-20ee5.firebaseapp.com",
@@ -699,42 +701,38 @@ function tutupAplikasi() {
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
+        // CEK LAMPU KONEKSI
+        const lampu = document.getElementById('lampu');
         db.ref(".info/connected").on("value", (snap) => {
-            const status = document.getElementById('statusSistem');
             if (snap.val() === true) {
-                status.innerHTML = "[Sistem]: Siap Ngobrol!";
-                status.style.color = "#00ff88";
+                lampu.style.background = "green";
+                lampu.innerHTML = "STATUS: TERHUBUNG (BISA CHAT)";
+            } else {
+                lampu.style.background = "red";
+                lampu.innerHTML = "STATUS: GAGAL KONEK (CEK RULES FIREBASE)";
             }
         });
 
-        function kirimChat() {
-            const input = document.getElementById('chatInput');
-            if (input.value.trim() !== "") {
-                db.ref("pesan_publik").push().set({
+        function kirim() {
+            const input = document.getElementById('inputPesan');
+            if(input.value !== "") {
+                // Cobain tulis ke database
+                db.ref("test_chat").push().set({
                     nama: "Gibran",
-                    teks: input.value,
-                    jam: new Date().toLocaleTimeString()
+                    pesan: input.value
+                }).then(() => {
+                    console.log("Berhasil terkirim!");
+                }).catch((error) => {
+                    alert("Gagal kirim: " + error.message);
                 });
                 input.value = "";
-                setTimeout(() => {
-                    db.ref("pesan_publik").push().set({
-                        nama: "🤖 BOT",
-                        teks: "Pesan masuk, Boss Gibran!",
-                        jam: new Date().toLocaleTimeString()
-                    });
-                }, 1000);
             }
         }
 
-        db.ref("pesan_publik").limitToLast(10).on("child_added", (snap) => {
+        db.ref("test_chat").on("child_added", (snap) => {
             const data = snap.val();
-            const chatBox = document.getElementById('chatBox');
-            const div = document.createElement('div');
-            div.style.marginBottom = "10px";
-            const warnaNama = data.nama === "🤖 BOT" ? "#00ff88" : "#fff";
-            div.innerHTML = `<b style="color:${warnaNama};">${data.nama}:</b> ${data.teks}`;
-            chatBox.appendChild(div);
-            chatBox.scrollTop = chatBox.scrollHeight;
+            const box = document.getElementById('chatBox');
+            box.innerHTML += `<div><b>${data.nama}:</b> ${data.pesan}</div>`;
         });
     </script>
 </body>
