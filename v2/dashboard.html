@@ -298,16 +298,48 @@
             }
         }
     </script>
-<div style="display: flex; align-items: center; gap: 10px; justify-content: flex-end; padding: 10px;">
+          <div class="floating-settings">
+        <div class="settings-box">
+            <div class="settings-title">Pengaturan v.2.2.2</div>
+            
+            <div class="item-row">
+                <span>📶 WiFi</span>
+                <div class="switch on"></div>
+            </div>
+            
+            <div class="item-row">
+                <span>📊 Data</span>
+                <div class="switch"></div>
+            </div>
 
-    <a href="https://wa.me/6285123332018?text=Halo%20Gibran,%20saya%20butuh%20bantuan%20sistem" 
-       target="_blank" 
-       style="display: flex; align-items: center; gap: 8px; background: #25d366; color: white; padding: 8px 15px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: bold; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="18" height="18" style="filter: brightness(0) invert(1);">
-        CS Gibran
-  
-  
-</div></body>
-</html>
+            <div class="item-row">
+                <span>☀️ Cahaya</span>
+                <input type="range" min="1" max="100" value="70" style="width: 50px;">
+            </div>
+        </div>
+
+        <div class="mini-socials">
+            <a href="https://instagram.com/mgibran4184" target="_blank">📸</a>
+            <a href="https://wa.me/6285123332018" target="_blank">🟢</a>
+        </div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('id-ID', { hour12: false });
+            if(document.getElementById('digital-clock')) {
+                document.getElementById('digital-clock').textContent = timeString;
+            }
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+
+</body> </html> ```
+
+
+
+
 
 
