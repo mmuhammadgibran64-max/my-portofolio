@@ -517,57 +517,84 @@ function tutupAplikasi() {
     }
 }
 
+<div style="background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 15px; max-width: 400px; margin: 20px auto; font-family: sans-serif;">
+    <div style="color: #00ff88; font-size: 12px; font-weight: bold; margin-bottom: 10px; text-align: center; letter-spacing: 1px;">PUBLIC CHAT</div>
+    
+    <div id="chatBox" style="height: 120px; background: #000; border-radius: 8px; padding: 10px; font-size: 11px; overflow-y: auto; color: #aaa; margin-bottom: 10px; border: 1px solid #222; line-height: 1.5;">
+        <div><small style="color: #00ff88;">[System]</small>: Selamat datang di Public Chat Gibran.</div>
+    </div>
+    
+    <div style="display: flex; gap: 8px;">
+        <input type="text" id="chatInput" placeholder="Tulis pesan di sini..." 
+               style="flex-grow: 1; background: #222; border: 1px solid #444; border-radius: 6px; color: #fff; padding: 8px; font-size: 12px; outline: none;">
+        
+        <button onclick="kirimChat()" 
+                style="background: #00ff88; border: none; border-radius: 6px; padding: 0 15px; cursor: pointer; font-size: 14px; transition: 0.2s;"
+                onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+            🚀
+        </button>
+    </div>
+</div>
+
+<div style="background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 15px; max-width: 400px; margin: 20px auto; font-family: sans-serif;">
+    <div style="color: #00ff88; font-size: 12px; font-weight: bold; margin-bottom: 10px; text-align: center; letter-spacing: 1px;">PUBLIC CHAT</div>
+    
+    <div id="chatBox" style="height: 120px; background: #000; border-radius: 8px; padding: 10px; font-size: 11px; overflow-y: auto; color: #aaa; margin-bottom: 10px; border: 1px solid #222; line-height: 1.5;">
+        <div><small style="color: #00ff88;">[System]</small>: Selamat datang di Public Chat Gibran.</div>
+    </div>
+    
+    <div style="display: flex; gap: 8px;">
+        <input type="text" id="chatInput" placeholder="Tulis pesan di sini..." 
+               style="flex-grow: 1; background: #222; border: 1px solid #444; border-radius: 6px; color: #fff; padding: 8px; font-size: 12px; outline: none;">
+        
+        <button onclick="kirimChat()" 
+                style="background: #00ff88; border: none; border-radius: 6px; padding: 0 15px; cursor: pointer; font-size: 14px; transition: 0.2s;"
+                onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+            🚀
+        </button>
+    </div>
+</div>
+
 <script>
     function kirimChat() {
         const input = document.getElementById('chatInput');
         const chatBox = document.getElementById('chatBox');
         
+        // Cek apakah input kosong atau cuma spasi
         if (input && input.value.trim() !== "") {
             const pesanBaru = document.createElement('div');
-            pesanBaru.style.marginBottom = "5px";
-            pesanBaru.style.fontSize = "12px";
+            pesanBaru.style.marginBottom = "6px";
+            pesanBaru.style.borderBottom = "1px solid #222";
+            pesanBaru.style.paddingBottom = "4px";
             
-            // Format: User: Pesan
-            pesanBaru.innerHTML = `<span style="color:#00ff88; font-weight:bold;">User:</span> <span style="color:#eee;">${input.value}</span>`;
+            // Format Pesan: User: Isinya
+            pesanBaru.innerHTML = `<b style="color:#00ff88;">User:</b> <span style="color:#eee;">${input.value}</span>`;
             
+            // Masukkan pesan ke kotak
             chatBox.appendChild(pesanBaru);
+            
+            // Otomatis scroll ke paling bawah
             chatBox.scrollTop = chatBox.scrollHeight;
+            
+            // Bersihkan kolom input setelah kirim
             input.value = "";
+            input.focus();
         }
     }
 
-    // Fungsi Enter (Hanya perlu satu kali pasang)
-    document.addEventListener('DOMContentLoaded', () => {
-        const inputField = document.getElementById('chatInput');
-        if (inputField) {
-            inputField.addEventListener('keypress', function (e) {
-                if (e.key === 'Enter') {
-                    kirimChat();
-                }
-            });
+    // Supaya bisa kirim pake tombol ENTER di keyboard
+    document.getElementById('chatInput').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            kirimChat();
         }
     });
 </script>
 
-<div style="display: flex; align-items: center; justify-content: flex-end; padding: 20px; width: 100%; box-sizing: border-box;">
-    <a href="https://wa.me/6285123332018?text=Halo%20Gibran,%20saya%20butuh%20bantuan%20sistem" 
-       target="_blank" 
-       style="display: flex; align-items: center; gap: 10px; background: #25d366; color: white; padding: 12px 20px; border-radius: 10px; text-decoration: none; font-size: 14px; font-weight: bold; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); transition: 0.3s;">
-        
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" 
-             width="20" 
-             height="20" 
-             style="filter: brightness(0) invert(1);" 
-             alt="WA">
-        
-        <span>CS Gibran</span>
-    </a> </div>
-
 </body>
 </html>
 
-
    
+
 
 
 
