@@ -689,7 +689,6 @@ function tutupAplikasi() {
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
     <script>
-        // CONFIG TERBARU PUNYA GIBRAN
         const firebaseConfig = {
             apiKey: "AIzaSyAGVgvcYQbiB47e_zKRqfL18pEgJvCP7vs",
             authDomain: "chat-otomatis-20ee5.firebaseapp.com",
@@ -700,14 +699,13 @@ function tutupAplikasi() {
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // Cek Status
         db.ref(".info/connected").on("value", (snap) => {
             const status = document.getElementById('statusSistem');
             if (snap.val() === true) {
-                status.innerHTML = "[Sistem]: Siap Ngobrol!";
+                status.innerHTML = "[Sistem]: Siap Ngobrol, Boss!";
                 status.style.color = "#00ff88";
             } else {
-                status.innerHTML = "[Sistem]: Koneksi Putus...";
+                status.innerHTML = "[Sistem]: Mencoba menyambung...";
                 status.style.color = "red";
             }
         });
@@ -723,21 +721,22 @@ function tutupAplikasi() {
                 });
                 input.value = "";
                 
-                // Bot Nyaut Otomatis
                 setTimeout(() => {
                     db.ref("pesan_publik").push().set({
                         nama: "🤖 BOT",
-                        teks: "Pesan lo masuk, Bran! Gue proses ya.",
+                        teks: "Pesan masuk! Gibran emang keren.",
                         jam: new Date().toLocaleTimeString()
                     });
                 }, 1000);
             }
         }
 
-        // Tampilkan Pesan secara Realtime
         db.ref("pesan_publik").limitToLast(15).on("child_added", (snap) => {
             const data = snap.val();
             const chatBox = document.getElementById('chatBox');
+            const statusSistem = document.getElementById('statusSistem');
+            if (statusSistem) statusSistem.style.display = 'none'; // Sembunyikan status kalau sudah ada chat
+            
             const div = document.createElement('div');
             div.style.marginBottom = "10px";
             const warnaNama = data.nama === "🤖 BOT" ? "#00ff88" : "#fff";
@@ -746,7 +745,6 @@ function tutupAplikasi() {
             chatBox.scrollTop = chatBox.scrollHeight;
         });
 
-        // Bisa kirim pake tombol Enter
         document.getElementById('chatInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') kirimChat();
         });
