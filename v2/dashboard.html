@@ -470,7 +470,67 @@
       </div>
        
     </div>
-</div></body> </html> ```
+</div><div class="admin-chat-section" style="margin-top: 20px; padding: 0 15px; margin-bottom: 50px;">
+    <div style="max-width: 800px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+        
+        <div style="background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 20px; text-align: center;">
+            <div style="color: #0088ff; font-size: 12px; font-weight: bold; margin-bottom: 15px; letter-spacing: 2px;">ADMIN CONTROL</div>
+            <div style="display: flex; justify-content: center; gap: 20px;">
+                <div onclick="masukAdmin()" style="font-size: 30px; cursor: pointer; filter: drop-shadow(0 0 5px #0088ff);">⚙️</div>
+                <div onclick="tutupAplikasi()" style="font-size: 30px; cursor: pointer; filter: drop-shadow(0 0 5px #ff0000);">🔴</div>
+            </div>
+            <p style="font-size: 10px; color: #555; margin-top: 10px;">Security Level: High</p>
+        </div>
+
+        <div style="background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 15px;">
+            <div style="color: #00ff88; font-size: 12px; font-weight: bold; margin-bottom: 10px; text-align: center;">PUBLIC CHAT</div>
+            <div id="chatBox" style="height: 60px; background: #000; border-radius: 5px; padding: 5px; font-size: 11px; overflow-y: auto; color: #aaa; margin-bottom: 10px; border: 1px solid #222;">
+                <div><i>Sistem: Selamat datang di Chat Public...</i></div>
+            </div>
+            <div style="display: flex; gap: 5px;">
+                <input type="text" id="chatInput" placeholder="Ketik pesan..." style="flex-grow: 1; background: #222; border: none; border-radius: 4px; color: #fff; padding: 5px; font-size: 11px;">
+                <button onclick="kirimChat()" style="background: #00ff88; border: none; border-radius: 4px; padding: 5px 10px; cursor: pointer;">🚀</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+// Fungsi Masuk Admin (Tembus Aplikasi)
+function masukAdmin() {
+    let pass = prompt("Masukkan Password Admin:");
+    if (pass === "1234") { // Ganti password sesukamu
+        alert("Akses Diterima! Masuk ke sistem pusat...");
+        window.location.href = "admin/index.html"; // Arahkan ke folder admin
+    } else {
+        alert("Akses Ditolak! Anda bukan admin.");
+    }
+}
+
+// Fungsi Tutup Aplikasi
+function tutupAplikasi() {
+    if (confirm("Tutup aplikasi dashboard?")) {
+        window.close();
+        // Fallback jika browser blokir window.close()
+        alert("Gunakan shortcut Alt+F4 atau tekan tombol Home untuk keluar.");
+    }
+}
+
+// Fungsi Chat Public Sederhana
+function kirimChat() {
+    let input = document.getElementById('chatInput');
+    let chatBox = document.getElementById('chatBox');
+    if (input.value !== "") {
+        let msg = document.createElement('div');
+        msg.innerHTML = `<span style="color:#00ff88">User:</span> ${input.value}`;
+        chatBox.appendChild(msg);
+        chatBox.scrollTop = chatBox.scrollHeight;
+        input.value = "";
+    }
+}
+</script></body> </html> ```
+
 
 
 
