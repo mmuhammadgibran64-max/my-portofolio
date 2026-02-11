@@ -668,22 +668,20 @@ function tutupAplikasi() {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Gibran Fix</title>
+    <title>Chat Otomatis Gibran</title>
 </head>
 <body style="background: #121212; color: white; font-family: sans-serif; margin: 0; padding: 20px;">
 
     <div style="background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 15px; max-width: 400px; margin: 0 auto;">
-        <div style="color: #00ff88; font-size: 12px; font-weight: bold; margin-bottom: 15px; text-align: center;">DASHBOARD GIBRAN</div>
+        <div style="color: #00ff88; font-size: 14px; font-weight: bold; margin-bottom: 15px; text-align: center;">DASHBOARD CHAT GIBRAN</div>
         
-        <div style="display: flex; flex-direction: column; gap: 10px;">
-            <div id="chatBox" style="height: 250px; overflow-y: auto; background: #000; padding: 10px; border-radius: 8px; border: 1px solid #333; font-size: 13px;">
-                <div id="statusSistem" style="color: #666;">Sedang menyambungkan ke Firebase...</div>
-            </div>
+        <div id="chatBox" style="height: 300px; overflow-y: auto; background: #000; padding: 10px; border-radius: 8px; border: 1px solid #333; font-size: 13px; margin-bottom: 10px;">
+            <div id="statusSistem" style="color: #666;">Menghubungkan ke Chat Otomatis...</div>
+        </div>
 
-            <div style="display: flex; gap: 5px; margin-top: 10px;">
-                <input id="chatInput" type="text" placeholder="Ketik pesan..." style="flex: 1; background: #222; border: 1px solid #333; color: white; padding: 8px; border-radius: 5px; outline: none;">
-                <button onclick="kirimChat()" style="background: #00ff88; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; font-weight: bold; color: black;">Kirim</button>
-            </div>
+        <div style="display: flex; gap: 5px;">
+            <input id="chatInput" type="text" placeholder="Ketik pesan..." style="flex: 1; background: #222; border: 1px solid #333; color: white; padding: 10px; border-radius: 5px; outline: none;">
+            <button onclick="kirimChat()" style="background: #00ff88; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; color: black;">Kirim</button>
         </div>
     </div>
 
@@ -691,63 +689,66 @@ function tutupAplikasi() {
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
     <script>
-        // CONFIG FIREBASE (Pake databaseURL yang paling bener buat lo)
+        // CONFIG TERBARU PUNYA GIBRAN
         const firebaseConfig = {
-            apiKey: "AIzaSyBD0e8fgraMN0hHvKDup9UNNAXgC036Ioo",
-            authDomain: "telepon-online.firebaseapp.com",
-            projectId: "telepon-online",
-            databaseURL: "https://telepon-online-default-rtdb.asia-southeast1.firebasedatabase.app"
+            apiKey: "AIzaSyAGVgvcYQbiB47e_zKRqfL18pEgJvCP7vs",
+            authDomain: "chat-otomatis-20ee5.firebaseapp.com",
+            projectId: "chat-otomatis-20ee5",
+            databaseURL: "https://chat-otomatis-20ee5-default-rtdb.firebaseio.com"
         };
 
-        // Inisialisasi
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // CEK KONEKSI (Biar lo tau kalau error)
+        // Cek Status
         db.ref(".info/connected").on("value", (snap) => {
             const status = document.getElementById('statusSistem');
             if (snap.val() === true) {
-                status.innerHTML = "[Sistem]: Terhubung ke Database! Silahkan chat.";
+                status.innerHTML = "[Sistem]: Siap Ngobrol!";
                 status.style.color = "#00ff88";
             } else {
-                status.innerHTML = "[Sistem]: Gagal konek! Cek Rules Firebase lo.";
+                status.innerHTML = "[Sistem]: Koneksi Putus...";
                 status.style.color = "red";
             }
         });
 
-        // FUNGSI KIRIM
         function kirimChat() {
             const input = document.getElementById('chatInput');
-            if (input.value.trim() !== "") {
-                const text = input.value;
-                db.ref("chat_public").push().set({
-                    username: "User-Gibran",
-                    pesan: text,
-                    waktu: Date.now()
-                }).catch(err => alert("Error: " + err.message));
-                
+            const pesan = input.value.trim();
+            if (pesan !== "") {
+                db.ref("pesan_publik").push().set({
+                    nama: "Gibran",
+                    teks: pesan,
+                    jam: new Date().toLocaleTimeString()
+                });
                 input.value = "";
                 
-                // Bot Otomatis
+                // Bot Nyaut Otomatis
                 setTimeout(() => {
-                    db.ref("chat_public").push().set({
-                        username: "🤖 BOT",
-                        pesan: "Oke masuk! Ada lagi?",
-                        waktu: Date.now()
+                    db.ref("pesan_publik").push().set({
+                        nama: "🤖 BOT",
+                        teks: "Pesan lo masuk, Bran! Gue proses ya.",
+                        jam: new Date().toLocaleTimeString()
                     });
                 }, 1000);
             }
         }
 
-        // TERIMA PESAN
-        db.ref("chat_public").limitToLast(10).on("child_added", (snapshot) => {
-            const data = snapshot.val();
+        // Tampilkan Pesan secara Realtime
+        db.ref("pesan_publik").limitToLast(15).on("child_added", (snap) => {
+            const data = snap.val();
             const chatBox = document.getElementById('chatBox');
             const div = document.createElement('div');
-            div.style.marginBottom = "5px";
-            div.innerHTML = `<b style="color:#00ff88;">${data.username}:</b> ${data.pesan}`;
+            div.style.marginBottom = "10px";
+            const warnaNama = data.nama === "🤖 BOT" ? "#00ff88" : "#fff";
+            div.innerHTML = `<span style="color:#666; font-size:10px;">${data.jam}</span><br><b style="color:${warnaNama};">${data.nama}:</b> ${data.teks}`;
             chatBox.appendChild(div);
             chatBox.scrollTop = chatBox.scrollHeight;
+        });
+
+        // Bisa kirim pake tombol Enter
+        document.getElementById('chatInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') kirimChat();
         });
     </script>
 </body>
