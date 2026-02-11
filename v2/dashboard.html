@@ -668,7 +668,7 @@ function tutupAplikasi() {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Gibran - Auto Bot</title>
+    <title>Dashboard Gibran 2026</title>
 </head>
 <body style="background: #121212; color: white; font-family: sans-serif; margin: 0; padding: 20px;">
 
@@ -677,20 +677,17 @@ function tutupAplikasi() {
         
         <div style="display: flex; flex-direction: column; gap: 10px;">
             <div style="display: flex; align-items: center; gap: 10px; background: #222; padding: 10px; border-radius: 8px; border: 1px solid #333; cursor: pointer;" onclick="mulaiTelepon()">
-                <span style="font-size: 20px;">📞</span>
-                <span style="color: #fff; font-size: 14px; font-weight: bold;">Telepon Online</span>
+                <span>📞</span> <span style="font-weight: bold; font-size: 14px;">Telepon Online</span>
             </div>
-
             <div style="display: flex; align-items: center; gap: 10px; background: #222; padding: 10px; border-radius: 8px; border: 1px solid #333; cursor: pointer;" onclick="mulaiVideo()">
-                <span style="font-size: 20px;">🎥</span>
-                <span style="color: #fff; font-size: 14px; font-weight: bold;">Video Call Online</span>
+                <span>🎥</span> <span style="font-weight: bold; font-size: 14px;">Video Call Online</span>
             </div>
 
             <hr style="border: 0.5px solid #333; margin: 10px 0;">
 
             <div style="color: #00ff88; font-size: 10px; font-weight: bold; margin-bottom: 5px;">LIVE CHAT & AUTO BOT:</div>
             <div id="chatBox" style="height: 180px; overflow-y: auto; background: #000; padding: 10px; border-radius: 8px; border: 1px solid #333; font-size: 13px;">
-                <div id="statusSistem" style="color: #00ff88;">[Sistem]: Menghubungkan ke server...</div>
+                <div id="statusSistem" style="color: #666;">Menghubungkan ke server...</div>
             </div>
 
             <div style="display: flex; gap: 5px; margin-top: 10px;">
@@ -704,7 +701,6 @@ function tutupAplikasi() {
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
 
     <script>
-        // 1. KONFIGURASI (Pake server Amerika sesuai screenshot lo)
         const firebaseConfig = {
             apiKey: "AIzaSyBD0e8fgraMN0hHvKDup9UNNAXgC036Ioo",
             authDomain: "telepon-online.firebaseapp.com",
@@ -715,48 +711,28 @@ function tutupAplikasi() {
             databaseURL: "https://telepon-online-default-rtdb.firebaseio.com"
         };
 
-        // 2. JALANKAN MESIN
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // Tes Koneksi Otomatis
-        db.ref("koneksi_test").set({
-            status: "AKTIF",
-            user: "Gibran",
-            waktu: Date.now()
-        });
-
-        // 3. FUNGSI KIRIM CHAT
         function kirimChat() {
             const input = document.getElementById('chatInput');
             if (input && input.value.trim() !== "") {
                 const pesanUser = input.value;
-                
-                // Simpan ke Firebase
                 db.ref("chat_public").push().set({
                     username: "mgibran4184",
                     pesan: pesanUser,
                     waktu: Date.now()
                 });
-
                 input.value = "";
-
-                // Jalankan Balasan Bot
-                setTimeout(() => {
-                    balasOtomatis(pesanUser);
-                }, 1500);
+                setTimeout(() => { balasOtomatis(pesanUser); }, 1500);
             }
         }
 
-        // 4. FUNGSI BOT
         function balasOtomatis(pesanUser) {
-            let jawaban = "Pesan diterima Boss Gibran! Ada lagi?";
+            let jawaban = "Pesan diterima Boss Gibran!";
             const msg = pesanUser.toLowerCase();
-            
-            if(msg.includes("halo")) jawaban = "Halo juga! Saya bot asisten lo.";
-            if(msg.includes("p")) jawaban = "Iya hadir, kenapa Bran?";
-            if(msg.includes("video")) jawaban = "Siap, klik tombol Video Call di atas ya!";
-
+            if(msg.includes("halo")) jawaban = "Halo juga Gibran! Bot Online.";
+            if(msg.includes("p")) jawaban = "Iya hadir!";
             db.ref("chat_public").push().set({
                 username: "🤖 AUTO-BOT",
                 pesan: jawaban,
@@ -764,44 +740,28 @@ function tutupAplikasi() {
             });
         }
 
-        // 5. UPDATE CHAT REALTIME
         db.ref("chat_public").limitToLast(10).on("child_added", (snapshot) => {
             const data = snapshot.val();
             const chatBox = document.getElementById('chatBox');
-            const statusSistem = document.getElementById('statusSistem');
-            
+            const status = document.getElementById('statusSistem');
             if(chatBox) {
-                if (statusSistem) statusSistem.remove(); // Hapus tulisan menghubungkan
-
+                if(status) status.remove();
                 const div = document.createElement('div');
                 div.style.marginBottom = "8px";
-                const warnaUser = data.username === "🤖 AUTO-BOT" ? "#00ff88" : "#fff";
-                div.innerHTML = `<b style="color:${warnaUser};">${data.username}:</b> <span style="color:#eee;">${data.pesan}</span>`;
-                
+                const warna = data.username === "🤖 AUTO-BOT" ? "#00ff88" : "#fff";
+                div.innerHTML = `<b style="color:${warna};">${data.username}:</b> <span style="color:#eee;">${data.pesan}</span>`;
                 chatBox.appendChild(div);
                 chatBox.scrollTop = chatBox.scrollHeight;
             }
         });
 
-        // 6. FITUR TELEPON & VIDEO
-        function mulaiTelepon() {
-            window.open("https://meet.jit.si/Gibran_Room#config.startAudioOnly=true", "_blank");
-        }
-
-        function mulaiVideo() {
-            window.open("https://meet.jit.si/Gibran_Room", "_blank");
-        }
-
-        // Enter Key Listener
-        document.getElementById('chatInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') kirimChat();
-        });
-
-        console.log("Sistem Gibran Ready!");
+        function mulaiTelepon() { window.open("https://meet.jit.si/Gibran_Room#config.startAudioOnly=true", "_blank"); }
+        function mulaiVideo() { window.open("https://meet.jit.si/Gibran_Room", "_blank"); }
+        document.getElementById('chatInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') kirimChat(); });
     </script>
 </body>
 </html>
-   
+
 
 
 
