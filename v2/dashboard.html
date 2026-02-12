@@ -472,82 +472,11 @@
     </div>
 
 
-<script>
-// Fungsi Masuk Admin (Tembus Aplikasi)
-function masukAdmin() {
-    let pass = prompt("Masukkan Password Admin:");
-    if (pass === "1234") { // Ganti password sesukamu
-        alert("Akses Diterima! Masuk ke sistem pusat...");
-        window.location.href = "admin/index.html"; // Arahkan ke folder admin
-    } else {
-        alert("Akses Ditolak! Anda bukan admin.");
-    }
-}
-
-// Fungsi Tutup Aplikasi
-function tutupAplikasi() {
-    if (confirm("Tutup aplikasi dashboard?")) {
-        window.close();
-        // Fallback jika browser blokir window.close()
-        alert("Gunakan shortcut Alt+F4 atau tekan tombol Home untuk keluar.");
-    }
-}
 
 
 
-<div style="background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 15px; max-width: 400px; margin: 20px auto; font-family: sans-serif;">
-    <div style="color: #00ff88; font-size: 12px; font-weight: bold; margin-bottom: 10px; text-align: center; letter-spacing: 1px;">PUBLIC CHAT</div>
-    
-    <div id="chatBox" style="height: 120px; background: #000; border-radius: 8px; padding: 10px; font-size: 11px; overflow-y: auto; color: #aaa; margin-bottom: 10px; border: 1px solid #222; line-height: 1.5;">
-        <div><small style="color: #00ff88;">[System]</small>: Selamat datang di Public Chat Gibran.</div>
-    </div>
-    
-    <div style="display: flex; gap: 8px;">
-        <input type="text" id="chatInput" placeholder="Tulis pesan di sini..." 
-               style="flex-grow: 1; background: #222; border: 1px solid #444; border-radius: 6px; color: #fff; padding: 8px; font-size: 12px; outline: none;">
-        
-        <button onclick="kirimChat()" 
-                style="background: #00ff88; border: none; border-radius: 6px; padding: 0 15px; cursor: pointer; font-size: 14px; transition: 0.2s;"
-                onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
-            🚀
-        </button>
-    </div>
-</div>
 
-<script>
-    function kirimChat() {
-        const input = document.getElementById('chatInput');
-        const chatBox = document.getElementById('chatBox');
-        
-        // Cek apakah input kosong atau cuma spasi
-        if (input && input.value.trim() !== "") {
-            const pesanBaru = document.createElement('div');
-            pesanBaru.style.marginBottom = "6px";
-            pesanBaru.style.borderBottom = "1px solid #222";
-            pesanBaru.style.paddingBottom = "4px";
-            
-            // Format Pesan: User: Isinya
-            pesanBaru.innerHTML = `<b style="color:#00ff88;">User:</b> <span style="color:#eee;">${input.value}</span>`;
-            
-            // Masukkan pesan ke kotak
-            chatBox.appendChild(pesanBaru);
-            
-            // Otomatis scroll ke paling bawah
-            chatBox.scrollTop = chatBox.scrollHeight;
-            
-            // Bersihkan kolom input setelah kirim
-            input.value = "";
-            input.focus();
-        }
-    }
 
-    // Supaya bisa kirim pake tombol ENTER di keyboard
-    document.getElementById('chatInput').addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') {
-            kirimChat();
-        }
-    });
-</script>
 
     <div style="background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 15px; max-width: 400px; margin: 20px auto; font-family: sans-serif;">
     <div style="color: #00ff88; font-size: 12px; font-weight: bold; margin-bottom: 15px; text-align: center; letter-spacing: 1px;">ONLINE STORE INTERFACE</div>
@@ -564,12 +493,7 @@ function tutupAplikasi() {
             <span style="color: #fff; font-size: 14px; font-weight: bold;">085123332018</span>
         </a>
 
-        <div style="display: flex; align-items: center; gap: 10px; background: #222; padding: 10px; border-radius: 8px; border: 1px solid #333; cursor: pointer;" onclick="alert('Membuka Chat Online...')">
-            <span style="font-size: 20px;">💬</span>
-            <span style="color: #fff; font-size: 14px; font-weight: bold;">Chat Online</span>
-            <span style="margin-left: auto; color: #00ff88; font-size: 10px;">● Online</span>
-        </div>
-
+      
        <div style="background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 15px; max-width: 400px; margin: 20px auto; font-family: sans-serif;">
     <div style="color: #00ff88; font-size: 12px; font-weight: bold; margin-bottom: 15px; text-align: center;">ONLINE STORE INTERFACE</div>
     
@@ -620,33 +544,9 @@ const firebaseConfig = {
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // 4. FUNGSI KIRIM CHAT GLOBAL
-    function kirimChat() {
-        const input = document.getElementById('chatInput');
-        if (input && input.value.trim() !== "") {
-            // Masuk ke folder "chat_public" di Firebase
-            db.ref("chat_public").push().set({
-                username: "mgibran4184", // Bisa diganti sesuai user
-                pesan: input.value,
-                waktu: Date.now()
-            });
-            input.value = "";
-        }
-    }
+  
 
-    // 5. TERIMA CHAT (Otomatis muncul di semua orang)
-    db.ref("chat_public").on("child_added", (snapshot) => {
-        const data = snapshot.val();
-        const chatBox = document.getElementById('chatBox');
-        if(chatBox) {
-            const div = document.createElement('div');
-            div.style.marginBottom = "8px";
-            div.innerHTML = `<b style="color:#00ff88;">${data.username}:</b> <span style="color:#eee;">${data.pesan}</span>`;
-            chatBox.appendChild(div);
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
-    });
-
+    // 
     // 6. TELEPON & VIDEO (Pake Jitsi - Gratis & Tanpa Nomor)
     function mulaiTelepon() {
         const room = "Gibran_Voice_" + Math.floor(1000 + Math.random() * 9000);
@@ -658,79 +558,11 @@ const firebaseConfig = {
         window.open(`https://meet.jit.si/${room}`, "_blank");
     }
 
-    // Listener Enter Key
-    document.getElementById('chatInput')?.addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') kirimChat();
-    });
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>TES KONEKSI GIBRAN</title>
-</head>
-<body style="background: blue; color: white; text-align: center; padding: 50px; font-family: sans-serif;">
-    <h1>HALO GIBRAN! LINK SUDAH AKTIF!</h1>
-    <p>Kalau lo liat warna BIRU ini, berarti link v2 lo udah JALAN.</p>
-    <p>Tunggu bentar, nanti kita ganti pake kode chat.</p>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    
 
-<script>
-    // Konfigurasi kamu
-    const firebaseConfig = {
-        apiKey: "AIzaSyAGVgvcYQbiB47e_zKRqfL18pEgJvCP7vs",
-        authDomain: "chat-otomatis-20ee5.firebaseapp.com",
-        projectId: "chat-otomatis-20ee5",
-        databaseURL: "https://chat-otomatis-20ee5-default-rtdb.firebaseio.com"
-    };
-
-    // Inisialisasi Firebase
-    if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
-    }
-    const db = firebase.database();
-
-    // Pastikan DOM sudah siap sebelum manipulasi
-    document.addEventListener("DOMContentLoaded", function() {
-        const lampu = document.getElementById('lampu');
-        const input = document.getElementById('inputPesan');
-        const box = document.getElementById('chatBox');
-
-        // Monitor Koneksi
-        db.ref(".info/connected").on("value", (snap) => {
-            if (snap.val() === true) {
-                lampu.style.background = "#00ff88";
-                lampu.innerHTML = "STATUS: TERHUBUNG";
-            } else {
-                lampu.style.background = "red";
-                lampu.innerHTML = "STATUS: TERPUTUS";
-            }
-        });
-
-        // Listener Chat
-        db.ref("chat_v2").limitToLast(20).on("child_added", (snap) => {
-            const data = snap.val();
-            const msgDiv = document.createElement("div");
-            msgDiv.style.padding = "2px 0";
-            msgDiv.innerHTML = `<b style="color:#00ff88">${data.nama}:</b> ${data.pesan}`;
-            box.appendChild(msgDiv);
-            box.scrollTop = box.scrollHeight;
-        });
-    });
-
-    function kirim() {
-        const input = document.getElementById('inputPesan');
-        if(input.value.trim() !== "") {
-            db.ref("chat_v2").push().set({
-                nama: "Gibran",
-                pesan: input.value,
-                waktu: Date.now()
-            });
-            input.value = "";
-        }
-    }
 </script></body>
 </html>
+
 
 
 
