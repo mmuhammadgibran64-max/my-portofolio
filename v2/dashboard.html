@@ -6,66 +6,123 @@
     <title>Dashboard Gibran | Professional Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --bg: #050505; --card: #111; --accent: #ff9800; --blue: #00d2ff; --green: #00ff88; --text: #ddd; --border: #222; }
-        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; line-height: 1.6; }
-        .container { max-width: 600px; margin: auto; padding: 20px; }
-        
-        /* NAVIGASI & HEADER */
-        .top-nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: rgba(5,5,5,0.95); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(5px); }
-        .btn-logout { color: #ff4444; text-decoration: none; font-weight: bold; font-size: 12px; border: 1px solid #421111; padding: 6px 12px; border-radius: 8px; transition: 0.3s; }
-        .btn-logout:hover { background: #421111; color: #fff; }
+        /* --- GIBRAN MODERN SYSTEM V3.5 (FULL VERSION) --- */
+        :root { 
+            --bg: #f0f2f5; 
+            --card: #ffffff; 
+            --accent: #1a73e8; 
+            --blue: #1a73e8; 
+            --green: #34a853; 
+            --text: #202124; 
+            --border: #e1e4e8; 
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        body { 
+            background: var(--bg) !important; 
+            color: var(--text) !important; 
+            font-family: 'Segoe UI', Roboto, Helvetica, sans-serif; 
+            margin: 0; padding: 0; 
+            line-height: 1.6; 
+        }
+
+        .container { max-width: 800px; margin: auto; padding: 20px; }
+
+        /* NAVIGASI TERANG & BLUR */
+        .top-nav { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 15px 20px; background: rgba(255,255,255,0.9); 
+            border-bottom: 1px solid var(--border); position: sticky; 
+            top: 0; z-index: 100; backdrop-filter: blur(10px); 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .btn-logout { color: #d93025; text-decoration: none; font-weight: bold; font-size: 12px; border: 1px solid #f8d7da; padding: 6px 12px; border-radius: 8px; transition: 0.3s; }
+        .btn-logout:hover { background: #d93025; color: #fff; }
         #clock { color: var(--accent); font-weight: bold; font-family: monospace; font-size: 14px; }
 
-        .banner { width: 100%; height: 160px; background: linear-gradient(135deg, #1a1a1a, #000); border-radius: 20px; margin-top: 20px; border: 1px solid var(--border); overflow: hidden; position: relative; }
-        .banner img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
-        .profile-pic { width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--bg); background: #222; margin-top: -50px; margin-left: 20px; position: relative; object-fit: cover; z-index: 2; }
-        
-        /* IDENTITAS */
-        .intro { padding: 10px 10px; margin-bottom: 20px; }
-        .intro h1 { margin: 0; font-size: 26px; color: var(--accent); letter-spacing: 1px; }
-        .intro p.sub { color: #888; margin: 5px 0 15px; font-size: 14px; font-weight: 500; }
-        
-        /* KOTAK KONTEN (Card Style) */
-        .card-box { background: var(--card); padding: 20px; border-radius: 20px; border: 1px solid var(--border); margin-bottom: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.5); }
-        .card-box h3 { margin-top: 0; color: var(--accent); font-size: 16px; border-bottom: 1px solid #333; padding-bottom: 10px; display: flex; align-items: center; gap: 10px; }
-        .card-box p { font-size: 13px; text-align: justify; color: #ccc; margin-bottom: 10px; }
-        
-        /* LIST SKILL */
-        .skill-item { margin-bottom: 15px; border-bottom: 1px solid #1a1a1a; padding-bottom: 10px; }
-        .skill-item:last-child { border-bottom: none; }
-        .skill-item b { color: #fff; display: block; font-size: 14px; margin-bottom: 4px; }
-        .skill-item span { font-size: 12px; color: #888; display: block; }
+        /* BANNER GRADIENT */
+        .banner { 
+            width: 100%; height: 160px; 
+            background: linear-gradient(135deg, #1a73e8, #00d2ff); 
+            border-radius: 20px; margin-top: 20px; border: none; 
+            overflow: hidden; position: relative; 
+        }
+        .profile-pic { 
+            width: 100px; height: 100px; border-radius: 50%; 
+            border: 4px solid #fff; background: #fff; 
+            margin-top: -50px; margin-left: 20px; 
+            position: relative; object-fit: cover; z-index: 2; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
 
-        /* VISI MISI */
-        .visi-misi b { color: var(--blue); display: block; margin-top: 10px; }
-        .visi-misi ul { margin: 5px 0 0 20px; padding: 0; font-size: 13px; color: #ccc; }
-        .visi-misi li { margin-bottom: 5px; }
+        /* CARD BOX & DASHBOARD MODERN */
+        .card-box, .card, #settingsPanel { 
+            background: var(--card) !important; 
+            padding: 25px !important; 
+            border-radius: 20px !important; 
+            border: 1px solid var(--border) !important; 
+            margin-bottom: 20px; 
+            box-shadow: var(--shadow) !important; 
+            transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+            color: var(--text) !important;
+        }
 
-        /* UPLOAD PANELS */
-        .upload-area { margin-top: 30px; }
-        .upload-panel-1 { background: #1a150e; border: 2px dashed var(--accent); padding: 20px; border-radius: 15px; text-align: center; margin-bottom: 15px; }
-        .btn-up-1 { background: var(--accent); color: #000; width: 100%; padding: 12px; border-radius: 10px; font-weight: bold; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 14px; transition: 0.3s; }
-        
-        .upload-panel-2 { background: #0a151a; border: 2px dashed var(--blue); padding: 20px; border-radius: 15px; text-align: center; margin-bottom: 15px; }
-        .btn-up-2 { background: var(--blue); color: #000; width: 100%; padding: 12px; border-radius: 10px; font-weight: bold; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 14px; transition: 0.3s; }
-        
-        .btn-up-1:hover, .btn-up-2:hover { transform: translateY(-2px); opacity: 0.9; }
+        .card-box:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.12) !important; }
+        .card-box h3 { margin-top: 0; color: var(--accent) !important; font-size: 18px; border-bottom: 2px solid #f1f3f4 !important; padding-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .card-box p { font-size: 14px; color: #5f6368 !important; }
 
-        /* GALLERY & ACTIONS */
-        .gallery-title { font-weight: bold; color: #666; font-size: 14px; margin: 30px 0 15px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #222; padding-bottom: 5px; }
-        .gallery-item { background: #161616; border-radius: 15px; padding: 12px; margin-bottom: 12px; display: flex; gap: 15px; align-items: center; border: 1px solid #2a2a2a; }
-        .gallery-item img { width: 60px; height: 60px; border-radius: 10px; object-fit: cover; background: #000; }
-        .item-details { flex: 1; overflow: hidden; }
-        .item-name { font-weight: bold; font-size: 13px; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .item-meta { font-size: 11px; color: #666; margin-top: 3px; }
-        
-        .action-btns { display: flex; gap: 8px; margin-top: 8px; }
-        .btn-action { flex: 1; padding: 7px; border-radius: 6px; font-size: 11px; font-weight: bold; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; }
-        .dl-btn { background: #0a291a; color: var(--green); border: 1px solid #145233; }
-        .del-btn { background: #290a0a; color: #ff4444; border: 1px solid #521414; }
+        /* LIST SKILL & VISI MISI */
+        .skill-item { border-bottom: 1px solid #f1f3f4; padding-bottom: 10px; margin-bottom: 10px; }
+        .skill-item b { color: var(--accent) !important; font-size: 14px; }
+        .skill-item span { color: #80868b !important; font-size: 12px; }
+        .visi-misi b { color: var(--green) !important; }
+        .visi-misi ul { color: #5f6368 !important; font-size: 14px; }
+
+        /* TOMBOL AKSI MODERN */
+        button, .btn-blue, .btn-up-1, .btn-up-2 { 
+            border-radius: 12px !important; 
+            font-weight: bold !important; 
+            border: none !important; 
+            cursor: pointer; 
+            transition: 0.3s ease; 
+            padding: 14px !important;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+
+        .btn-up-1 { background: var(--accent) !important; color: #fff !important; box-shadow: 0 4px 12px rgba(26,115,232,0.2); }
+        .btn-up-2 { background: var(--green) !important; color: #fff !important; box-shadow: 0 4px 12px rgba(52,168,83,0.2); }
+
+        /* GALLERY AREA TERANG */
+        .gallery-item { 
+            background: #fff !important; border: 1px solid var(--border) !important; 
+            border-radius: 15px; padding: 12px; margin-bottom: 12px; 
+            display: flex; gap: 15px; align-items: center; 
+        }
+        .item-name { font-weight: bold; font-size: 13px; color: var(--text) !important; }
+        .dl-btn { background: #e6f4ea !important; color: var(--green) !important; border: 1px solid #ceead6 !important; }
+        .del-btn { background: #fce8e6 !important; color: #d93025 !important; border: 1px solid #fad2cf !important; }
+
+        /* LAYOUT DASHBOARD BARU */
+        .main-container {
+            max-width: 1000px;
+            margin: 20px auto;
+            display: flex; flex-wrap: wrap; gap: 20px; 
+            justify-content: center; padding: 0 20px;
+        }
+
+        /* EFEK KACA TERKUNCI */
+        .locked-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(8px);
+            z-index: 10; display: flex; flex-direction: column; 
+            align-items: center; justify-content: center; border-radius: 20px;
+        }
     </style>
 </head>
-<body>
+
 
     <div class="top-nav">
         <div id="clock">00:00:00</div>
@@ -404,6 +461,7 @@
     </div> <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
 </html>
+
 
 
 
