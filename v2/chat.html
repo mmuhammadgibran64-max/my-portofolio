@@ -1,67 +1,91 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>Chat Baru Gibran</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gibran Chat</title>
 </head>
-<body style="background-color: white; color: black; padding: 20px;">
+<body style="background: #000; color: white; font-family: sans-serif; padding: 20px; text-align: center;">
 
-    <h1>TEST CHAT BARU</h1>
-    <p>Kalau tulisan ini muncul, berarti file baru BERHASIL dibuat.</p>
-    
-    <h3 id="status" style="color: red;">STATUS: MENUNGGU KONEKSI...</h3>
+    <div style="max-width: 400px; margin: 0 auto; border: 2px solid #00ff88; padding: 20px; border-radius: 15px;">
+        <h2 style="color: #00ff88;">GIBRAN CHAT</h2>
+        
+        <div id="lampu" style="background: grey; padding: 10px; border-radius: 5px; font-weight: bold; margin-bottom: 10px;">
+            MENGECEK KONEKSI...
+        </div>
 
-    <div id="kotakPesan" style="border: 2px solid black; height: 200px; overflow: scroll; margin-bottom: 10px; padding: 10px; background: #eee;">
+        <div id="chatBox" style="height: 250px; overflow-y: auto; background: #111; border: 1px solid #333; padding: 10px; margin-bottom: 10px; text-align: left;">
+            </div>
+
+        <input id="inputPesan" type="text" placeholder="Ketik pesan..." style="width: 70%; padding: 10px;">
+        <button onclick="kirim()" style="padding: 10px; background: #00ff88; border: none; font-weight: bold; cursor: pointer;">KIRIM</button>
     </div>
-
-    <input type="text" id="inputPesan" placeholder="Ketik pesan..." style="width: 60%; padding: 10px;">
-    <button onclick="kirim()" style="padding: 10px; background: blue; color: white;">KIRIM PESAN</button>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
     <script>
+        // Config Proyek Telepon Online
         const firebaseConfig = {
-            apiKey: "AIzaSyAGVgvcYQbiB47e_zKRqfL18pEgJvCP7vs",
-            authDomain: "chat-otomatis-20ee5.firebaseapp.com",
-            projectId: "chat-otomatis-20ee5",
-            databaseURL: "https://chat-otomatis-20ee5-default-rtdb.firebaseio.com"
+            apiKey: "AIzaSyBD0e8fgraMN0hHvKDup9UNNAXgC036Ioo",
+            authDomain: "telepon-online.firebaseapp.com",
+            projectId: "telepon-online",
+            databaseURL: "https://telepon-online-default-rtdb.firebaseio.com"
         };
 
-        firebase.initializeApp(firebaseConfig);
+        // Inisialisasi
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
         const db = firebase.database();
 
-        // 1. Cek Koneksi
-        db.ref(".info/connected").on("value", (snap) => {
-            const st = document.getElementById("status");
-            if (snap.val() === true) {
-                st.innerHTML = "STATUS: TERHUBUNG (HIJAU)!";
-                st.style.color = "green";
-            } else {
-                st.innerHTML = "STATUS: TERPUTUS (MERAH)...";
-                st.style.color = "red";
-            }
+        // Pastikan elemen HTML siap
+        document.addEventListener("DOMContentLoaded", function() {
+            const lampu = document.getElementById('lampu');
+            const box = document.getElementById('chatBox');
+
+            // Monitor Koneksi
+            db.ref(".info/connected").on("value", (snap) => {
+                if (snap.val() === true) {
+                    lampu.style.background = "#00ff88";
+                    lampu.style.color = "#000";
+                    lampu.innerHTML = "STATUS: TERHUBUNG";
+                } else {
+                    lampu.style.background = "red";
+                    lampu.style.color = "#fff";
+                    lampu.innerHTML = "STATUS: TERPUTUS";
+                }
+            });
+
+            // Tampilkan Chat (Ambil dari folder 'chat_public')
+            db.ref("chat_public").limitToLast(20).on("child_added", (snap) => {
+                const data = snap.val();
+                const msgDiv = document.createElement("div");
+                msgDiv.style.marginBottom = "5px";
+                msgDiv.innerHTML = `<b style="color:#00ff88">${data.nama}:</b> <span></span>`;
+                msgDiv.querySelector("span").textContent = data.pesan;
+                box.appendChild(msgDiv);
+                box.scrollTop = box.scrollHeight;
+            });
         });
 
-        // 2. Kirim Pesan
+        // Fungsi Kirim
         function kirim() {
-            const teks = document.getElementById("inputPesan").value;
-            if(teks !== "") {
-                db.ref("chat_final").push().set({
+            const input = document.getElementById('inputPesan');
+            if(input.value.trim() !== "") {
+                db.ref("chat_public").push().set({
                     nama: "Gibran",
-                    pesan: teks
+                    pesan: input.value,
+                    waktu: Date.now()
                 });
-                document.getElementById("inputPesan").value = "";
+                input.value = "";
             }
         }
 
-        // 3. Tampilkan Pesan
-        db.ref("chat_final").on("child_added", (snap) => {
-            const data = snap.val();
-            const kotak = document.getElementById("kotakPesan");
-            kotak.innerHTML += "<p><b>" + data.nama + ":</b> " + data.pesan + "</p>";
-            kotak.scrollTop = kotak.scrollHeight;
+        // Kirim pakai Enter
+        document.getElementById('inputPesan').addEventListener("keypress", function(e) {
+            if (e.key === "Enter") kirim();
         });
     </script>
-
 </body>
 </html>
