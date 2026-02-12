@@ -664,79 +664,14 @@ function tutupAplikasi() {
         if (e.key === 'Enter') kirimChat();
     });
 <!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uji Coba Terakhir Gibran</title>
-</head>
-<body style="background: #000; color: white; font-family: sans-serif; padding: 20px;">
-
-    <div style="max-width: 400px; margin: 0 auto; border: 2px solid #00ff88; padding: 20px; border-radius: 15px;">
-        <h2 style="color: #00ff88; text-align: center;">FINAL TEST CHAT</h2>
-        
-        <div id="lampu" style="background: grey; padding: 5px; text-align: center; border-radius: 5px; font-size: 12px; margin-bottom: 10px;">
-            STATUS: MENGECEK...
-        </div>
-
-        <div id="chatBox" style="height: 200px; overflow-y: auto; background: #111; border: 1px solid #333; padding: 10px; margin-bottom: 10px;">
-            </div>
-
-        <input id="inputPesan" type="text" placeholder="Ketik di sini..." style="width: 70%; padding: 10px;">
-        <button onclick="kirim()" style="padding: 10px; background: #00ff88; border: none; font-weight: bold;">KIRIM</button>
-    </div>
-
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-
-    <script>
-        // Pakai Config yang lo kasih tadi (PROYEK: chat-otomatis-20ee5)
-        const firebaseConfig = {
-            apiKey: "AIzaSyAGVgvcYQbiB47e_zKRqfL18pEgJvCP7vs",
-            authDomain: "chat-otomatis-20ee5.firebaseapp.com",
-            projectId: "chat-otomatis-20ee5",
-            databaseURL: "https://chat-otomatis-20ee5-default-rtdb.firebaseio.com"
-        };
-
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-
-        // CEK LAMPU KONEKSI
-        const lampu = document.getElementById('lampu');
-        db.ref(".info/connected").on("value", (snap) => {
-            if (snap.val() === true) {
-                lampu.style.background = "green";
-                lampu.innerHTML = "STATUS: TERHUBUNG (BISA CHAT)";
-            } else {
-                lampu.style.background = "red";
-                lampu.innerHTML = "STATUS: GAGAL KONEK (CEK RULES FIREBASE)";
-            }
-        });
-
-        function kirim() {
-            const input = document.getElementById('inputPesan');
-            if(input.value !== "") {
-                // Cobain tulis ke database
-                db.ref("test_chat").push().set({
-                    nama: "Gibran",
-                    pesan: input.value
-                }).then(() => {
-                    console.log("Berhasil terkirim!");
-                }).catch((error) => {
-                    alert("Gagal kirim: " + error.message);
-                });
-                input.value = "";
-            }
-        }
-
-        db.ref("test_chat").on("child_added", (snap) => {
-            const data = snap.val();
-            const box = document.getElementById('chatBox');
-            box.innerHTML += `<div><b>${data.nama}:</b> ${data.pesan}</div>`;
-        });
-    </script>
+<html>
+<body style="background: blue; color: white; text-align: center; padding: 50px; font-family: sans-serif;">
+    <h1>HALO GIBRAN! KODE BERHASIL MASUK!</h1>
+    <p>Kalau lo bisa liat warna BIRU ini, berarti link v2 lo udah JALAN.</p>
+    <p>Tinggal kita pasang chatnya lagi nanti.</p>
 </body>
 </html>
+
 
 
 
