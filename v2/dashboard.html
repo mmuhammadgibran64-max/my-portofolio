@@ -357,8 +357,52 @@
         </iframe>
     </div>
 
+<div style="max-width: 500px; margin: 30px auto; padding: 20px; background: #f8f9fa; border-radius: 15px; border: 1px solid #e1e1e1; font-family: sans-serif;">
+        <h3 style="margin-top: 0; color: #3c4043; font-size: 18px; border-bottom: 2px solid #dee2e6; padding-bottom: 10px;">
+            <i class="fas fa-cog"></i> Pengaturan
+        </h3>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0;">
+            <span style="color: #5f6368;">Versi Sistem</span>
+            <span style="font-weight: bold; color: #1a73e8;">v.3.5.0</span>
+        </div>
+
+        <div style="padding: 10px 0; border-top: 1px solid #dee2e6;">
+            <button onclick="alert('Buka Edit Profil')" style="width: 100%; padding: 10px; background: white; border: 1px solid #dadce0; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 10px; font-weight: bold; color: #3c4043;">
+                <i class="fas fa-user-edit"></i> Edit Profil
+            </button>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-top: 1px solid #dee2e6;">
+            <div>
+                <span style="display: block; font-weight: bold; color: #3c4043;">Tampilan Android</span>
+                <small style="color: #70757a;">Optimalkan interface untuk mobile</small>
+            </div>
+            <label style="position: relative; display: inline-block; width: 50px; height: 24px;">
+                <input type="checkbox" id="androidMode" style="opacity: 0; width: 0; height: 0;" onchange="toggleAndroidMode()">
+                <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px;"></span>
+            </label>
+        </div>
+    </div>
+
+    <script>
+    function toggleAndroidMode() {
+        var checkBox = document.getElementById("androidMode");
+        if (checkBox.checked == true) {
+            alert("Tampilan Android Diaktifkan!");
+            // Di sini kamu bisa tambah kode untuk merubah layout jadi mobile
+            document.body.style.maxWidth = "450px";
+            document.body.style.margin = "0 auto";
+        } else {
+            alert("Kembali ke Tampilan Standar");
+            document.body.style.maxWidth = "100%";
+        }
+    }
+    </script>
+
 </body>
 </html>
+
 
 
 
