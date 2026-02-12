@@ -309,39 +309,40 @@
                         <div class="item-meta">
                             ${item.tgl} • ${item.sumber || 'System'}
                         </div>
-                       <div class="action-btns">
-    <button class="btn-action dl-btn" onclick="downloadFile('${item.url}', '${item.nama}')">
-        <i class="fas fa-download"></i> DOWNLOAD
-    </button>
-
-    <button class="btn-action" style="background: #007bff; color: white; border: none; border-radius: 8px; padding: 5px 15px; cursor: pointer; font-weight: bold;" 
-            onclick="bagikanFile('${item.nama}', '${item.url}')">
-        <i class="fas fa-share-alt"></i> BAGIKAN
-    </button>
-
-    <button class="btn-action del-btn" onclick="hapus('${item.id}')">
-        <i class="fas fa-trash"></i> HAPUS
-    </button>
-</div>
+                       <button class="btn-action del-btn" onclick="hapus('${item.id}')">
+                                <i class="fas fa-trash"></i> HAPUS
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join(''); // <-- Pastikan ada tanda ( ` ) backtick dan ( ' ) petik ini
+        } // <-- Pastikan ada kurung kurawal tutup ini
             try {
-                const btn = event.currentTarget;
-                const oriText = btn.innerHTML;
-                btn.innerHTML = "<i class='fas fa-spinner fa-spin'></i>";
-                
-                const response = await fetch(url);
-                const blob = await response.blob();
-                const link = document.createElement("a");
-                link.href = URL.createObjectURL(blob);
-                link.download = namaFile || "Gibran_File_" + Date.now();
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                btn.innerHTML = oriText;
-            } catch (error) {
-                window.open(url, '_blank');
+              window.open(url, '_blank');
+            }
+        } // <--- PENUTUP FUNGSI DOWNLOAD (Pastikan ada ini!)
+
+        // FUNGSI BAGIKAN (Taruh di bawah fungsi download)
+        function bagikanFile(nama, url) {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'File Gibran',
+                    text: 'Cek file ini: ' + nama,
+                    url: url
+                }).then(() => {
+                    console.log('Berhasil berbagi');
+                }).catch((err) => {
+                    console.log('Batal berbagi');
+                });
+            } else {
+                navigator.clipboard.writeText(url);
+                alert("Link file berhasil disalin ke clipboard!");
             }
         }
 
+    </script> 
+</body>
+</html>
         function hapus(id) {
             if(confirm("Hapus file ini?")) {
                 let koleksi = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
@@ -350,8 +351,28 @@
                 muatGaleri();
             }
         }
-    </script>
-        
+
+        // TAMBAHKAN INI DI BAWAH FUNGSI HAPUS
+        function bagikanFile(nama, url) {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'File Gibran',
+                    text: 'Cek file ini: ' + nama,
+                    url: url
+                }).then(() => {
+                    console.log('Berhasil berbagi');
+                }).catch((err) => {
+                    console.log('Batal berbagi');
+                });
+            } else {
+                navigator.clipboard.writeText(url);
+                alert("Link file berhasil disalin ke clipboard!");
+            }
+        }
+
+    </script> 
+</body>
+</html>
 
     <script>
         function updateClock() {
@@ -584,6 +605,7 @@ const firebaseConfig = {
 </script> 
 </body>
 </html>
+
 
 
 
