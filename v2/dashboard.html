@@ -269,10 +269,14 @@
             `).join('');
         }
 
+      // --- FUNGSI DOWNLOAD (VERSI TERBARU) ---
         async function downloadFile(url, namaFile) {
             try {
+                // Mencari tombol yang diklik
                 const btn = event.currentTarget;
                 const oriText = btn.innerHTML;
+                
+                // Efek loading saat download
                 btn.innerHTML = "<i class='fas fa-spinner fa-spin'></i>";
                 
                 const response = await fetch(url);
@@ -283,12 +287,48 @@
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
+                
+                // Balikkan icon ke semula
                 btn.innerHTML = oriText;
             } catch (error) {
+                console.error("Download gagal, mencoba buka tab baru:", error);
                 window.open(url, '_blank');
             }
         }
 
+        // --- FUNGSI UPLOAD (PASTIKAN INI ADA SUPAYA BISA UPLOAD) ---
+        async function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert("Pilih file dulu!");
+                return;
+            }
+
+            // Pastikan variabel 'storage' dan 'database' sudah didefinisikan di atas (Firebase)
+            try {
+                const storageRef = storage.ref('gibran_gallery/' + file.name);
+                const uploadTask = storageRef.put(file);
+
+                uploadTask.on('state_changed', 
+                    null, 
+                    (error) => alert("Error: " + error.message), 
+                    async () => {
+                        const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
+                        database.ref('files/').push({
+                            nama: file.name,
+                            url: downloadURL,
+                            tanggal: new Date().toLocaleString('id-ID')
+                        });
+                        alert("Berhasil Upload!");
+                        fileInput.value = ""; 
+                    }
+                );
+            } catch (err) {
+                alert("Firebase Error: " + err.message);
+            }
+        }
          <div class="gallery-title">Riwayat File & Download</div>
 <div id="gallery"></div> <script>
     // FUNGSI UNTUK MENAMPILKAN RIWAYAT FILE
@@ -350,5 +390,6 @@
 </script>
 </body>
 </html>
+
 
 
