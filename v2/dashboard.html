@@ -1,59 +1,6 @@
-
+<!DOCTYPE html>
+<html lang="id">
 <head>
-    <style>
-        /* Bungkus semua kode kamu di dalam tag style ini */
-        .pengaturan-footer {
-            width: 100%;
-            padding: 20px 0;
-            background: #111;
-            border-top: 1px solid #333;
-            margin-top: 40px;
-        }
-
-        .pengaturan-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 15px;
-            background: #1a1a1a;
-            border-radius: 12px;
-            border: 1px solid #444;
-        }
-
-        .pengaturan-title {
-            font-size: 12px;
-            color: #ffcc00;
-            margin-bottom: 12px;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        .pengaturan-row {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .pengaturan-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: white;
-            font-size: 13px;
-        }
-
-        .sosmed-inline {
-            border-left: 1px solid #333;
-            padding-left: 15px;
-            gap: 15px;
-        }
-
-        .sosmed-inline a {
-            text-decoration: none;
-            font-size: 18px;
-        }
-    </style> </head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Gibran | Professional Portfolio</title>
@@ -309,40 +256,39 @@
                         <div class="item-meta">
                             ${item.tgl} • ${item.sumber || 'System'}
                         </div>
-                       <button class="btn-action del-btn" onclick="hapus('${item.id}')">
+                        <div class="action-btns">
+                            <button class="btn-action dl-btn" onclick="downloadFile('${item.url}', '${item.nama}')">
+                                <i class="fas fa-download"></i> DOWNLOAD
+                            </button>
+                            <button class="btn-action del-btn" onclick="hapus('${item.id}')">
                                 <i class="fas fa-trash"></i> HAPUS
                             </button>
                         </div>
                     </div>
                 </div>
-            `).join(''); // <-- Pastikan ada tanda ( ` ) backtick dan ( ' ) petik ini
-        } // <-- Pastikan ada kurung kurawal tutup ini
-            try {
-              window.open(url, '_blank');
-            }
-        } // <--- PENUTUP FUNGSI DOWNLOAD (Pastikan ada ini!)
+            `).join('');
+        }
 
-        // FUNGSI BAGIKAN (Taruh di bawah fungsi download)
-        function bagikanFile(nama, url) {
-            if (navigator.share) {
-                navigator.share({
-                    title: 'File Gibran',
-                    text: 'Cek file ini: ' + nama,
-                    url: url
-                }).then(() => {
-                    console.log('Berhasil berbagi');
-                }).catch((err) => {
-                    console.log('Batal berbagi');
-                });
-            } else {
-                navigator.clipboard.writeText(url);
-                alert("Link file berhasil disalin ke clipboard!");
+        async function downloadFile(url, namaFile) {
+            try {
+                const btn = event.currentTarget;
+                const oriText = btn.innerHTML;
+                btn.innerHTML = "<i class='fas fa-spinner fa-spin'></i>";
+                
+                const response = await fetch(url);
+                const blob = await response.blob();
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = namaFile || "Gibran_File_" + Date.now();
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                btn.innerHTML = oriText;
+            } catch (error) {
+                window.open(url, '_blank');
             }
         }
 
-    </script> 
-</body>
-</html>
         function hapus(id) {
             if(confirm("Hapus file ini?")) {
                 let koleksi = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
@@ -351,295 +297,7 @@
                 muatGaleri();
             }
         }
-
-        // TAMBAHKAN INI DI BAWAH FUNGSI HAPUS
-        function bagikanFile(nama, url) {
-            if (navigator.share) {
-                navigator.share({
-                    title: 'File Gibran',
-                    text: 'Cek file ini: ' + nama,
-                    url: url
-                }).then(() => {
-                    console.log('Berhasil berbagi');
-                }).catch((err) => {
-                    console.log('Batal berbagi');
-                });
-            } else {
-                navigator.clipboard.writeText(url);
-                alert("Link file berhasil disalin ke clipboard!");
-            }
-        }
-
-    </script> 
-</body>
-</html>
-
-    <script>
-        function updateClock() {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('id-ID', { hour12: false });
-            if(document.getElementById('digital-clock')) {
-                document.getElementById('digital-clock').textContent = timeString;
-            }
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
     </script>
-       <div class="pengaturan-footer">
-    <div class="pengaturan-container">
-        
-        <div class="pengaturan-title">Pengaturan v.2.2.2</div>
-        
-        <p style="color: #bbb; font-size: 11px; margin-bottom: 5px; font-style: italic;">
-            "Menjadi individu yang berkontribusi maksimal, bertanggung jawab, dan berkolaborasi baik dalam tim untuk mencapai tujuan perusahaan."
-        </p>
-
-        <div style="color: #eee; font-size: 11px; margin-bottom: 15px;">
-            <b>Misi:</b><br>
-            • Membangun hubungan kerja positif & profesional.<br>
-            • Mengembangkan skill untuk hasil kerja kompeten.<br>
-            • Berperan aktif meningkatkan efisiensi tim.<br>
-            • Menjaga integritas & disiplin kerja.
-        </div>
-
-        <div class="pengaturan-row">
-            <div class="pengaturan-item" style="color: #ffcc00; font-weight: bold;">
-                🕒 08:00 - 20:00
-            </div>
-
-            <div class="pengaturan-item">
-                <span>📶 WiFi</span>
-                <div class="switch on"></div>
-            </div>
-            
-            <div class="pengaturan-item">
-                <span>📊 Data</span>
-                <div class="switch"></div>
-            </div>
-
-            <div class="pengaturan-item sosmed-inline">
-                <a href="https://instagram.com/mgibran4184" target="_blank">📸</a>
-                <a href="https://wa.me/6285123332018" target="_blank">🟢</a>
-            </div>
-        </div>
-
-    </div>
-</div>
-       
-<div class="meet-section" style="margin-top: 20px; padding: 0 15px;">
-    <div style="max-width: 800px; margin: 0 auto; background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 15px;">
-        
-        <div style="color: #1a73e8; font-size: 14px; font-weight: bold; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-            📹 Google Meet Room
-        </div>
-
-        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-            <a href="https://meet.google.com/tnk-bjfw-gtd" target="_blank" style="flex: 1; min-width: 120px; background: #1a73e8; color: white; text-decoration: none; font-size: 12px; padding: 8px; border-radius: 6px; text-align: center; transition: 0.3s;">
-                Meeting Room 1
-            </a>
-            <a href="https://meet.google.com/thg-xian-gyr" target="_blank" style="flex: 1; min-width: 120px; background: #1a73e8; color: white; text-decoration: none; font-size: 12px; padding: 8px; border-radius: 6px; text-align: center; transition: 0.3s;">
-                Meeting Room 2
-            </a>
-            <a href="https://meet.google.com/hnk-xfno-zih" target="_blank" style="flex: 1; min-width: 120px; background: #1a73e8; color: white; text-decoration: none; font-size: 12px; padding: 8px; border-radius: 6px; text-align: center; transition: 0.3s;">
-                Meeting Room 3
-            </a>
-            <a href="https://meet.google.com/gks-cbin-wto" target="_blank" style="flex: 1; min-width: 120px; background: #1a73e8; color: white; text-decoration: none; font-size: 12px; padding: 8px; border-radius: 6px; text-align: center; transition: 0.3s;">
-                Meeting Room 4
-            </a>
-            <a href="https://meet.google.com/jik-ihyy-qmd" target="_blank" style="flex: 1; min-width: 120px; background: #1a73e8; color: white; text-decoration: none; font-size: 12px; padding: 8px; border-radius: 6px; text-align: center; transition: 0.3s;">
-                Meeting Room 5
-            </a>
-        </div>
-        
-    </div>
-</div><div class="maps-section" style="margin-top: 20px; padding: 0 15px; margin-bottom: 20px;">
-    <div style="max-width: 800px; margin: 0 auto; background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 15px;">
-        
-        <div style="color: #4285F4; font-size: 14px; font-weight: bold; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-            📍 Google Maps Live
-        </div>
-
-        <div style="width: 100%; height: 300px; border-radius: 8px; overflow: hidden; border: 1px solid #444;">
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126920.2413337965!2d106.78917!3d-6.229728!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e0591f893d%3A0x2863489886a111a4!2sJakarta!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
-                width="100%" 
-                height="100%" 
-                style="border:0;" 
-                allowfullscreen="" 
-                loading="lazy" 
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        </div>
-        
-        <p style="color: #888; font-size: 10px; margin-top: 8px; text-align: center;">
-            Peta interaktif Jakarta - Bisa di-zoom dan digeser langsung.
-        </p>
-    </div>
-
-
-</div><div class="shop-section" style="margin-top: 20px; padding: 0 15px; margin-bottom: 20px;">
-    <div style="max-width: 800px; margin: 0 auto; background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 20px;">
-        
-        <div style="color: #ff9900; font-size: 12px; font-weight: bold; margin-bottom: 15px; text-align: center; letter-spacing: 2px;">
-            ONLINE STORE INTERFACE
-        </div>
-
-        <div style="display: flex; justify-content: center; align-items: center; gap: 40px; background: #111; padding: 20px; border-radius: 10px; border: 1px dashed #444;">
-            
-            <div style="font-size: 32px; cursor: pointer; filter: drop-shadow(0 0 5px rgba(255, 153, 0, 0.3));">🛒</div>
-
-      </div>
-       
-    </div>
-
-
-
-
-
-
-
-
-    <div style="background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 15px; max-width: 400px; margin: 20px auto; font-family: sans-serif;">
-    <div style="color: #00ff88; font-size: 12px; font-weight: bold; margin-bottom: 15px; text-align: center; letter-spacing: 1px;">ONLINE STORE INTERFACE</div>
-    
-    <div style="display: flex; flex-direction: column; gap: 10px;">
-        
-        <div style="display: flex; align-items: center; gap: 10px; background: #222; padding: 10px; border-radius: 8px; border: 1px solid #333;">
-            <span style="font-size: 20px;">👤</span>
-            <span style="color: #fff; font-size: 14px; font-weight: bold;">mgibran4184</span>
-        </div>
-
-        <a href="https://wa.me/6285123332018" target="_blank" style="text-decoration: none; display: flex; align-items: center; gap: 10px; background: #222; padding: 10px; border-radius: 8px; border: 1px solid #333;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20" height="20" alt="WA">
-            <span style="color: #fff; font-size: 14px; font-weight: bold;">085123332018</span>
-        </a>
-
-      
-       <div style="background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 15px; max-width: 400px; margin: 20px auto; font-family: sans-serif;">
-    <div style="color: #00ff88; font-size: 12px; font-weight: bold; margin-bottom: 15px; text-align: center;">ONLINE STORE INTERFACE</div>
-    
-    <div style="display: flex; flex-direction: column; gap: 10px;">
-
-        <div style="display: flex; align-items: center; gap: 10px; background: #222; padding: 10px; border-radius: 8px; border: 1px solid #333; cursor: pointer;" onclick="mulaiTelepon()">
-            <span style="font-size: 20px;">📞</span>
-            <span style="color: #fff; font-size: 14px; font-weight: bold;">Telepon Online</span>
-        </div>
-
-        <div style="display: flex; align-items: center; gap: 10px; background: #222; padding: 10px; border-radius: 8px; border: 1px solid #333; cursor: pointer;" onclick="mulaiVideo()">
-            <span style="font-size: 20px;">🎥</span>
-            <span style="color: #fff; font-size: 14px; font-weight: bold;">Video Call Online</span>
-        </div>
-
-    </div>
-</div>
-
-<script>
-    function mulaiTelepon() {
-        const room = "Gibran_Voice_" + Math.floor(Math.random() * 1000);
-        // Ini bakal ngebuka tab baru buat teleponan suara
-        window.open("https://meet.jit.si/" + room + "#config.startAudioOnly=true", "_blank");
-    }
-
-    function mulaiVideo() {
-        const room = "Gibran_Video_" + Math.floor(Math.random() * 1000);
-        // Ini bakal ngebuka tab baru buat video call
-        window.open("https://meet.jit.si/" + room, "_blank");
-    }
-</script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
-
-<script>
-    // 2. CONFIG FIREBASE LO (Udah gue isiin)
-  // Pakai config proyek "telepon online" supaya nyambung ke Rules yang kamu buka
-const firebaseConfig = {
-    apiKey: "AIzaSyBD0e8fgraMN0hHvKDup9UNNAXgC036Ioo", // Sesuaikan dari Project Settings kamu
-    authDomain: "telepon-online.firebaseapp.com",
-    projectId: "telepon-online",
-    databaseURL: "https://telepon-online-default-rtdb.firebaseio.com" 
-};
-
-// ... sisa kode lainnya tetap sama
-
-    // 3. INITIALIZE
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-
-  
-
-    // 
-    // 6. TELEPON & VIDEO (Pake Jitsi - Gratis & Tanpa Nomor)
-    function mulaiTelepon() {
-        const room = "Gibran_Voice_" + Math.floor(1000 + Math.random() * 9000);
-        window.open(`https://meet.jit.si/${room}#config.startAudioOnly=true`, "_blank");
-    }
-
-    function mulaiVideo() {
-        const room = "Gibran_Video_" + Math.floor(1000 + Math.random() * 9000);
-        window.open(`https://meet.jit.si/${room}`, "_blank");
-    }
-
-    
-
-// ... kode-kode kamu yang sudah ada sebelumnya ...
-
-    // FUNGSI BAGIKAN (Taruh tepat di atas </script>)
-    function bagikanFile(nama, url) {
-        if (navigator.share) {
-            navigator.share({
-                title: 'File Gibran',
-                text: 'Cek file ini: ' + nama,
-                url: url
-            }).then(() => {
-                console.log('Berhasil berbagi');
-            }).catch((err) => {
-                console.log('Batal berbagi');
-            });
-        } else {
-            // Jika dibuka di Chrome PC / Browser lama
-            navigator.clipboard.writeText(url);
-            alert("Link file berhasil disalin ke clipboard!");
-        }
-    }
-
-</script> 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
