@@ -606,16 +606,15 @@ function tutupAplikasi() {
 
 <script>
     // 2. CONFIG FIREBASE LO (Udah gue isiin)
-    const firebaseConfig = {
-        apiKey: "AIzaSyBD0e8fgraMN0hHvKDup9UNNAXgC036Ioo",
-        authDomain: "telepon-online.firebaseapp.com",
-        projectId: "telepon-online",
-        storageBucket: "telepon-online.firebasestorage.app",
-        messagingSenderId: "224148407889",
-        appId: "1:224148407889:web:14e0aed0e426dcba589a70",
-        // databaseURL biasanya otomatis, tapi kalau error, tambahkan di sini
-        databaseURL: "https://telepon-online-default-rtdb.firebaseio.com" 
-    };
+  // Pakai config proyek "telepon online" supaya nyambung ke Rules yang kamu buka
+const firebaseConfig = {
+    apiKey: "AIzaSyBD0e8fgraMN0hHvKDup9UNNAXgC036Ioo", // Sesuaikan dari Project Settings kamu
+    authDomain: "telepon-online.firebaseapp.com",
+    projectId: "telepon-online",
+    databaseURL: "https://telepon-online-default-rtdb.firebaseio.com" 
+};
+
+// ... sisa kode lainnya tetap sama
 
     // 3. INITIALIZE
     firebase.initializeApp(firebaseConfig);
@@ -732,6 +731,7 @@ function tutupAplikasi() {
     }
 </script></body>
 </html>
+
 
 
 
