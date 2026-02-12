@@ -1,1 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Gibran Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="background: #121212; color: white; font-family: sans-serif; text-align: center;">
 
+    <h2>TESTING CHAT GIBRAN</h2>
+    
+    <div id="status" style="padding: 10px; background: orange; color: black; font-weight: bold; margin: 10px;">
+        STATUS: SEDANG CONNECTING...
+    </div>
+
+    <div id="box" style="height: 250px; background: black; border: 1px solid #00ff88; margin: 10px; overflow-y: auto; text-align: left; padding: 10px;">
+    </div>
+
+    <input id="pesan" type="text" placeholder="Ketik di sini..." style="padding: 10px; width: 60%;">
+    <button onclick="kirim()" style="padding: 10px; background: #00ff88;">KIRIM</button>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <script>
+        const config = {
+            apiKey: "AIzaSyAGVgvcYQbiB47e_zKRqfL18pEgJvCP7vs",
+            authDomain: "chat-otomatis-20ee5.firebaseapp.com",
+            projectId: "chat-otomatis-20ee5",
+            databaseURL: "https://chat-otomatis-20ee5-default-rtdb.firebaseio.com"
+        };
+
+        firebase.initializeApp(config);
+        const db = firebase.database();
+
+        // CEK KONEKSI
+        db.ref(".info/connected").on("value", (snap) => {
+            const s = document.getElementById('status');
+            if (snap.val() === true) {
+                s.style.background = "green";
+                s.innerHTML = "STATUS: ONLINE (BISA CHAT)";
+            } else {
+                s.style.background = "red";
+                s.innerHTML = "STATUS: OFFLINE (Gagal Konek)";
+            }
+        });
+
+        function kirim() {
+            const p = document.getElementById('pesan');
+            if (p.value != "") {
+                db.ref("chat_baru").push().set({
+                    user: "Gibran",
+                    teks: p.value
+                });
+                p.value = "";
+            }
+        }
+
+        db.ref("chat_baru").limitToLast(10).on("child_added", (snap) => {
+            const d = snap.val();
+            document.getElementById('box').innerHTML += `<div><b>${d.user}:</b> ${d.teks}</div>`;
+        });
+    </script>
+</body>
+</html>
