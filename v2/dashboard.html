@@ -269,14 +269,10 @@
             `).join('');
         }
 
-      // --- FUNGSI DOWNLOAD (VERSI TERBARU) ---
         async function downloadFile(url, namaFile) {
             try {
-                // Mencari tombol yang diklik
                 const btn = event.currentTarget;
                 const oriText = btn.innerHTML;
-                
-                // Efek loading saat download
                 btn.innerHTML = "<i class='fas fa-spinner fa-spin'></i>";
                 
                 const response = await fetch(url);
@@ -287,109 +283,21 @@
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
-                
-                // Balikkan icon ke semula
                 btn.innerHTML = oriText;
             } catch (error) {
-                console.error("Download gagal, mencoba buka tab baru:", error);
                 window.open(url, '_blank');
             }
         }
 
-        // --- FUNGSI UPLOAD (PASTIKAN INI ADA SUPAYA BISA UPLOAD) ---
-        async function uploadFile() {
-            const fileInput = document.getElementById('fileInput');
-            const file = fileInput.files[0];
-
-            if (!file) {
-                alert("Pilih file dulu!");
-                return;
-            }
-
-            // Pastikan variabel 'storage' dan 'database' sudah didefinisikan di atas (Firebase)
-            try {
-                const storageRef = storage.ref('gibran_gallery/' + file.name);
-                const uploadTask = storageRef.put(file);
-
-                uploadTask.on('state_changed', 
-                    null, 
-                    (error) => alert("Error: " + error.message), 
-                    async () => {
-                        const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
-                        database.ref('files/').push({
-                            nama: file.name,
-                            url: downloadURL,
-                            tanggal: new Date().toLocaleString('id-ID')
-                        });
-                        alert("Berhasil Upload!");
-                        fileInput.value = ""; 
-                    }
-                );
-            } catch (err) {
-                alert("Firebase Error: " + err.message);
+        function hapus(id) {
+            if(confirm("Hapus file ini?")) {
+                let koleksi = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
+                koleksi = koleksi.filter(i => i.id != id);
+                localStorage.setItem('gibran_gallery', JSON.stringify(koleksi));
+                muatGaleri();
             }
         }
-         <div class="gallery-title">Riwayat File & Download</div>
-<div id="gallery"></div> <script>
-    // FUNGSI UNTUK MENAMPILKAN RIWAYAT FILE
-    function displayFiles(files) {
-        const gallery = document.getElementById('gallery');
-        
-        if (files.length === 0) {
-            gallery.innerHTML = '<p style="text-align:center; padding:20px;">Belum ada file.</p>';
-            return;
-        }
-
-        gallery.innerHTML = files.map(item => `
-            <div class="file-item" style="display: flex; justify-content: space-between; align-items: center; background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-                <div class="file-info">
-                    <div class="file-name" style="font-weight: bold; color: #333;">${item.nama}</div>
-                    <div class="file-date" style="font-size: 11px; color: #999;">${item.tanggal}</div>
-                </div>
-                <div class="action-btns" style="display: flex; gap: 8px;">
-                    <button class="btn-action dl-btn" onclick="downloadFile('${item.url}', '${item.nama}')">
-                        <i class="fas fa-download"></i>
-                    </button>
-
-                    <button class="btn-action" style="background: #2563eb; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 11px;" onclick="bagikanFile('${item.nama}', '${item.url}')">
-                        <i class="fas fa-paper-plane"></i> BAGIKAN
-                    </button>
-
-                    <button class="btn-action del-btn" onclick="hapus('${item.id}')">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-            </div>
-        `).join('');
-    }
-
-    // FUNGSI HAPUS
-    function hapus(id) {
-        if(confirm("Hapus file ini?")) {
-            let koleksi = JSON.parse(localStorage.getItem('gibran_gallery')) || [];
-            koleksi = koleksi.filter(i => i.id != id);
-            localStorage.setItem('gibran_gallery', JSON.stringify(koleksi));
-            muatGaleri(); // Memperbarui tampilan setelah hapus
-        }
-    }
-
-    // FUNGSI BAGIKAN
-    function bagikanFile(nama, url) {
-        if (navigator.share) {
-            navigator.share({
-                title: 'File Gibran',
-                text: 'Cek file ini: ' + nama,
-                url: url
-            }).catch((err) => console.log('Batal berbagi'));
-        } else {
-            navigator.clipboard.writeText(url);
-            alert("Link file berhasil disalin ke clipboard!");
-        }
-    }
-
-</script>
+    </script>
 </body>
 </html>
-
-
 
