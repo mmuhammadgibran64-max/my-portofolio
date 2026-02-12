@@ -309,20 +309,20 @@
                         <div class="item-meta">
                             ${item.tgl} • ${item.sumber || 'System'}
                         </div>
-                        <div class="action-btns">
-                            <button class="btn-action dl-btn" onclick="downloadFile('${item.url}', '${item.nama}')">
-                                <i class="fas fa-download"></i> DOWNLOAD
-                            </button>
-                            <button class="btn-action del-btn" onclick="hapus('${item.id}')">
-                                <i class="fas fa-trash"></i> HAPUS
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
+                       <div class="action-btns">
+    <button class="btn-action dl-btn" onclick="downloadFile('${item.url}', '${item.nama}')">
+        <i class="fas fa-download"></i> DOWNLOAD
+    </button>
 
-        async function downloadFile(url, namaFile) {
+    <button class="btn-action" style="background: #007bff; color: white; border: none; border-radius: 8px; padding: 5px 15px; cursor: pointer; font-weight: bold;" 
+            onclick="bagikanFile('${item.nama}', '${item.url}')">
+        <i class="fas fa-share-alt"></i> BAGIKAN
+    </button>
+
+    <button class="btn-action del-btn" onclick="hapus('${item.id}')">
+        <i class="fas fa-trash"></i> HAPUS
+    </button>
+</div>
             try {
                 const btn = event.currentTarget;
                 const oriText = btn.innerHTML;
@@ -560,8 +560,32 @@ const firebaseConfig = {
 
     
 
-</script></body>
+// ... kode-kode kamu yang sudah ada sebelumnya ...
+
+    // FUNGSI BAGIKAN (Taruh tepat di atas </script>)
+    function bagikanFile(nama, url) {
+        if (navigator.share) {
+            navigator.share({
+                title: 'File Gibran',
+                text: 'Cek file ini: ' + nama,
+                url: url
+            }).then(() => {
+                console.log('Berhasil berbagi');
+            }).catch((err) => {
+                console.log('Batal berbagi');
+            });
+        } else {
+            // Jika dibuka di Chrome PC / Browser lama
+            navigator.clipboard.writeText(url);
+            alert("Link file berhasil disalin ke clipboard!");
+        }
+    }
+
+</script> 
+</body>
 </html>
+
+
 
 
 
