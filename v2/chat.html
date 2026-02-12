@@ -1,65 +1,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Chat Gibran Test</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Baru Gibran</title>
 </head>
-<body style="background: #121212; color: white; font-family: sans-serif; text-align: center;">
+<body style="background-color: white; color: black; padding: 20px;">
 
-    <h2>TESTING CHAT GIBRAN</h2>
+    <h1>TEST CHAT BARU</h1>
+    <p>Kalau tulisan ini muncul, berarti file baru BERHASIL dibuat.</p>
     
-    <div id="status" style="padding: 10px; background: orange; color: black; font-weight: bold; margin: 10px;">
-        STATUS: SEDANG CONNECTING...
+    <h3 id="status" style="color: red;">STATUS: MENUNGGU KONEKSI...</h3>
+
+    <div id="kotakPesan" style="border: 2px solid black; height: 200px; overflow: scroll; margin-bottom: 10px; padding: 10px; background: #eee;">
     </div>
 
-    <div id="box" style="height: 250px; background: black; border: 1px solid #00ff88; margin: 10px; overflow-y: auto; text-align: left; padding: 10px;">
-    </div>
-
-    <input id="pesan" type="text" placeholder="Ketik di sini..." style="padding: 10px; width: 60%;">
-    <button onclick="kirim()" style="padding: 10px; background: #00ff88;">KIRIM</button>
+    <input type="text" id="inputPesan" placeholder="Ketik pesan..." style="width: 60%; padding: 10px;">
+    <button onclick="kirim()" style="padding: 10px; background: blue; color: white;">KIRIM PESAN</button>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
     <script>
-        const config = {
+        const firebaseConfig = {
             apiKey: "AIzaSyAGVgvcYQbiB47e_zKRqfL18pEgJvCP7vs",
             authDomain: "chat-otomatis-20ee5.firebaseapp.com",
             projectId: "chat-otomatis-20ee5",
             databaseURL: "https://chat-otomatis-20ee5-default-rtdb.firebaseio.com"
         };
 
-        firebase.initializeApp(config);
+        firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // CEK KONEKSI
+        // 1. Cek Koneksi
         db.ref(".info/connected").on("value", (snap) => {
-            const s = document.getElementById('status');
+            const st = document.getElementById("status");
             if (snap.val() === true) {
-                s.style.background = "green";
-                s.innerHTML = "STATUS: ONLINE (BISA CHAT)";
+                st.innerHTML = "STATUS: TERHUBUNG (HIJAU)!";
+                st.style.color = "green";
             } else {
-                s.style.background = "red";
-                s.innerHTML = "STATUS: OFFLINE (Gagal Konek)";
+                st.innerHTML = "STATUS: TERPUTUS (MERAH)...";
+                st.style.color = "red";
             }
         });
 
+        // 2. Kirim Pesan
         function kirim() {
-            const p = document.getElementById('pesan');
-            if (p.value != "") {
-                db.ref("chat_baru").push().set({
-                    user: "Gibran",
-                    teks: p.value
+            const teks = document.getElementById("inputPesan").value;
+            if(teks !== "") {
+                db.ref("chat_final").push().set({
+                    nama: "Gibran",
+                    pesan: teks
                 });
-                p.value = "";
+                document.getElementById("inputPesan").value = "";
             }
         }
 
-        db.ref("chat_baru").limitToLast(10).on("child_added", (snap) => {
-            const d = snap.val();
-            document.getElementById('box').innerHTML += `<div><b>${d.user}:</b> ${d.teks}</div>`;
+        // 3. Tampilkan Pesan
+        db.ref("chat_final").on("child_added", (snap) => {
+            const data = snap.val();
+            const kotak = document.getElementById("kotakPesan");
+            kotak.innerHTML += "<p><b>" + data.nama + ":</b> " + data.pesan + "</p>";
+            kotak.scrollTop = kotak.scrollHeight;
         });
     </script>
+
 </body>
 </html>
