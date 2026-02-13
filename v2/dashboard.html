@@ -459,7 +459,57 @@
         </div>
 
     </div> <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-</body>
+<style>
+    /* 1. KUNCI UKURAN FOTO DI RIWAYAT */
+    .history-item img {
+        width: 100px !important;  /* Foto dikecilkan */
+        height: 100px !important; 
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+
+    /* 2. PENYUSUNAN TOMBOL (SEJAJAR) */
+    .btn-group {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap; /* Biar aman kalau layar HP sempit */
+    }
+
+    /* Gaya dasar tombol */
+    .btn-group button, .btn-group a {
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 12px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        border: none;
+        color: white;
+    }
+
+    .btn-download { background: #1a73e8; } /* Biru */
+    .btn-delete { background: #d93025; }   /* Merah */
+    .btn-share { background: #28a745; }    /* Hijau */
+</style>
+
+<div class="card-box">
+    <h3><i class="fas fa-history"></i> Riwayat File</h3>
+    <div id="history-list">
+        <div class="history-item">
+            <img src="https://via.placeholder.com/150" alt="File">
+            
+            <div class="btn-group">
+                <a href="#" class="btn-download"><i class="fas fa-download"></i> Download</a>
+                <button class="btn-delete"><i class="fas fa-trash"></i> Hapus</button>
+                <button class="btn-share"><i class="fas fa-share-alt"></i> Bagikan</button>
+            </div>
+        </div>
+    </div>
+</div></body>
 </html>
+
 
 
