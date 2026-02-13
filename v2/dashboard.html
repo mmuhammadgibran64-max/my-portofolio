@@ -438,29 +438,114 @@
         </div>
 
         <div id="settingsPanel" style="flex: 1; min-width: 300px; max-width: 480px; padding: 20px; background: #ffffff; border-radius: 15px; border: 1px solid #e1e1e1; font-family: sans-serif; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-            <h3 style="margin-top: 0; color: #3c4043; font-size: 18px; display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #f1f3f4; padding-bottom: 10px;">
-                <i class="fas fa-tools" style="color: #1a73e8;"></i> Pengaturan Website
-            </h3>
-            <div style="padding: 12px 0; border-bottom: 1px solid #f8f9fa;">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span style="color: #5f6368; font-size: 14px;">Status Google Search</span>
-                    <span style="color: #25d366; font-size: 12px; font-weight: bold;"><i class="fas fa-check-circle"></i> Terverifikasi</span>
-                </div>
-            </div>
-            <div style="margin-top: 15px;">
-                <button onclick="window.open('https://search.google.com/search-console', '_blank')" style="width: 100%; padding: 12px; background: #f8f9fa; border: 1px solid #dadce0; border-radius: 8px; cursor: pointer; font-weight: bold; color: #3c4043;">
-                    Search Console
-                </button>
-            </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0; margin-top: 10px; border-top: 1px solid #f1f3f4;">
-                <span style="font-weight: bold; color: #3c4043; font-size: 14px;">Keamanan SSL</span>
-                <div style="color: #25d366;"><i class="fas fa-shield-alt fa-lg"></i></div>
-            </div>
+    <h3 style="margin-top: 0; color: #3c4043; font-size: 18px; display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #f1f3f4; padding-bottom: 10px;">
+        <i class="fas fa-tools" style="color: #1a73e8;"></i> Pengaturan Website
+    </h3>
+    
+    <div style="padding: 12px 0; border-bottom: 1px solid #f8f9fa;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="color: #5f6368; font-size: 14px;">Status Google Search</span>
+            <span style="color: #25d366; font-size: 12px; font-weight: bold;"><i class="fas fa-check-circle"></i> Terverifikasi</span>
+        </div>
+    </div>
+    
+    <div style="margin-top: 15px;">
+        <button onclick="window.open('[https://search.google.com/search-console](https://search.google.com/search-console)', '_blank')" style="width: 100%; padding: 12px; background: #f8f9fa; border: 1px solid #dadce0; border-radius: 8px; cursor: pointer; font-weight: bold; color: #3c4043;">
+            Search Console
+        </button>
+    </div>
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0; margin-top: 10px; border-top: 1px solid #f1f3f4;">
+        <span style="font-weight: bold; color: #3c4043; font-size: 14px;">Keamanan SSL</span>
+        <div style="color: #25d366;"><i class="fas fa-shield-alt fa-lg"></i></div>
+    </div>
+
+    <div style="padding-top: 15px; margin-top: 10px; border-top: 1px solid #f1f3f4;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <span style="font-weight: bold; color: #3c4043; font-size: 14px;">Pengaturan Tampilan</span>
+            <div style="color: #1a73e8;"><i class="fas fa-desktop fa-sm"></i></div>
+        </div>
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0;">
+            <span style="font-size: 13px; color: #5f6368;"><i class="fas fa-mobile-alt" style="width: 20px;"></i> Android</span>
+            <label class="switch">
+                <input type="checkbox" id="btnAndroid">
+                <span class="slider round"></span>
+            </label>
         </div>
 
-    </div> <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0;">
+            <span style="font-size: 13px; color: #5f6368;"><i class="fas fa-tablet-alt" style="width: 20px;"></i> iPad / Tablet</span>
+            <label class="switch">
+                <input type="checkbox" id="btnIpad">
+                <span class="slider round"></span>
+            </label>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0;">
+            <span style="font-size: 13px; color: #5f6368;"><i class="fas fa-laptop" style="width: 20px;"></i> Laptop / PC</span>
+            <label class="switch">
+                <input type="checkbox" id="btnLaptop" checked>
+                <span class="slider round"></span>
+            </label>
+        </div>
+    </div>
+</div> <script src="[https://kit.fontawesome.com/a076d05399.js](https://kit.fontawesome.com/a076d05399.js)" crossorigin="anonymous"></script>
+</div> 
+    </div>
+
+    <script>
+        const btnAndroid = document.getElementById('btnAndroid');
+        const btnIpad = document.getElementById('btnIpad');
+        const btnLaptop = document.getElementById('btnLaptop');
+        
+        // Targetkan container utama yang ingin kita ubah ukurannya
+        const mainContainer = document.querySelector('.main-container') || document.querySelector('.container');
+
+        btnAndroid.addEventListener('change', function() {
+            if(this.checked) {
+                mainContainer.style.maxWidth = "400px";
+                mainContainer.style.margin = "20px auto";
+                mainContainer.style.transition = "all 0.5s ease";
+                btnIpad.checked = false;
+                btnLaptop.checked = false;
+            } else {
+                resetView();
+            }
+        });
+
+        btnIpad.addEventListener('change', function() {
+            if(this.checked) {
+                mainContainer.style.maxWidth = "768px";
+                mainContainer.style.margin = "20px auto";
+                mainContainer.style.transition = "all 0.5s ease";
+                btnAndroid.checked = false;
+                btnLaptop.checked = false;
+            } else {
+                resetView();
+            }
+        });
+
+        btnLaptop.addEventListener('change', function() {
+            if(this.checked) {
+                resetView();
+                btnAndroid.checked = false;
+                btnIpad.checked = false;
+            }
+        });
+
+        function resetView() {
+            mainContainer.style.maxWidth = "1000px";
+            mainContainer.style.width = "100%";
+            mainContainer.style.transition = "all 0.5s ease";
+        }
+    </script>
+    
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
 </body>
 </html>
+
 
 
 
