@@ -96,18 +96,48 @@
         .btn-up-2 { background: var(--green) !important; color: #fff !important; box-shadow: 0 4px 12px rgba(52,168,83,0.2); }
 
         /* GALLERY AREA TERANG */
-        .gallery-item { 
-            background: #fff !important; border: 1px solid var(--border) !important; 
-            border-radius: 15px; padding: 12px; margin-bottom: 12px; 
-            display: flex; gap: 15px; align-items: center; 
-        }
-        .item-name { font-weight: bold; font-size: 13px; color: var(--text) !important; }
-        .dl-btn { background: #e6f4ea !important; color: var(--green) !important; border: 1px solid #ceead6 !important; }
-        .del-btn { background: #fce8e6 !important; color: #d93025 !important; border: 1px solid #fad2cf !important; }
+       .gallery-item { 
+    background: #fff !important; 
+    border: 1px solid var(--border) !important; 
+    border-radius: 15px; 
+    padding: 12px; 
+    margin-bottom: 12px; 
+    display: flex; 
+    gap: 12px; 
+    align-items: center;
+    /* Tambahan biar tombol gak kabur ke luar layar */
+    justify-content: space-between; 
+}
 
+/* KUNCI PERBAIKAN: Batasi ukuran fotonya di sini */
+.gallery-item img {
+    width: 50px;           /* Ukuran kecil buat thumbnail */
+    height: 50px;          /* Tinggi sama biar kotak */
+    object-fit: cover;     /* Biar foto gak gepeng */
+    border-radius: 10px;   /* Biar sudut foto tumpul rapi */
+    flex-shrink: 0;        /* WAJIB: Biar foto gak maksa lebar di layar Android */
+}
+
+.item-name { 
+    font-weight: bold; 
+    font-size: 13px; 
+    color: var(--text) !important;
+    flex-grow: 1;          /* Biar dia ngambil sisa ruang di tengah */
+    word-break: break-all; /* Biar kalau nama file panjang gak ngerusak layout */
+}
+
+/* Tombol-tombol biar tetep di kanan */
+.dl-btn, .del-btn { 
+    padding: 8px !important; 
+    min-width: 35px; 
+    flex-shrink: 0;        /* Biar tombol gak menciut pas di Android */
+}
+
+.dl-btn { background: #e6f4ea !important; color: var(--green) !important; border: 1px solid #ceead6 !important; }
+.del-btn { background: #fce8e6 !important; color: #d93025 !important; border: 1px solid #fad2cf !important; }
         /* LAYOUT DASHBOARD BARU */
         .main-container {
-            max-width: 1000px;
+            max-width: 100px;
             margin: 20px auto;
             display: flex; flex-wrap: wrap; gap: 20px; 
             justify-content: center; padding: 0 20px;
@@ -545,6 +575,7 @@
 
 </body>
 </html>
+
 
 
 
