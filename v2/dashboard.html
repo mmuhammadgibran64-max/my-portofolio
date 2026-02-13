@@ -6,7 +6,7 @@
     <title>Dashboard Gibran | Professional Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* --- GIBRAN MODERN SYSTEM V3.5 (FULL VERSION) --- */
+       /* --- GIBRAN MODERN SYSTEM V3.5 (FULL VERSION) --- */
         :root { 
             --bg: #f0f2f5; 
             --card: #ffffff; 
@@ -28,7 +28,7 @@
 
         .container { max-width: 800px; margin: auto; padding: 20px; }
 
-        /* NAVIGASI TERANG & BLUR */
+        /* NAVIGASI */
         .top-nav { 
             display: flex; justify-content: space-between; align-items: center; 
             padding: 15px 20px; background: rgba(255,255,255,0.9); 
@@ -41,7 +41,7 @@
         .btn-logout:hover { background: #d93025; color: #fff; }
         #clock { color: var(--accent); font-weight: bold; font-family: monospace; font-size: 14px; }
 
-        /* BANNER GRADIENT */
+        /* BANNER */
         .banner { 
             width: 100%; height: 160px; 
             background: linear-gradient(135deg, #1a73e8, #00d2ff); 
@@ -72,14 +72,6 @@
 
         .card-box:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.12) !important; }
         .card-box h3 { margin-top: 0; color: var(--accent) !important; font-size: 18px; border-bottom: 2px solid #f1f3f4 !important; padding-bottom: 12px; display: flex; align-items: center; gap: 10px; }
-        .card-box p { font-size: 14px; color: #5f6368 !important; }
-
-        /* LIST SKILL & VISI MISI */
-        .skill-item { border-bottom: 1px solid #f1f3f4; padding-bottom: 10px; margin-bottom: 10px; }
-        .skill-item b { color: var(--accent) !important; font-size: 14px; }
-        .skill-item span { color: #80868b !important; font-size: 12px; }
-        .visi-misi b { color: var(--green) !important; }
-        .visi-misi ul { color: #5f6368 !important; font-size: 14px; }
 
         /* TOMBOL AKSI MODERN */
         button, .btn-blue, .btn-up-1, .btn-up-2 { 
@@ -95,28 +87,51 @@
         .btn-up-1 { background: var(--accent) !important; color: #fff !important; box-shadow: 0 4px 12px rgba(26,115,232,0.2); }
         .btn-up-2 { background: var(--green) !important; color: #fff !important; box-shadow: 0 4px 12px rgba(52,168,83,0.2); }
 
-        /* GALLERY AREA TERANG */
-       .gallery-item { 
-    background: #fff !important; 
-    border: 1px solid var(--border) !important; 
-    border-radius: 15px; 
-    padding: 12px; 
-    margin-bottom: 12px; 
-    display: flex; 
-    gap: 12px; 
-    align-items: center;
-    /* Tambahan biar tombol gak kabur ke luar layar */
-    justify-content: space-between; 
-}
+        /* --- FITUR BARU: GALLERY & SSL --- */
+        .gallery-item { 
+            background: #fff !important; 
+            border: 1px solid var(--border) !important; 
+            border-radius: 15px; 
+            padding: 12px; 
+            margin-bottom: 12px; 
+            display: flex; 
+            gap: 12px; 
+            align-items: center;
+            justify-content: space-between; 
+        }
 
-/* KUNCI PERBAIKAN: Batasi ukuran fotonya di sini */
-.gallery-item img {
-    width: 50px;           /* Ukuran kecil buat thumbnail */
-    height: 50px;          /* Tinggi sama biar kotak */
-    object-fit: cover;     /* Biar foto gak gepeng */
-    border-radius: 10px;   /* Biar sudut foto tumpul rapi */
-    flex-shrink: 0;        /* WAJIB: Biar foto gak maksa lebar di layar Android */
-}
+        .gallery-item img {
+            width: 50px !important; 
+            height: 50px !important; 
+            object-fit: cover; 
+            border-radius: 10px; 
+            flex-shrink: 0; 
+        }
+
+        .status-dot {
+            height: 8px; width: 8px;
+            background-color: var(--green);
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            animation: pulse-green 2s infinite;
+        }
+
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(52, 168, 83, 0.7); }
+            70% { box-shadow: 0 0 0 8px rgba(52, 168, 83, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(52, 168, 83, 0); }
+        }
+
+        /* --- THE REAL ANDROID RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .container { padding: 10px !important; }
+            .card-box, #settingsPanel { padding: 15px !important; margin-bottom: 15px !important; }
+            .top-nav { padding: 10px 15px !important; }
+            .banner { height: 120px !important; }
+            .profile-pic { width: 80px; height: 80px; margin-top: -40px; }
+            button { padding: 10px !important; font-size: 13px; }
+        }
 
 .item-name { 
     font-weight: bold; 
@@ -575,6 +590,7 @@
 
 </body>
 </html>
+
 
 
 
