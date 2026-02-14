@@ -1,25 +1,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login Toko</title>
+    <title>Gibran Store</title>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: #fff; overflow: hidden; }
+        .container { text-align: center; width: 100%; }
+        #loading-view { display: none; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #ff6600; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 15px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
 </head>
-<body style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; font-family: sans-serif;">
+<body>
 
-    <h3>Login dulu yuk, Bran!</h3>
-    
-    <div id="g_id_onload"
-         data-client_id="297386051610-cll6e6pmerlkf0hvjhneqcanvea705b3.apps.googleusercontent.com"
-         data-callback="handleCredentialResponse"
-         data-auto_prompt="true">
+    <div class="container">
+        <div id="login-view">
+            <h3 style="margin-bottom: 20px; color: #333;">Login dulu yuk, Bran!</h3>
+            <div id="g_id_onload"
+                 data-client_id="297386051610-cll6e6pmerlkf0hvjhneqcanvea705b3.apps.googleusercontent.com"
+                 data-callback="handleCredentialResponse"
+                 data-auto_prompt="false">
+            </div>
+            <div class="g_id_signin" data-type="standard" data-shape="pill"></div>
+        </div>
+
+        <div id="loading-view">
+            <div class="loader"></div>
+            <p style="color: #666;">Menghubungkan ke Toko...</p>
+        </div>
     </div>
-
-    <div class="g_id_signin" data-type="standard"></div>
 
     <script>
     function handleCredentialResponse(response) {
-        // Ini buat ngirim ke file register yang udah lo pindahin tadi
-        window.location.href = "iniregister.html?token=" + response.credential;
+        // Langsung ganti tampilan ke loading di DALAM kotak
+        document.getElementById('login-view').style.display = 'none';
+        document.getElementById('loading-view').style.display = 'block';
+
+        const token = response.credential;
+        const webAppUrl = 'https://script.google.com/macros/s/AKfycbx6Lw4aa6RrPQovyw-U9k-SLfNLQE0f0JknRRgLIGpCvdbZtzqOqXnw7hWHunrLMl2c5Q/exec';
+
+        // Simpan data login ke memori browser
+        localStorage.setItem('namaUser', 'Sobat Gibran');
+
+        // Kirim data ke Google Sheet di latar belakang (background)
+        fetch(webAppUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: JSON.stringify({ "googleToken": token })
+        })
+        .then(() => {
+            // JREEENG! Langsung pindah ke dashboard.html di dalam iframe yang sama
+            window.location.href = "dashboard.html";
+        })
+        .catch(() => {
+            // Tetap pindah halaman meskipun sheet lagi sibuk
+            window.location.href = "dashboard.html";
+        });
     }
     </script>
 </body>
