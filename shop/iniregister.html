@@ -1,1 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Menyimpan Data...</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f0f2f5; }
+        .card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #ff9800; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 15px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
 
+    <div class="card">
+        <div class="loader"></div>
+        <h3 style="color: #333;">Sedang Mendaftarkan Akun...</h3>
+        <p style="color: #666;">Data lo lagi dikirim ke Google Sheet.</p>
+    </div>
+
+    <script>
+        // 1. Ambil Token Google dari URL (dikirim dari index.html)
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+
+        if (token) {
+            // 2. Link Google Script lo yang sakti tadi
+            const webAppUrl = 'https://script.google.com/macros/s/AKfycbx6Lw4aa6RrPQovyw-U9k-SLfNLQE0f0JknRRgLIGpCvdbZtzqOqXnw7hWHunrLMl2c5Q/exec';
+
+            // 3. Kirim data ke Google Sheet
+            fetch(webAppUrl, {
+                method: 'POST',
+                mode: 'no-cors', // Biar nggak kena blokir keamanan browser (CORS)
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ "googleToken": token })
+            })
+            .then(() => {
+                console.log("Berhasil!");
+                // Beri jeda 2 detik biar user sempet liat prosesnya, terus balik ke dashboard
+                setTimeout(() => {
+                    window.location.href = "../v2/dashboard.html";
+                }, 2000);
+            })
+            .catch(err => {
+                console.error("Gagal:", err);
+                alert("Waduh, koneksi ke Sheet putus. Coba lagi ya!");
+            });
+        } else {
+            alert("Login tidak valid. Silakan login ulang dari Toko.");
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
