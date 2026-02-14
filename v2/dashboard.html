@@ -548,11 +548,14 @@ button, .btn-blue, .btn-up-1, .btn-up-2 {
             
     </div> <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
+<button onclick="document.getElementById('shop-frame').src='../shop/index.html'" 
+            style="background: linear-gradient(135deg, #ff9800, #f44336); color: white; border: none; padding: 12px 25px; border-radius: 10px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4); display: flex; align-items: center; gap: 8px;">
+        🛒 Toko Online
+    </button>
 
-<div style="margin: 20px; padding: 10px; background: white; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-        <h3 style="font-family: sans-serif; color: #333;"><i class="fas fa-store"></i> Toko Online</h3>
-        
-       <iframe src="../shop/index.html" style="width: 100%; height: 500px; border: none; border-radius: 8px;"></iframe>
+    <div style="margin-top: 20px; padding: 10px; background: white; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <h3 style="font-family: sans-serif; color: #333;"><i class="fas fa-store"></i> Etalase Toko</h3>
+        <iframe id="shop-frame" src="../shop/index.html" style="width: 100%; height: 500px; border: none; border-radius: 8px;"></iframe>
     </div>
 
 </body>
