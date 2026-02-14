@@ -4,30 +4,23 @@
     <title>Login Toko</title>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
-<body style="font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; background-color: #f9f9f9;">
+<body style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; font-family: sans-serif;">
 
-    <h2 style="color: #333;">Silakan Login untuk Belanja</h2>
-
+    <h3>Login dulu yuk, Bran!</h3>
+    
     <div id="g_id_onload"
          data-client_id="297386051610-cll6e6pmerlkf0hvjhneqcanvea705b3.apps.googleusercontent.com"
          data-callback="handleCredentialResponse"
-         data-context="signin"
-         data-ux_mode="popup"
          data-auto_prompt="true">
     </div>
 
-    <div class="g_id_signin" data-type="standard" data-size="large"></div>
+    <div class="g_id_signin" data-type="standard"></div>
 
     <script>
     function handleCredentialResponse(response) {
-        // Ini yang ngirim data ke file register lo biar masuk ke Google Sheet
-        console.log("Login Sukses!");
+        // Ini buat ngirim ke file register yang udah lo pindahin tadi
         window.location.href = "iniregister.html?token=" + response.credential;
     }
     </script>
-
 </body>
 </html>
-          
-
-
