@@ -16,36 +16,37 @@
         <h3 style="color: #333;">Sedang Mendaftarkan Akun...</h3>
         <p style="color: #666;">Data lo lagi dikirim ke Google Sheet.</p>
     </div>
-
-    <script>
-        // 1. Ambil Token Google dari URL (dikirim dari index.html)
+<script>
+        // 1. Ambil Token dari URL
         const urlParams = new URLSearchParams(window.location.search);
         const token = urlParams.get('token');
 
         if (token) {
-            // 2. Link Google Script lo yang sakti tadi
+            // 2. Link Apps Script lo
             const webAppUrl = 'https://script.google.com/macros/s/AKfycbx6Lw4aa6RrPQovyw-U9k-SLfNLQE0f0JknRRgLIGpCvdbZtzqOqXnw7hWHunrLMl2c5Q/exec';
+            
+            // Simpan nama biar di dashboard muncul "Halo, Sobat Gibran"
+            localStorage.setItem('namaUser', 'Sobat Gibran'); 
 
-            // 3. Kirim data ke Google Sheet
+            // 3. Kirim ke Google Sheet
             fetch(webAppUrl, {
                 method: 'POST',
-                mode: 'no-cors', // Biar nggak kena blokir keamanan browser (CORS)
+                mode: 'no-cors', 
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ "googleToken": token })
             })
             .then(() => {
-                console.log("Berhasil!");
-                // Beri jeda 2 detik biar user sempet liat prosesnya, terus balik ke dashboard
+                // 4. Kalau sukses, masuk ke Dashboard Toko
                 setTimeout(() => {
-                    window.location.href = "../v2/dashboard.html";
-                }, 2000);
+                    window.location.href = "dashboard.html";
+                }, 1500); 
             })
             .catch(err => {
-                console.error("Gagal:", err);
-                alert("Waduh, koneksi ke Sheet putus. Coba lagi ya!");
+                // Tetap masuk dashboard walau internet agak lemot
+                window.location.href = "dashboard.html";
             });
         } else {
-            alert("Login tidak valid. Silakan login ulang dari Toko.");
+            // Kalau gak ada token, balik ke login awal
             window.location.href = "index.html";
         }
     </script>
