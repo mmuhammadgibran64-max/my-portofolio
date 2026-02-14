@@ -548,14 +548,22 @@ button, .btn-blue, .btn-up-1, .btn-up-2 {
             
     </div> <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-<button onclick="document.getElementById('shop-frame').src='../shop/index.html'" 
-            style="background: linear-gradient(135deg, #ff9800, #f44336); color: white; border: none; padding: 12px 25px; border-radius: 10px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4); display: flex; align-items: center; gap: 8px;">
-        🛒 Toko Online
-    </button>
+<button onclick="document.getElementById('shop-frame').src='../shop/index.html'; document.getElementById('shop-frame').style.display='block';" 
+        style="background: linear-gradient(135deg, #ff9800, #f44336); color: white; border: none; padding: 12px 25px; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4);">
+    🛒 Toko Online
+</button>
+
+<div style="margin-top: 20px; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+    <iframe id="shop-frame" 
+            src="about:blank" 
+            style="width: 100%; height: 600px; border: none; display: none;">
+    </iframe>
+</div>
 
     
 </body>
 </html>
+
 
 
 
