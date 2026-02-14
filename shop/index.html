@@ -1,50 +1,33 @@
-<div class="shop-navigation" style="
-    text-align: center; 
-    padding: 20px; 
-    background: #111; 
-    border-bottom: 1px solid #333;
-">
-    <h3 style="color: #888; margin-bottom: 15px; font-family: sans-serif;">PUBLIC RELATIONS</h3>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Toko</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body style="font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; background-color: #f9f9f9;">
 
-    <div style="display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap;">
-        
-        <a href="../index.html" style="text-decoration: none;">
-            <button style="background: #333; color: white; border: 1px solid #444; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: bold;">
-                Dashboard
-            </button>
-        </a>
+    <h2 style="color: #333;">Silakan Login untuk Belanja</h2>
 
-        <a href="../index.html?section=settings" style="text-decoration: none;">
-            <button style="background: #333; color: white; border: 1px solid #444; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: bold;">
-                Pengaturan
-            </button>
-        </a>
-
-        <button style="background: linear-gradient(135deg, #ff9800, #f44336); color: white; border: none; padding: 12px 25px; border-radius: 10px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4); display: flex; align-items: center; gap: 8px;">
-            🛒 Toko Online
-        </button>
-
+    <div id="g_id_onload"
+         data-client_id="297386051610-cll6e6pmerlkf0hvjhneqcanvea705b3.apps.googleusercontent.com"
+         data-callback="handleCredentialResponse"
+         data-context="signin"
+         data-ux_mode="popup"
+         data-auto_prompt="true">
     </div>
 
-</div>     
-    <body>
+    <div class="g_id_signin" data-type="standard" data-size="large"></div>
 
-    <div class="shop-navigation" style="text-align: center; padding: 20px; background: #111; border-bottom: 1px solid #333;">
-        <h3 style="color: #888; margin-bottom: 15px; font-family: sans-serif;">PUBLIC RELATIONS</h3>
-        <div style="display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap;">
-            <a href="../v2/dashboard.html" style="text-decoration: none;">
-                <button style="background: #333; color: white; border: 1px solid #444; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: bold;">
-                    Dashboard
-                </button>
-            </a>
-            </div>
-    </div>
-
-    <div id="g_id_onload" ...></div>
-    <div class="g_id_signin" ...></div>
+    <script>
+    function handleCredentialResponse(response) {
+        // Ini yang ngirim data ke file register lo biar masuk ke Google Sheet
+        console.log("Login Sukses!");
+        window.location.href = "iniregister.html?token=" + response.credential;
+    }
+    </script>
 
 </body>
-
-</html<
+</html>
           
+
 
