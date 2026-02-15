@@ -440,10 +440,50 @@ button, .btn-blue, .btn-up-1, .btn-up-2 {
         </a>
     </div>
 
-   <script>
-        // 1. Setup Awal: Ambil Nama & Tampilkan Menu
+ <!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Gibran Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f4f7f6; }
+        .card-produk { border: none; border-radius: 12px; transition: 0.3s; }
+        .card-produk:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .text-orange { color: #ff6600; }
+        #btn-proses-bayar { 
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); 
+            width: 90%; max-width: 400px; z-index: 9999; display: none; 
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">🏪 GIBRAN STORE</a>
+        </div>
+    </nav>
+
+    <div class="container mt-4 mb-5">
+        <div class="p-3 bg-white rounded shadow-sm mb-4">
+            <h5>Halo, <span id="nama-pelanggan" class="text-orange fw-bold">Pelanggan</span>! 👋</h5>
+            <p class="small text-muted mb-0">Silahkan pilih jajanan lo di bawah ini.</p>
+        </div>
+
+        <div id="produk-list" class="row g-3"></div>
+
+        <button id="btn-proses-bayar" class="btn btn-primary btn-lg shadow fw-bold" onclick="prosesBayar()">
+            🛒 Bayar: Rp0 ➔
+        </button>
+    </div>
+
+    <script>
+        // 1. Ambil nama dari login sebelumnya
         document.getElementById('nama-pelanggan').innerText = localStorage.getItem('namaUser') || "Sobat Gibran";
 
+        // 2. Data Produk
         const menu = [
             {n: "Peye Kacang (Kecil)", h: 5000}, {n: "Peye Kacang (Besar)", h: 10000},
             {n: "Slondok", h: 20000}, {n: "Opak", h: 20000}, {n: "Kacang", h: 2000},
@@ -451,57 +491,61 @@ button, .btn-blue, .btn-up-1, .btn-up-2 {
             {n: "Reginang (isi 3)", h: 5000}, {n: "Aqua Galon", h: 22000}
         ];
 
-        const box = document.getElementById('produk-list');
-        menu.forEach(p => {
-            box.innerHTML += `
+        // 3. Fungsi Nampilin Menu (Biar tombol Tambah muncul)
+        const container = document.getElementById('produk-list');
+        menu.forEach((p, index) => {
+            container.innerHTML += `
                 <div class="col-6 col-md-4">
-                    <div class="card card-produk p-3 text-center shadow-sm mb-3">
-                        <h6 class="fw-bold">${p.n}</h6>
-                        <p class="text-orange fw-bold">Rp${p.h.toLocaleString()}</p>
-                        <button class="btn btn-warning btn-sm fw-bold w-100" onclick="tambah('${p.n}', ${p.h})">Tambah</button>
+                    <div class="card card-produk p-3 text-center shadow-sm">
+                        <h6 class="fw-bold mb-1">${p.n}</h6>
+                        <p class="text-orange fw-bold small">Rp${p.h.toLocaleString()}</p>
+                        <button class="btn btn-warning btn-sm fw-bold w-100" onclick="tambahKeKeranjang('${p.n}', ${p.h})">
+                            Tambah
+                        </button>
                     </div>
                 </div>`;
         });
 
-        // 2. Logika Keranjang Belanja
+        // 4. Logika Keranjang
         let keranjang = [];
-        function tambah(n, h) {
-            keranjang.push({nama: n, harga: h});
-            let total = keranjang.reduce((a, b) => a + b.harga, 0);
+        function tambahKeKeranjang(nama, harga) {
+            keranjang.push({nama: nama, harga: harga});
             
-            const btn = document.getElementById('btn-proses-bayar');
-            btn.style.display = 'block';
-            btn.innerText = "🛒 Bayar: Rp" + total.toLocaleString() + " ➔";
+            // Hitung total
+            let total = keranjang.reduce((sum, item) => sum + item.harga, 0);
+            
+            // Munculkan & update tombol bayar
+            const btnBayar = document.getElementById('btn-proses-bayar');
+            btnBayar.style.display = 'block';
+            btnBayar.innerText = "🛒 Bayar: Rp" + total.toLocaleString() + " ➔";
         }
 
-        // 3. FUNGSI KIRIM KE GOOGLE SHEET (TAB ORDER)
+        // 5. Fungsi Kirim ke Sheet
         function prosesBayar() {
-            // PAKAI LINK TERBARU LO (Deployment terakhir)
             const urlSheet = 'https://script.google.com/macros/s/AKfycbyzRsWmtHFoQxAeCcRw_vTcjr5RbCLsVdIFuPo7r0iL8eZ8T5Yw3BQiYuQpqAPTtfvg4w/exec';
             
-            const namaUser = localStorage.getItem('namaUser') || "Sobat Gibran";
-            const totalBayar = keranjang.reduce((a, b) => a + b.harga, 0);
-            const detailPesanan = keranjang.map(p => p.nama).join(", ");
-
             const btn = document.getElementById('btn-proses-bayar');
             btn.disabled = true;
-            btn.innerText = "⏳ Sedang Mencatat Pesanan...";
+            btn.innerText = "⏳ Mencatat Pesanan...";
+
+            const detailOrder = keranjang.map(p => p.nama).join(", ");
+            const totalHarga = keranjang.reduce((sum, item) => sum + item.harga, 0);
 
             fetch(urlSheet, {
                 method: 'POST',
                 mode: 'no-cors',
                 body: JSON.stringify({
-                    "namaUser": namaUser,
-                    "pesanan": detailPesanan,
-                    "total": "Rp " + totalBayar.toLocaleString()
+                    "namaUser": localStorage.getItem('namaUser') || "Sobat Gibran",
+                    "pesanan": detailOrder,
+                    "total": "Rp " + totalHarga.toLocaleString()
                 })
             }).then(() => {
-                alert("MANTAP, BRAN! Pesanan lo udah masuk ke Google Sheet 'Order'.");
+                alert("PESANAN BERHASIL! Cek Google Sheet lo sekarang, Bran!");
                 keranjang = [];
                 btn.style.display = 'none';
-                location.reload(); 
+                location.reload();
             }).catch(err => {
-                alert("Waduh error: " + err);
+                alert("Gagal kirim: " + err);
                 btn.disabled = false;
             });
         }
@@ -625,6 +669,7 @@ button, .btn-blue, .btn-up-1, .btn-up-2 {
     
 </body>
 </html>
+
 
 
 
