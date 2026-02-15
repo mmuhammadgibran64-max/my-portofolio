@@ -2,81 +2,113 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Gibran Store - Login</title>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gibran Store - Jajanan Mantap</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: #fff; }
-        
-        /* Box utama biar ukurannya tetep di situ aja */
-        .login-box {
-            text-align: center;
-            width: 300px;
-            min-height: 150px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        body { background-color: #f4f7f6; font-family: 'Segoe UI', sans-serif; }
+        .card-produk { border: none; border-radius: 12px; transition: 0.3s; }
+        .card-produk:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .text-orange { color: #ff6600; }
+        #btn-proses-bayar { 
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); 
+            width: 90%; max-width: 400px; z-index: 9999; display: none; 
         }
-
-        #loading-view { display: none; }
-
-        /* Loader simpel biar tetep di dalem area */
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #ff6600;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin-bottom: 10px;
-        }
-
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .navbar-brand { font-size: 1.2rem; }
     </style>
 </head>
 <body>
 
-    <div class="login-box">
-        <div id="login-view">
-            <h4 style="margin-bottom: 20px; color: #333;">Gibran Store</h4>
-            <div id="g_id_onload"
-                 data-client_id="297386051610-cll6e6pmerlkf0hvjhneqcanvea705b3.apps.googleusercontent.com"
-                 data-callback="handleCredentialResponse"
-                 data-auto_prompt="false">
-            </div>
-            <div class="g_id_signin" data-type="standard" data-shape="pill"></div>
+    <nav class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="../dashboard.html">⬅️ GIBRAN STORE</a>
+            <span class="text-white small" id="jam-toko"></span>
+        </div>
+    </nav>
+
+    <div class="container mt-4 mb-5">
+        <div class="p-3 bg-white rounded shadow-sm mb-4 border-start border-warning border-4">
+            <h5>Halo, <span id="nama-pelanggan" class="text-orange fw-bold">Sobat</span>! 👋</h5>
+            <p class="small text-muted mb-0">Lagi pengen ngemil apa hari ini?</p>
         </div>
 
-        <div id="loading-view">
-            <div class="loader"></div>
-            <p style="color: #666; font-size: 14px; margin: 0;">Masuk ke Toko...</p>
-        </div>
+        <div id="produk-list" class="row g-3"></div>
+
+        <button id="btn-proses-bayar" class="btn btn-primary btn-lg shadow-lg fw-bold" onclick="prosesBayar()">
+            🛒 Bayar: Rp0 ➔
+        </button>
     </div>
 
     <script>
-    function handleCredentialResponse(response) {
-        // Hapus tampilan login, ganti jadi loading DI DALAM box yang sama
-        document.getElementById('login-view').style.display = 'none';
-        document.getElementById('loading-view').style.display = 'block';
+        // 1. Ambil Nama & Setup Jam
+        document.getElementById('nama-pelanggan').innerText = localStorage.getItem('namaUser') || "Sobat Gibran";
+        setInterval(() => { 
+            document.getElementById('jam-toko').innerText = new Date().toLocaleTimeString('id-ID'); 
+        }, 1000);
 
-        const token = response.credential;
-        const webAppUrl = 'https://script.google.com/macros/s/AKfycbx6Lw4aa6RrPQovyw-U9k-SLfNLQE0f0JknRRgLIGpCvdbZtzqOqXnw7hWHunrLMl2c5Q/exec';
+        // 2. Daftar Menu Jajanan
+        const menu = [
+            {n: "Peye Kacang (Kecil)", h: 5000}, {n: "Peye Kacang (Besar)", h: 10000},
+            {n: "Slondok", h: 20000}, {n: "Opak", h: 20000}, {n: "Kacang", h: 2000},
+            {n: "Kripik Pedes", h: 15000}, {n: "Kue Sus Kering", h: 15000},
+            {n: "Reginang (isi 3)", h: 5000}, {n: "Aqua Galon", h: 22000}
+        ];
 
-        localStorage.setItem('namaUser', 'Sobat Gibran');
-
-        fetch(webAppUrl, {
-            method: 'POST',
-            mode: 'no-cors',
-            body: JSON.stringify({ "googleToken": token })
-        })
-        .then(() => {
-            // Langsung buka dashboard.html
-            window.location.href = "dashboard.html";
-        })
-        .catch(() => {
-            window.location.href = "dashboard.html";
+        // 3. Render Produk ke Layar
+        const box = document.getElementById('produk-list');
+        menu.forEach(p => {
+            box.innerHTML += `
+                <div class="col-6 col-md-4">
+                    <div class="card card-produk p-3 text-center shadow-sm h-100">
+                        <h6 class="fw-bold mb-1" style="font-size: 0.9rem;">${p.n}</h6>
+                        <p class="text-orange fw-bold small">Rp${p.h.toLocaleString()}</p>
+                        <button class="btn btn-warning btn-sm fw-bold w-100 mt-auto" onclick="tambah('${p.n}', ${p.h})">
+                            Tambah
+                        </button>
+                    </div>
+                </div>`;
         });
-    }
+
+        // 4. Logika Keranjang Belanja
+        let keranjang = [];
+        function tambah(n, h) {
+            keranjang.push({nama: n, harga: h});
+            let total = keranjang.reduce((a, b) => a + b.harga, 0);
+            
+            const btn = document.getElementById('btn-proses-bayar');
+            btn.style.display = 'block';
+            btn.innerText = "🛒 Bayar: Rp" + total.toLocaleString() + " ➔";
+        }
+
+        // 5. Kirim Pesanan ke Google Sheets (Tab Order)
+        function prosesBayar() {
+            const urlSheet = 'https://script.google.com/macros/s/AKfycbyzRsWmtHFoQxAeCcRw_vTcjr5RbCLsVdIFuPo7r0iL8eZ8T5Yw3BQiYuQpqAPTtfvg4w/exec';
+            
+            const btn = document.getElementById('btn-proses-bayar');
+            btn.disabled = true;
+            btn.innerText = "⏳ Mencatat Pesanan...";
+
+            const detailPesanan = keranjang.map(p => p.nama).join(", ");
+            const totalBayar = keranjang.reduce((a, b) => a + b.harga, 0);
+
+            fetch(urlSheet, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify({
+                    "namaUser": localStorage.getItem('namaUser') || "Pelanggan Tanpa Nama",
+                    "pesanan": detailPesanan,
+                    "total": "Rp " + totalBayar.toLocaleString()
+                })
+            }).then(() => {
+                alert("PESANAN BERHASIL, BRAN! Cek Google Sheet lo bagian tab 'Order'.");
+                keranjang = [];
+                btn.style.display = 'none';
+                location.reload(); 
+            }).catch(err => {
+                alert("Waduh error: " + err);
+                btn.disabled = false;
+            });
+        }
     </script>
 </body>
 </html>
