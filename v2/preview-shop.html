@@ -3,214 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gibran Store V2 - Full Update</title>
+    <title>Gibran Store V2 - Full Menu</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     <style>
-     /* Style untuk Pop-up Pembayaran */
-.modal-bayar {
-    display: none; 
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.7);
-    z-index: 9999;
-    align-items: center; justify-content: center;
-}
-.isi-modal {
-    background: white; padding: 25px; border-radius: 20px;
-    width: 90%; max-width: 400px; text-align: center;
-}
-.metode-item {
-    padding: 15px; border: 2px solid #eee; border-radius: 12px;
-    margin-bottom: 10px; cursor: pointer; transition: 0.3s;
-    display: flex; justify-content: space-between; align-items: center;
-}
-.metode-item.aktif { border-color: #ffcc00; background: #fffdf0; }
-.metode-item.mati { opacity: 0.5; cursor: not-allowed; background: #f9f9f9; }
+        body { font-family: 'Poppins', sans-serif; background: #1a1a1a; margin: 0; transition: 0.5s; }
+        
+        /* LOGIN PAGE */
+        .login-container { height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .card-login { padding: 40px; border-radius: 25px; background: white; text-align: center; width: 90%; max-width: 400px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+
+        /* DASHBOARD (NGUMPET DULU) */
+        #menu-utama { display: none; background: #f0f2f5; min-height: 100vh; }
+        
+        .navbar-gibran { background: #000; color: #fff; padding: 20px; border-bottom: 3px solid #ffcc00; }
+        .card-produk { border: none; border-radius: 15px; overflow: hidden; transition: 0.3s; background: #fff; height: 100%; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .card-produk:hover { transform: translateY(-5px); }
+        .img-wrapper { background: #f8f9fa; padding: 15px; text-align: center; font-size: 40px; }
+        .badge-harga { background: #ffcc00; color: #000; font-weight: bold; padding: 5px 10px; border-radius: 20px; display: inline-block; margin-bottom: 10px; font-size: 0.75rem; }
+        .btn-beli { background: #000; color: #fff; border-radius: 10px; border: none; font-weight: 600; padding: 8px; font-size: 0.8rem; }
+
+        /* MODAL PEMBAYARAN */
+        .modal-bayar { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; align-items: center; justify-content: center; }
+        .isi-modal { background: white; padding: 25px; border-radius: 20px; width: 85%; max-width: 350px; text-align: center; }
+        .metode-item { padding: 15px; border: 2px solid #eee; border-radius: 12px; margin-bottom: 10px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .metode-item.aktif { border-color: #28a745; background: #f0fff4; }
     </style>
 </head>
 <body>
 
     <div id="halaman-login" class="login-container">
         <div class="card-login">
-            <div class="mb-2">🏪</div>
+            <div style="font-size: 50px;">🏪</div>
             <h2 class="fw-bold">GIBRAN STORE</h2>
-            <p class="text-muted mb-4 small">Login Google untuk melihat menu</p>
+            <p class="text-muted mb-4 small">Login Google untuk Belanja</p>
             <div class="d-flex justify-content-center">
-                <div id="g_id_onload"
-                     data-client_id="297386051610-cll6e6pmerlkf0hvjhneqcanvea705b3.apps.googleusercontent.com"
-                     data-callback="handleCredentialResponse">
-                </div>
+                <div id="g_id_onload" data-client_id="297386051610-cll6e6pmerlkf0hvjhneqcanvea705b3.apps.googleusercontent.com" data-callback="handleCredentialResponse"></div>
                 <div class="g_id_signin" data-type="standard"></div>
             </div>
         </div>
     </div>
 
     <div id="menu-utama">
-        <nav class="navbar-gibran text-center shadow">
+        <nav class="navbar-gibran text-center">
             <h4 class="mb-0 fw-bold">DASHBOARD GIBRAN STORE</h4>
-            <small>Upgrade V2 - Menu Lengkap</small>
+            <p class="small mb-0">Menu Jajanan V2</p>
         </nav>
 
-        <div class="container mt-5 pb-5">
-            <h5 class="fw-bold border-start border-4 border-warning ps-3 mb-4">DAFTAR MENU</h5>
-            <div class="row g-4">
+        <div class="container mt-4 pb-5">
+            <div class="row g-3">
                 
                 <div class="col-6 col-md-4">
-                    <div class="card card-produk shadow-sm">
+                    <div class="card card-produk">
                         <div class="img-wrapper">🥜</div>
                         <div class="card-body text-center">
                             <h6 class="fw-bold small">Peye Kacang (Kecil)</h6>
                             <div class="badge-harga">Rp 5.000</div>
-                            <button class="btn btn-beli w-100">Tambah</button>
+                            <button class="btn-beli w-100">Tambah</button>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-4">
-                    <div class="card card-produk shadow-sm">
+                    <div class="card card-produk">
                         <div class="img-wrapper">🥜</div>
                         <div class="card-body text-center">
                             <h6 class="fw-bold small">Peye Kacang (Besar)</h6>
                             <div class="badge-harga">Rp 10.000</div>
-                            <button class="btn btn-beli w-100">Tambah</button>
+                            <button class="btn-beli w-100">Tambah</button>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-4">
-                    <div class="card card-produk shadow-sm">
+                    <div class="card card-produk">
                         <div class="img-wrapper">🌶️</div>
                         <div class="card-body text-center">
                             <h6 class="fw-bold small">Slondok</h6>
                             <div class="badge-harga">Rp 20.000</div>
-                            <button class="btn btn-beli w-100">Tambah</button>
+                            <button class="btn-beli w-100">Tambah</button>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-4">
-                    <div class="card card-produk shadow-sm">
+                    <div class="card card-produk">
                         <div class="img-wrapper">🍘</div>
                         <div class="card-body text-center">
                             <h6 class="fw-bold small">Opak</h6>
                             <div class="badge-harga">Rp 20.000</div>
-                            <button class="btn btn-beli w-100">Tambah</button>
+                            <button class="btn-beli w-100">Tambah</button>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-4">
-                    <div class="card card-produk shadow-sm">
+                    <div class="card card-produk">
                         <div class="img-wrapper">🫘</div>
                         <div class="card-body text-center">
                             <h6 class="fw-bold small">Kacang</h6>
                             <div class="badge-harga">Rp 2.000</div>
-                            <button class="btn btn-beli w-100">Tambah</button>
+                            <button class="btn-beli w-100">Tambah</button>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-4">
-                    <div class="card card-produk shadow-sm">
+                    <div class="card card-produk">
                         <div class="img-wrapper">🔥</div>
                         <div class="card-body text-center">
                             <h6 class="fw-bold small">Kripik Pedes</h6>
                             <div class="badge-harga">Rp 15.000</div>
-                            <button class="btn btn-beli w-100">Tambah</button>
+                            <button class="btn-beli w-100">Tambah</button>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-4">
-                    <div class="card card-produk shadow-sm">
+                    <div class="card card-produk">
                         <div class="img-wrapper">🍪</div>
                         <div class="card-body text-center">
                             <h6 class="fw-bold small">Kue Sus Kering</h6>
                             <div class="badge-harga">Rp 15.000</div>
-                            <button class="btn btn-beli w-100">Tambah</button>
+                            <button class="btn-beli w-100">Tambah</button>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-4">
-                    <div class="card card-produk shadow-sm">
+                    <div class="card card-produk">
                         <div class="img-wrapper">🍙</div>
                         <div class="card-body text-center">
-                            <h6 class="fw-bold small">Reginang (Isi 3)</h6>
+                            <h6 class="fw-bold small">Reginang (isi 3)</h6>
                             <div class="badge-harga">Rp 5.000</div>
-                            <button class="btn btn-beli w-100">Tambah</button>
+                            <button class="btn-beli w-100">Tambah</button>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-4">
-                    <div class="card card-produk shadow-sm">
+                    <div class="card card-produk">
                         <div class="img-wrapper">💧</div>
                         <div class="card-body text-center">
                             <h6 class="fw-bold small">Aqua Galon</h6>
                             <div class="badge-harga">Rp 22.000</div>
-                            <button class="btn btn-beli w-100">Tambah</button>
+                            <button class="btn-beli w-100">Tambah</button>
                         </div>
                     </div>
                 </div>
 
+            </div>
+        </div>
+
+        <div id="modalBayar" class="modal-bayar">
+            <div class="isi-modal">
+                <h5 class="fw-bold mb-3">Metode Pembayaran</h5>
+                <div class="metode-item aktif" onclick="bayarCash()">
+                    <span>💵 Cash (Tunai)</span>
+                    <span class="badge bg-success">Aktif</span>
+                </div>
+                <button class="btn btn-danger w-100 mt-3" onclick="tutupModal()">Batal</button>
             </div>
         </div>
     </div>
 
     <script>
         function handleCredentialResponse(response) {
-            document.getElementById('halaman-login').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('halaman-login').style.display = 'none';
-                document.getElementById('menu-utama').style.display = 'block';
-                document.body.style.background = '#f0f2f5';
-            }, 500);
-
-            const scriptURL = "https://script.google.com/macros/s/AKfycbx6Lw4aa6RrPQovyw-U9k-SLfNLQE0f0JknRRgLIGpCvdbZtzqOqXnw7hWHunrLMl2c5Q/exec";
-            fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ token: response.credential }) });
+            document.getElementById('halaman-login').style.display = 'none';
+            document.getElementById('menu-utama').style.display = 'block';
+            document.body.style.background = '#f0f2f5';
         }
-    </script>
-<div id="modalBayar" class="modal-bayar">
-        <div class="isi-modal">
-            <h5 class="fw-bold mb-3">Pilih Metode Pembayaran</h5>
-            
-            <div class="metode-item aktif" onclick="bayarCash()">
-                <span>💵 Cash (Tunai)</span>
-                <span class="badge bg-success">Aktif</span>
-            </div>
 
-            <div class="metode-item mati">
-                <span>📱 DANA</span>
-                <span class="badge bg-secondary">Maintenance</span>
-            </div>
-
-            <button class="btn btn-danger w-100 mt-3" onclick="tutupModal()">Batal</button>
-        </div>
-    </div>
-
-    <script>
-        function bukaModal() {
-            document.getElementById('modalBayar').style.display = 'flex';
-        }
-        function tutupModal() {
-            document.getElementById('modalBayar').style.display = 'none';
-        }
+        function bukaModal() { document.getElementById('modalBayar').style.display = 'flex'; }
+        function tutupModal() { document.getElementById('modalBayar').style.display = 'none'; }
+        
         function bayarCash() {
-            alert("Pesanan diterima! Silakan siapkan uang tunai ya. Terima kasih!");
+            alert("Pesanan dicatat! Siapkan uang tunainya.");
             tutupModal();
         }
 
-        // Menghubungkan semua tombol "Tambah" supaya pas diklik muncul pilihannya
-        // Kita pakai jeda sedikit supaya tombolnya sudah "siap" di halaman
         setTimeout(() => {
-            document.querySelectorAll('.btn-beli').forEach(button => {
-                button.onclick = bukaModal;
+            document.querySelectorAll('.btn-beli').forEach(tombol => {
+                tombol.onclick = bukaModal;
             });
         }, 1000);
-    </script></body>
+    </script>
+</body>
 </html>
