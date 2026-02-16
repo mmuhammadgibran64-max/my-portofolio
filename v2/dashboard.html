@@ -57,18 +57,78 @@
         }
 
         /* CARD BOX & DASHBOARD MODERN */
-        .card-box, .card, #settingsPanel { 
-            background: var(--card) !important; 
-            padding: 25px !important; 
-            border-radius: 20px !important; 
-            border: 1px solid var(--border) !important; 
-            margin-bottom: 20px; 
-            box-shadow: var(--shadow) !important; 
-            transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            position: relative;
-            overflow: hidden;
-            color: var(--text) !important;
-        }
+        /* --- GIBRAN MODERN SYSTEM V3.5 --- */
+
+.card-box, .card, #settingsPanel { 
+    background: var(--card) !important; 
+    padding: 25px !important; 
+    border-radius: 20px !important; 
+    border: 1px solid var(--border) !important; 
+    margin-bottom: 20px; 
+    box-shadow: var(--shadow) !important; 
+    transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
+    position: relative; 
+    overflow: hidden; 
+    color: var(--text) !important; 
+}
+
+.card-box:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12) !important; 
+}
+
+.card-box h3 { 
+    margin-top: 0; 
+    color: var(--accent) !important; 
+    font-size: 18px; 
+    border-bottom: 2px solid #f1f3f4 !important; 
+    padding-bottom: 12px; 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+}
+
+/* TOMBOL AKSI MODERN */
+button, .btn-blue, .btn-up-1, .btn-up-2 { 
+    border-radius: 12px !important; 
+    font-weight: bold !important; 
+    border: none !important; 
+    cursor: pointer; 
+    transition: 0.3s ease; 
+    padding: 14px !important; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 8px; 
+}
+
+/* --- PERBAIKAN RIWAYAT (FOTO KECIL & TOMBOL BAGIKAN) --- */
+.gallery-item { 
+    background: #fff !important; 
+    border: 1px solid var(--border) !important; 
+    border-radius: 15px; 
+    padding: 12px; 
+    margin-bottom: 12px; 
+    display: flex; 
+    gap: 15px; 
+    align-items: center; 
+}
+
+.gallery-item img { 
+    width: 80px !important;  /* Biar Gak Kegedean */
+    height: 80px !important; 
+    object-fit: cover; 
+    border-radius: 10px; 
+}
+
+.btn-share-modern { 
+    background: #e6f4ea !important; /* Warna Hijau Lembut */
+    color: var(--green) !important; 
+    border: 1px solid #ceead6 !important;
+    padding: 8px 12px !important;
+    border-radius: 10px !important;
+    font-size: 12px !important;
+}
 
         .card-box:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.12) !important; }
         .card-box h3 { margin-top: 0; color: var(--accent) !important; font-size: 18px; border-bottom: 2px solid #f1f3f4 !important; padding-bottom: 12px; display: flex; align-items: center; gap: 10px; }
@@ -171,17 +231,32 @@
         </div>
 
         <div class="card-box">
-            <h3><i class="fas fa-star"></i> Keahlian Lain</h3>
-            <div class="skill-item">
-                <b>Bermain Gitar</b>
-                <span>Mampu memainkan beberapa genre musik, memahami chord dasar hingga intermediate (Acoustic).</span>
+            <h3 style="color: #1a73e8; border-bottom: 2px solid #e8f0fe; padding-bottom: 10px;">
+                <i class="fas fa-calendar-alt"></i> Dashboard Progress
+            </h3>
+            
+            <div style="background: #fff7e6; border-left: 5px solid #ffa940; padding: 15px; border-radius: 10px; margin-top: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                <b style="color: #d46b08; font-size: 16px; display: block; margin-bottom: 8px;">
+                    <i class="fas fa-tasks"></i> Jadwal Konten: Selasa
+                </b>
+                
+                <div style="font-size: 14px; color: #444; line-height: 1.6;">
+                    <div style="margin-bottom: 5px;">
+                        <i class="fas fa-clock" style="color: #666;"></i> <b>Waktu:</b> 09.00 - 16.00
+                    </div>
+                    
+                    <div style="margin-top: 10px; padding: 12px; background: #fff; border: 1px solid #ffccc7; border-radius: 8px;">
+                        <span style="color: #cf1322; font-weight: bold; display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-exclamation-circle"></i> STATUS: Video Belum Terlaksana
+                        </span>
+                    </div>
+                </div>
             </div>
-            <div class="skill-item">
-                <b>Futsal</b>
-                <span>Kemampuan kontrol bola baik, cepat mengambil keputusan, bisa sebagai pemain bertahan maupun penyerang.</span>
-            </div>
+            
+            <p style="font-size: 11px; color: #999; margin-top: 15px; font-style: italic;">
+                *Fitur ini telah diperbarui dari status sebelumnya (Terkunci).
+            </p>
         </div>
-
         <div class="card-box">
             <h3><i class="fas fa-briefcase"></i> Pengalaman Kerja</h3>
             <p><b>BGI</b><br>
@@ -451,32 +526,185 @@
                 <button onclick="window.open('https://search.google.com/search-console', '_blank')" style="width: 100%; padding: 12px; background: #f8f9fa; border: 1px solid #dadce0; border-radius: 8px; cursor: pointer; font-weight: bold; color: #3c4043;">
                     Search Console
                 </button>
-            </div>
             <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0; margin-top: 10px; border-top: 1px solid #f1f3f4;">
                 <span style="font-weight: bold; color: #3c4043; font-size: 14px;">Keamanan SSL</span>
                 <div style="color: #25d366;"><i class="fas fa-shield-alt fa-lg"></i></div>
             </div>
-        </div>
 
+            <div style="padding-top: 15px; border-top: 1px solid #f1f3f4; margin-top: 10px;">
+                <span style="font-weight: bold; color: #3c4043; font-size: 14px; display: block; margin-bottom: 12px;">Tampilan Perangkat</span>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                    <button style="flex: 1; min-width: 80px; padding: 10px 5px; border-radius: 8px; border: 1px solid #dadce0; background: #1a73e8; color: white; cursor: pointer; font-size: 10px; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 4px;">
+                        <i class="fas fa-mobile-alt"></i> Android
+                    </button>
+                    <button style="flex: 1; min-width: 80px; padding: 10px 5px; border-radius: 8px; border: 1px solid #dadce0; background: #f8f9fa; color: #3c4043; cursor: pointer; font-size: 10px; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 4px;">
+                        <i class="fas fa-tablet-alt"></i> iPad
+                    </button>
+                    <button style="flex: 1; min-width: 80px; padding: 10px 5px; border-radius: 8px; border: 1px solid #dadce0; background: #f8f9fa; color: #3c4043; cursor: pointer; font-size: 10px; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 4px;">
+                        <i class="fas fa-laptop"></i> Laptop
+                    </button>
+                </div>
+            </div></div>
+            
     </div> <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+<button onclick="document.getElementById('shop-frame').src='../shop/index.html'; document.getElementById('shop-frame').style.display='block';" 
+        style="background: linear-gradient(135deg, #ff9800, #f44336); color: white; border: none; padding: 12px 25px; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
+    🛒 Toko Online
+</button>
+
+<div style="margin-top: 20px;">
+    <iframe id="shop-frame" src="about:blank" style="width: 100%; height: 600px; border: none; display: none; border-radius: 10px; background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></iframe>
+</div>
+
+    
 </body>
 </html>
 
 
 
 
+folder shop 
+
+shop/index.html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Gibran Store - Login</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: #fff; }
+        
+        /* Box utama biar ukurannya tetep di situ aja */
+        .login-box {
+            text-align: center;
+            width: 300px;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #loading-view { display: none; }
+
+        /* Loader simpel biar tetep di dalem area */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #ff6600;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 10px;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div class="login-box">
+        <div id="login-view">
+            <h4 style="margin-bottom: 20px; color: #333;">Gibran Store</h4>
+            <div id="g_id_onload"
+                 data-client_id="297386051610-cll6e6pmerlkf0hvjhneqcanvea705b3.apps.googleusercontent.com"
+                 data-callback="handleCredentialResponse"
+                 data-auto_prompt="false">
+            </div>
+            <div class="g_id_signin" data-type="standard" data-shape="pill"></div>
+        </div>
+
+        <div id="loading-view">
+            <div class="loader"></div>
+            <p style="color: #666; font-size: 14px; margin: 0;">Masuk ke Toko...</p>
+        </div>
+    </div>
+
+    <script>
+    function handleCredentialResponse(response) {
+        // Hapus tampilan login, ganti jadi loading DI DALAM box yang sama
+        document.getElementById('login-view').style.display = 'none';
+        document.getElementById('loading-view').style.display = 'block';
+
+        const token = response.credential;
+        const webAppUrl = 'https://script.google.com/macros/s/AKfycbx6Lw4aa6RrPQovyw-U9k-SLfNLQE0f0JknRRgLIGpCvdbZtzqOqXnw7hWHunrLMl2c5Q/exec';
+
+        localStorage.setItem('namaUser', 'Sobat Gibran');
+
+        fetch(webAppUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: JSON.stringify({ "googleToken": token })
+        })
+        .then(() => {
+            // Langsung buka dashboard.html
+            window.location.href = "dashboard.html";
+        })
+        .catch(() => {
+            window.location.href = "dashboard.html";
+        });
+    }
+    </script>
+</body>
+</html>
 
 
 
+shop/iniregister.html
 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Menyimpan Data...</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f0f2f5; }
+        .card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #ff9800; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 15px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
 
+    <div class="card">
+        <div class="loader"></div>
+        <h3 style="color: #333;">Sedang Mendaftarkan Akun...</h3>
+        <p style="color: #666;">Data lo lagi dikirim ke Google Sheet.</p>
+    </div>
+<script>
+        // 1. Ambil Token dari URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
 
+        if (token) {
+            // 2. Link Apps Script lo
+            const webAppUrl = 'https://script.google.com/macros/s/AKfycbx6Lw4aa6RrPQovyw-U9k-SLfNLQE0f0JknRRgLIGpCvdbZtzqOqXnw7hWHunrLMl2c5Q/exec';
+            
+            // Simpan nama biar di dashboard muncul "Halo, Sobat Gibran"
+            localStorage.setItem('namaUser', 'Sobat Gibran'); 
 
-
-
-
-
-
-
-
-
+            // 3. Kirim ke Google Sheet
+            fetch(webAppUrl, {
+                method: 'POST',
+                mode: 'no-cors', 
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ "googleToken": token })
+            })
+            .then(() => {
+                // 4. Kalau sukses, masuk ke Dashboard Toko
+                setTimeout(() => {
+                    window.location.href = "dashboard.html";
+                }, 1500); 
+            })
+            .catch(err => {
+                // Tetap masuk dashboard walau internet agak lemot
+                window.location.href = "dashboard.html";
+            });
+        } else {
+            // Kalau gak ada token, balik ke login awal
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
