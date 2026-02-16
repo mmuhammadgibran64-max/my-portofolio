@@ -10,18 +10,26 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     <style>
-        body { font-family: 'Poppins', sans-serif; background: #f0f2f5; color: #333; }
-        .login-container { height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%); }
-        .card-login { padding: 40px; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.3); background: white; text-align: center; width: 100%; max-width: 400px; animation: fadeIn 0.8s ease; }
-        #menu-utama { display: none; }
-        .navbar-gibran { background: #000; color: #fff; padding: 20px; border-bottom: 3px solid #ffcc00; }
-        .card-produk { border: none; border-radius: 15px; overflow: hidden; transition: all 0.3s ease; background: #fff; height: 100%; }
-        .card-produk:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .img-wrapper { background: #f8f9fa; padding: 20px; text-align: center; font-size: 50px; }
-        .badge-harga { background: #ffcc00; color: #000; font-weight: bold; padding: 5px 12px; border-radius: 20px; display: inline-block; margin-bottom: 10px; font-size: 0.8rem; }
-        .btn-beli { background: #000; color: #fff; border-radius: 10px; font-weight: 600; border: none; transition: 0.3s; font-size: 0.9rem; }
-        .btn-beli:hover { background: #ffcc00; color: #000; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+     /* Style untuk Pop-up Pembayaran */
+.modal-bayar {
+    display: none; 
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 9999;
+    align-items: center; justify-content: center;
+}
+.isi-modal {
+    background: white; padding: 25px; border-radius: 20px;
+    width: 90%; max-width: 400px; text-align: center;
+}
+.metode-item {
+    padding: 15px; border: 2px solid #eee; border-radius: 12px;
+    margin-bottom: 10px; cursor: pointer; transition: 0.3s;
+    display: flex; justify-content: space-between; align-items: center;
+}
+.metode-item.aktif { border-color: #ffcc00; background: #fffdf0; }
+.metode-item.mati { opacity: 0.5; cursor: not-allowed; background: #f9f9f9; }
     </style>
 </head>
 <body>
@@ -167,5 +175,42 @@
             fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ token: response.credential }) });
         }
     </script>
-</body>
+<div id="modalBayar" class="modal-bayar">
+        <div class="isi-modal">
+            <h5 class="fw-bold mb-3">Pilih Metode Pembayaran</h5>
+            
+            <div class="metode-item aktif" onclick="bayarCash()">
+                <span>💵 Cash (Tunai)</span>
+                <span class="badge bg-success">Aktif</span>
+            </div>
+
+            <div class="metode-item mati">
+                <span>📱 DANA</span>
+                <span class="badge bg-secondary">Maintenance</span>
+            </div>
+
+            <button class="btn btn-danger w-100 mt-3" onclick="tutupModal()">Batal</button>
+        </div>
+    </div>
+
+    <script>
+        function bukaModal() {
+            document.getElementById('modalBayar').style.display = 'flex';
+        }
+        function tutupModal() {
+            document.getElementById('modalBayar').style.display = 'none';
+        }
+        function bayarCash() {
+            alert("Pesanan diterima! Silakan siapkan uang tunai ya. Terima kasih!");
+            tutupModal();
+        }
+
+        // Menghubungkan semua tombol "Tambah" supaya pas diklik muncul pilihannya
+        // Kita pakai jeda sedikit supaya tombolnya sudah "siap" di halaman
+        setTimeout(() => {
+            document.querySelectorAll('.btn-beli').forEach(button => {
+                button.onclick = bukaModal;
+            });
+        }, 1000);
+    </script></body>
 </html>
