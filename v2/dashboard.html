@@ -558,5 +558,141 @@ button, .btn-blue, .btn-up-1, .btn-up-2 {
 </div>
 
     
-</body>
+<hr class="my-5" style="border-top: 5px dashed #ccc;">
+<div class="container mt-4 mb-5" id="toko-online">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold m-0"><i class="fas fa-store text-danger"></i> JAJANAN GIBRAN</h3>
+        <span class="badge bg-success p-2">BUKA 24 JAM</span>
+    </div>
+    
+    <div id="produk-list" class="row g-3"></div>
+
+    <button id="btn-proses-bayar" class="btn btn-primary btn-lg shadow-lg fw-bold" 
+            style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 450px; z-index: 9999; display: none; border-radius: 50px; border: 3px solid white;" 
+            onclick="bukaModalBayar()">
+        🛒 CEK KERANJANG: Rp0 ➔
+    </button>
+</div>
+
+<div class="modal fade" id="modalBayar" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 25px; overflow: hidden;">
+            <div id="loading-pembayaran" class="text-center p-5" style="display: none;">
+                <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem;"></div>
+                <h5 class="fw-bold">Mengirim Pesanan...</h5>
+                <p class="text-muted small">Data lagi meluncur ke Google Sheet lo, Bran.</p>
+            </div>
+
+            <div id="berhasil-pembayaran" class="text-center p-5" style="display: none;">
+                <div class="mb-3" style="font-size: 5rem;">✅</div>
+                <h3 class="fw-bold">ORDER BERHASIL!</h3>
+                <p class="text-muted">Mantap! Silahkan cek tab <b>Order</b> di Google Sheets.</p>
+                <button class="btn btn-primary w-100 fw-bold py-3 mt-3" style="border-radius: 15px;" onclick="location.reload()">BELANJA LAGI</button>
+            </div>
+
+            <div id="isi-modal">
+                <div class="modal-header border-0 bg-light">
+                    <h5 class="modal-title fw-bold"><i class="fas fa-shopping-cart me-2"></i>Konfirmasi Bayar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="alert alert-info border-0 text-center mb-4" style="border-radius: 15px;">
+                        <span class="small d-block text-uppercase">Metode Pembayaran</span>
+                        <strong style="font-size: 1.2rem;"><i class="fas fa-money-bill-wave text-success"></i> CASH (BAYAR TUNAI)</strong>
+                    </div>
+                    <div class="text-center py-3 bg-light rounded-4 border">
+                        <p class="text-muted mb-1 small fw-bold uppercase">Total Tagihan</p>
+                        <h1 class="fw-bold text-primary mb-0" id="total-modal">Rp0</h1>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 p-4">
+                    <button class="btn btn-primary btn-lg w-100 fw-bold shadow-sm" style="border-radius: 15px; height: 60px;" onclick="prosesKeSheet()">
+                        KONFIRMASI PESANAN SEKARANG
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- Data Produk ---
+    const menuJajanan = [
+        {n: "Peye Kacang (Kecil)", h: 5000}, {n: "Peye Kacang (Besar)", h: 10000},
+        {n: "Slondok", h: 20000}, {n: "Opak", h: 20000}, {n: "Kacang", h: 2000},
+        {n: "Kripik Pedes", h: 15000}, {n: "Kue Sus Kering", h: 15000},
+        {n: "Reginang (isi 3)", h: 5000}, {n: "Aqua Galon", h: 22000}
+    ];
+
+    let keranjangBelanja = [];
+
+    // --- Munculin Produk Otomatis ---
+    const boxList = document.getElementById('produk-list');
+    menuJajanan.forEach(p => {
+        boxList.innerHTML += `
+            <div class="col-6 col-md-4">
+                <div class="card border-0 shadow-sm p-3 text-center h-100" style="border-radius: 15px;">
+                    <h6 class="fw-bold mb-1" style="font-size: 0.9rem;">${p.n}</h6>
+                    <p class="text-primary fw-bold small mb-2">Rp${p.h.toLocaleString()}</p>
+                    <button class="btn btn-warning btn-sm fw-bold w-100 mt-auto" style="border-radius: 10px;" onclick="tambahItem('${p.n}', ${p.h})">Tambah</button>
+                </div>
+            </div>`;
+    });
+
+    // --- Fungsi Tambah Keranjang ---
+    function tambahItem(nama, harga) {
+        keranjangBelanja.push({nama, harga});
+        let total = keranjangBelanja.reduce((sum, item) => sum + item.harga, 0);
+        const btn = document.getElementById('btn-proses-bayar');
+        btn.style.display = 'block';
+        btn.innerHTML = `🛒 CEK KERANJANG: Rp${total.toLocaleString()} ➔`;
+    }
+
+    // --- Fungsi Buka Modal ---
+    function bukaModalBayar() {
+        let total = keranjangBelanja.reduce((sum, item) => sum + item.harga, 0);
+        document.getElementById('total-modal').innerText = "Rp" + total.toLocaleString();
+        
+        document.getElementById('isi-modal').style.display = 'block';
+        document.getElementById('loading-pembayaran').style.display = 'none';
+        document.getElementById('berhasil-pembayaran').style.display = 'none';
+
+        var modalElt = new bootstrap.Modal(document.getElementById('modalBayar'));
+        modalElt.show();
+    }
+
+    // --- Fungsi Kirim ke Google Sheet ---
+    async function prosesKeSheet() {
+        const urlSheet = 'https://script.google.com/macros/s/AKfycbyzRsWmtHFoQxAeCcRw_vTcjr5RbCLsVdIFuPo7r0iL8eZ8T5Yw3BQiYuQpqAPTtfvg4w/exec';
+        
+        document.getElementById('isi-modal').style.display = 'none';
+        document.getElementById('loading-pembayaran').style.display = 'block';
+
+        const daftarPesanan = keranjangBelanja.map(i => i.nama).join(", ");
+        const totalHarga = keranjangBelanja.reduce((sum, item) => sum + item.harga, 0);
+        const namaUser = localStorage.getItem('namaUser') || "Gibran Tanpa Nama";
+
+        try {
+            await fetch(urlSheet, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify({
+                    "namaUser": namaUser,
+                    "pesanan": daftarPesanan,
+                    "total": "Rp " + totalHarga.toLocaleString(),
+                    "metode": "CASH" 
+                })
+            });
+
+            document.getElementById('loading-pembayaran').style.display = 'none';
+            document.getElementById('berhasil-pembayaran').style.display = 'block';
+
+        } catch (err) {
+            alert("Waduh Bran, ada error pas kirim data!");
+            document.getElementById('isi-modal').style.display = 'block';
+            document.getElementById('loading-pembayaran').style.display = 'none';
+        }
+    }
+</script></body>
 </html>
+
