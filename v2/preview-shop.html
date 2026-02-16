@@ -3,57 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preview Gibran Store V2</title>
+    <title>Gibran Store V2 - Premium Preview</title>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
+
     <style>
-        body { background-color: #f8f9fa; }
-        /* Awalnya menu disembunyikan */
+        /* CSS KHUSUS GIBRAN STORE */
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: #f0f2f5; 
+            color: #333;
+        }
+
+        /* Desain Halaman Login */
+        .login-container { 
+            height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
+        }
+
+        .card-login { 
+            padding: 40px; 
+            border-radius: 25px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3); 
+            background: white; 
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        /* Desain Menu Utama */
         #menu-utama { display: none; }
-        .login-container { height: 80vh; display: flex; align-items: center; justify-content: center; }
-        .card-login { padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); background: white; text-align: center; }
-        .navbar-gibran { background: #000; color: white; padding: 15px; }
+
+        .navbar-gibran { 
+            background: #000; 
+            color: #fff; 
+            padding: 20px;
+            border-bottom: 3px solid #ffcc00;
+        }
+
+        .card-produk {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: #fff;
+        }
+
+        .card-produk:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .img-wrapper {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .badge-harga {
+            background: #ffcc00;
+            color: #000;
+            font-weight: bold;
+            padding: 5px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .btn-beli {
+            background: #000;
+            color: #fff;
+            border-radius: 10px;
+            font-weight: 600;
+            border: none;
+            transition: 0.3s;
+        }
+
+        .btn-beli:hover {
+            background: #ffcc00;
+            color: #000;
+        }
+
+        /* Animasi Muncul */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
 
     <div id="halaman-login" class="login-container">
         <div class="card-login">
-            <h3 class="fw-bold">🏪 GIBRAN STORE V2</h3>
-            <p class="text-muted mb-4">Silakan login untuk melihat menu jajanan</p>
-            <div id="g_id_onload"
-                 data-client_id="297386051610-cll6e6pmerlkf0hvjhneqcanvea705b3.apps.googleusercontent.com"
-                 data-callback="handleCredentialResponse">
+            <div class="mb-3" style="font-size: 50px;">🏪</div>
+            <h2 class="fw-bold">GIBRAN STORE</h2>
+            <p class="text-muted mb-4">Eksklusif Upgrade V2</p>
+            <hr>
+            <p class="small mb-4">Silakan masuk dengan Google untuk melihat koleksi jajanan kami.</p>
+            
+            <div class="d-flex justify-content-center">
+                <div id="g_id_onload"
+                     data-client_id="297386051610-cll6e6pmerlkf0hvjhneqcanvea705b3.apps.googleusercontent.com"
+                     data-callback="handleCredentialResponse">
+                </div>
+                <div class="g_id_signin" data-type="standard" data-shape="pill"></div>
             </div>
-            <div class="g_id_signin" data-type="standard"></div>
         </div>
     </div>
 
     <div id="menu-utama">
         <nav class="navbar-gibran text-center shadow">
-            <h5 class="mb-0">DASHBOARD GIBRAN STORE</h5>
+            <h4 class="mb-0 fw-bold">DASHBOARD GIBRAN STORE</h4>
+            <small>Selamat Datang di Toko V2</small>
         </nav>
 
-        <div class="container mt-4">
-            <div class="alert alert-success">✅ Login Berhasil! Selamat datang, Sobat Gibran.</div>
-            
-            <h5 class="fw-bold mb-3">Daftar Jajanan Upgrade V2:</h5>
-            <div class="row g-3">
+        <div class="container mt-5">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h5 class="fw-bold border-start border-4 border-warning ps-3">KOLEKSI JAJANAN</h5>
+                </div>
+            </div>
+
+            <div class="row g-4">
                 <div class="col-6 col-md-4">
-                    <div class="card p-2 border-0 shadow-sm">
-                        <img src="https://via.placeholder.com/150" class="rounded" alt="Produk">
-                        <div class="card-body p-2 text-center">
-                            <h6 class="fw-bold">Peye Kacang</h6>
-                            <button class="btn btn-sm btn-warning w-100">Beli</button>
+                    <div class="card card-produk shadow-sm">
+                        <div class="img-wrapper">
+                            <span style="font-size: 60px;">🥜</span>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="fw-bold">Peye Kacang Spesial</h6>
+                            <div class="badge-harga small">Rp 15.000</div>
+                            <button class="btn btn-beli w-100">Tambah ke Keranjang</button>
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-6 col-md-4">
-                    <div class="card p-2 border-0 shadow-sm">
-                        <img src="https://via.placeholder.com/150" class="rounded" alt="Produk">
-                        <div class="card-body p-2 text-center">
-                            <h6 class="fw-bold">Slondok</h6>
-                            <button class="btn btn-sm btn-warning w-100">Beli</button>
+                    <div class="card card-produk shadow-sm">
+                        <div class="img-wrapper">
+                            <span style="font-size: 60px;">🌶️</span>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="fw-bold">Slondok Pedas Level</h6>
+                            <div class="badge-harga small">Rp 12.000</div>
+                            <button class="btn btn-beli w-100">Tambah ke Keranjang</button>
                         </div>
                     </div>
                 </div>
@@ -65,13 +164,15 @@
         function handleCredentialResponse(response) {
             console.log("Login sukses!");
             
-            // 1. Sembunyikan halaman login
-            document.getElementById('halaman-login').style.display = 'none';
-            
-            // 2. Munculkan menu utama
-            document.getElementById('menu-utama').style.display = 'block';
+            // Efek transisi
+            document.getElementById('halaman-login').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('halaman-login').style.display = 'none';
+                document.getElementById('menu-utama').style.display = 'block';
+                document.getElementById('menu-utama').style.animation = 'fadeIn 0.5s ease';
+            }, 500);
 
-            // 3. Kirim data ke Google Apps Script kamu
+            // Kirim data ke Google Apps Script
             const scriptURL = "https://script.google.com/macros/s/AKfycbx6Lw4aa6RrPQovyw-U9k-SLfNLQE0f0JknRRgLIGpCvdbZtzqOqXnw7hWHunrLMl2c5Q/exec";
             fetch(scriptURL, {
                 method: 'POST',
