@@ -3,116 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gibran Store V2 - Premium Preview</title>
+    <title>Gibran Store V2 - Full Update</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     <style>
-        /* CSS KHUSUS GIBRAN STORE */
-        body { 
-            font-family: 'Poppins', sans-serif; 
-            background: #f0f2f5; 
-            color: #333;
-        }
-
-        /* Desain Halaman Login */
-        .login-container { 
-            height: 100vh; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
-            background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
-        }
-
-        .card-login { 
-            padding: 40px; 
-            border-radius: 25px; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3); 
-            background: white; 
-            text-align: center;
-            width: 100%;
-            max-width: 400px;
-            animation: fadeIn 0.8s ease;
-        }
-
-        /* Desain Menu Utama */
+        body { font-family: 'Poppins', sans-serif; background: #f0f2f5; color: #333; }
+        .login-container { height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%); }
+        .card-login { padding: 40px; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.3); background: white; text-align: center; width: 100%; max-width: 400px; animation: fadeIn 0.8s ease; }
         #menu-utama { display: none; }
-
-        .navbar-gibran { 
-            background: #000; 
-            color: #fff; 
-            padding: 20px;
-            border-bottom: 3px solid #ffcc00;
-        }
-
-        .card-produk {
-            border: none;
-            border-radius: 15px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            background: #fff;
-        }
-
-        .card-produk:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .img-wrapper {
-            background: #f8f9fa;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .badge-harga {
-            background: #ffcc00;
-            color: #000;
-            font-weight: bold;
-            padding: 5px 12px;
-            border-radius: 20px;
-            display: inline-block;
-            margin-bottom: 10px;
-        }
-
-        .btn-beli {
-            background: #000;
-            color: #fff;
-            border-radius: 10px;
-            font-weight: 600;
-            border: none;
-            transition: 0.3s;
-        }
-
-        .btn-beli:hover {
-            background: #ffcc00;
-            color: #000;
-        }
-
-        /* Animasi Muncul */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .navbar-gibran { background: #000; color: #fff; padding: 20px; border-bottom: 3px solid #ffcc00; }
+        .card-produk { border: none; border-radius: 15px; overflow: hidden; transition: all 0.3s ease; background: #fff; height: 100%; }
+        .card-produk:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .img-wrapper { background: #f8f9fa; padding: 20px; text-align: center; font-size: 50px; }
+        .badge-harga { background: #ffcc00; color: #000; font-weight: bold; padding: 5px 12px; border-radius: 20px; display: inline-block; margin-bottom: 10px; font-size: 0.8rem; }
+        .btn-beli { background: #000; color: #fff; border-radius: 10px; font-weight: 600; border: none; transition: 0.3s; font-size: 0.9rem; }
+        .btn-beli:hover { background: #ffcc00; color: #000; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
     <div id="halaman-login" class="login-container">
         <div class="card-login">
-            <div class="mb-3" style="font-size: 50px;">🏪</div>
+            <div class="mb-2">🏪</div>
             <h2 class="fw-bold">GIBRAN STORE</h2>
-            <p class="text-muted mb-4">Eksklusif Upgrade V2</p>
-            <hr>
-            <p class="small mb-4">Silakan masuk dengan Google untuk melihat koleksi jajanan kami.</p>
-            
+            <p class="text-muted mb-4 small">Login Google untuk melihat menu</p>
             <div class="d-flex justify-content-center">
                 <div id="g_id_onload"
                      data-client_id="297386051610-cll6e6pmerlkf0hvjhneqcanvea705b3.apps.googleusercontent.com"
                      data-callback="handleCredentialResponse">
                 </div>
-                <div class="g_id_signin" data-type="standard" data-shape="pill"></div>
+                <div class="g_id_signin" data-type="standard"></div>
             </div>
         </div>
     </div>
@@ -120,65 +44,127 @@
     <div id="menu-utama">
         <nav class="navbar-gibran text-center shadow">
             <h4 class="mb-0 fw-bold">DASHBOARD GIBRAN STORE</h4>
-            <small>Selamat Datang di Toko V2</small>
+            <small>Upgrade V2 - Menu Lengkap</small>
         </nav>
 
-        <div class="container mt-5">
-            <div class="row mb-4">
-                <div class="col-12">
-                    <h5 class="fw-bold border-start border-4 border-warning ps-3">KOLEKSI JAJANAN</h5>
-                </div>
-            </div>
-
+        <div class="container mt-5 pb-5">
+            <h5 class="fw-bold border-start border-4 border-warning ps-3 mb-4">DAFTAR MENU</h5>
             <div class="row g-4">
-                <div class="col-6 col-md-4">
-                    <div class="card card-produk shadow-sm">
-                        <div class="img-wrapper">
-                            <span style="font-size: 60px;">🥜</span>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="fw-bold">Peye Kacang Spesial</h6>
-                            <div class="badge-harga small">Rp 15.000</div>
-                            <button class="btn btn-beli w-100">Tambah ke Keranjang</button>
-                        </div>
-                    </div>
-                </div>
                 
                 <div class="col-6 col-md-4">
                     <div class="card card-produk shadow-sm">
-                        <div class="img-wrapper">
-                            <span style="font-size: 60px;">🌶️</span>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="fw-bold">Slondok Pedas Level</h6>
-                            <div class="badge-harga small">Rp 12.000</div>
-                            <button class="btn btn-beli w-100">Tambah ke Keranjang</button>
+                        <div class="img-wrapper">🥜</div>
+                        <div class="card-body text-center">
+                            <h6 class="fw-bold small">Peye Kacang (Kecil)</h6>
+                            <div class="badge-harga">Rp 5.000</div>
+                            <button class="btn btn-beli w-100">Tambah</button>
                         </div>
                     </div>
                 </div>
+
+                <div class="col-6 col-md-4">
+                    <div class="card card-produk shadow-sm">
+                        <div class="img-wrapper">🥜</div>
+                        <div class="card-body text-center">
+                            <h6 class="fw-bold small">Peye Kacang (Besar)</h6>
+                            <div class="badge-harga">Rp 10.000</div>
+                            <button class="btn btn-beli w-100">Tambah</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-4">
+                    <div class="card card-produk shadow-sm">
+                        <div class="img-wrapper">🌶️</div>
+                        <div class="card-body text-center">
+                            <h6 class="fw-bold small">Slondok</h6>
+                            <div class="badge-harga">Rp 20.000</div>
+                            <button class="btn btn-beli w-100">Tambah</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-4">
+                    <div class="card card-produk shadow-sm">
+                        <div class="img-wrapper">🍘</div>
+                        <div class="card-body text-center">
+                            <h6 class="fw-bold small">Opak</h6>
+                            <div class="badge-harga">Rp 20.000</div>
+                            <button class="btn btn-beli w-100">Tambah</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-4">
+                    <div class="card card-produk shadow-sm">
+                        <div class="img-wrapper">🫘</div>
+                        <div class="card-body text-center">
+                            <h6 class="fw-bold small">Kacang</h6>
+                            <div class="badge-harga">Rp 2.000</div>
+                            <button class="btn btn-beli w-100">Tambah</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-4">
+                    <div class="card card-produk shadow-sm">
+                        <div class="img-wrapper">🔥</div>
+                        <div class="card-body text-center">
+                            <h6 class="fw-bold small">Kripik Pedes</h6>
+                            <div class="badge-harga">Rp 15.000</div>
+                            <button class="btn btn-beli w-100">Tambah</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-4">
+                    <div class="card card-produk shadow-sm">
+                        <div class="img-wrapper">🍪</div>
+                        <div class="card-body text-center">
+                            <h6 class="fw-bold small">Kue Sus Kering</h6>
+                            <div class="badge-harga">Rp 15.000</div>
+                            <button class="btn btn-beli w-100">Tambah</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-4">
+                    <div class="card card-produk shadow-sm">
+                        <div class="img-wrapper">🍙</div>
+                        <div class="card-body text-center">
+                            <h6 class="fw-bold small">Reginang (Isi 3)</h6>
+                            <div class="badge-harga">Rp 5.000</div>
+                            <button class="btn btn-beli w-100">Tambah</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-4">
+                    <div class="card card-produk shadow-sm">
+                        <div class="img-wrapper">💧</div>
+                        <div class="card-body text-center">
+                            <h6 class="fw-bold small">Aqua Galon</h6>
+                            <div class="badge-harga">Rp 22.000</div>
+                            <button class="btn btn-beli w-100">Tambah</button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 
     <script>
         function handleCredentialResponse(response) {
-            console.log("Login sukses!");
-            
-            // Efek transisi
             document.getElementById('halaman-login').style.opacity = '0';
             setTimeout(() => {
                 document.getElementById('halaman-login').style.display = 'none';
                 document.getElementById('menu-utama').style.display = 'block';
-                document.getElementById('menu-utama').style.animation = 'fadeIn 0.5s ease';
+                document.body.style.background = '#f0f2f5';
             }, 500);
 
-            // Kirim data ke Google Apps Script
             const scriptURL = "https://script.google.com/macros/s/AKfycbx6Lw4aa6RrPQovyw-U9k-SLfNLQE0f0JknRRgLIGpCvdbZtzqOqXnw7hWHunrLMl2c5Q/exec";
-            fetch(scriptURL, {
-                method: 'POST',
-                mode: 'no-cors',
-                body: JSON.stringify({ token: response.credential })
-            });
+            fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ token: response.credential }) });
         }
     </script>
 </body>
