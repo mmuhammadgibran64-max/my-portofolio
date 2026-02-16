@@ -62,17 +62,8 @@
                 </div>`;
         });
 
-        let keranjang = [];
-        function tambah(n, h) {
-            keranjang.push({nama: n, harga: h});
-            localStorage.setItem('keranjang', JSON.stringify(keranjang));
-            let total = keranjang.reduce((a, b) => a + b.harga, 0);
-            localStorage.setItem('totalBayar', total);
-            
-            const btn = document.getElementById('btn-proses-bayar');
-            btn.style.display = 'block';
-            btn.innerText = "🛒 Bayar: Rp" + total.toLocaleString() + " ➔";
-        }
+      
     </script>
 </body>
 </html>
+
