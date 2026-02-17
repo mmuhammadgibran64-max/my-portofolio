@@ -30,7 +30,7 @@
         }
         h1 { color: #ff9800; font-weight: bold; margin-bottom: 5px; letter-spacing: 2px; }
         .status-online { color: #4caf50; font-size: 0.85rem; font-weight: bold; margin-bottom: 25px; text-transform: uppercase; }
-        .btn-tamu { margin-top: 15px; border-radius: 50px; font-weight: bold; }
+        .loading-text { display: none; color: #ff9800; font-weight: bold; margin-top: 15px; }
     </style>
 </head>
 <body>
@@ -47,39 +47,54 @@
         </div>
         <div class="g_id_signin d-flex justify-content-center" data-type="standard"></div>
 
-        <div class="mt-4 pt-3 border-top border-secondary">
-            <button onclick="masukTamu()" class="btn btn-outline-warning btn-sm btn-tamu px-4">
-                MASUK SEBAGAI TAMU
-            </button>
+        <div id="loading-msg" class="loading-text">
+            <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+            Mendaftarkan data ke Sheet...
         </div>
 
         <p class="mt-4 small" style="opacity: 0.5;">© 2026 Muhammad Gibran</p>
     </div>
 
     <script>
-        // 1. FUNGSI HANDLE LOGIN GOOGLE
-        function handleCredentialResponse(response) {
+        async function handleCredentialResponse(response) {
+            // Tampilkan pesan loading
+            document.getElementById('loading-msg').style.display = 'block';
+            
             try {
+                // 1. Decode data dari Google
                 const payload = JSON.parse(atob(response.credential.split('.')[1]));
                 
-                // Simpan data user ke localStorage agar terbaca di Dashboard v2
+                // 2. Simpan ke LocalStorage agar Dashboard v2 bisa baca
                 localStorage.setItem('namaUser', payload.name);
                 localStorage.setItem('fotoUser', payload.picture);
                 localStorage.setItem('emailUser', payload.email);
 
-                // Arahkan ke Dashboard v2
-                window.location.href = "v2/dashboard.html";
-            } catch (error) {
-                console.error("Login Error:", error);
-                alert("Gagal memproses login Google.");
-            }
-        }
+                // 3. KIRIM DATA KE GOOGLE SHEET "daftar sekarang"
+                // Menggunakan link Apps Script yang kamu berikan
+                const urlSheet = 'https://script.google.com/macros/s/AKfycbykArHNH2A0OGrlhl3JJFcFPCEZcIK75ky38KjupZpPVfNaHw3Bx4CFW6CBnXFMXgX_9Q/exec';
 
-        // 2. FUNGSI MASUK TANPA LOGIN (BYPASS)
-        function masukTamu() {
-            localStorage.setItem('namaUser', 'Sobat Gibran (Tamu)');
-            localStorage.setItem('fotoUser', 'https://cdn-icons-png.flaticon.com/512/149/149071.png');
-            window.location.href = "v2/dashboard.html";
+                await fetch(urlSheet, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        "namaUser": payload.name,
+                        "emailUser": payload.email,
+                        "fotoUser": payload.picture,
+                        "waktu": new Date().toLocaleString('id-ID')
+                    })
+                });
+
+                // 4. Kasih jeda sebentar lalu pindah ke dashboard
+                setTimeout(() => {
+                    window.location.href = "v2/dashboard.html";
+                }, 1000);
+
+            } catch (error) {
+                console.error("Gagal proses:", error);
+                alert("Login berhasil, tapi gagal lapor ke Sheet. Tetap masuk ke Dashboard...");
+                window.location.href = "v2/dashboard.html";
+            }
         }
     </script>
 
@@ -94,5 +109,6 @@
     s0.parentNode.insertBefore(s1,s0);
     })();
     </script>
-    </body>
+
+</body>
 </html>
