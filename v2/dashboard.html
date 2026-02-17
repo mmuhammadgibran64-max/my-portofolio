@@ -548,151 +548,212 @@ button, .btn-blue, .btn-up-1, .btn-up-2 {
             
     </div> <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-<button onclick="document.getElementById('shop-frame').src='../shop/index.html'; document.getElementById('shop-frame').style.display='block';" 
-        style="background: linear-gradient(135deg, #ff9800, #f44336); color: white; border: none; padding: 12px 25px; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
-    🛒 Toko Online
-</button>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gibran Store - Official Shop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background-color: #f4f7f6; font-family: 'Segoe UI', sans-serif; }
+        .navbar { background: #1a1a1a !important; }
+        .card-produk { border: none; border-radius: 15px; transition: 0.3s; height: 100%; overflow: hidden; }
+        .card-produk:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .text-orange { color: #ff6600; }
+        .btn-checkout { 
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); 
+            width: 90%; max-width: 450px; z-index: 999; display: none; border-radius: 50px;
+        }
+        .method-card { border: 2px solid #eee; border-radius: 12px; padding: 15px; cursor: pointer; transition: 0.2s; position: relative; }
+        .method-card.disabled { opacity: 0.5; cursor: not-allowed; background-color: #f8f9fa; }
+        .method-card.active { border-color: #0d6efd; background-color: #e7f1ff; }
+        .user-avatar { width: 35px; height: 35px; border-radius: 50%; border: 2px solid white; }
+    </style>
+</head>
+<body>
 
-<div style="margin-top: 20px;">
-    <iframe id="shop-frame" src="about:blank" style="width: 100%; height: 600px; border: none; display: none; border-radius: 10px; background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></iframe>
-</div>
+    <nav class="navbar navbar-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="dashboard.html">⬅️ GIBRAN STORE</a>
+            <div class="d-flex align-items-center">
+                <img id="user-img" src="" class="user-avatar me-2" style="display:none;">
+                <span class="text-white small" id="jam-toko"></span>
+            </div>
+        </div>
+    </nav>
 
-    
-<hr class="my-5" style="border-top: 5px dashed #ccc;">
-<div class="container mt-4 mb-5" id="toko-online">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3 class="fw-bold m-0"><i class="fas fa-store text-danger"></i> JAJANAN GIBRAN</h3>
-        <span class="badge bg-success p-2">BUKA 24 JAM</span>
+    <div class="container mt-4 mb-5">
+        <div class="p-3 bg-white rounded shadow-sm mb-4 border-start border-primary border-5">
+            <h5 class="fw-bold">Halo, <span id="nama-pelanggan" class="text-primary">User</span>! 🚀</h5>
+            <p class="small text-muted mb-0">Pembayaran Aktif: <span class="badge bg-success">CASH</span></p>
+        </div>
+
+        <div id="produk-list" class="row g-3"></div>
+
+        <button id="btn-proses-bayar" class="btn btn-primary btn-lg shadow-lg fw-bold btn-checkout" onclick="bukaModalBayar()">
+            🛒 KERANJANG: Rp0 ➔
+        </button>
     </div>
-    
-    <div id="produk-list" class="row g-3"></div>
 
-    <button id="btn-proses-bayar" class="btn btn-primary btn-lg shadow-lg fw-bold" 
-            style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 450px; z-index: 9999; display: none; border-radius: 50px; border: 3px solid white;" 
-            onclick="bukaModalBayar()">
-        🛒 CEK KERANJANG: Rp0 ➔
-    </button>
-</div>
-
-<div class="modal fade" id="modalBayar" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow-lg" style="border-radius: 25px; overflow: hidden;">
-            <div id="loading-pembayaran" class="text-center p-5" style="display: none;">
-                <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem;"></div>
-                <h5 class="fw-bold">Mengirim Pesanan...</h5>
-                <p class="text-muted small">Data lagi meluncur ke Google Sheet lo, Bran.</p>
-            </div>
-
-            <div id="berhasil-pembayaran" class="text-center p-5" style="display: none;">
-                <div class="mb-3" style="font-size: 5rem;">✅</div>
-                <h3 class="fw-bold">ORDER BERHASIL!</h3>
-                <p class="text-muted">Mantap! Silahkan cek tab <b>Order</b> di Google Sheets.</p>
-                <button class="btn btn-primary w-100 fw-bold py-3 mt-3" style="border-radius: 15px;" onclick="location.reload()">BELANJA LAGI</button>
-            </div>
-
-            <div id="isi-modal">
-                <div class="modal-header border-0 bg-light">
-                    <h5 class="modal-title fw-bold"><i class="fas fa-shopping-cart me-2"></i>Konfirmasi Bayar</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    <div class="modal fade" id="modalBayar" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 20px;">
+                
+                <div id="loading-pembayaran" class="text-center p-5" style="display: none;">
+                    <div class="spinner-border text-primary mb-3" role="status" style="width: 3.5rem; height: 3.5rem;"></div>
+                    <h5 class="fw-bold">Sedang Memproses...</h5>
+                    <p class="text-muted">Sabar ya Bran, data lagi dikirim ke Sheet.</p>
                 </div>
-                <div class="modal-body p-4">
-                    <div class="alert alert-info border-0 text-center mb-4" style="border-radius: 15px;">
-                        <span class="small d-block text-uppercase">Metode Pembayaran</span>
-                        <strong style="font-size: 1.2rem;"><i class="fas fa-money-bill-wave text-success"></i> CASH (BAYAR TUNAI)</strong>
+
+                <div id="berhasil-pembayaran" class="text-center p-5" style="display: none;">
+                    <i class="fas fa-check-circle text-success mb-3" style="font-size: 5rem;"></i>
+                    <h3 class="fw-bold">PEMBAYARAN SELESAI!</h3>
+                    <p class="text-muted">Mantap! Pesanan lo udah masuk ke tab <b>Order</b>.</p>
+                    <button class="btn btn-primary w-100 fw-bold mt-3" onclick="location.reload()">BELANJA LAGI</button>
+                </div>
+
+                <div id="isi-modal">
+                    <div class="modal-header border-0">
+                        <h5 class="modal-title fw-bold">Konfirmasi Pembayaran</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
-                    <div class="text-center py-3 bg-light rounded-4 border">
-                        <p class="text-muted mb-1 small fw-bold uppercase">Total Tagihan</p>
-                        <h1 class="fw-bold text-primary mb-0" id="total-modal">Rp0</h1>
+                    <div class="modal-body">
+                        <div class="d-grid gap-2">
+                            <div class="method-card disabled">
+                                <div class="d-flex justify-content-between">
+                                    <span><i class="fas fa-qrcode"></i> QRIS</span>
+                                    <span class="badge bg-secondary">Maintenance</span>
+                                </div>
+                            </div>
+                            <div class="method-card disabled">
+                                <div class="d-flex justify-content-between">
+                                    <span><i class="fas fa-wallet"></i> DANA</span>
+                                    <span class="badge bg-secondary">Maintenance</span>
+                                </div>
+                            </div>
+                            <div class="method-card active">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span><i class="fas fa-money-bill-wave text-success"></i> CASH (Tunai)</span>
+                                    <i class="fas fa-check-circle text-primary"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 p-3 bg-light rounded text-center border">
+                            <p class="text-muted mb-1 small text-uppercase fw-bold">Total Tagihan</p>
+                            <h2 class="fw-bold text-primary mb-0" id="total-modal">Rp0</h2>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0">
+                        <button class="btn btn-primary w-100 fw-bold btn-lg shadow" onclick="prosesKeSheet()">
+                            BAYAR SEKARANG
+                        </button>
                     </div>
                 </div>
-                <div class="modal-footer border-0 p-4">
-                    <button class="btn btn-primary btn-lg w-100 fw-bold shadow-sm" style="border-radius: 15px; height: 60px;" onclick="prosesKeSheet()">
-                        KONFIRMASI PESANAN SEKARANG
-                    </button>
-                </div>
+
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    // --- Data Produk ---
-    const menuJajanan = [
-        {n: "Peye Kacang (Kecil)", h: 5000}, {n: "Peye Kacang (Besar)", h: 10000},
-        {n: "Slondok", h: 20000}, {n: "Opak", h: 20000}, {n: "Kacang", h: 2000},
-        {n: "Kripik Pedes", h: 15000}, {n: "Kue Sus Kering", h: 15000},
-        {n: "Reginang (isi 3)", h: 5000}, {n: "Aqua Galon", h: 22000}
-    ];
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 1. CEK SATPAM LOGIN GOOGLE
+        const userNama = localStorage.getItem('namaUser');
+        const userFoto = localStorage.getItem('fotoUser');
 
-    let keranjangBelanja = [];
+        if (!userNama) {
+            alert("Login Google dulu, Bran!");
+            window.location.href = "../index.html"; // Balik ke halaman login
+        } else {
+            document.getElementById('nama-pelanggan').innerText = userNama;
+            if (userFoto) {
+                const imgTag = document.getElementById('user-img');
+                imgTag.src = userFoto;
+                imgTag.style.display = 'block';
+            }
+        }
 
-    // --- Munculin Produk Otomatis ---
-    const boxList = document.getElementById('produk-list');
-    menuJajanan.forEach(p => {
-        boxList.innerHTML += `
-            <div class="col-6 col-md-4">
-                <div class="card border-0 shadow-sm p-3 text-center h-100" style="border-radius: 15px;">
-                    <h6 class="fw-bold mb-1" style="font-size: 0.9rem;">${p.n}</h6>
-                    <p class="text-primary fw-bold small mb-2">Rp${p.h.toLocaleString()}</p>
-                    <button class="btn btn-warning btn-sm fw-bold w-100 mt-auto" style="border-radius: 10px;" onclick="tambahItem('${p.n}', ${p.h})">Tambah</button>
-                </div>
-            </div>`;
-    });
+        // 2. JAM TOKO
+        setInterval(() => { 
+            document.getElementById('jam-toko').innerText = new Date().toLocaleTimeString('id-ID'); 
+        }, 1000);
 
-    // --- Fungsi Tambah Keranjang ---
-    function tambahItem(nama, harga) {
-        keranjangBelanja.push({nama, harga});
-        let total = keranjangBelanja.reduce((sum, item) => sum + item.harga, 0);
-        const btn = document.getElementById('btn-proses-bayar');
-        btn.style.display = 'block';
-        btn.innerHTML = `🛒 CEK KERANJANG: Rp${total.toLocaleString()} ➔`;
-    }
+        // 3. DATA PRODUK
+        let keranjang = [];
+        const menu = [
+            {n: "Peye Kacang (Kecil)", h: 5000}, {n: "Peye Kacang (Besar)", h: 10000},
+            {n: "Slondok", h: 20000}, {n: "Opak", h: 20000}, {n: "Kacang", h: 2000},
+            {n: "Kripik Pedes", h: 15000}, {n: "Kue Sus Kering", h: 15000},
+            {n: "Reginang (isi 3)", h: 5000}, {n: "Aqua Galon", h: 22000}
+        ];
 
-    // --- Fungsi Buka Modal ---
-    function bukaModalBayar() {
-        let total = keranjangBelanja.reduce((sum, item) => sum + item.harga, 0);
-        document.getElementById('total-modal').innerText = "Rp" + total.toLocaleString();
-        
-        document.getElementById('isi-modal').style.display = 'block';
-        document.getElementById('loading-pembayaran').style.display = 'none';
-        document.getElementById('berhasil-pembayaran').style.display = 'none';
+        // RENDER MENU
+        const box = document.getElementById('produk-list');
+        menu.forEach(p => {
+            box.innerHTML += `
+                <div class="col-6 col-md-4">
+                    <div class="card card-produk p-3 text-center shadow-sm">
+                        <h6 class="fw-bold mb-1" style="font-size:0.85rem;">${p.n}</h6>
+                        <p class="text-orange fw-bold small">Rp${p.h.toLocaleString()}</p>
+                        <button class="btn btn-outline-primary btn-sm fw-bold w-100 mt-auto" onclick="tambah('${p.n}', ${p.h})">Tambah</button>
+                    </div>
+                </div>`;
+        });
 
-        var modalElt = new bootstrap.Modal(document.getElementById('modalBayar'));
-        modalElt.show();
-    }
+        function tambah(n, h) {
+            keranjang.push({nama: n, harga: h});
+            let total = keranjang.reduce((a, b) => a + b.harga, 0);
+            const btn = document.getElementById('btn-proses-bayar');
+            btn.style.display = 'block';
+            btn.innerHTML = `🛒 KERANJANG: Rp${total.toLocaleString()} ➔`;
+        }
 
-    // --- Fungsi Kirim ke Google Sheet ---
-    async function prosesKeSheet() {
-        const urlSheet = 'https://script.google.com/macros/s/AKfycbyzRsWmtHFoQxAeCcRw_vTcjr5RbCLsVdIFuPo7r0iL8eZ8T5Yw3BQiYuQpqAPTtfvg4w/exec';
-        
-        document.getElementById('isi-modal').style.display = 'none';
-        document.getElementById('loading-pembayaran').style.display = 'block';
-
-        const daftarPesanan = keranjangBelanja.map(i => i.nama).join(", ");
-        const totalHarga = keranjangBelanja.reduce((sum, item) => sum + item.harga, 0);
-        const namaUser = localStorage.getItem('namaUser') || "Gibran Tanpa Nama";
-
-        try {
-            await fetch(urlSheet, {
-                method: 'POST',
-                mode: 'no-cors',
-                body: JSON.stringify({
-                    "namaUser": namaUser,
-                    "pesanan": daftarPesanan,
-                    "total": "Rp " + totalHarga.toLocaleString(),
-                    "metode": "CASH" 
-                })
-            });
-
-            document.getElementById('loading-pembayaran').style.display = 'none';
-            document.getElementById('berhasil-pembayaran').style.display = 'block';
-
-        } catch (err) {
-            alert("Waduh Bran, ada error pas kirim data!");
+        function bukaModalBayar() {
+            let total = keranjang.reduce((a, b) => a + b.harga, 0);
+            document.getElementById('total-modal').innerText = "Rp" + total.toLocaleString();
+            
             document.getElementById('isi-modal').style.display = 'block';
             document.getElementById('loading-pembayaran').style.display = 'none';
+            document.getElementById('berhasil-pembayaran').style.display = 'none';
+
+            var myModal = new bootstrap.Modal(document.getElementById('modalBayar'));
+            myModal.show();
         }
-    }
-</script></body>
+
+        async function prosesKeSheet() {
+            const urlSheet = 'https://script.google.com/macros/s/AKfycbyzRsWmtHFoQxAeCcRw_vTcjr5RbCLsVdIFuPo7r0iL8eZ8T5Yw3BQiYuQpqAPTtfvg4w/exec';
+            
+            document.getElementById('isi-modal').style.display = 'none';
+            document.getElementById('loading-pembayaran').style.display = 'block';
+
+            const detailPesanan = keranjang.map(p => p.nama).join(", ");
+            const totalBayar = keranjang.reduce((a, b) => a + b.harga, 0);
+
+            try {
+                await fetch(urlSheet, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: JSON.stringify({
+                        "namaUser": userNama,
+                        "pesanan": detailPesanan,
+                        "total": "Rp " + totalBayar.toLocaleString(),
+                        "metode": "CASH" 
+                    })
+                });
+
+                document.getElementById('loading-pembayaran').style.display = 'none';
+                document.getElementById('berhasil-pembayaran').style.display = 'block';
+
+            } catch (err) {
+                alert("Gagal kirim data: " + err);
+                document.getElementById('isi-modal').style.display = 'block';
+                document.getElementById('loading-pembayaran').style.display = 'none';
+            }
+        }
+    </script>
+</body>
 </html>
+
+
 
