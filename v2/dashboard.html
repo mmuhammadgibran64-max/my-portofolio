@@ -727,6 +727,56 @@ button, .btn-blue, .btn-up-1, .btn-up-2 {
     s0.parentNode.insertBefore(s1,s0);
     })();
     </script>
-    </body>
+  <div class="card p-3 shadow-sm border-0 mt-3" style="background: #252525; color: white; border-radius: 15px;">
+    <h6 class="fw-bold mb-3">🧮 KALKULATOR CEPAT</h6>
+    <input type="text" id="display" class="form-control mb-2 text-end fw-bold" style="background: #1a1a1a; color: #ff9800; border: none; font-size: 1.2rem;" readonly>
+    <div class="row g-1">
+        <div class="col-3"><button class="btn btn-dark w-100" onclick="clearDisplay()">C</button></div>
+        <div class="col-3"><button class="btn btn-dark w-100" onclick="addToDisplay('/')">/</button></div>
+        <div class="col-3"><button class="btn btn-dark w-100" onclick="addToDisplay('*')">x</button></div>
+        <div class="col-3"><button class="btn btn-danger w-100" onclick="backspace()">←</button></div>
+
+        <div class="col-3"><button class="btn btn-secondary w-100" onclick="addToDisplay('7')">7</button></div>
+        <div class="col-3"><button class="btn btn-secondary w-100" onclick="addToDisplay('8')">8</button></div>
+        <div class="col-3"><button class="btn btn-secondary w-100" onclick="addToDisplay('9')">9</button></div>
+        <div class="col-3"><button class="btn btn-warning w-100" onclick="addToDisplay('-')">-</button></div>
+
+        <div class="col-3"><button class="btn btn-secondary w-100" onclick="addToDisplay('4')">4</button></div>
+        <div class="col-3"><button class="btn btn-secondary w-100" onclick="addToDisplay('5')">5</button></div>
+        <div class="col-3"><button class="btn btn-secondary w-100" onclick="addToDisplay('6')">6</button></div>
+        <div class="col-3"><button class="btn btn-warning w-100" onclick="addToDisplay('+')">+</button></div>
+
+        <div class="col-3"><button class="btn btn-secondary w-100" onclick="addToDisplay('1')">1</button></div>
+        <div class="col-3"><button class="btn btn-secondary w-100" onclick="addToDisplay('2')">2</button></div>
+        <div class="col-3"><button class="btn btn-secondary w-100" onclick="addToDisplay('3')">3</button></div>
+        <div class="col-3"><button class="btn btn-success w-100 fw-bold" onclick="calculate()">=</button></div>
+
+        <div class="col-12"><button class="btn btn-secondary w-100" onclick="addToDisplay('0')">0</button></div>
+    </div>
+</div>
+
+<script>
+    function addToDisplay(value) {
+        document.getElementById('display').value += value;
+    }
+    function clearDisplay() {
+        document.getElementById('display').value = '';
+    }
+    function backspace() {
+        let current = document.getElementById('display').value;
+        document.getElementById('display').value = current.slice(0, -1);
+    }
+    function calculate() {
+        try {
+            // eval() buat jalanin rumus matematika dari string
+            document.getElementById('display').value = eval(document.getElementById('display').value);
+        } catch (e) {
+            alert('Rumus salah!');
+            clearDisplay();
+        }
+    }
+</script>
+</div> </body>
 </html>
+
 
