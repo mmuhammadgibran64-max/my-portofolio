@@ -496,12 +496,7 @@ button, .btn-blue, .btn-up-1, .btn-up-2 {
 
 <div style="max-width: 1000px; margin: 20px auto; display: flex; flex-wrap: wrap; gap: 20px; padding: 0 20px; justify-content: center;">
 
-        <div style="flex: 1; min-width: 300px; max-width: 480px; padding: 20px; background: #ffffff; border-radius: 15px; border: 1px solid #e1e1e1; font-family: sans-serif; box-shadow: 0 4px 12px rgba(0,0,0,0.05); position: relative; overflow: hidden;">
-            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.8); z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; backdrop-filter: blur(2px);">
-                <i class="fas fa-lock" style="font-size: 30px; color: #5f6368; margin-bottom: 10px;"></i>
-                <span style="font-weight: bold; color: #3c4043;">Fitur Terkunci</span>
-                <small style="color: #1a73e8; font-weight: bold;">Tunggu Update Selanjutnya</small>
-            </div>
+       
             <h3 style="margin-top: 0; color: #3c4043; font-size: 18px; display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #f1f3f4; padding-bottom: 10px;">
                 <i class="fas fa-calendar-alt" style="color: #ea4335;"></i> Jadwal Konten Gibran
             </h3>
@@ -755,50 +750,17 @@ button, .btn-blue, .btn-up-1, .btn-up-2 {
     </div>
 </div>
 
-<script>
-    function addToDisplay(value) {
-        document.getElementById('display').value += value;
-    }
-    function clearDisplay() {
-        document.getElementById('display').value = '';
-    }
-    function backspace() {
-        let current = document.getElementById('display').value;
-        document.getElementById('display').value = current.slice(0, -1);
-    }
-    function calculate() {
-        try {
-            // eval() buat jalanin rumus matematika dari string
-            document.getElementById('display').value = eval(document.getElementById('display').value);
-        } catch (e) {
-            alert('Rumus salah!');
-            clearDisplay();
-        }
-    }
-</script>
-<script>
-    function addToDisplay(value) {
-        document.getElementById('display').value += value;
-    }
-    function clearDisplay() {
-        document.getElementById('display').value = '';
-    }
-    function backspace() {
-        let current = document.getElementById('display').value;
-        document.getElementById('display').value = current.slice(0, -1);
-    }
-    function calculate() {
-        try {
-            document.getElementById('display').value = eval(document.getElementById('display').value);
-        } catch (e) {
-            alert('Rumus salah!');
-            clearDisplay();
-        }
-    }
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gibran Store Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="background: #121212;">
 
 <div id="videoContainer" class="container mt-4 mb-5">
     <div class="card p-4 shadow-lg border-0" style="background: #1e1e1e; color: white; border-radius: 20px; border: 1px solid #333;">
+        
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h5 class="fw-bold m-0 text-warning">🎬 VIDEO FILE MANAGER</h5>
             <button class="btn btn-sm btn-outline-danger" onclick="hapusPanel()">Hapus Panel</button>
@@ -811,7 +773,7 @@ button, .btn-blue, .btn-up-1, .btn-up-2 {
         </div>
 
         <button id="upload_widget" class="btn btn-warning w-100 fw-bold py-2 mb-3" style="color: #000;">
-            📤 UPLOAD VIDEO BARU KE CLOUDINARY
+            📤 UPLOAD VIDEO BARU
         </button>
 
         <div class="row g-2">
@@ -819,153 +781,48 @@ button, .btn-blue, .btn-up-1, .btn-up-2 {
                 <a id="btnDownload" href="#" download class="btn btn-success w-100 fw-bold">📥 DOWNLOAD</a>
             </div>
             <div class="col-6">
-                <button onclick="bagikanKeSemua()" class="btn btn-primary w-100 fw-bold">🔗 BAGIKAN / IG</button>
+                <button onclick="bagikanKeSemua()" class="btn btn-primary w-100 fw-bold">🔗 BAGIKAN</button>
             </div>
         </div>
     </div>
 </div>
 
 <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+
 <script>
     var myWidget = cloudinary.createUploadWidget({
         cloudName: 'dumqnwl9g', 
         uploadPreset: 'upload video' 
     }, (error, result) => { 
         if (!error && result && result.event === "success") { 
-            const newUrl = result.info.secure_url;
-            document.getElementById('videoSource').src = newUrl;
-            document.getElementById('btnDownload').href = newUrl;
+            const url = result.info.secure_url;
+            document.getElementById('videoSource').src = url;
+            document.getElementById('btnDownload').href = url;
             document.getElementById('playerGibran').load();
             alert('Upload Berhasil!');
         }
     });
 
-    document.getElementById("upload_widget").addEventListener("click", function(){
-        myWidget.open();
+    document.getElementById("upload_widget").addEventListener("click", function(){ 
+        myWidget.open(); 
     }, false);
 
-    function hapusPanel() {
-        if(confirm("Hapus panel video ini?")) {
-            document.getElementById('videoContainer').remove();
+    function hapusPanel() { 
+        if(confirm("Hapus panel?")) {
+            document.getElementById('videoContainer').remove(); 
         }
     }
 
     function bagikanKeSemua() {
-        const videoUrl = document.getElementById('videoSource').src;
-        if (navigator.share) {
-            navigator.share({ title: 'Gibran Video', url: videoUrl });
-        } else {
-            navigator.clipboard.writeText(videoUrl);
-            alert("Link disalin!");
+        const url = document.getElementById('videoSource').src;
+        if (navigator.share) { 
+            navigator.share({ title: 'Gibran Store', url: url }); 
+        } else { 
+            navigator.clipboard.writeText(url); 
+            alert("Link disalin!"); 
         }
     }
-
-    window.addEventListener('load', function() {
-        const videoSrc = document.getElementById('videoSource').src;
-        if(document.getElementById('btnDownload')) {
-            document.getElementById('btnDownload').href = videoSrc;
-        }
-    });
-
-<script>
-    // --- KONFIGURASI UPLOAD ---
-    var myWidget = cloudinary.createUploadWidget({
-        cloudName: 'dumqnwl9g', 
-        uploadPreset: 'upload video' // Nama preset Unsigned kamu
-    }, (error, result) => { 
-        if (!error && result && result.event === "success") { 
-            console.log('Berhasil! Link Video: ', result.info.secure_url); 
-            
-            // 1. Ambil URL video baru
-            const newUrl = result.info.secure_url;
-            
-            // 2. Update player video
-            const videoSrc = document.getElementById('videoSource');
-            videoSrc.src = newUrl;
-            
-            // 3. Update link download
-            document.getElementById('btnDownload').href = newUrl;
-            
-            // 4. Refresh player agar video baru muncul
-            const player = document.getElementById('playerGibran');
-            player.load();
-            
-            alert('Upload Sukses! Video di dashboard sudah diperbarui.');
-        }
-    });
-
-    // Jalankan widget saat tombol diklik
-    document.getElementById("upload_widget").addEventListener("click", function(){
-        myWidget.open();
-    }, false);
-
-    // --- FUNGSI HAPUS PANEL ---
-    function hapusPanel() {
-        if(confirm("Hapus panel video ini dari layar?")) {
-            document.getElementById('videoContainer').remove();
-        }
-    }
-
-    // --- FUNGSI BAGIKAN KE IG / SNAPTUBE ---
-    function bagikanKeSemua() {
-        const videoUrl = document.getElementById('videoSource').src;
-        if (navigator.share) {
-            navigator.share({ 
-                title: 'Gibran Video Store', 
-                url: videoUrl 
-            });
-        } else {
-            navigator.clipboard.writeText(videoUrl);
-            alert("Link disalin! Silakan paste di IG atau Snaptube.");
-        }
-    }
-
-    // Pastikan link download sinkron saat awal buka halaman
-    window.addEventListener('load', function() {
-        document.getElementById('btnDownload').href = document.getElementById('videoSource').src;
-    });
 </script>
-        if (!error && result && result.event === "success") { 
-            console.log('Berhasil! Link Video: ', result.info.secure_url); 
-            // Update player dan link download otomatis
-            document.getElementById('videoSource').src = result.info.secure_url;
-            document.getElementById('btnDownload').href = result.info.secure_url;
-            document.getElementById('playerGibran').load();
-            alert('Upload Sukses! Video sudah diperbarui.');
-        }
-    });
 
-    document.getElementById("upload_widget").addEventListener("click", function(){
-        myWidget.open();
-    }, false);
-
-    // --- FUNGSI HAPUS ---
-    function hapusPanel() {
-        if(confirm("Hapus panel ini dari layar?")) {
-            document.getElementById('videoContainer').remove();
-        }
-    }
-
-    // --- FUNGSI BAGIKAN (IG, SNAPTUBE, DLL) ---
-    function bagikanKeSemua() {
-        const videoUrl = document.getElementById('videoSource').src;
-        if (navigator.share) {
-            navigator.share({ title: 'Gibran Video', url: videoUrl });
-        } else {
-            navigator.clipboard.writeText(videoUrl);
-            alert("Link disalin! Paste di IG atau Snaptube.");
-        }
-    }
-
- window.addEventListener('load', function() {
-        const videoSrc = document.getElementById('videoSource').src;
-        if(document.getElementById('btnDownload')) {
-            document.getElementById('btnDownload').href = videoSrc;
-        }
-    });
-</script> </body>
+</body>
 </html>
-
-
-
-
