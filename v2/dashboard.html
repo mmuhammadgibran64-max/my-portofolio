@@ -813,16 +813,13 @@ button, .btn-blue, .btn-up-1, .btn-up-2 {
         }
     }
 
-    function bagikanKeSemua() {
-        const url = document.getElementById('videoSource').src;
-        if (navigator.share) { 
-            navigator.share({ title: 'Gibran Store', url: url }); 
-        } else { 
-            navigator.clipboard.writeText(url); 
-            alert("Link disalin!"); 
+    
+    window.addEventListener('load', function() {
+        const videoSrc = document.getElementById('videoSource').src;
+        if(document.getElementById('btnDownload')) {
+            document.getElementById('btnDownload').href = videoSrc;
         }
-    }
-</script>
-
-</body>
+    });
+</script> </body>
 </html>
+
