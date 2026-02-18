@@ -802,24 +802,51 @@ button, .btn-blue, .btn-up-1, .btn-up-2 {
                 <button onclick="bagikanKeSemua()" class="btn btn-primary w-100 fw-bold">🔗 BAGIKAN / IG</button>
             </div>
         </div>
-
-        <div class="mt-3 p-2" style="background: #252525; border-radius: 10px; border-left: 4px solid #00f2fe;">
-            <p class="small text-muted m-0 text-center">Video akan otomatis terupdate setelah upload sukses.</p>
-        </div>
     </div>
 </div>
-        
-        <button id="upload_widget" class="btn btn-warning w-100 fw-bold py-2 mb-2" style="color: #000;">
-            📤 UPLOAD VIDEO BARU KE CLOUDINARY
-        </button>
 
-        <div class="mt-2 p-2" style="background: #252525; border-radius: 10px; border-left: 4px solid #00f2fe;">
-            <p class="small text-muted m-0">Klik upload untuk ganti video. Link bisa langsung dibagikan ke IG/Snaptube.</p>
-        </div>
-    </div>
-</div>
 <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
 
+<script>
+    // Bungkus semua logic di dalam satu tag <script> yang benar
+    var myWidget = cloudinary.createUploadWidget({
+        cloudName: 'dumqnwl9g', 
+        uploadPreset: 'upload video' 
+    }, (error, result) => { 
+        if (!error && result && result.event === "success") { 
+            const newUrl = result.info.secure_url;
+            document.getElementById('videoSource').src = newUrl;
+            document.getElementById('btnDownload').href = newUrl;
+            document.getElementById('playerGibran').load();
+            alert('Upload Sukses! Video sudah diperbarui.');
+        }
+    });
+
+    document.getElementById("upload_widget").addEventListener("click", function(){
+        myWidget.open();
+    }, false);
+
+    function hapusPanel() {
+        if(confirm("Hapus panel ini dari layar?")) {
+            document.getElementById('videoContainer').remove();
+        }
+    }
+
+    function bagikanKeSemua() {
+        const videoUrl = document.getElementById('videoSource').src;
+        if (navigator.share) {
+            navigator.share({ title: 'Gibran Video', url: videoUrl });
+        } else {
+            navigator.clipboard.writeText(videoUrl);
+            alert("Link disalin!");
+        }
+    }
+
+    window.addEventListener('load', function() {
+        const src = document.getElementById('videoSource').src;
+        document.getElementById('btnDownload').href = src;
+    });
+</script>
 <script>
     // --- KONFIGURASI UPLOAD ---
     var myWidget = cloudinary.createUploadWidget({
@@ -918,6 +945,7 @@ button, .btn-blue, .btn-up-1, .btn-up-2 {
 
 </body>
 </html>
+
 
 
 
