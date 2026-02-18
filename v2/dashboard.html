@@ -815,8 +815,60 @@ button, .btn-blue, .btn-up-1, .btn-up-2 {
     // --- KONFIGURASI UPLOAD ---
     var myWidget = cloudinary.createUploadWidget({
         cloudName: 'dumqnwl9g', 
-        uploadPreset: 'ml_default' // GANTI dengan 'Unsigned Preset' kamu di setting Cloudinary
+        uploadPreset: 'upload video' // Nama preset Unsigned kamu
     }, (error, result) => { 
+        if (!error && result && result.event === "success") { 
+            console.log('Berhasil! Link Video: ', result.info.secure_url); 
+            
+            // 1. Ambil URL video baru
+            const newUrl = result.info.secure_url;
+            
+            // 2. Update player video
+            const videoSrc = document.getElementById('videoSource');
+            videoSrc.src = newUrl;
+            
+            // 3. Update link download
+            document.getElementById('btnDownload').href = newUrl;
+            
+            // 4. Refresh player agar video baru muncul
+            const player = document.getElementById('playerGibran');
+            player.load();
+            
+            alert('Upload Sukses! Video di dashboard sudah diperbarui.');
+        }
+    });
+
+    // Jalankan widget saat tombol diklik
+    document.getElementById("upload_widget").addEventListener("click", function(){
+        myWidget.open();
+    }, false);
+
+    // --- FUNGSI HAPUS PANEL ---
+    function hapusPanel() {
+        if(confirm("Hapus panel video ini dari layar?")) {
+            document.getElementById('videoContainer').remove();
+        }
+    }
+
+    // --- FUNGSI BAGIKAN KE IG / SNAPTUBE ---
+    function bagikanKeSemua() {
+        const videoUrl = document.getElementById('videoSource').src;
+        if (navigator.share) {
+            navigator.share({ 
+                title: 'Gibran Video Store', 
+                url: videoUrl 
+            });
+        } else {
+            navigator.clipboard.writeText(videoUrl);
+            alert("Link disalin! Silakan paste di IG atau Snaptube.");
+        }
+    }
+
+    // Pastikan link download sinkron saat awal buka halaman
+    window.addEventListener('load', function() {
+        document.getElementById('btnDownload').href = document.getElementById('videoSource').src;
+    });
+</script>
         if (!error && result && result.event === "success") { 
             console.log('Berhasil! Link Video: ', result.info.secure_url); 
             // Update player dan link download otomatis
@@ -857,5 +909,6 @@ button, .btn-blue, .btn-up-1, .btn-up-2 {
 
 </body>
 </html>
+
 
 
