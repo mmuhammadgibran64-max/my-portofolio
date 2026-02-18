@@ -776,7 +776,67 @@ button, .btn-blue, .btn-up-1, .btn-up-2 {
         }
     }
 </script>
-</div> </body>
-</html>
+<div id="videoContainer" class="container mt-4 mb-5">
+    <div class="card p-4 shadow-lg border-0" style="background: #1e1e1e; color: white; border-radius: 20px; border: 1px solid #333;">
+        
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold m-0 text-warning">🎬 FILE MANAGER VIDEO</h5>
+            <button class="btn btn-sm btn-outline-danger" onclick="hapusVideo()">Hapus Panel</button>
+        </div>
 
+        <div class="ratio ratio-16x9 mb-3" style="border-radius: 15px; overflow: hidden; background: #000;">
+            <video id="playerGibran" controls>
+                <source id="videoSource" src="https://res.cloudinary.com/dumqnwl9g/video/upload/v1/video-kamu.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="row g-2">
+            <div class="col-6">
+                <a id="btnDownload" href="#" download class="btn btn-success w-100 fw-bold">
+                    📥 DOWNLOAD FILE
+                </a>
+            </div>
+            <div class="col-6">
+                <button onclick="bagikanLink()" class="btn btn-primary w-100 fw-bold">
+                    🔗 BAGIKAN LINK
+                </button>
+            </div>
+        </div>
+
+        <div class="mt-3 p-3" style="background: #252525; border-radius: 10px; border-left: 4px solid #00f2fe;">
+            <p class="small mb-1"><strong>Tips Download Snaptube:</strong></p>
+            <p class="small text-muted m-0">Copy link video ini lalu paste di Snaptube untuk download berbagai resolusi.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function hapusVideo() {
+        if(confirm("Yakin mau hapus panel video ini dari tampilan?")) {
+            document.getElementById('videoContainer').remove();
+        }
+    }
+
+    function bagikanLink() {
+        const videoUrl = document.getElementById('videoSource').src;
+        if (navigator.share) {
+            navigator.share({
+                title: 'Video Gibran Store',
+                url: videoUrl
+            }).then(() => console.log('Berhasil membagikan'))
+              .catch((error) => console.log('Gagal membagikan', error));
+        } else {
+            navigator.clipboard.writeText(videoUrl);
+            alert("Link Video berhasil disalin! Silakan buka Snaptube dan paste linknya.");
+        }
+    }
+
+    window.addEventListener('load', function() {
+        const videoUrl = document.getElementById('videoSource').src;
+        document.getElementById('btnDownload').href = videoUrl;
+    });
+</script>
+
+</body>
+</html>
 
