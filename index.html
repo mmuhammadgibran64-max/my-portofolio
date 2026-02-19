@@ -3,92 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <meta name="google-site-verification" content="LRrECCoCFBiw5F-wnLPQ4zoDpwyqWaahByQGTxJPIzg" />
-
-    <title>Muhammad Gibran | Portofolio</title>
+    <title>Login Portofolio | Muhammad Gibran</title>
     <style>
-        body { 
-            background: #050505; 
-            color: white; 
-            font-family: sans-serif; 
-            margin: 0; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
-        }
-        .container { 
-            text-align: center; 
-            border: 1px solid #333; 
-            padding: 40px; 
-            border-radius: 25px; 
-            background: #0a0a0a; 
-            position: relative;
-            width: 80%;
-            max-width: 400px;
-        }
-        #clock { 
-            position: absolute; 
-            top: 15px; 
-            right: 20px; 
-            color: #ff9800; 
-            font-family: monospace; 
-            font-size: 1rem;
-        }
-        h1 { margin-bottom: 5px; font-size: 1.8rem; }
-        p { color: #888; margin-bottom: 25px; }
-        
-        /* TOMBOL KE DASHBOARD V2 */
-        .btn-main { 
-            display: inline-block; 
-            padding: 15px 25px; 
-            background: #ff9800; 
-            color: black; 
-            text-decoration: none; 
-            border-radius: 50px; 
-            font-weight: bold; 
-            width: 100%;
-            margin-bottom: 15px;
-        }
-        
-        /* TOMBOL CHAT WA */
-        .btn-cs { 
-            display: block; 
-            color: #25d366; 
-            text-decoration: none; 
-            font-size: 0.8rem; 
-            border: 1px solid #25d366; 
-            padding: 10px; 
-            border-radius: 10px; 
-        }
+        body { background: #050505; color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .login-box { background: #111; padding: 30px; border-radius: 20px; border: 1px solid #333; text-align: center; width: 300px; position: relative; }
+        #clock { position: absolute; top: 10px; right: 15px; color: #ff9800; font-family: monospace; font-size: 0.8rem; }
+        h2 { margin-top: 0; color: #ff9800; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #444; background: #222; color: white; box-sizing: border-box; }
+        .btn-login { width: 100%; padding: 12px; background: #ff9800; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-login:hover { background: #e68a00; transform: scale(1.02); }
+        .status { margin-top: 10px; font-size: 0.8rem; color: #888; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div id="clock">00:00:00</div>
+<div class="login-box">
+    <div id="clock">00:00:00</div>
+    <h2>MASUK</h2>
+    <p style="font-size: 0.8rem; color: #888;">Silakan isi nama untuk lanjut ke Portofolio</p>
+    
+    <form id="loginForm">
+        <input type="text" id="nama" name="nama" placeholder="Masukkan Nama Anda" required>
+        <button type="submit" class="btn-login" id="submitBtn">MASUK SEKARANG</button>
+    </form>
+    
+    <div id="statusMessage" class="status"></div>
+</div>
 
-        <h1>Muhammad Gibran</h1>
-        <p>Humas LP3I | Video Editor</p>
-        
-        <a href="v2/dashboard.html" class="btn-main">LIHAT PORTOFOLIO</a>
+<script>
+    // Link Script Google yang lo kasih
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbznT3wUTjPsXhsYcArAV7qdyh5cny12xqJTlaOV0RQh87z-Cg3ydTSvytq1IlOKiIBbbw/exec';
+    const form = document.getElementById('loginForm');
+    const statusMsg = document.getElementById('statusMessage');
 
-        <a href="https://wa.me/6285123332018" target="_blank" class="btn-cs">
-            Chat CS Gibran (+62 851-2333-2018)
-        </a>
-    </div>
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        statusMsg.innerHTML = "Sedang memproses...";
+        document.getElementById('submitBtn').disabled = true;
 
-    <script>
-        function updateClock() {
-            const now = new Date();
-            const h = String(now.getHours()).padStart(2, '0');
-            const m = String(now.getMinutes()).padStart(2, '0');
-            const s = String(now.getSeconds()).padStart(2, '0');
-            document.getElementById('clock').textContent = h + ":" + m + ":" + s;
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
-    </script>
+        // Kirim data ke Google Sheets via Script
+        fetch(scriptURL, { 
+            method: 'POST', 
+            body: new FormData(form),
+            mode: 'no-cors' // Penting agar tidak error CORS
+        })
+        .then(() => {
+            statusMsg.innerHTML = "Berhasil! Mengalihkan...";
+            // Setelah data masuk ke Sheet, buka link Portofolio v2
+            setTimeout(() => {
+                window.location.href = "v2/dashboard.html"; 
+            }, 1500);
+        })
+        .catch(error => {
+            console.error('Error!', error.message);
+            statusMsg.innerHTML = "Gagal mengirim data.";
+            document.getElementById('submitBtn').disabled = false;
+        });
+    });
+
+    // Jam Bergerak
+    function updateClock() {
+        const now = new Date();
+        document.getElementById('clock').textContent = now.getHours().toString().padStart(2,'0') + ":" + now.getMinutes().toString().padStart(2,'0') + ":" + now.getSeconds().toString().padStart(2,'0');
+    }
+    setInterval(updateClock, 1000); updateClock();
+</script>
+
 </body>
 </html>
