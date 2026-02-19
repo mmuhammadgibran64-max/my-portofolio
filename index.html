@@ -3,153 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Dikunci | Gibran Development</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <title>Gibran Store - Official Dashboard & Shop</title>
+    <meta name="description" content="Pusat kendali operasional Gibran Store. Akses SOP internal dan belanja produk camilan terbaik seperti Peye, Slondok, dan lainnya.">
+    <meta name="keywords" content="Gibran Store, Toko Online Gibran, Dashboard Gibran, Peye Kacang">
+    <meta name="author" content="Gibran">
+    
+    <meta property="og:title" content="Gibran Store Official">
+    <meta property="og:description" content="Akses eksklusif ke Dashboard V2 dan Toko Online Gibran.">
+    <meta property="og:image" content="https://link-ke-logo-lo.com/logo.jpg">
+    <meta property="og:url" content="https://website-lo.com">
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <style>
-        :root {
-            --bg: #050505;
-            --card: #0f0f0f;
-            --accent: #ffaa00;
-            --text: #ffffff;
-            --subtext: #666666;
+        body { 
+            background: radial-gradient(circle at center, #2c3e50 0%, #000000 100%); 
+            height: 100vh; display: flex; align-items: center; justify-content: center;
+            color: white; font-family: 'Segoe UI', Roboto, sans-serif;
+            margin: 0; overflow: hidden;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        .login-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            padding: 40px; border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: center; width: 100%; max-width: 400px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Inter', -apple-system, sans-serif;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
+        .brand-logo { 
+            font-size: 3rem; font-weight: 900; letter-spacing: -1px;
+            background: linear-gradient(to right, #ff6600, #ff9900);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-
-        .container {
-            text-align: center;
-            padding: 50px 30px;
-            background: var(--card);
-            border: 1px solid #222;
-            border-radius: 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-            max-width: 450px;
-            width: 90%;
-            position: relative;
-        }
-
-        /* Animasi Gear Berputar */
-        .icon-box {
-            position: relative;
-            height: 100px;
-            margin-bottom: 30px;
-        }
-
-        .fa-gear {
-            font-size: 60px;
-            color: var(--accent);
-            animation: spin 4s linear infinite;
-        }
-
-        .fa-wrench {
-            font-size: 30px;
-            color: #fff;
-            position: absolute;
-            bottom: 10px;
-            right: 160px;
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .badge {
-            display: inline-block;
-            background: rgba(255, 170, 0, 0.1);
-            color: var(--accent);
-            padding: 6px 16px;
-            border-radius: 50px;
-            font-size: 12px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border: 1px solid rgba(255, 170, 0, 0.2);
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            font-size: 26px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            background: linear-gradient(to right, #fff, #888);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        p {
-            color: var(--subtext);
-            font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: #1a1a1a;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            width: 75%; /* Bisa lo ubah sesuai progres lo */
-            height: 100%;
-            background: var(--accent);
-            box-shadow: 0 0 15px var(--accent);
-            border-radius: 10px;
-        }
-
-        .status-text {
-            font-size: 11px;
-            color: #444;
-            font-family: monospace;
-        }
-
-        footer {
-            margin-top: 40px;
-            font-size: 10px;
-            color: #333;
-            letter-spacing: 2px;
+        .status-dot {
+            height: 10px; width: 10px; background-color: #28a745;
+            border-radius: 50%; display: inline-block; margin-right: 5px;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="badge">Development Mode</div>
-
-        <div class="icon-box">
-            <i class="fas fa-gear"></i>
-            <i class="fas fa-wrench"></i>
+    <div class="login-box">
+        <div class="brand-logo">GIBRAN</div>
+        <p class="text-secondary small uppercase fw-bold">Official Access Portal</p>
+        
+        <div class="my-4">
+            <span class="badge rounded-pill bg-dark border border-secondary p-2 px-3">
+                <span class="status-dot"></span> System Online
+            </span>
         </div>
 
-        <h1>SISTEM DIKUNCI</h1>
-        <p>Aplikasi <b>v3.8.9 BETA</b> sedang dalam tahap pengerjaan total oleh <b>Gibran</b>. Semua akses dashboard ditutup sementara sampai sistem dinyatakan selesai.</p>
-
-        <div class="progress-bar">
-            <div class="progress-fill"></div>
+        <div class="d-flex justify-content-center mt-4">
+            <div id="g_id_onload"
+                 data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
+                 data-callback="handleCredentialResponse"
+                 data-auto_prompt="false">
+            </div>
+            <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="filled_black" data-size="large"></div>
         </div>
-        <div class="status-text">BUILD PROGRESS: 75% COMPLETED</div>
 
-        <footer>OFFLINE UNTIL RE-RELEASE 2026</footer>
+        <p class="mt-5 x-small text-muted" style="font-size: 0.8rem;">
+            &copy; 2026 Gibran fortofolio. All rights reserved.
+        </p>
     </div>
 
+    <script>
+        function handleCredentialResponse(response) {
+            // Proses data Google
+            const base64Url = response.credential.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const payload = JSON.parse(decodeURIComponent(atob(base64).split('').map(c => 
+                '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')));
+
+            // Simpan identitas untuk Toko & SOP
+            localStorage.setItem('namaUser', payload.name);
+            localStorage.setItem('fotoUser', payload.picture);
+            localStorage.setItem('emailUser', payload.email);
+
+            // Langsung lempar ke Dashboard V2
+            window.location.href = "dashboard.html"; 
+        }
+    </script>
 </body>
 </html>
