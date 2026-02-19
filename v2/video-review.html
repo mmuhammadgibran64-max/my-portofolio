@@ -3,79 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Manager - Gibran Store</title>
-    
+    <title>Video Gallery Manager - Gibran Store</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
     <style>
-        body { 
-            background-color: #0f172a; 
-            color: white; 
-            font-family: 'Segoe UI', sans-serif; 
-            padding-top: 50px;
-        }
-        .video-box { 
-            background: #1e293b; 
-            border-radius: 20px; 
-            padding: 25px; 
-            border: 1px solid #334155;
-            max-width: 650px;
-            margin: auto;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .video-frame { 
-            border-radius: 12px; 
-            overflow: hidden; 
-            background: #000; 
-            margin-bottom: 20px;
-            border: 1px solid #444;
-        }
+        body { background: #0f172a; color: white; padding-top: 30px; font-family: 'Segoe UI', sans-serif; }
+        .main-card { background: #1e293b; border-radius: 20px; padding: 25px; border: 1px solid #334155; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .video-item { background: #2d3748; border-radius: 15px; padding: 15px; margin-bottom: 20px; border: 1px solid #4a5568; }
+        .video-frame { border-radius: 10px; overflow: hidden; background: #000; }
         .btn-warning { color: #000; font-weight: bold; }
-        .text-warning { color: #f59e0b !important; }
+        .empty-state { color: #718096; padding: 40px; text-align: center; border: 2px dashed #4a5568; border-radius: 15px; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="video-box" id="videoContainer">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h6 class="fw-bold m-0 text-warning">
-                <i class="fas fa-clapperboard me-2"></i>VIDEO FILE MANAGER
-            </h6>
-            <button class="btn btn-sm btn-outline-danger" onclick="hapusSistemVideo()">
-                <i class="fas fa-trash"></i> Hapus
-            </button>
+<div class="container" style="max-width: 700px;">
+    <div class="main-card">
+        <div class="text-center mb-4">
+            <h4 class="fw-bold text-warning">🎬 GIBRAN VIDEO CLOUD</h4>
+            <p class="text-muted small">Upload video sebanyak mungkin, simpan permanen di galeri.</p>
         </div>
 
-        <div class="ratio ratio-16x9 video-frame">
-            <video id="playerGibran" controls crossorigin="anonymous">
-                <source id="videoSource" src="https://res.cloudinary.com/dumqnwl9g/video/upload/v1/video-kamu.mp4" type="video/mp4">
-                Browser lo nggak support video.
-            </video>
-        </div>
-
-        <button id="upload_widget" class="btn btn-warning w-100 btn-lg fw-bold mb-4 shadow-sm">
-            <i class="fas fa-cloud-upload-alt me-2"></i> UPLOAD VIDEO BARU
+        <button id="upload_widget" class="btn btn-warning w-100 btn-lg shadow mb-4">
+            <i class="fas fa-plus-circle"></i> UPLOAD VIDEO BARU
         </button>
 
-        <div class="row g-3">
-            <div class="col-6">
-                <a id="btnDownload" href="#" download class="btn btn-success w-100 fw-bold py-2">
-                    <i class="fas fa-download me-2"></i> DOWNLOAD
-                </a>
-            </div>
-            <div class="col-6">
-                <button onclick="bagikanVideo()" class="btn btn-primary w-100 fw-bold py-2">
-                    <i class="fas fa-share-alt me-2"></i> BAGIKAN
-                </button>
-            </div>
-        </div>
+        <hr class="border-secondary">
 
-        <div class="mt-4 text-center">
-            <a href="dashboard.html" class="text-secondary small text-decoration-none">
-                <i class="fas fa-arrow-left"></i> Kembali ke Dashboard
-            </a>
+        <div id="videoList">
+            </div>
+
+        <div class="text-center mt-4">
+            <a href="dashboard.html" class="text-secondary small text-decoration-none">⬅ Kembali ke Dashboard</a>
         </div>
     </div>
 </div>
@@ -83,70 +42,79 @@
 <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
 
 <script>
-    // 1. KONFIGURASI UPLOAD WIDGET
+    // 1. DATABASE LOKAL (ARRAY UNTUK BANYAK VIDEO)
+    let myVideos = JSON.parse(localStorage.getItem('gibranVideoList')) || [];
+
+    // 2. RENDER GALERI SAAT HALAMAN DIBUKA
+    window.onload = renderGallery;
+
+    function renderGallery() {
+        const listContainer = document.getElementById('videoList');
+        if (myVideos.length === 0) {
+            listContainer.innerHTML = `<div class="empty-state">Belum ada video. Yuk upload!</div>`;
+            return;
+        }
+
+        listContainer.innerHTML = ''; // Bersihkan
+        myVideos.forEach((vid, index) => {
+            listContainer.innerHTML += `
+                <div class="video-item">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="badge bg-primary">Video #${index + 1}</span>
+                        <button class="btn btn-sm btn-link text-danger p-0" onclick="hapusVideo(${index})">
+                            <i class="fas fa-times"></i> Hapus
+                        </button>
+                    </div>
+                    <div class="ratio ratio-16x9 video-frame mb-3">
+                        <video controls src="${vid.url}"></video>
+                    </div>
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <a href="${vid.url}" download class="btn btn-sm btn-success w-100">📥 DOWNLOAD</a>
+                        </div>
+                        <div class="col-6">
+                            <button onclick="bagikanLink('${vid.url}')" class="btn btn-sm btn-info w-100 text-white">🔗 BAGIKAN</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    // 3. WIDGET CLOUDINARY
     var myWidget = cloudinary.createUploadWidget({
         cloudName: 'dumqnwl9g', 
         uploadPreset: 'upload video' 
     }, (error, result) => { 
         if (!error && result && result.event === "success") { 
-            const videoUrl = result.info.secure_url;
+            const newVideo = {
+                url: result.info.secure_url,
+                date: new Date().toLocaleString()
+            };
             
-            // Simpan ke memori browser (LocalStorage)
-            localStorage.setItem('lastVideoGibran', videoUrl);
-            
-            // Update tampilan player dan tombol
-            applyVideoData(videoUrl);
-            
-            alert('Video Berhasil Diupdate & Tersimpan!');
+            // Tambahkan ke daftar (Push ke Array)
+            myVideos.unshift(newVideo); // Video terbaru di atas
+            localStorage.setItem('gibranVideoList', JSON.stringify(myVideos));
+            renderGallery();
+            alert('Video berhasil ditambah ke galeri!');
         }
     });
 
-    // Jalankan widget saat tombol diklik
-    document.getElementById("upload_widget").addEventListener("click", function(){ 
-        myWidget.open(); 
-    }, false);
+    document.getElementById("upload_widget").addEventListener("click", () => myWidget.open(), false);
 
-    // 2. FUNGSI UNTUK MENERAPKAN DATA VIDEO
-    function applyVideoData(url) {
-        const player = document.getElementById('playerGibran');
-        const source = document.getElementById('videoSource');
-        const btnDownload = document.getElementById('btnDownload');
-
-        source.src = url;
-        btnDownload.href = url;
-        player.load(); // Refresh player
-    }
-
-    // 3. FUNGSI AUTO-LOAD (SAAT HALAMAN DIBUKA)
-    window.addEventListener('load', function() {
-        const savedVideo = localStorage.getItem('lastVideoGibran');
-        if (savedVideo) {
-            applyVideoData(savedVideo);
-        }
-    });
-
-    // 4. FUNGSI HAPUS (RESET)
-    function hapusSistemVideo() {
-        if(confirm("Yakin mau hapus video ini dari sistem?")) {
-            localStorage.removeItem('lastVideoGibran');
-            alert("Sistem direset ke video default.");
-            location.reload(); 
+    // 4. LOGIKA HAPUS SATUAN
+    function hapusVideo(index) {
+        if(confirm("Hapus video ini?")) {
+            myVideos.splice(index, 1);
+            localStorage.setItem('gibranVideoList', JSON.stringify(myVideos));
+            renderGallery();
         }
     }
 
-    // 5. FUNGSI BAGIKAN (SHARE)
-    function bagikanVideo() {
-        const url = document.getElementById('videoSource').src;
-        if (navigator.share) {
-            navigator.share({ 
-                title: 'Video Gibran Store', 
-                text: 'Cek video dokumentasi Gibran Store ini!',
-                url: url 
-            });
-        } else {
-            navigator.clipboard.writeText(url);
-            alert("Link video berhasil disalin ke clipboard!");
-        }
+    // 5. LOGIKA BAGIKAN
+    function bagikanLink(url) {
+        navigator.clipboard.writeText(url);
+        alert("Link video disalin!");
     }
 </script>
 
