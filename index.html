@@ -3,57 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gibran Store - Login</title>
+    <title>Gibran Store V2 - Login</title>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    
+    <style>
+        body { background: #0f172a; color: white; font-family: 'Segoe UI', sans-serif; height: 100vh; display: flex; align-items: center; justify-content: center; margin: 0; }
+        .login-card { background: #1e293b; padding: 40px; border-radius: 25px; border: 1px solid #334155; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); width: 100%; max-width: 400px; }
+        .btn-google { background: white; color: #1e293b; font-weight: bold; border-radius: 50px; padding: 12px 25px; border: none; transition: 0.3s; width: 100%; margin-top: 20px; display: flex; align-items: center; justify-content: center; }
+        .btn-google:hover { background: #f1f5f9; transform: scale(1.02); }
+        .logo-text { color: #3b82f6; font-weight: bold; }
+    </style>
 </head>
-<body class="bg-dark text-white d-flex align-items-center justify-content-center" style="height: 100vh;">
+<body>
 
-    <div class="text-center p-5 border border-secondary rounded-4 bg-black">
-        <h1 class="fw-bold mb-4">GIBRAN STORE V2</h1>
-        <p class="text-secondary mb-4">Silakan Login untuk Mengakses Video</p>
+    <div class="login-card">
+        <h1 class="logo-text">GIBRAN STORE</h1>
+        <p class="text-secondary">Official V2 Access Portal</p>
         
-        <button id="btnLogin" class="btn btn-primary btn-lg rounded-pill px-4">
+        <button id="btnLogin" class="btn-google">
             <img src="https://www.gstatic.com/images/branding/product/1x/google_24dp.png" class="me-2" style="width: 20px;">
-            LOGIN WITH GOOGLE
+            MASUK DENGAN GOOGLE
         </button>
+        <p class="mt-4 text-muted small">Aktivitas login tercatat di Google Sheets.</p>
     </div>
 
     <script>
-        // 1. ISI DENGAN KONFIGURASI FIREBASE LO YANG LAMA
+        // 1. KONFIGURASI FIREBASE GIBRAN (SUDAH FIX)
         const firebaseConfig = {
-            apiKey: "AIzaSy...",
-            authDomain: "gibran-store.firebaseapp.com",
-            projectId: "gibran-store",
-            // ... (Copy paste config lo di sini)
+            apiKey: "AIzaSyBD0e8fgraMN0hHvKDup9UNNAXgC036Ioo",
+            authDomain: "muhammad-gibran-64.firebaseapp.com",
+            projectId: "muhammad-gibran-64",
+            storageBucket: "muhammad-gibran-64.appspot.com",
+            messagingSenderId: "297386051610",
+            appId: "1:297386051610:web:8d2975871f349f99705b3"
         };
+
         firebase.initializeApp(firebaseConfig);
 
-        const btnLogin = document.getElementById('btnLogin');
+        // 2. LINK GOOGLE SHEETS GIBRAN
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbznT3wUTjPsXhsYcArAV7qdyh5cny12xqJTlaOV0RQh87z-Cg3ydTSvytq1IlOKiIBbbw/exec";
 
-        // 2. PROSES LOGIN LANGSUNG NYAMBUNG KE DASHBOARD
-        btnLogin.addEventListener('click', () => {
+        // 3. LOGIKA LOGIN
+        document.getElementById('btnLogin').addEventListener('click', () => {
             const provider = new firebase.auth.GoogleAuthProvider();
             firebase.auth().signInWithPopup(provider)
                 .then((result) => {
-                    console.log("Login Berhasil!");
-                    // KUNCI: Langsung pindah ke dashboard di dalam folder V2
+                    const user = result.user;
+                    
+                    // KIRIM DATA KE SHEETS
+                    fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        body: JSON.stringify({
+                            "nama": user.displayName,
+                            "email": user.email,
+                            "tanggal": new Date().toLocaleString()
+                        })
+                    });
+
+                    // LANGSUNG KE DASHBOARD V2
                     window.location.href = "V2/dashboard.html"; 
                 })
                 .catch((error) => {
-                    alert("Login Gagal: " + error.message);
+                    alert("Login Gagal! Pastikan API Key benar.\n" + error.message);
                 });
         });
 
-        // 3. CEK KALAU SUDAH LOGIN SEBELUMNYA
+        // CEK LOGIN OTOMATIS
         firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                window.location.href = "V2/dashboard.html";
-            }
+            if (user) { window.location.href = "V2/dashboard.html"; }
         });
     </script>
 </body>
 </html>
-
-
