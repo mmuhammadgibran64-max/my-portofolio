@@ -3,86 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gibran Store - Official Access</title>
     
-    <title>Gibran Store - Official Dashboard & Shop</title>
-    <meta name="description" content="Pusat kendali operasional Gibran Store. Akses SOP internal dan belanja produk camilan terbaik seperti Peye, Slondok, dan lainnya.">
-    <meta name="keywords" content="Gibran Store, Toko Online Gibran, Dashboard Gibran, Peye Kacang">
+    <meta name="description" content="Portal Resmi Gibran Store. Masuk untuk akses Dashboard V2, Toko Online, dan SOP Internal.">
     <meta name="author" content="Gibran">
-    
-    <meta property="og:title" content="Gibran Store Official">
-    <meta property="og:description" content="Akses eksklusif ke Dashboard V2 dan Toko Online Gibran.">
-    <meta property="og:image" content="https://link-ke-logo-lo.com/logo.jpg">
-    <meta property="og:url" content="https://website-lo.com">
 
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { 
-            background: radial-gradient(circle at center, #2c3e50 0%, #000000 100%); 
-            height: 100vh; display: flex; align-items: center; justify-content: center;
-            color: white; font-family: 'Segoe UI', Roboto, sans-serif;
-            margin: 0; overflow: hidden;
+            background: #0f172a; 
+            color: white; 
+            height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .login-box {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            padding: 40px; border-radius: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
-            text-align: center; width: 100%; max-width: 400px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        .login-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
         }
-        .brand-logo { 
-            font-size: 3rem; font-weight: 900; letter-spacing: -1px;
-            background: linear-gradient(to right, #ff6600, #ff9900);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        .brand-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #3b82f6, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
         }
-        .status-dot {
-            height: 10px; width: 10px; background-color: #28a745;
-            border-radius: 50%; display: inline-block; margin-right: 5px;
+        .status-badge {
+            font-size: 0.75rem;
+            padding: 5px 12px;
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+            border-radius: 100px;
+            border: 1px solid rgba(34, 197, 94, 0.3);
         }
     </style>
 </head>
 <body>
 
-    <div class="login-box">
-        <div class="brand-logo">GIBRAN</div>
-        <p class="text-secondary small uppercase fw-bold">Official Access Portal</p>
+    <div class="login-card">
+        <div class="brand-title">GIBRAN</div>
+        <p class="text-secondary small mb-4">Official Control Center V2</p>
         
-        <div class="my-4">
-            <span class="badge rounded-pill bg-dark border border-secondary p-2 px-3">
-                <span class="status-dot"></span> System Online
-            </span>
+        <div class="mb-5">
+            <span class="status-badge">● System Online</span>
         </div>
 
-        <div class="d-flex justify-content-center mt-4">
+        <div class="d-flex justify-content-center">
             <div id="g_id_onload"
                  data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
                  data-callback="handleCredentialResponse"
                  data-auto_prompt="false">
             </div>
-            <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="filled_black" data-size="large"></div>
+            <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="filled_blue" data-size="large"></div>
         </div>
 
-        <p class="mt-5 x-small text-muted" style="font-size: 0.7rem;">
-            &copy; 2026 Gibran Store. All rights reserved.
+        <p class="mt-5 text-muted" style="font-size: 0.8rem;">
+            Silakan login untuk melanjutkan ke Dashboard & Toko.
         </p>
     </div>
 
     <script>
         function handleCredentialResponse(response) {
-            // Proses data Google
+            // Maintenance: Memecah token JWT dari Google
             const base64Url = response.credential.split('.')[1];
             const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            const payload = JSON.parse(decodeURIComponent(atob(base64).split('').map(c => 
-                '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')));
+            const payload = JSON.parse(window.atob(base64));
 
-            // Simpan identitas untuk Toko & SOP
+            // Simpan data user ke LocalStorage (Wajib supaya Toko.html gak error)
             localStorage.setItem('namaUser', payload.name);
             localStorage.setItem('fotoUser', payload.picture);
             localStorage.setItem('emailUser', payload.email);
 
-            // Langsung lempar ke Dashboard V2
+            // MAINTENANCE: Redirect ke Dashboard V2
             window.location.href = "dashboard.html"; 
         }
     </script>
