@@ -6,7 +6,7 @@
     
     <meta name="google-site-verification" content="LRrECCoCFBiw5F-wnLPQ4zoDpwyqWaahByQGTxJPIzg" />
 
-    <title>Login Google | Muhammad Gibran</title>
+    <title>Login Portofolio | Muhammad Gibran</title>
     
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
@@ -15,7 +15,7 @@
         body { 
             background: #050505; 
             color: white; 
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
@@ -51,7 +51,7 @@
             border: 1px solid #333;
         }
 
-        h2 { margin: 0 0 10px 0; font-size: 1.8rem; letter-spacing: 1px; }
+        h2 { margin: 0 0 10px 0; font-size: 1.8rem; letter-spacing: 1px; color: white; }
         p { color: #888; font-size: 0.9rem; margin-bottom: 35px; line-height: 1.5; }
 
         .google-btn-wrapper {
@@ -67,7 +67,6 @@
             min-height: 20px;
         }
 
-        /* Footer simple */
         .footer {
             position: absolute;
             bottom: 20px;
@@ -84,10 +83,10 @@
         <div id="clock">00:00:00</div>
 
         <h2>MASUK</h2>
-        <p>Gunakan akun Google Anda untuk mengakses Portofolio Muhammad Gibran</p>
+        <p>Gunakan akun Google untuk mengakses Portofolio Muhammad Gibran</p>
 
         <div id="g_id_onload"
-             data-client_id="PASTE_CLIENT_ID_LO_DISINI" 
+             data-client_id="594310366887-9vunhk03esop4l9odnguo4mb9jd73e0l.apps.googleusercontent.com" 
              data-context="signin"
              data-ux_mode="popup"
              data-callback="handleCredentialResponse"
@@ -111,15 +110,12 @@
     </div>
 
     <script>
-        // URL Google Apps Script milik lo
         const scriptURL = 'https://script.google.com/macros/s/AKfycbznT3wUTjPsXhsYcArAV7qdyh5cny12xqJTlaOV0RQh87z-Cg3ydTSvytq1IlOKiIBbbw/exec';
 
-        // Fungsi saat Login Berhasil
         function handleCredentialResponse(response) {
             const statusBox = document.getElementById('status');
-            statusBox.innerText = "Mencatat kehadiran ke Google Sheets...";
+            statusBox.innerText = "Mencatat kehadiran...";
             
-            // Kirim data Token ke Google Apps Script
             fetch(scriptURL, {
                 method: 'POST',
                 mode: 'no-cors',
@@ -127,25 +123,23 @@
                 body: JSON.stringify({
                     action: "login_google",
                     credential: response.credential,
-                    timestamp: new Date().toISOString()
+                    timestamp: new Date().toLocaleString()
                 })
             })
             .then(() => {
                 statusBox.style.color = "#25d366";
                 statusBox.innerText = "Akses Diterima! Mengalihkan...";
                 setTimeout(() => {
-                    // Pindah ke halaman portofolio v2
                     window.location.href = "v2/dashboard.html";
-                }, 1500);
+                }, 1200);
             })
             .catch(err => {
                 statusBox.style.color = "red";
-                statusBox.innerText = "Terjadi kesalahan sistem.";
+                statusBox.innerText = "Gagal mencatat ke sistem.";
                 console.error("Error:", err);
             });
         }
 
-        // Fungsi Jam Bergerak
         function updateClock() {
             const now = new Date();
             const h = String(now.getHours()).padStart(2, '0');
