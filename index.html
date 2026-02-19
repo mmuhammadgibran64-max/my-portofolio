@@ -3,87 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Maintenance - fortofolio</title>
-    <meta name="description" content="fortofolio  sedang melakukan pembaruan sistem untuk Dashboard V2 dan Toko Online. Kami akan segera kembali dengan layanan yang lebih baik.">
-    <meta name="robots" content="index, follow"> <meta property="og:title" content="fortofolio- Sedang Maintenance">
-    <meta property="og:type" content="website">
-    <meta property="og:description" content="Sabar ya, Bran lagi ngerapiin sistem biar makin gacor!">
-
+    <title>Gibran Store - Welcome</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #121212;
-            color: #ffffff;
-            font-family: 'Segoe UI', sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            text-align: center;
-        }
-        .container {
-            padding: 20px;
-        }
-        .icon {
-            font-size: 80px;
-            margin-bottom: 20px;
-            display: block;
-        }
-        h1 {
-            font-size: 2.5rem;
-            background: linear-gradient(to right, #ff6600, #ffae00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-        }
-        p {
-            color: #888;
-            font-size: 1.1rem;
-            max-width: 500px;
-            margin: 0 auto 30px;
-        }
-        .loader {
-            border: 4px solid #333;
-            border-top: 4px solid #ff6600;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .badge-seo {
-            margin-top: 40px;
-            display: inline-block;
-            padding: 5px 15px;
-            border: 1px solid #333;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: #555;
-        }
+        body { background: #0f172a; color: white; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        .hero { text-align: center; padding: 20px; border: 1px solid #334155; border-radius: 20px; background: #1e293b; shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .btn-visit { background: #3b82f6; border: none; padding: 12px 30px; border-radius: 10px; font-weight: bold; transition: 0.3s; text-decoration: none; color: white; }
+        .btn-visit:hover { background: #2563eb; transform: scale(1.05); }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <span class="icon">🚧</span>
-        <h1>Sistem Lagi Maintenance</h1>
-        <p>Halo pelangan gibran fortofolio! Kami sedang melakukan pembaruan besar pada <b>Dashboard V2</b> dan integrasi <b>fortofolio </b> agar belanja makin nyaman.</p>
+    <div class="hero">
+        <h1 class="fw-bold mb-3">GIBRAN STORE</h1>
+        <p class="text-secondary mb-4">Official Website for Digital Documentation.</p>
         
-        <div class="loader"></div>
-        
-        <div class="badge-seo">
-            Verified by Google SEO Engine
-        </div>
-
-        <p style="font-size: 0.8rem; margin-top: 50px; color: #444;">
-            &copy; 2026 Gibran Store - Est. 2024
-        </p>
+        <a href="dashboard.html" id="mainLink" class="btn-visit">MASUK KE DASHBOARD</a>
     </div>
 
+    <script>
+        // CEK APAKAH ADA KUNCI RAHASIA DI LINK INDEX
+        const params = new URLSearchParams(window.location.search);
+        const secretKey = params.get('key');
+
+        if (secretKey === 'gibranpro') {
+            // Jika lo buka index.html?key=gibranpro
+            // Maka link dashboard otomatis berubah jadi link admin
+            document.getElementById('mainLink').href = "dashboard.html?admin=gibran";
+            document.getElementById('mainLink').innerHTML = "MASUK SEBAGAI ADMIN";
+            document.getElementById('mainLink').style.background = "#f59e0b"; // Warna kuning biar beda
+        }
+    </script>
 </body>
 </html>
