@@ -5,19 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Gibran | Professional Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        /* --- GIBRAN MODERN SYSTEM V3.5 (FULL VERSION) --- */
-        :root { 
-            --bg: #f0f2f5; 
-            --card: #ffffff; 
-            --accent: #1a73e8; 
-            --blue: #1a73e8; 
-            --green: #34a853; 
-            --text: #202124; 
-            --border: #e1e4e8; 
-            --shadow: 0 10px 30px rgba(0,0,0,0.08);
-        }
+   <style>
+<style>
+/* --- GIBRAN DARK SYSTEM V4.0 (CUSTOM VERSION) --- */
+:root { 
+    --bg: #050505;        /* Hitam Pekat */
+    --card: #0f0f0f;      /* Hitam Dashboard */
+    --accent: #ff9800;    /* Orange Khas Gibran */
+    --blue: #4285f4; 
+    --green: #25d366;     /* Hijau WhatsApp */
+    --red: #ea4335;       /* Merah Google/Jadwal */
+    --text: #ffffff;      /* Putih Terang */
+    --border: #333333;    /* Garis Halus */
+    --shadow: 0 10px 40px rgba(0,0,0,0.6);
+}
 
+/* Biar seluruh halaman ngikutin warna background hitam lo */
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 0;
+    font-family: sans-serif;
+}
+
+/* Kotak jadwal konten lo biar makin keren */
+.jadwal-container {
+    background: var(--card);
+    padding: 20px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    margin: 20px 0;
+}
+
+/* Animasi kedip buat status "Belum Terlaksana" */
+@keyframes blinker {
+    50% { opacity: 0.3; }
+}
+
+.status-pending {
+    color: var(--red);
+    font-size: 11px;
+    font-weight: bold;
+    animation: blinker 2s linear infinite;
+}
+</style>
+@keyframes blinker {
+    50% { opacity: 0.3; }
+}
+
+.status-pending {
+    color: var(--red);
+    font-size: 11px;
+    font-weight: bold;
+    animation: blinker 2s linear infinite;
+}
         body { 
             background: var(--bg) !important; 
             color: var(--text) !important; 
@@ -389,16 +431,38 @@ button, .btn-blue, .btn-up-1, .btn-up-2 {
                             ${item.tgl} • ${item.sumber || 'System'}
                         </div>
                         <div class="action-btns">
-                            <button class="btn-action dl-btn" onclick="downloadFile('${item.url}', '${item.nama}')">
-                                <i class="fas fa-download"></i> DOWNLOAD
-                            </button>
-                            <button class="btn-action del-btn" onclick="hapus('${item.id}')">
-                                <i class="fas fa-trash"></i> HAPUS
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
+                         // --- BAGIAN RENDER KARTU FILE FULL VERSION ---
+return `
+    <div class="file-card" style="background: var(--card); border: 1px solid var(--border); padding: 20px; border-radius: 20px; margin-bottom: 15px; box-shadow: var(--shadow);">
+        <div class="file-info" style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+            <div class="file-icon" style="background: rgba(255, 152, 0, 0.1); padding: 12px; border-radius: 12px;">
+                <i class="fas fa-file-alt" style="color: var(--accent); font-size: 20px;"></i>
+            </div>
+            <div style="flex-grow: 1;">
+                <h4 style="margin: 0; color: var(--text); font-size: 16px;">${item.nama}</h4>
+                <small style="color: #888; font-size: 12px;">ID: ${item.id} • ${new Date().toLocaleDateString('id-ID')}</small>
+            </div>
+        </div>
+
+        <div class="file-actions" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <button class="btn-action dl-btn" onclick="downloadFile('${item.url}', '${item.nama}')" 
+                    style="grid-column: span 2; background: var(--accent); color: black; border: none; padding: 12px; border-radius: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <i class="fas fa-download"></i> DOWNLOAD
+            </button>
+
+            <button class="btn-action share-btn" onclick="bagikanFile('${item.url}', '${item.nama}')" 
+                    style="background: #007bff; color: white; border: none; padding: 10px; border-radius: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <i class="fas fa-share-alt"></i> BAGIKAN
+            </button>
+
+            <button class="btn-action del-btn" onclick="hapus('${item.id}')" 
+                    style="background: #222; color: #ff4444; border: 1px solid #333; padding: 10px; border-radius: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <i class="fas fa-trash"></i> HAPUS
+            </button>
+        </div>
+    </div>
+`;
+}).join('');
         }
 
         async function downloadFile(url, namaFile) {
@@ -775,88 +839,11 @@ button, .btn-blue, .btn-up-1, .btn-up-2 {
 </head>
 <body>
 
-<div class="header-section">
-    <div class="container">
-        <h1 class="fw-bold text-warning mb-2">🎬 GIBRAN VIDEO HUB</h1>
-        <p class="text-secondary">Simpan dan Kelola Semua Dokumentasi Video Lo Tanpa Batas</p>
-    </div>
-</div>
 
-<div class="main-container">
-    <div class="upload-area">
-        <h5 class="mb-3">Tambah Konten Baru</h5>
-        <button id="upload_widget" class="btn btn-primary btn-gibran shadow-lg">
-            <i class="fas fa-cloud-upload-alt me-2"></i> UPLOAD KE CLOUDINARY
-        </button>
-        <p class="small text-muted mt-3 mb-0">Video otomatis tersimpan di galeri bawah secara permanen.</p>
-    </div>
 
-    <div id="videoGallery"></div>
 
-    <div class="text-center mt-5">
-        <a href="dashboard.html" class="btn btn-outline-secondary btn-sm rounded-pill px-4">
-            <i class="fas fa-arrow-left me-2"></i> KEMBALI KE DASHBOARD
-        </a>
-    </div>
-</div>
-
-<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
-<script>
-    let videoData = JSON.parse(localStorage.getItem('gibran_video_db')) || [];
-
-    function refreshGallery() {
-        const gallery = document.getElementById('videoGallery');
-        if (videoData.length === 0) {
-            gallery.innerHTML = `<div class="empty-state"><i class="fas fa-folder-open fa-3x mb-3"></i><p>Belum ada video, Bran.</p></div>`;
-            return;
-        }
-        gallery.innerHTML = ''; 
-        videoData.forEach((item, index) => {
-            gallery.innerHTML += `
-                <div class="video-card shadow-sm">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <span class="badge bg-dark border border-secondary text-warning">VIDEO #${videoData.length - index}</span>
-                        <button class="btn btn-sm btn-link text-danger" onclick="hapusVideo(${index})"><i class="fas fa-trash-alt"></i> Hapus</button>
-                    </div>
-                    <div class="ratio ratio-16x9 video-wrapper">
-                        <video controls preload="metadata"><source src="${item.url}" type="video/mp4"></video>
-                    </div>
-                    <div class="row g-2 mt-2">
-                        <div class="col-6"><a href="${item.url}" download class="btn btn-success w-100 fw-bold btn-sm py-2"><i class="fas fa-download me-1"></i> DOWNLOAD</a></div>
-                        <div class="col-6"><button onclick="shareLink('${item.url}')" class="btn btn-info w-100 text-white fw-bold btn-sm py-2"><i class="fas fa-share-nodes me-1"></i> BAGIKAN</button></div>
-                    </div>
-                </div>`;
-        });
-    }
-
-    var myWidget = cloudinary.createUploadWidget({
-        cloudName: 'dumqnwl9g', 
-        uploadPreset: 'upload video' 
-    }, (error, result) => { 
-        if (!error && result && result.event === "success") { 
-            videoData.unshift({ url: result.info.secure_url, time: new Date().toLocaleString() });
-            localStorage.setItem('gibran_video_db', JSON.stringify(videoData));
-            refreshGallery();
-        }
-    });
-
-    document.getElementById("upload_widget").addEventListener("click", () => myWidget.open(), false);
-
-    function hapusVideo(idx) {
-        if(confirm("Yakin mau hapus?")) {
-            videoData.splice(idx, 1);
-            localStorage.setItem('gibran_video_db', JSON.stringify(videoData));
-            refreshGallery();
-        }
-    }
-
-    function shareLink(link) {
-        navigator.clipboard.writeText(link);
-        alert("Link disalin!");
-    }
-
-    window.onload = refreshGallery;
 </script>
 </body>
 </html>
+
 
